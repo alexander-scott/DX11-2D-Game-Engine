@@ -1,7 +1,7 @@
-#include "Character.h"
+#include "Actor.h"
 #include "SpriteEffect.h"
 
-Character::Character( const Vec2& pos )
+Actor::Actor( const Vec2& pos )
 	:
 	sprite( "Images\\link90x90.bmp" ),
 	pos( pos )
@@ -9,7 +9,7 @@ Character::Character( const Vec2& pos )
 
 }
 
-void Character::Draw( Graphics& gfx ) const
+void Actor::Draw( Graphics& gfx ) const
 {
 	gfx.DrawSprite(100, 100, sprite, SpriteEffect::Copy{});
 }

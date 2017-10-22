@@ -4,12 +4,12 @@
 #include "Graphics.h"
 #include "Vec2.h"
 
-class Character
+class Actor
 {
 private:
 
 public:
-	Character( const Vec2& pos );
+	Actor( const Vec2& pos );
 	void Draw( Graphics& gfx ) const;
 
 private:
