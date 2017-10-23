@@ -2,14 +2,12 @@
 
 
 
-GUIText::GUIText(std::string text, Vec2 & pos) :
-	_pos(pos)
+GUIText::GUIText(std::string text, XMFLOAT2& pos) :
+	_pos(pos), _text(text)
 {
-	std::wstring widestr = std::wstring(text.begin(), text.end());
-	_text = widestr.c_str();
 }
 
 void GUIText::Draw(Graphics & gfx) const
 {
-	gfx.DrawTextDX11(_text);
+	gfx.DrawTextDX11(_text, _pos);
 }

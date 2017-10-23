@@ -5,7 +5,6 @@
 #include <wrl.h>
 #include "CustomException.h"
 #include "Colors.h"
-#include "Rect.h"
 #include <cassert>
 
 #include "DirectXTK\Inc\SpriteBatch.h"
@@ -48,8 +47,8 @@ public:
 	void EndFrame();
 	void BeginFrame();
 
-	void DrawSpriteDX11(std::string name);
-	void DrawTextDX11(const wchar_t* text);
+	void DrawSpriteDX11(std::string name, XMFLOAT2 pos);
+	void DrawTextDX11(std::string text, XMFLOAT2 pos);
 
 	~Graphics();
 
@@ -77,5 +76,4 @@ private:
 public:
 	static constexpr int ScreenWidth = 800;
 	static constexpr int ScreenHeight = 600;
-	static RectI GetScreenRect();
 };

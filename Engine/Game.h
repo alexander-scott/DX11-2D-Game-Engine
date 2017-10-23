@@ -4,9 +4,9 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "FrameTimer.h"
-#include "Actor.h"
+#include "Player.h"
 #include "GUIText.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -24,6 +24,11 @@ private:
 	Graphics gfx;
 
 	FrameTimer ft;
-	Actor character = Actor({ 100.0f,100.0f });
-	GUIText guiText = GUIText("Test", Vec2(100, 100));
+
+	Actor dragon;
+	Actor troll;
+
+	Player player;
+
+	GUIText guiText = GUIText("Test text", XMFLOAT2(100, 20));
 };

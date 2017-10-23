@@ -1,14 +1,18 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Vec2.h"
 
 class Actor
 {
 public:
-	Actor(const Vec2& pos);
+	void SetSprite(const std::string fileName) { _fileName = fileName; }
+	void SetPosition(const XMFLOAT2 &pos) { _pos = pos; }
+
 	void Draw(Graphics& gfx) const;
 
-private:
-	Vec2 pos;
+	virtual void Update(float deltaTime);
+
+protected:
+	XMFLOAT2				_pos;
+	std::string				_fileName;
 };
