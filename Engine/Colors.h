@@ -98,7 +98,7 @@ public:
 	}
 };
 
-namespace Colors
+namespace Colours
 {
 	static constexpr Color MakeRGB(unsigned char r, unsigned char g, unsigned char b)
 	{

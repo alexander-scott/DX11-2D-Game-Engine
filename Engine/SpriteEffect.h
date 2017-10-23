@@ -43,7 +43,7 @@ namespace SpriteEffect
 		}
 
 	private:
-		Color chroma = Colors::Magenta;
+		Color chroma = Colours::Magenta;
 		Color sub;
 	};
 

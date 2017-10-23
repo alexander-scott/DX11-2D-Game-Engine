@@ -4,6 +4,8 @@
 #include <string>
 #include "Rect.h"
 
+#include <d3d11.h>
+
 class Surface
 {
 public:

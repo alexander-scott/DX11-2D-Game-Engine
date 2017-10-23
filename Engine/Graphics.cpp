@@ -220,6 +220,16 @@ Graphics::Graphics(HWNDKey& key)
 		_aligned_malloc(sizeof(Color) * Graphics::ScreenWidth * Graphics::ScreenHeight, 16u));
 }
 
+void Graphics::DrawSpriteDX11(std::string name)
+{
+	if (!textures.count(name)) // If current texture exists
+	{
+		CreateShaderResourceView(name);
+	}
+
+	g_Sprites->Draw(textures.at(name), XMFLOAT2(10, 75), nullptr, Colors::White);
+}
+
 Graphics::~Graphics()
 {
 	// free sysbuffer memory (aligned free)
@@ -230,6 +240,21 @@ Graphics::~Graphics()
 	}
 	// clear the state of the device context before destruction
 	if (pImmediateContext) pImmediateContext->ClearState();
+}
+
+void Graphics::CreateShaderResourceView(std::string name)
+{
+	HRESULT hr;
+
+	std::wstring widestr = std::wstring(name.begin(), name.end());
+	const wchar_t* szName = widestr.c_str();
+
+	hr = CreateDDSTextureFromFile(pDevice.Get(), szName, nullptr, &pSysBufferTextureView);
+
+	if (FAILED(hr))
+		throw CHILI_GFX_EXCEPTION(hr, L"Creating DDS texture from file.");
+
+	textures.insert(std::make_pair(name, pSysBufferTextureView.Get()));
 }
 
 RectI Graphics::GetScreenRect()

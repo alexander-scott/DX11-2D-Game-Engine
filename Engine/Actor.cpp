@@ -1,9 +1,9 @@
 #include "Actor.h"
 #include "SpriteEffect.h"
 
-Actor::Actor( const Vec2& pos )
+Actor::Actor(const Vec2& pos)
 	:
-	sprite( "Images\\link90x90.bmp" ),
+	sprite("Images\\link90x90.bmp"),
 	pos( pos )
 {
 

@@ -9,6 +9,14 @@
 #include "Rect.h"
 #include <cassert>
 
+#include "DirectXTK\Inc\SpriteBatch.h"
+#include "DirectXTK\Inc\DDSTextureLoader.h"
+#include <map>
+#include <memory>
+
+
+using namespace DirectX;
+
 class Graphics
 {
 public:
@@ -99,6 +107,8 @@ public:
 		}
 	}
 
+	void DrawSpriteDX11(std::string name);
+
 	~Graphics();
 
 private:
@@ -115,6 +125,11 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11SamplerState>			pSamplerState;
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Color*                                              pSysBuffer = nullptr;
+
+	std::unique_ptr<SpriteBatch>                        g_Sprites;
+	std::map<std::string, ID3D11ShaderResourceView*>	textures;
+
+	void CreateShaderResourceView(std::string name);
 
 public:
 	static constexpr int ScreenWidth = 800;
