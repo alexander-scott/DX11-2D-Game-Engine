@@ -1,5 +1,4 @@
 #include "Actor.h"
-#include "SpriteEffect.h"
 
 Actor::Actor(const Vec2& pos)
 	:

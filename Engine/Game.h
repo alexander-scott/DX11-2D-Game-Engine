@@ -4,7 +4,6 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Surface.h"
 #include "FrameTimer.h"
 #include "Actor.h"
 
