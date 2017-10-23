@@ -230,7 +230,7 @@ void Graphics::DrawSpriteDX11(std::string name)
 		CreateShaderResourceView(name);
 	}
 
-	g_Sprites->Draw(textures.at(name), XMFLOAT2(10, 75), nullptr, Colors::White);
+	g_Sprites->Draw(textures.at(name), XMFLOAT2(50, 75), nullptr, Colors::White);
 }
 
 Graphics::~Graphics()
@@ -252,12 +252,14 @@ void Graphics::CreateShaderResourceView(std::string name)
 	std::wstring widestr = std::wstring(name.begin(), name.end());
 	const wchar_t* szName = widestr.c_str();
 
-	hr = CreateDDSTextureFromFile(pDevice.Get(), szName, nullptr, &pSysBufferTextureView);
+	ID3D11ShaderResourceView* shaderRV = nullptr;
+
+	hr = CreateDDSTextureFromFile(pDevice.Get(), szName, nullptr, &shaderRV);
 
 	if (FAILED(hr))
 		throw CHILI_GFX_EXCEPTION(hr, L"Creating DDS texture from file.");
 
-	textures.insert(std::make_pair(name, pSysBufferTextureView.Get()));
+	textures.insert(std::make_pair(name, shaderRV));
 }
 
 RectI Graphics::GetScreenRect()
@@ -320,6 +322,7 @@ void Graphics::BeginFrame()
 {
 	// clear the sysbuffer
 	memset(pSysBuffer, 0u, sizeof(Color) * Graphics::ScreenHeight * Graphics::ScreenWidth);
+	pImmediateContext->ClearRenderTargetView(pRenderTargetView.Get(), Colors::MidnightBlue);
 	g_Sprites->Begin(SpriteSortMode_Deferred);
 }
 

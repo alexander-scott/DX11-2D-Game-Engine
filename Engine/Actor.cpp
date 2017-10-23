@@ -12,5 +12,5 @@ Actor::Actor(const Vec2& pos)
 void Actor::Draw( Graphics& gfx ) const
 {
 	//gfx.DrawSprite(100, 100, sprite, SpriteEffect::Copy{});
-	//gfx.DrawSpriteDX11("Images\\windowslogo.dds");
+	gfx.DrawSpriteDX11("Images\\windowslogo.dds");
 }
