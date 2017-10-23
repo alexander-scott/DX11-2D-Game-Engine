@@ -31,6 +31,5 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	font.DrawText("Test\nText", wnd.mouse.GetPos() - Vei2{ 50,100 }, Colours::White, gfx);
 	character.Draw(gfx);
 }

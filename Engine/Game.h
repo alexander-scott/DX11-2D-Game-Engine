@@ -6,7 +6,6 @@
 #include "Graphics.h"
 #include "Surface.h"
 #include "FrameTimer.h"
-#include "Font.h"
 #include "Actor.h"
 
 class Game
@@ -25,6 +24,5 @@ private:
 	Graphics gfx;
 
 	FrameTimer ft;
-	Font font = "Images\\Fixedsys16x28.bmp";
 	Actor character = Actor({ 100.0f,100.0f });
 };

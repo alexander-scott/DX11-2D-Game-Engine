@@ -13,6 +13,5 @@ public:
 	void Draw( Graphics& gfx ) const;
 
 private:
-	Surface sprite;
 	Vec2 pos;
 };
