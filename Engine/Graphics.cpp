@@ -220,6 +220,7 @@ Graphics::Graphics(HWNDKey& key)
 		_aligned_malloc(sizeof(Color) * Graphics::ScreenWidth * Graphics::ScreenHeight, 16u));
 
 
+	g_Fonts.reset(new SpriteFont(pDevice.Get(), L"fonts\\italic.spritefont"));
 	g_Sprites.reset(new SpriteBatch(pImmediateContext.Get()));
 }
 
@@ -231,6 +232,11 @@ void Graphics::DrawSpriteDX11(std::string name)
 	}
 
 	g_Sprites->Draw(textures.at(name), XMFLOAT2(50, 75), nullptr, Colors::White);
+}
+
+void Graphics::DrawTextDX11(const wchar_t* text)
+{
+	g_Fonts->DrawString(g_Sprites.get(), text, XMFLOAT2(100, 10), Colors::Yellow);
 }
 
 Graphics::~Graphics()

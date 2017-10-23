@@ -6,6 +6,7 @@
 #include "Graphics.h"
 #include "FrameTimer.h"
 #include "Actor.h"
+#include "GUIText.h"
 
 class Game
 {
@@ -24,4 +25,5 @@ private:
 
 	FrameTimer ft;
 	Actor character = Actor({ 100.0f,100.0f });
+	GUIText guiText = GUIText("Test", Vec2(100, 100));
 };

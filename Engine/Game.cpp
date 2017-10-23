@@ -32,4 +32,5 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	character.Draw(gfx);
+	guiText.Draw(gfx);
 }

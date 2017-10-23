@@ -9,6 +9,7 @@
 #include <cassert>
 
 #include "DirectXTK\Inc\SpriteBatch.h"
+#include "DirectXTK\Inc\SpriteFont.h"
 #include "DirectXTK\Inc\DDSTextureLoader.h"
 #include <map>
 #include <memory>
@@ -48,6 +49,7 @@ public:
 	void BeginFrame();
 
 	void DrawSpriteDX11(std::string name);
+	void DrawTextDX11(const wchar_t* text);
 
 	~Graphics();
 
@@ -67,6 +69,7 @@ private:
 	Color*                                              pSysBuffer = nullptr;
 
 	std::unique_ptr<SpriteBatch>                        g_Sprites;
+	std::unique_ptr<SpriteFont>                         g_Fonts;
 	std::map<std::string, ID3D11ShaderResourceView*>	textures;
 
 	void CreateShaderResourceView(std::string name);
