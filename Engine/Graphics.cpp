@@ -218,6 +218,9 @@ Graphics::Graphics(HWNDKey& key)
 	// allocate memory for sysbuffer (16-byte aligned for faster access)
 	pSysBuffer = reinterpret_cast<Color*>(
 		_aligned_malloc(sizeof(Color) * Graphics::ScreenWidth * Graphics::ScreenHeight, 16u));
+
+
+	g_Sprites.reset(new SpriteBatch(pImmediateContext.Get()));
 }
 
 void Graphics::DrawSpriteDX11(std::string name)
@@ -297,6 +300,8 @@ void Graphics::EndFrame()
 	pImmediateContext->PSSetSamplers(0u, 1u, pSamplerState.GetAddressOf());
 	pImmediateContext->Draw(6u, 0u);
 
+	g_Sprites->End();
+
 	// flip back/front buffers
 	if (FAILED(hr = pSwapChain->Present(1u, 0u)))
 	{
@@ -315,6 +320,7 @@ void Graphics::BeginFrame()
 {
 	// clear the sysbuffer
 	memset(pSysBuffer, 0u, sizeof(Color) * Graphics::ScreenHeight * Graphics::ScreenWidth);
+	g_Sprites->Begin(SpriteSortMode_Deferred);
 }
 
 void Graphics::PutPixel(int x, int y, Color c)
