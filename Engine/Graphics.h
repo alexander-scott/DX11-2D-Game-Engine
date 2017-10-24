@@ -13,7 +13,6 @@
 #include <map>
 #include <memory>
 
-
 using namespace DirectX;
 
 class Graphics

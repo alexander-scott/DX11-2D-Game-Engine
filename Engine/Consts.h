@@ -2,7 +2,7 @@
 
 #include <map>
 
-enum class Sequence
+enum class AnimationType
 {
 	WalkingUp,
 	WalkingLeft,

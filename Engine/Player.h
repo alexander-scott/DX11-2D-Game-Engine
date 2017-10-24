@@ -14,7 +14,7 @@ public:
 	void Draw(Graphics& gfx) const override;
 
 private:
-	Sequence iCurSequence = Sequence::StandingDown;
+	AnimationType iCurSequence = AnimationType::StandingDown;
 	std::vector<Animation> animations;
 
 	XMFLOAT2 vel = XMFLOAT2(0, 0);

@@ -3,8 +3,8 @@
 Animation::Animation( int x,int y,int width,int height,int count,
 					  const std::string& sprite,float holdTime )
 	:
-	fileName( sprite ),
-	holdTime( holdTime )
+	_fileName( sprite ),
+	_holdTime( holdTime )
 {
 	for( int i = 0; i < count; i++ )
 	{
@@ -14,29 +14,29 @@ Animation::Animation( int x,int y,int width,int height,int count,
 		r->top = y;
 		r->bottom = y + height;
 
-		frames.emplace_back(r);
+		_animationFrames.emplace_back(r);
 	}
 }
 
 void Animation::Draw(const XMFLOAT2 & pos, Graphics & gfx) const
 {
-	gfx.DrawSpriteDX11(fileName, pos, frames[iCurFrame]);
+	gfx.DrawSpriteDX11(_fileName, pos, _animationFrames[_currentFrame]);
 }
 
 void Animation::Update( float dt )
 {
-	curFrameTime += dt;
-	while( curFrameTime >= holdTime )
+	_currentFrameTime += dt;
+	while( _currentFrameTime >= _holdTime )
 	{
 		Advance();
-		curFrameTime -= holdTime;
+		_currentFrameTime -= _holdTime;
 	}
 }
 
 void Animation::Advance()
 {
-	if( ++iCurFrame >= frames.size() )
+	if( ++_currentFrame >= _animationFrames.size() )
 	{
-		iCurFrame = 0;
+		_currentFrame = 0;
 	}
 }
