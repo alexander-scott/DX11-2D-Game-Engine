@@ -25,10 +25,10 @@ private:
 
 	FrameTimer ft;
 
-	Actor dragon = Actor("Images\\dragon.dds", XMFLOAT2(50, 75));
-	Actor troll = Actor("Images\\troll.dds", XMFLOAT2(200, 75));
+	Actor dragon;
+	Actor troll;
 
-	Player player = Player("Images\\mage.dds", XMFLOAT2(350, 75));
+	Player player;
 
 	GUIText guiText = GUIText("DirectXTK Simple Sample", XMFLOAT2(100, 20));
 };

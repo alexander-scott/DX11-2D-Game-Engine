@@ -7,10 +7,7 @@
 class Actor
 {
 public:
-	explicit Actor(const std::string& fileName, const XMFLOAT2 &pos);
-
-	void SetSprite(const std::string fileName) { _fileName = fileName; }
-	void SetPosition(const XMFLOAT2 &pos) { _pos = pos; }
+	virtual void Init(const std::string& fileName, const XMFLOAT2 &pos);
 
 	virtual void Draw(Graphics& gfx) const;
 
@@ -19,7 +16,4 @@ public:
 protected:
 	XMFLOAT2				_pos;
 	std::string				_fileName;
-
-	Sequence iCurSequence = Sequence::StandingDown;
-	std::vector<Animation> animations;
 };
