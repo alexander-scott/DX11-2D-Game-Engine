@@ -9,7 +9,7 @@ Game::Game(MainWindow& wnd)
 	dragon.Init("Images\\dragon.dds", XMFLOAT2(50, 75));
 	troll.Init("Images\\troll.dds", XMFLOAT2(200, 75));
 
-	player.Init("Images\\mage.dds", XMFLOAT2(350, 75));
+	player.Init("Images\\mage_walk.dds", XMFLOAT2(350, 75));
 }
 
 void Game::Go()
