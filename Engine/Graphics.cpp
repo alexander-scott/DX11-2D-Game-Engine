@@ -215,11 +215,6 @@ Graphics::Graphics(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating sampler state");
 	}
 
-	// allocate memory for sysbuffer (16-byte aligned for faster access)
-	pSysBuffer = reinterpret_cast<Color*>(
-		_aligned_malloc(sizeof(Color) * Graphics::ScreenWidth * Graphics::ScreenHeight, 16u));
-
-
 	g_Fonts.reset(new SpriteFont(pDevice.Get(), L"fonts\\italic.spritefont"));
 	g_Sprites.reset(new SpriteBatch(pImmediateContext.Get()));
 }
@@ -254,12 +249,6 @@ void Graphics::DrawTextDX11(std::string text, XMFLOAT2 pos)
 
 Graphics::~Graphics()
 {
-	// free sysbuffer memory (aligned free)
-	if (pSysBuffer)
-	{
-		_aligned_free(pSysBuffer);
-		pSysBuffer = nullptr;
-	}
 	// clear the state of the device context before destruction
 	if (pImmediateContext) pImmediateContext->ClearState();
 }
@@ -284,25 +273,6 @@ void Graphics::CreateShaderResourceView(std::string name)
 void Graphics::EndFrame()
 {
 	HRESULT hr;
-
-	// lock and map the adapter memory for copying over the sysbuffer
-	if (FAILED(hr = pImmediateContext->Map(pSysBufferTexture.Get(), 0u,
-		D3D11_MAP_WRITE_DISCARD, 0u, &mappedSysBufferTexture)))
-	{
-		throw GFX_EXCEPTION(hr, L"Mapping sysbuffer");
-	}
-	// setup parameters for copy operation
-	Color* pDst = reinterpret_cast<Color*>(mappedSysBufferTexture.pData);
-	const size_t dstPitch = mappedSysBufferTexture.RowPitch / sizeof(Color);
-	const size_t srcPitch = Graphics::ScreenWidth;
-	const size_t rowBytes = srcPitch * sizeof(Color);
-	// perform the copy line-by-line
-	for (size_t y = 0u; y < Graphics::ScreenHeight; y++)
-	{
-		memcpy(&pDst[y * dstPitch], &pSysBuffer[y * srcPitch], rowBytes);
-	}
-	// release the adapter memory
-	pImmediateContext->Unmap(pSysBufferTexture.Get(), 0u);
 
 	// render offscreen scene texture to back buffer
 	pImmediateContext->IASetInputLayout(pInputLayout.Get());
@@ -334,8 +304,7 @@ void Graphics::EndFrame()
 
 void Graphics::BeginFrame()
 {
-	// clear the sysbuffer
-	memset(pSysBuffer, 0u, sizeof(Color) * Graphics::ScreenHeight * Graphics::ScreenWidth);
+	// clear render target view
 	pImmediateContext->ClearRenderTargetView(pRenderTargetView.Get(), Colors::MidnightBlue);
 	g_Sprites->Begin(SpriteSortMode_Deferred);
 }

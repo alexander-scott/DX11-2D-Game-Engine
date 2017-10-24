@@ -7,7 +7,7 @@ void Player::Init(const std::string& fileName, const XMFLOAT2 & pos)
 
 	for (int i = 0; i < (int)AnimationType::StandingUp; i++) // Add the walking animations - 9 frames
 	{
-		animations.emplace_back(Animation(64, 64 * i, 64, 64, 9, fileName, 0.16f));
+		animations.emplace_back(Animation(64, 64 * i, 64, 64, 8, fileName, 0.16f));
 	}
 	for (int i = (int)AnimationType::StandingUp; i < (int)AnimationType::Count; i++) // Add the standing animations - 1 frame
 	{
