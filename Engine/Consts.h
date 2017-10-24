@@ -4,13 +4,13 @@
 
 enum class Sequence
 {
-	WalkingLeft,
-	WalkingRight,
 	WalkingUp,
+	WalkingLeft,
 	WalkingDown,
-	StandingLeft,
-	StandingRight,
+	WalkingRight,
 	StandingUp,
+	StandingLeft,
 	StandingDown,
+	StandingRight,
 	Count
 };
