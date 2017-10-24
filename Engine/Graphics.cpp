@@ -234,6 +234,16 @@ void Graphics::DrawSpriteDX11(std::string name, XMFLOAT2 pos)
 	g_Sprites->Draw(textures.at(name), pos, nullptr, Colors::White);
 }
 
+void Graphics::DrawSpriteDX11(std::string name, XMFLOAT2 pos, RECT * rect)
+{
+	if (!textures.count(name)) // If current texture exists
+	{
+		CreateShaderResourceView(name);
+	}
+
+	g_Sprites->Draw(textures.at(name), pos, rect, Colors::White);
+}
+
 void Graphics::DrawTextDX11(std::string text, XMFLOAT2 pos)
 {
 	std::wstring widestr = std::wstring(text.begin(), text.end());

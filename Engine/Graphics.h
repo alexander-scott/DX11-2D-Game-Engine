@@ -48,6 +48,8 @@ public:
 	void BeginFrame();
 
 	void DrawSpriteDX11(std::string name, XMFLOAT2 pos);
+	void DrawSpriteDX11(std::string name, XMFLOAT2 pos, RECT* rect);
+
 	void DrawTextDX11(std::string text, XMFLOAT2 pos);
 
 	~Graphics();

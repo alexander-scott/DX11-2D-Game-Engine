@@ -6,10 +6,7 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
-	dragon.SetPosition(XMFLOAT2(50, 75)); dragon.SetSprite("Images\\dragon.dds");
-	troll.SetPosition(XMFLOAT2(200, 75)); troll.SetSprite("Images\\troll.dds");
 
-	player.SetPosition(XMFLOAT2(350, 75)); player.SetSprite("Images\\mage.dds");
 }
 
 void Game::Go()
