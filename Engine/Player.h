@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "RigidBody.h"
 
 using namespace DirectX;
 
@@ -17,7 +18,6 @@ private:
 	AnimationType iCurSequence = AnimationType::StandingDown;
 	std::vector<Animation> animations;
 
-	XMFLOAT2 vel = XMFLOAT2(0, 0);
-	float speed = 110.0f;
+	RigidBody* rigidBody;
 };
 

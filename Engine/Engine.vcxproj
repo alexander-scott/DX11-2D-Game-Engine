@@ -143,7 +143,9 @@
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="GUIText.h" />
+    <ClInclude Include="IEMath.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="WinDefines.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
@@ -169,6 +171,7 @@
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

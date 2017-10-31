@@ -4,6 +4,8 @@ void Player::Init(const std::string& fileName, const XMFLOAT2 & pos, const float
 {
 	GameObject::Init(fileName, pos, rot);
 
+	rigidBody = new RigidBody(pos.x, pos.y);
+
 	for (int i = 0; i < (int)AnimationType::StandingUp; i++) // Add the walking animations - 9 frames
 	{
 		animations.emplace_back(Animation(64, 64 * i, 64, 64, 8, fileName, 0.16f));
@@ -34,30 +36,29 @@ void Player::UpdateDirection(const XMFLOAT2 &dir)
 	}
 	else
 	{
-		if (vel.x > 0.0f)
+		if (rigidBody->velocity.x > 0.0f)
 		{
 			iCurSequence = AnimationType::StandingRight;
 		}
-		else if (vel.x < 0.0f)
+		else if (rigidBody->velocity.x < 0.0f)
 		{
 			iCurSequence = AnimationType::StandingLeft;
 		}
-		else if (vel.y < 0.0f)
+		else if (rigidBody->velocity.y < 0.0f)
 		{
 			iCurSequence = AnimationType::StandingUp;
 		}
-		else if (vel.y > 0.0f)
+		else if (rigidBody->velocity.y > 0.0f)
 		{
 			iCurSequence = AnimationType::StandingDown;
 		}
 	}
-
-	vel = XMFLOAT2(dir.x * speed, dir.y * speed);
 }
 
 void Player::Update(float deltaTime)
 {
-	_pos = XMFLOAT2(_pos.x + (vel.x * deltaTime), _pos.y + (vel.y * deltaTime));
+	rigidBody->Update(deltaTime);
+	_pos = XMFLOAT2(rigidBody->position.x, rigidBody->position.y);
 
 	animations[(int)iCurSequence].Update(deltaTime);
 }
