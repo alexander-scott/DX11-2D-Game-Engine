@@ -1,9 +1,8 @@
 #include "Player.h"
 
-void Player::Init(const std::string& fileName, const XMFLOAT2 & pos)
+void Player::Init(const std::string& fileName, const XMFLOAT2 & pos, const float& rot)
 {
-	_fileName = fileName;
-	_pos = pos;
+	GameObject::Init(fileName, pos, rot);
 
 	for (int i = 0; i < (int)AnimationType::StandingUp; i++) // Add the walking animations - 9 frames
 	{
@@ -65,5 +64,5 @@ void Player::Update(float deltaTime)
 
 void Player::Draw(Graphics & gfx) const
 {
-	animations[(int)iCurSequence].Draw(_pos, gfx);
+	animations[(int)iCurSequence].Draw(_pos, _rot, gfx);
 }

@@ -137,7 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Consts.h" />
     <ClInclude Include="CustomException.h" />
@@ -156,7 +156,7 @@
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />

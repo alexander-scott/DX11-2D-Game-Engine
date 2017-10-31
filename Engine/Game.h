@@ -25,8 +25,8 @@ private:
 
 	FrameTimer ft;
 
-	Actor dragon;
-	Actor troll;
+	GameObject dragon;
+	GameObject troll;
 
 	Player player;
 

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Actor.h"
+#include "GameObject.h"
 
 using namespace DirectX;
 
-class Player : public Actor
+class Player : public GameObject
 {
 public:
 	void UpdateDirection(const XMFLOAT2 & dir);
 
-	void Init(const std::string& fileName, const XMFLOAT2 &pos) override;
+	void Init(const std::string& fileName, const XMFLOAT2 &pos, const float& rot) override;
 	void Update(float deltaTime) override;
 	void Draw(Graphics& gfx) const override;
 

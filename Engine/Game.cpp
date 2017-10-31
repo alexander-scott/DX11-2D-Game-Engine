@@ -6,10 +6,10 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
-	dragon.Init("Images\\dragon.dds", XMFLOAT2(50, 75));
-	troll.Init("Images\\troll.dds", XMFLOAT2(200, 75));
+	dragon.Init("Images\\dragon.dds", XMFLOAT2(50, 75), 0);
+	troll.Init("Images\\troll.dds", XMFLOAT2(200, 75), 0);
 
-	player.Init("Images\\mage_walk.dds", XMFLOAT2(350, 75));
+	player.Init("Images\\mage_walk.dds", XMFLOAT2(350, 75), 0);
 }
 
 void Game::Go()

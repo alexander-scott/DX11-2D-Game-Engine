@@ -18,9 +18,9 @@ Animation::Animation( int x,int y,int width,int height,int count,
 	}
 }
 
-void Animation::Draw(const XMFLOAT2 & pos, Graphics & gfx) const
+void Animation::Draw(const XMFLOAT2 & pos, const float& rot, Graphics & gfx) const
 {
-	gfx.DrawSpriteDX11(_fileName, pos, _animationFrames[_currentFrame]);
+	gfx.DrawSpriteDX11(_fileName, pos, _animationFrames[_currentFrame], rot);
 }
 
 void Animation::Update( float dt )

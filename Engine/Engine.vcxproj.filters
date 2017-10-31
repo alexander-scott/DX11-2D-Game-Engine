@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Colors.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -75,11 +72,11 @@
     <ClInclude Include="Consts.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="COMInitializer.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -114,6 +111,9 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
