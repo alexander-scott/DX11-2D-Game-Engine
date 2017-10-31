@@ -34,6 +34,8 @@ public:
 	Vec2 position;
 	Vec2 velocity;
 
+private:
+
 	float angularVelocity;
 	float torque;
 	float orient; // radians

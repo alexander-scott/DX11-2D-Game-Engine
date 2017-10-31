@@ -23,6 +23,9 @@ void RigidBody::Update(float dt)
 	if (im == 0.0f)
 		return;
 
+	velocity *= 0.98f;
+	force *= 0.95f;
+
 	position += velocity * dt;
 	orient += angularVelocity * dt;
 	SetOrient(orient);

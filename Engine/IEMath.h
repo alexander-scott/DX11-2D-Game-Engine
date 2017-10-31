@@ -312,7 +312,7 @@ inline bool BiasGreaterThan( real a, real b )
   return a >= b * k_biasRelative + a * k_biasAbsolute;
 }
 
-const f32 gravityScale = 5.0f;
+const f32 gravityScale = 30.0f;
 const Vec2 gravity( 0, 10.0f * gravityScale );
 const float dt = 1.0f / 60.0f;
 

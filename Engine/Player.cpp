@@ -20,6 +20,24 @@ void Player::UpdateDirection(const XMFLOAT2 &dir)
 {
 	if (dir.x > 0.0f)
 	{
+		rigidBody->ApplyForce(Vec2(-0.0000001f, 0));
+	}
+	else if (dir.x < 0.0f)
+	{
+		rigidBody->ApplyForce(Vec2(0.0000001f, 0));
+	}
+
+	if (dir.y < 0.0f)
+	{
+		rigidBody->ApplyForce(Vec2(0, 0.0000001f));
+	}
+	else if (dir.y > 0.0f)
+	{
+		rigidBody->ApplyForce(Vec2(0, -0.0000001f));
+	}
+
+	if (dir.x > 0.0f)
+	{
 		iCurSequence = AnimationType::WalkingRight;
 	}
 	else if (dir.x < 0.0f)

@@ -19,6 +19,7 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
+
 private:
 	MainWindow& wnd;
 	Graphics gfx;
