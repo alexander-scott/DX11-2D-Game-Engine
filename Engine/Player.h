@@ -5,14 +5,14 @@
 
 using namespace DirectX;
 
-class Player : public GameObject
+class Player
 {
 public:
 	void UpdateDirection(const XMFLOAT2 & dir);
 
-	void Init(const std::string& fileName, const XMFLOAT2 &pos, const float& rot) override;
-	void Update(float deltaTime) override;
-	void Draw(Graphics& gfx) const override;
+	void Init(const std::string& fileName, const XMFLOAT2 &pos, const float& rot);
+	void Update(float deltaTime);
+	void Draw(Graphics& gfx) const;
 
 private:
 	AnimationType iCurSequence = AnimationType::StandingDown;

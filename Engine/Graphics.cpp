@@ -239,6 +239,26 @@ void Graphics::DrawSpriteDX11(std::string name, XMFLOAT2 pos, RECT * rect, float
 	g_Sprites->Draw(textures.at(name), pos, rect, Colors::White, rot);
 }
 
+void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, float rot)
+{
+	if (!textures.count(name)) // If current texture exists
+	{
+		CreateShaderResourceView(name);
+	}
+
+	g_Sprites->Draw(textures.at(name), XMFLOAT2(pos.x, pos.y), nullptr, Colors::White, rot);
+}
+
+void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot)
+{
+	if (!textures.count(name)) // If current texture exists
+	{
+		CreateShaderResourceView(name);
+	}
+
+	g_Sprites->Draw(textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
+}
+
 void Graphics::DrawTextDX11(std::string text, XMFLOAT2 pos)
 {
 	std::wstring widestr = std::wstring(text.begin(), text.end());

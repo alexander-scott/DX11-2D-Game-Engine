@@ -137,15 +137,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Consts.h" />
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="GUIText.h" />
+    <ClInclude Include="IComponent.h" />
+    <ClInclude Include="IDrawable.h" />
     <ClInclude Include="IEMath.h" />
+    <ClInclude Include="IMessage.h" />
+    <ClInclude Include="IMessageable.h" />
+    <ClInclude Include="IUpdateable.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="SpriteRendererComponent.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="WinDefines.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
@@ -158,6 +166,7 @@
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Animation.cpp" />
@@ -172,6 +181,8 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="SpriteRendererComponent.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

@@ -6,10 +6,17 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
-	dragon.Init("Images\\dragon.dds", XMFLOAT2(50, 75), 0);
-	troll.Init("Images\\troll.dds", XMFLOAT2(200, 75), 0);
+	TransformComponent* dragonTransform = ComponentFactory::MakeTransform(Vec2(50, 75));
+	SpriteRendererComponent* dragonSprite = ComponentFactory::MakeSpriteRenderer("Images\\dragon.dds", dragonTransform);
+	dragon->AddComponent(dragonTransform);
+	dragon->AddComponent(dragonSprite);
 
-	player.Init("Images\\mage_walk.dds", XMFLOAT2(350, 75), 0);
+	TransformComponent* trollTransform = ComponentFactory::MakeTransform(Vec2(200, 75));
+	SpriteRendererComponent* trollSprite = ComponentFactory::MakeSpriteRenderer("Images\\troll.dds", trollTransform);
+	troll->AddComponent(trollTransform);
+	troll->AddComponent(trollSprite);
+
+	//player.Init("Images\\mage_walk.dds", XMFLOAT2(350, 75), 0);
 }
 
 void Game::Go()
@@ -48,16 +55,22 @@ void Game::UpdateModel()
 		dir.x += 1.0f;
 	}
 
-	player.UpdateDirection(dir);
-	player.Update(ft.Mark());
+	//player.UpdateDirection(dir);
+	//player.Update(ft.Mark());
+
+	troll->Update(ft.Mark());
+	dragon->Update(ft.Mark());
 }
 
 void Game::ComposeFrame()
 {
-	dragon.Draw(gfx);
+	/*dragon.Draw(gfx);
 	troll.Draw(gfx);
 
-	player.Draw(gfx);
+	player.Draw(gfx);*/
+
+	troll->Draw(gfx);
+	dragon->Draw(gfx);
 
 	guiText.Draw(gfx);
 }

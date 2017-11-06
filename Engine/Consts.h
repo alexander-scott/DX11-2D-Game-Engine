@@ -14,3 +14,8 @@ enum class AnimationType
 	StandingRight,
 	Count
 };
+
+enum MessageType
+{
+	AddForce
+};

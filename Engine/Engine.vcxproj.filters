@@ -23,11 +23,17 @@
     <Filter Include="Engine\Physics">
       <UniqueIdentifier>{13e55b5e-abfa-42db-ac31-6c1db0a6fe4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObjects">
-      <UniqueIdentifier>{4d39bc9b-7471-4f3d-a1a8-9d1128dcfa41}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{d208ffd9-440e-4c27-b94c-ad86bc5623a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{4d39bc9b-7471-4f3d-a1a8-9d1128dcfa41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components">
+      <UniqueIdentifier>{dd81af7b-91da-443e-84c1-ed0f6ef1643f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components\Interfaces">
+      <UniqueIdentifier>{5556154c-6cf1-4ff9-81c8-2a0a3e3f074e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,7 +77,7 @@
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Engine\GameObjects</Filter>
+      <Filter>Engine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game</Filter>
@@ -87,6 +93,30 @@
     </ClInclude>
     <ClInclude Include="WinDefines.h">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawable.h">
+      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IUpdateable.h">
+      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IMessageable.h">
+      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IMessage.h">
+      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRendererComponent.h">
+      <Filter>Engine\GameObject\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +145,7 @@
       <Filter>Engine\Core</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Engine\GameObjects</Filter>
+      <Filter>Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game</Filter>
@@ -131,6 +161,15 @@
     </ClCompile>
     <ClCompile Include="MainWindow.cpp">
       <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRendererComponent.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

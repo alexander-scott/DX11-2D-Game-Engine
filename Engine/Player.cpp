@@ -2,7 +2,7 @@
 
 void Player::Init(const std::string& fileName, const XMFLOAT2 & pos, const float& rot)
 {
-	GameObject::Init(fileName, pos, rot);
+	//GameObject::Init(fileName, pos, rot);
 
 	rigidBody = new RigidBody(pos.x, pos.y);
 
@@ -76,12 +76,12 @@ void Player::UpdateDirection(const XMFLOAT2 &dir)
 void Player::Update(float deltaTime)
 {
 	rigidBody->Update(deltaTime);
-	_pos = XMFLOAT2(rigidBody->position.x, rigidBody->position.y);
+	//_pos = XMFLOAT2(rigidBody->position.x, rigidBody->position.y);
 
 	animations[(int)iCurSequence].Update(deltaTime);
 }
 
 void Player::Draw(Graphics & gfx) const
 {
-	animations[(int)iCurSequence].Draw(_pos, _rot, gfx);
+	//animations[(int)iCurSequence].Draw(_pos, _rot, gfx);
 }
