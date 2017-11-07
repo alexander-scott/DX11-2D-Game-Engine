@@ -1,10 +1,5 @@
 #include "GameObject.h"
 
-void GameObject::Init(const std::string& fileName)
-{
-	_fileName = fileName;
-}
-
 GameObject::~GameObject()
 {
 	for (auto component : _components)
@@ -19,6 +14,21 @@ void GameObject::AddComponent(IComponent * component)
 	if (component != nullptr)
 	{
 		_components.push_back(component);
+	}
+}
+
+void GameObject::SendMessageToComponents(IMessage & message)
+{
+	for (auto component : _components)
+	{
+		// Cast component to IDrawable
+		IMessageable * messageableComponent = dynamic_cast<IMessageable *> (component);
+
+		if (messageableComponent != nullptr)
+		{
+			// Is drawable
+			messageableComponent->RecieveMessage(message);
+		}
 	}
 }
 

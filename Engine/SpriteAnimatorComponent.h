@@ -3,13 +3,14 @@
 #include "IComponent.h"
 #include "IDrawable.h"
 #include "IUpdateable.h"
+#include "IMessageable.h"
 
 #include "Consts.h"
 
 #include "SpriteRendererComponent.h"
 #include <vector>
 
-class SpriteAnimatorComponent : public IComponent, public IDrawable, public IUpdateable
+class SpriteAnimatorComponent : public IComponent, public IDrawable, public IUpdateable, public IMessageable
 {
 public:
 	struct Anim
@@ -55,6 +56,7 @@ public:
 
 	virtual void Draw(Graphics& gfx) override;
 	virtual void Update(float deltaTime) override;
+	virtual void RecieveMessage(IMessage & message) override;
 
 	void SetFilename(std::string fileName) { _fileName = fileName; }
 	void UpdateDirection(Vec2 dir);

@@ -41,6 +41,9 @@
     <Filter Include="Engine\GameObject\Components\Base Interfaces">
       <UniqueIdentifier>{5556154c-6cf1-4ff9-81c8-2a0a3e3f074e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Components\Messages">
+      <UniqueIdentifier>{f7aa10a2-9798-4f73-8744-dca5afad7604}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -121,6 +124,9 @@
     <ClInclude Include="SpriteAnimatorComponent.h">
       <Filter>Engine\GameObject\Components\Types\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="UpdateDirectionMessage.h">
+      <Filter>Engine\GameObject\Components\Messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RigidBody.cpp">
@@ -170,6 +176,9 @@
     </ClCompile>
     <ClCompile Include="SpriteAnimatorComponent.cpp">
       <Filter>Engine\GameObject\Components\Types\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateDirectionMessage.cpp">
+      <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

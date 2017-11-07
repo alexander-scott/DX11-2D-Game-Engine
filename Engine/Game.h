@@ -17,6 +17,8 @@ public:
 	Game& operator=(const Game&) = delete;
 	void Go();
 
+	~Game();
+
 private:
 	void ComposeFrame();
 	void UpdateModel();
@@ -24,6 +26,8 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
+
+	std::vector<GameObject*> _gameObjects;
 
 	FrameTimer ft;
 

@@ -1,5 +1,5 @@
 #include "SpriteAnimatorComponent.h"
-
+#include "UpdateDirectionMessage.h"
 
 
 SpriteAnimatorComponent::SpriteAnimatorComponent(std::vector<AnimationDesc> animDescs)
@@ -13,15 +13,6 @@ SpriteAnimatorComponent::SpriteAnimatorComponent(std::vector<AnimationDesc> anim
 			_animations.emplace_back(Anim(animDesc.X, animDesc.Y * (i - animDesc.StartingIndex), animDesc.Width, animDesc.Height, animDesc.FrameCount, animDesc.HoldTime));
 		}
 	}
-
-	//for (int i = 0; i < (int)AnimationType::StandingUp; i++) // Add the walking animations - 9 frames
-	//{
-	//	_animations.emplace_back(Anim(64, 64 * i, 64, 64, 8, 0.16f));
-	//}
-	//for (int i = (int)AnimationType::StandingUp; i < (int)AnimationType::Count; i++) // Add the standing animations - 1 frame
-	//{
-	//	_animations.emplace_back(Anim(0, 64 * (i - (int)AnimationType::StandingUp), 64, 64, 1, 0.16f));
-	//}
 }
 
 
@@ -38,6 +29,17 @@ void SpriteAnimatorComponent::Draw(Graphics & gfx)
 void SpriteAnimatorComponent::Update(float deltaTime)
 {
 	_animations[(int)iCurSequence].Advance(deltaTime);
+}
+
+void SpriteAnimatorComponent::RecieveMessage(IMessage & message)
+{
+	switch (message.GetType())
+	{
+		case MessageType::UpdateDirection:
+			UpdateDirectionMessage& addForceMsg = static_cast<UpdateDirectionMessage &> (message);
+			UpdateDirection(addForceMsg.GetDir());
+			break;
+	}
 }
 
 void SpriteAnimatorComponent::UpdateDirection(Vec2 dir)

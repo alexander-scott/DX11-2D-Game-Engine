@@ -1,6 +1,8 @@
 #include "MainWindow.h"
 #include "Game.h"
 
+#include "UpdateDirectionMessage.h"
+
 Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
@@ -10,11 +12,13 @@ Game::Game(MainWindow& wnd)
 	SpriteRendererComponent* dragonSprite = ComponentFactory::MakeSpriteRenderer("Images\\dragon.dds", dragonTransform);
 	dragon->AddComponent(dragonTransform);
 	dragon->AddComponent(dragonSprite);
+	_gameObjects.push_back(dragon);
 
 	TransformComponent* trollTransform = ComponentFactory::MakeTransform(Vec2(200, 75));
 	SpriteRendererComponent* trollSprite = ComponentFactory::MakeSpriteRenderer("Images\\troll.dds", trollTransform);
 	troll->AddComponent(trollTransform);
 	troll->AddComponent(trollSprite);
+	_gameObjects.push_back(troll);
 
 	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(350, 75));
 
@@ -25,6 +29,7 @@ Game::Game(MainWindow& wnd)
 	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform, animDescs);
 	player->AddComponent(playerTransform);
 	player->AddComponent(playerAnimator);
+	_gameObjects.push_back(player);
 }
 
 void Game::Go()
@@ -37,6 +42,14 @@ void Game::Go()
 	gfx.EndFrame();
 }
 
+Game::~Game()
+{
+	for (auto go : _gameObjects)
+	{
+		go->~GameObject();
+	}
+}
+
 void Game::UpdateModel()
 {
 	// process key messages while any remain
@@ -45,7 +58,7 @@ void Game::UpdateModel()
 		const auto e = wnd.kbd.ReadKey();
 	}
 
-	XMFLOAT2 dir = XMFLOAT2(0.0f,0.0f);
+	Vec2 dir = Vec2(0.0f,0.0f);
 	if (wnd.kbd.KeyIsPressed(VK_UP))
 	{
 		dir.y -= 1.0f;
@@ -63,19 +76,24 @@ void Game::UpdateModel()
 		dir.x += 1.0f;
 	}
 
+	UpdateDirectionMessage updateDirMsg("UpdateDirectionMessage");
+	updateDirMsg.SetDir(dir);
+	player->SendMessageToComponents(updateDirMsg);
+
 	float deltaTime = ft.Mark();
 
-	troll->Update(deltaTime);
-	dragon->Update(deltaTime);
-
-	player->Update(deltaTime);
+	for (auto go : _gameObjects)
+	{
+		go->Update(deltaTime);
+	}
 }
 
 void Game::ComposeFrame()
 {
-	troll->Draw(gfx);
-	dragon->Draw(gfx);
-	player->Draw(gfx);
+	for (auto go : _gameObjects)
+	{
+		go->Draw(gfx);
+	}
 
 	guiText.Draw(gfx);
 }

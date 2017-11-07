@@ -20,7 +20,7 @@ enum AnimationType
 
 enum MessageType
 {
-	AddForce
+	UpdateDirection
 };
 
 #pragma endregion
