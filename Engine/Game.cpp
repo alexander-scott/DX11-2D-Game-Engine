@@ -16,7 +16,10 @@ Game::Game(MainWindow& wnd)
 	troll->AddComponent(trollTransform);
 	troll->AddComponent(trollSprite);
 
-	//player.Init("Images\\mage_walk.dds", XMFLOAT2(350, 75), 0);
+	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(350, 75));
+	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform);
+	player->AddComponent(playerTransform);
+	player->AddComponent(playerAnimator);
 }
 
 void Game::Go()
@@ -55,22 +58,19 @@ void Game::UpdateModel()
 		dir.x += 1.0f;
 	}
 
-	//player.UpdateDirection(dir);
-	//player.Update(ft.Mark());
+	float deltaTime = ft.Mark();
 
-	troll->Update(ft.Mark());
-	dragon->Update(ft.Mark());
+	troll->Update(deltaTime);
+	dragon->Update(deltaTime);
+
+	player->Update(deltaTime);
 }
 
 void Game::ComposeFrame()
 {
-	/*dragon.Draw(gfx);
-	troll.Draw(gfx);
-
-	player.Draw(gfx);*/
-
 	troll->Draw(gfx);
 	dragon->Draw(gfx);
+	player->Draw(gfx);
 
 	guiText.Draw(gfx);
 }

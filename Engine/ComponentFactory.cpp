@@ -17,3 +17,12 @@ SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileN
 
 	return spriteRenderer;
 }
+
+SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, TransformComponent * transform)
+{
+	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent();
+	spriteAnimator->SetFilename(fileName);
+	spriteAnimator->SetTransform(transform);
+
+	return spriteAnimator;
+}

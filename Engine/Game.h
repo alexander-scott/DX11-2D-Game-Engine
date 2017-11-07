@@ -30,7 +30,7 @@ private:
 	GameObject* dragon = new GameObject();
 	GameObject* troll = new GameObject();
 
-	//Player player;
+	GameObject* player = new GameObject();
 
 	GUIText guiText = GUIText("DirectXTK Simple Sample", XMFLOAT2(100, 20));
 };

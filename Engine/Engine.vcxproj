@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Animation.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SpriteAnimatorComponent.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />

@@ -118,6 +118,9 @@
     <ClInclude Include="SpriteRendererComponent.h">
       <Filter>Engine\GameObject\Components</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteAnimatorComponent.h">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RigidBody.cpp">
@@ -169,6 +172,9 @@
       <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRendererComponent.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimatorComponent.cpp">
       <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
   </ItemGroup>
