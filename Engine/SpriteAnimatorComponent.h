@@ -51,7 +51,7 @@ public:
 		}
 	};
 
-	SpriteAnimatorComponent(std::vector<AnimationDesc> animDescs);
+	SpriteAnimatorComponent(int currentAnim, std::vector<AnimationDesc> animDescs);
 	~SpriteAnimatorComponent();
 
 	virtual void Draw(Graphics& gfx) override;
@@ -59,10 +59,10 @@ public:
 	virtual void RecieveMessage(IMessage & message) override;
 
 	void SetFilename(std::string fileName) { _fileName = fileName; }
-	void UpdateDirection(Vec2 dir);
+	void UpdateAnimationSequence(int sequence);
 
 private:
-	AnimationType iCurSequence = AnimationType::WalkingDown;
+	int iCurSequence;
 	std::vector<Anim>				_animations;
 	std::string						_fileName;
 };

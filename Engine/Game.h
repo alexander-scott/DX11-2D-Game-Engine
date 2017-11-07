@@ -8,6 +8,7 @@
 #include "FrameTimer.h"
 #include "ComponentFactory.h"
 #include "GameObject.h"
+#include "Player.h"
 
 class Game
 {
@@ -34,7 +35,7 @@ private:
 	GameObject* dragon = new GameObject();
 	GameObject* troll = new GameObject();
 
-	GameObject* player = new GameObject();
+	Player* player = new Player();
 
 	GUIText guiText = GUIText("DirectXTK Simple Sample", XMFLOAT2(100, 20));
 };

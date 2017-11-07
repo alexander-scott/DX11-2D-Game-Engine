@@ -9,6 +9,6 @@ namespace ComponentFactory
 {
 	TransformComponent * MakeTransform(Vec2 position);
 	SpriteRendererComponent * MakeSpriteRenderer(std::string fileName, TransformComponent* transform);
-	SpriteAnimatorComponent * MakeSpriteAnimator(std::string fileName, TransformComponent* transform, std::vector<AnimationDesc> animDescs);
+	SpriteAnimatorComponent * MakeSpriteAnimator(std::string fileName, TransformComponent* transform, std::vector<AnimationDesc> animDescs, int currentAnim);
 	RigidBodyComponent * MakeRigidbody(TransformComponent* transform);
 };

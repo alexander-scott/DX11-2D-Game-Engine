@@ -2,9 +2,10 @@
 #include "UpdateDirectionMessage.h"
 
 
-SpriteAnimatorComponent::SpriteAnimatorComponent(std::vector<AnimationDesc> animDescs)
+SpriteAnimatorComponent::SpriteAnimatorComponent(int currentAnim, std::vector<AnimationDesc> animDescs)
 {
 	_type = "Animation";
+	iCurSequence = currentAnim;
 
 	for (auto animDesc : animDescs)
 	{
@@ -33,31 +34,16 @@ void SpriteAnimatorComponent::Update(float deltaTime)
 
 void SpriteAnimatorComponent::RecieveMessage(IMessage & message)
 {
-	switch (message.GetType())
+	/*switch (message.GetType())
 	{
 		case MessageType::UpdateDirection:
 			UpdateDirectionMessage& updateDirMsg = static_cast<UpdateDirectionMessage &> (message);
-			UpdateDirection(updateDirMsg.GetDir());
+			UpdateAnimationSequence(updateDirMsg.GetDir());
 			break;
-	}
+	}*/
 }
 
-void SpriteAnimatorComponent::UpdateDirection(Vec2 dir)
+void SpriteAnimatorComponent::UpdateAnimationSequence(int sequence)
 {
-	if (dir.x > 0.0f)
-	{
-		iCurSequence = AnimationType::WalkingRight;
-	}
-	else if (dir.x < 0.0f)
-	{
-		iCurSequence = AnimationType::WalkingLeft;
-	}
-	else if (dir.y < 0.0f)
-	{
-		iCurSequence = AnimationType::WalkingUp;
-	}
-	else if (dir.y > 0.0f)
-	{
-		iCurSequence = AnimationType::WalkingDown;
-	}
+	iCurSequence = sequence;
 }

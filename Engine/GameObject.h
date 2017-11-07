@@ -19,6 +19,6 @@ public:
 
 	~GameObject();
 
-private :
+protected:
 	std::vector<IComponent*> _components;
 };

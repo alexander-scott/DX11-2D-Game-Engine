@@ -21,17 +21,6 @@ Game::Game(MainWindow& wnd)
 	troll->AddComponent(trollSprite);
 	_gameObjects.push_back(troll);
 
-	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(350, 75));
-
-	std::vector<AnimationDesc> animDescs;
-	animDescs.push_back(AnimationDesc(0, 4, 64, 64, 64, 64, 8, 0.16f)); // Walking
-	animDescs.push_back(AnimationDesc(4, 8, 64, 64, 64, 64, 1, 0.16f)); // Standing
-
-	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform, animDescs);
-	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(playerTransform);
-	player->AddComponent(playerTransform);
-	player->AddComponent(playerAnimator);
-	player->AddComponent(playerRigidBody);
 	_gameObjects.push_back(player);
 }
 
@@ -66,34 +55,25 @@ void Game::UpdateModel()
 	if (wnd.kbd.KeyIsPressed(VK_UP))
 	{
 		dir.y -= 1.0f;
-		force = Vec2(0, 0.0000001f);
+		force = Vec2(0, 0.000001f);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_DOWN))
 	{
 		dir.y += 1.0f;
-		force = Vec2(0, -0.0000001f);
+		force = Vec2(0, -0.000001f);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
 		dir.x -= 1.0f;
-		force = Vec2(0.0000001f, 0);
+		force = Vec2(0.000001f, 0);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
 		dir.x += 1.0f;
-		force = Vec2(-0.0000001f, 0);
+		force = Vec2(-0.000001f, 0);
 	}
 
-	if (dir.x != 0 || dir.y != 0)
-	{
-		UpdateDirectionMessage updateDirMsg("UpdateDirectionMessage");
-		updateDirMsg.SetDir(dir);
-		player->SendMessageToComponents(updateDirMsg);
-
-		AddForceMessage addForceMsg("AddForceMessage");
-		addForceMsg.SetForce(force);
-		player->SendMessageToComponents(addForceMsg);
-	}
+	player->UpdateDir(dir);
 
 	float deltaTime = ft.Mark();
 

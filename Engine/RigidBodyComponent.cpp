@@ -24,7 +24,7 @@ void RigidBodyComponent::Update(float deltaTime)
 	if (im == 0.0f)
 		return;
 
-	velocity *= 0.98f;
+	velocity *= 0.75f;
 	force *= 0.95f;
 
 	transformComponent->SetPosition(transformComponent->GetPosition() + velocity * dt);
@@ -50,4 +50,23 @@ void RigidBodyComponent::RecieveMessage(IMessage & message)
 void RigidBodyComponent::SetOrient(float radians)
 {
 	orient = radians;
+}
+
+void RigidBodyComponent::ApplyForce(const Vec2& f)
+{
+	force += f;
+}
+
+void RigidBodyComponent::ApplyImpulse(const Vec2 & impulse, const Vec2 & contactVector)
+{
+	velocity += im * impulse;
+	angularVelocity += iI * Cross(contactVector, impulse);
+}
+
+void RigidBodyComponent::SetStatic()
+{
+	I = 0.0f;
+	iI = 0.0f;
+	m = 0.0f;
+	im = 0.0f;
 }

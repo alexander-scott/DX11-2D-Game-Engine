@@ -20,9 +20,6 @@
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{76caa40f-803c-4ae9-ad3b-20ffe0354232}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Physics">
-      <UniqueIdentifier>{13e55b5e-abfa-42db-ac31-6c1db0a6fe4c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{d208ffd9-440e-4c27-b94c-ad86bc5623a3}</UniqueIdentifier>
     </Filter>
@@ -32,17 +29,20 @@
     <Filter Include="Engine\GameObject\Components">
       <UniqueIdentifier>{dd81af7b-91da-443e-84c1-ed0f6ef1643f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Components\Types">
-      <UniqueIdentifier>{9cd09fe2-d3cd-4347-802d-29b1b29bd841}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Components\Types\Animator">
-      <UniqueIdentifier>{1a6aec8a-9051-4fc4-bf2f-4c5a25a9a98a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Components\Base Interfaces">
       <UniqueIdentifier>{5556154c-6cf1-4ff9-81c8-2a0a3e3f074e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\GameObject\Components\Messages">
       <UniqueIdentifier>{f7aa10a2-9798-4f73-8744-dca5afad7604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components\Component Types">
+      <UniqueIdentifier>{9cd09fe2-d3cd-4347-802d-29b1b29bd841}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components\Component Types\Physics">
+      <UniqueIdentifier>{bb96aee2-e75d-4c9f-aa19-029da50770fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components\Component Types\Renderer/Animator">
+      <UniqueIdentifier>{9a6c9345-6d65-45d3-9109-c577978258c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,9 +54,6 @@
     </ClInclude>
     <ClInclude Include="Consts.h">
       <Filter>Engine\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBody.h">
-      <Filter>Engine\Physics</Filter>
     </ClInclude>
     <ClInclude Include="IEMath.h">
       <Filter>Engine\Core</Filter>
@@ -112,32 +109,32 @@
     <ClInclude Include="IMessage.h">
       <Filter>Engine\GameObject\Components\Base Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>Engine\GameObject\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentFactory.h">
       <Filter>Engine\GameObject\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRendererComponent.h">
-      <Filter>Engine\GameObject\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimatorComponent.h">
-      <Filter>Engine\GameObject\Components\Types\Animator</Filter>
     </ClInclude>
     <ClInclude Include="UpdateDirectionMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBodyComponent.h">
-      <Filter>Engine\GameObject\Components</Filter>
-    </ClInclude>
     <ClInclude Include="AddForceMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteRendererComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Renderer/Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimatorComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Renderer/Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Engine\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
@@ -171,26 +168,29 @@
     <ClCompile Include="MainWindow.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>Engine\GameObject\Components</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>Engine\GameObject\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRendererComponent.cpp">
-      <Filter>Engine\GameObject\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteAnimatorComponent.cpp">
-      <Filter>Engine\GameObject\Components\Types\Animator</Filter>
     </ClCompile>
     <ClCompile Include="UpdateDirectionMessage.cpp">
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClCompile>
-    <ClCompile Include="RigidBodyComponent.cpp">
-      <Filter>Engine\GameObject\Components</Filter>
-    </ClCompile>
     <ClCompile Include="AddForceMessage.cpp">
       <Filter>Engine\GameObject\Components\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRendererComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Renderer/Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimatorComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Renderer/Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -18,24 +18,12 @@ public:
 	void SetTransform(TransformComponent* transform) { transformComponent = transform; }
 	void SetOrient(float radians);
 
-	void ApplyForce(const Vec2& f)
-	{
-		force += f;
-	}
+	void ApplyForce(const Vec2& f);
+	void ApplyImpulse(const Vec2& impulse, const Vec2& contactVector);
 
-	void ApplyImpulse(const Vec2& impulse, const Vec2& contactVector)
-	{
-		velocity += im * impulse;
-		angularVelocity += iI * Cross(contactVector, impulse);
-	}
+	void SetStatic();
 
-	void SetStatic(void)
-	{
-		I = 0.0f;
-		iI = 0.0f;
-		m = 0.0f;
-		im = 0.0f;
-	}
+	Vec2 GetVelocity() { return velocity; }
 
 private:
 	TransformComponent* transformComponent;
