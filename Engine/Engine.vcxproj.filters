@@ -32,7 +32,13 @@
     <Filter Include="Engine\GameObject\Components">
       <UniqueIdentifier>{dd81af7b-91da-443e-84c1-ed0f6ef1643f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Components\Interfaces">
+    <Filter Include="Engine\GameObject\Components\Types">
+      <UniqueIdentifier>{9cd09fe2-d3cd-4347-802d-29b1b29bd841}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components\Types\Animator">
+      <UniqueIdentifier>{1a6aec8a-9051-4fc4-bf2f-4c5a25a9a98a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components\Base Interfaces">
       <UniqueIdentifier>{5556154c-6cf1-4ff9-81c8-2a0a3e3f074e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -67,9 +73,6 @@
     <ClInclude Include="Mouse.h">
       <Filter>Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="FrameTimer.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
@@ -78,9 +81,6 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
@@ -95,19 +95,19 @@
       <Filter>Engine\Core</Filter>
     </ClInclude>
     <ClInclude Include="IComponent.h">
-      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+      <Filter>Engine\GameObject\Components\Base Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IDrawable.h">
-      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+      <Filter>Engine\GameObject\Components\Base Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IUpdateable.h">
-      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+      <Filter>Engine\GameObject\Components\Base Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IMessageable.h">
-      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+      <Filter>Engine\GameObject\Components\Base Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="IMessage.h">
-      <Filter>Engine\GameObject\Components\Interfaces</Filter>
+      <Filter>Engine\GameObject\Components\Base Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
       <Filter>Engine\GameObject\Components</Filter>
@@ -119,7 +119,7 @@
       <Filter>Engine\GameObject\Components</Filter>
     </ClInclude>
     <ClInclude Include="SpriteAnimatorComponent.h">
-      <Filter>Engine\GameObject\Components</Filter>
+      <Filter>Engine\GameObject\Components\Types\Animator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -141,17 +141,11 @@
     <ClCompile Include="FrameTimer.cpp">
       <Filter>Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
@@ -175,7 +169,7 @@
       <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
     <ClCompile Include="SpriteAnimatorComponent.cpp">
-      <Filter>Engine\GameObject\Components</Filter>
+      <Filter>Engine\GameObject\Components\Types\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

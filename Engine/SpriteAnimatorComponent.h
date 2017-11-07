@@ -9,7 +9,6 @@
 #include "SpriteRendererComponent.h"
 #include <vector>
 
-
 class SpriteAnimatorComponent : public IComponent, public IDrawable, public IUpdateable
 {
 public:
@@ -51,13 +50,14 @@ public:
 		}
 	};
 
-	SpriteAnimatorComponent();
+	SpriteAnimatorComponent(std::vector<AnimationDesc> animDescs);
 	~SpriteAnimatorComponent();
 
 	virtual void Draw(Graphics& gfx) override;
 	virtual void Update(float deltaTime) override;
 
 	void SetFilename(std::string fileName) { _fileName = fileName; }
+	void UpdateDirection(Vec2 dir);
 
 private:
 	AnimationType iCurSequence = AnimationType::WalkingDown;

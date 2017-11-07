@@ -4,10 +4,10 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Player.h"
 #include "GUIText.h"
 #include "FrameTimer.h"
 #include "ComponentFactory.h"
+#include "GameObject.h"
 
 class Game
 {

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Graphics.h"
-#include "Animation.h"
 #include "Consts.h"
 
 #include "IComponent.h"

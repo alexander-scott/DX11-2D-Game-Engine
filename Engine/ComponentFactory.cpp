@@ -18,9 +18,9 @@ SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileN
 	return spriteRenderer;
 }
 
-SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, TransformComponent * transform)
+SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, TransformComponent * transform, std::vector<AnimationDesc> animDescs)
 {
-	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent();
+	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent(animDescs);
 	spriteAnimator->SetFilename(fileName);
 	spriteAnimator->SetTransform(transform);
 

@@ -17,7 +17,12 @@ Game::Game(MainWindow& wnd)
 	troll->AddComponent(trollSprite);
 
 	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(350, 75));
-	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform);
+
+	std::vector<AnimationDesc> animDescs;
+	animDescs.push_back(AnimationDesc(0, 4, 64, 64, 64, 64, 8, 0.16f)); // Walking
+	animDescs.push_back(AnimationDesc(4, 8, 64, 64, 64, 64, 1, 0.16f)); // Standing
+
+	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform, animDescs);
 	player->AddComponent(playerTransform);
 	player->AddComponent(playerAnimator);
 }
