@@ -9,6 +9,8 @@ public:
 	Player();
 	~Player();
 
+	virtual void Update(float deltaTime) override;
+
 	void UpdateDir(Vec2 dir);
 
 private:

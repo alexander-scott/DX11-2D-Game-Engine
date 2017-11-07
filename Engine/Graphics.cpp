@@ -219,26 +219,6 @@ Graphics::Graphics(HWNDKey& key)
 	g_Sprites.reset(new SpriteBatch(pImmediateContext.Get()));
 }
 
-void Graphics::DrawSpriteDX11(std::string name, XMFLOAT2 pos, float rot)
-{
-	if (!textures.count(name)) // If current texture exists
-	{
-		CreateShaderResourceView(name);
-	}
-
-	g_Sprites->Draw(textures.at(name), pos, nullptr, Colors::White, rot);
-}
-
-void Graphics::DrawSpriteDX11(std::string name, XMFLOAT2 pos, RECT * rect, float rot)
-{
-	if (!textures.count(name)) // If current texture exists
-	{
-		CreateShaderResourceView(name);
-	}
-
-	g_Sprites->Draw(textures.at(name), pos, rect, Colors::White, rot);
-}
-
 void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, float rot)
 {
 	if (!textures.count(name)) // If current texture exists

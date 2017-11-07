@@ -12,7 +12,7 @@ class GameObject
 {
 public:
 	void Draw(Graphics& gfx) const;
-	void Update(float deltaTime);
+	virtual void Update(float deltaTime);
 	void SendMessageToComponents(IMessage& message);
 
 	void AddComponent(IComponent* component);

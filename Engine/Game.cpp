@@ -51,29 +51,25 @@ void Game::UpdateModel()
 	}
 
 	Vec2 dir = Vec2(0.0f,0.0f);
-	Vec2 force = Vec2(0, 0);
 	if (wnd.kbd.KeyIsPressed(VK_UP))
 	{
 		dir.y -= 1.0f;
-		force = Vec2(0, 0.000001f);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_DOWN))
 	{
 		dir.y += 1.0f;
-		force = Vec2(0, -0.000001f);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
 		dir.x -= 1.0f;
-		force = Vec2(0.000001f, 0);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
 		dir.x += 1.0f;
-		force = Vec2(-0.000001f, 0);
 	}
 
-	player->UpdateDir(dir);
+	if (dir.x != 0 || dir.y != 0)
+		player->UpdateDir(dir);
 
 	float deltaTime = ft.Mark();
 
