@@ -36,8 +36,8 @@ void SpriteAnimatorComponent::RecieveMessage(IMessage & message)
 	switch (message.GetType())
 	{
 		case MessageType::UpdateDirection:
-			UpdateDirectionMessage& addForceMsg = static_cast<UpdateDirectionMessage &> (message);
-			UpdateDirection(addForceMsg.GetDir());
+			UpdateDirectionMessage& updateDirMsg = static_cast<UpdateDirectionMessage &> (message);
+			UpdateDirection(updateDirMsg.GetDir());
 			break;
 	}
 }

@@ -26,3 +26,11 @@ SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileN
 
 	return spriteAnimator;
 }
+
+RigidBodyComponent * ComponentFactory::MakeRigidbody(TransformComponent* transform)
+{
+	RigidBodyComponent * rigidBody = new RigidBodyComponent();
+	rigidBody->SetTransform(transform);
+
+	return rigidBody;
+}

@@ -13,7 +13,7 @@ public:
 	Vec2 GetDir() { return _dir; }
 
 private:
-	std::string _name;
-	Vec2		_dir;
+	std::string			_name;
+	Vec2				_dir;
 };
 

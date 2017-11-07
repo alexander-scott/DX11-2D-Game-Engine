@@ -2,6 +2,7 @@
 #include "Game.h"
 
 #include "UpdateDirectionMessage.h"
+#include "AddForceMessage.h"
 
 Game::Game(MainWindow& wnd)
 	:
@@ -27,8 +28,10 @@ Game::Game(MainWindow& wnd)
 	animDescs.push_back(AnimationDesc(4, 8, 64, 64, 64, 64, 1, 0.16f)); // Standing
 
 	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform, animDescs);
+	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(playerTransform);
 	player->AddComponent(playerTransform);
 	player->AddComponent(playerAnimator);
+	player->AddComponent(playerRigidBody);
 	_gameObjects.push_back(player);
 }
 
@@ -59,26 +62,38 @@ void Game::UpdateModel()
 	}
 
 	Vec2 dir = Vec2(0.0f,0.0f);
+	Vec2 force = Vec2(0, 0);
 	if (wnd.kbd.KeyIsPressed(VK_UP))
 	{
 		dir.y -= 1.0f;
+		force = Vec2(0, 0.0000001f);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_DOWN))
 	{
 		dir.y += 1.0f;
+		force = Vec2(0, -0.0000001f);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_LEFT))
 	{
 		dir.x -= 1.0f;
+		force = Vec2(0.0000001f, 0);
 	}
 	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
 	{
 		dir.x += 1.0f;
+		force = Vec2(-0.0000001f, 0);
 	}
 
-	UpdateDirectionMessage updateDirMsg("UpdateDirectionMessage");
-	updateDirMsg.SetDir(dir);
-	player->SendMessageToComponents(updateDirMsg);
+	if (dir.x != 0 || dir.y != 0)
+	{
+		UpdateDirectionMessage updateDirMsg("UpdateDirectionMessage");
+		updateDirMsg.SetDir(dir);
+		player->SendMessageToComponents(updateDirMsg);
+
+		AddForceMessage addForceMsg("AddForceMessage");
+		addForceMsg.SetForce(force);
+		player->SendMessageToComponents(addForceMsg);
+	}
 
 	float deltaTime = ft.Mark();
 

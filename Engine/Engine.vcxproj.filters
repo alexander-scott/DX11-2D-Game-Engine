@@ -127,6 +127,12 @@
     <ClInclude Include="UpdateDirectionMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
+    <ClInclude Include="RigidBodyComponent.h">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AddForceMessage.h">
+      <Filter>Engine\GameObject\Components\Messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RigidBody.cpp">
@@ -178,6 +184,12 @@
       <Filter>Engine\GameObject\Components\Types\Animator</Filter>
     </ClCompile>
     <ClCompile Include="UpdateDirectionMessage.cpp">
+      <Filter>Engine\GameObject\Components\Messages</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyComponent.cpp">
+      <Filter>Engine\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AddForceMessage.cpp">
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClCompile>
   </ItemGroup>
