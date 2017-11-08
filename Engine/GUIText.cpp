@@ -9,5 +9,5 @@ GUIText::GUIText(std::string text, XMFLOAT2& pos) :
 
 void GUIText::Draw(Graphics & gfx) const
 {
-	gfx.DrawTextDX11(_text, _pos);
+	//gfx.DrawTextDX11(_text, _pos);
 }

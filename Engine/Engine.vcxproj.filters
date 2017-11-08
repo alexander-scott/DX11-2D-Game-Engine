@@ -41,8 +41,11 @@
     <Filter Include="Engine\GameObject\Components\Component Types\Physics">
       <UniqueIdentifier>{bb96aee2-e75d-4c9f-aa19-029da50770fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Components\Component Types\Renderer/Animator">
+    <Filter Include="Engine\GameObject\Components\Component Types\Renderer">
       <UniqueIdentifier>{9a6c9345-6d65-45d3-9109-c577978258c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Components\Component Types\Animator">
+      <UniqueIdentifier>{8a0a7094-091e-424b-a30e-3fee5e903200}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -119,19 +122,22 @@
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRendererComponent.h">
-      <Filter>Engine\GameObject\Components\Component Types\Renderer/Animator</Filter>
+      <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="RigidBodyComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimatorComponent.h">
-      <Filter>Engine\GameObject\Components\Component Types\Renderer/Animator</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
       <Filter>Engine\GameObject\Components\Component Types</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimatorComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRendererComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,19 +184,22 @@
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRendererComponent.cpp">
-      <Filter>Engine\GameObject\Components\Component Types\Renderer/Animator</Filter>
+      <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="RigidBodyComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteAnimatorComponent.cpp">
-      <Filter>Engine\GameObject\Components\Component Types\Renderer/Animator</Filter>
     </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimatorComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRendererComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

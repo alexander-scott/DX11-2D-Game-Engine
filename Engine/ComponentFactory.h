@@ -4,6 +4,7 @@
 #include "SpriteRendererComponent.h"
 #include "SpriteAnimatorComponent.h"
 #include "RigidBodyComponent.h"
+#include "TextRendererComponent.h"
 
 namespace ComponentFactory
 {
@@ -11,4 +12,5 @@ namespace ComponentFactory
 	SpriteRendererComponent * MakeSpriteRenderer(std::string fileName, TransformComponent* transform);
 	SpriteAnimatorComponent * MakeSpriteAnimator(std::string fileName, TransformComponent* transform, std::vector<AnimationDesc> animDescs, int currentAnim);
 	RigidBodyComponent * MakeRigidbody(TransformComponent* transform);
+	TextRendererComponent * MakeTextRenderer(std::string text, TransformComponent* transform);
 };

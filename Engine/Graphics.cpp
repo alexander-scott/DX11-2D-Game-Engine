@@ -239,12 +239,12 @@ void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot
 	g_Sprites->Draw(textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
 }
 
-void Graphics::DrawTextDX11(std::string text, XMFLOAT2 pos)
+void Graphics::DrawTextDX11(std::string text, Vec2 pos)
 {
 	std::wstring widestr = std::wstring(text.begin(), text.end());
 	const wchar_t* convertedText = widestr.c_str();
 
-	g_Fonts->DrawString(g_Sprites.get(), convertedText, pos, Colors::Yellow);
+	g_Fonts->DrawString(g_Sprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), Colors::Yellow);
 }
 
 Graphics::~Graphics()

@@ -20,9 +20,10 @@ SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileN
 
 SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, TransformComponent * transform, std::vector<AnimationDesc> animDescs, int currentAnim)
 {
-	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent(currentAnim, animDescs);
+	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent();
 	spriteAnimator->SetFilename(fileName);
 	spriteAnimator->SetTransform(transform);
+	spriteAnimator->SetAnimations(currentAnim, animDescs);
 
 	return spriteAnimator;
 }
@@ -33,4 +34,13 @@ RigidBodyComponent * ComponentFactory::MakeRigidbody(TransformComponent* transfo
 	rigidBody->SetTransform(transform);
 
 	return rigidBody;
+}
+
+TextRendererComponent * ComponentFactory::MakeTextRenderer(std::string text, TransformComponent * transform)
+{
+	TextRendererComponent * textRenderer = new TextRendererComponent();
+	textRenderer->SetTransform(transform);
+	textRenderer->SetText(text);
+
+	return textRenderer;
 }

@@ -51,7 +51,7 @@ public:
 		}
 	};
 
-	SpriteAnimatorComponent(int currentAnim, std::vector<AnimationDesc> animDescs);
+	SpriteAnimatorComponent();
 	~SpriteAnimatorComponent();
 
 	virtual void Draw(Graphics& gfx) override;
@@ -59,6 +59,7 @@ public:
 	virtual void RecieveMessage(IMessage & message) override;
 
 	void SetFilename(std::string fileName) { _fileName = fileName; }
+	void SetAnimations(int currentAnim, std::vector<AnimationDesc> animDescs);
 	void UpdateAnimationSequence(int sequence);
 
 private:

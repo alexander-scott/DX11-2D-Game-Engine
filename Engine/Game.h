@@ -32,10 +32,10 @@ private:
 
 	FrameTimer ft;
 
-	GameObject* dragon = new GameObject();
-	GameObject* troll = new GameObject();
+	GameObject* dragon;
+	GameObject* troll;
 
-	Player* player = new Player();
+	Player* player;
 
-	GUIText guiText = GUIText("DirectXTK Simple Sample", XMFLOAT2(100, 20));
+	GameObject* guiText;
 };

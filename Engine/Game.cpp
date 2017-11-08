@@ -11,16 +11,28 @@ Game::Game(MainWindow& wnd)
 {
 	TransformComponent* dragonTransform = ComponentFactory::MakeTransform(Vec2(50, 75));
 	SpriteRendererComponent* dragonSprite = ComponentFactory::MakeSpriteRenderer("Images\\dragon.dds", dragonTransform);
+	dragon = new GameObject();
 	dragon->AddComponent(dragonTransform);
 	dragon->AddComponent(dragonSprite);
 	_gameObjects.push_back(dragon);
 
+
 	TransformComponent* trollTransform = ComponentFactory::MakeTransform(Vec2(200, 75));
 	SpriteRendererComponent* trollSprite = ComponentFactory::MakeSpriteRenderer("Images\\troll.dds", trollTransform);
+	troll = new GameObject();
 	troll->AddComponent(trollTransform);
 	troll->AddComponent(trollSprite);
 	_gameObjects.push_back(troll);
 
+
+	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20));
+	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);
+	guiText = new GameObject();
+	guiText->AddComponent(guiTextTransform);
+	guiText->AddComponent(guiTextRenderer);
+	_gameObjects.push_back(guiText);
+
+	player = new Player();
 	_gameObjects.push_back(player);
 }
 
@@ -85,6 +97,4 @@ void Game::ComposeFrame()
 	{
 		go->Draw(gfx);
 	}
-
-	guiText.Draw(gfx);
 }
