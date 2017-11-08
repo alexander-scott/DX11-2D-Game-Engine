@@ -4,6 +4,7 @@
 
 TextRendererComponent::TextRendererComponent()
 {
+	_type = "TextRenderer";
 }
 
 

@@ -1,5 +1,4 @@
 #include "SpriteAnimatorComponent.h"
-#include "UpdateDirectionMessage.h"
 
 
 SpriteAnimatorComponent::SpriteAnimatorComponent()
@@ -21,17 +20,6 @@ void SpriteAnimatorComponent::Draw(Graphics & gfx)
 void SpriteAnimatorComponent::Update(float deltaTime)
 {
 	_animations[(int)iCurSequence].Advance(deltaTime);
-}
-
-void SpriteAnimatorComponent::RecieveMessage(IMessage & message)
-{
-	/*switch (message.GetType())
-	{
-		case MessageType::UpdateDirection:
-			UpdateDirectionMessage& updateDirMsg = static_cast<UpdateDirectionMessage &> (message);
-			UpdateAnimationSequence(updateDirMsg.GetDir());
-			break;
-	}*/
 }
 
 void SpriteAnimatorComponent::SetAnimations(int currentAnim, std::vector<AnimationDesc> animDescs)

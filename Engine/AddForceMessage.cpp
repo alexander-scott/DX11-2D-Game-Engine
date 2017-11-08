@@ -2,7 +2,7 @@
 
 
 
-AddForceMessage::AddForceMessage(std::string name)
+AddForceMessage::AddForceMessage(std::string name) : _name(name)
 {
 	_type = MessageType::AddForce;
 }

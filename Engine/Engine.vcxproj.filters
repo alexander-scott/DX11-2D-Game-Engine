@@ -115,9 +115,6 @@
     <ClInclude Include="ComponentFactory.h">
       <Filter>Engine\GameObject\Components</Filter>
     </ClInclude>
-    <ClInclude Include="UpdateDirectionMessage.h">
-      <Filter>Engine\GameObject\Components\Messages</Filter>
-    </ClInclude>
     <ClInclude Include="AddForceMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
@@ -176,9 +173,6 @@
     </ClCompile>
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>Engine\GameObject\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="UpdateDirectionMessage.cpp">
-      <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClCompile>
     <ClCompile Include="AddForceMessage.cpp">
       <Filter>Engine\GameObject\Components\Messages</Filter>

@@ -10,7 +10,7 @@
 #include "SpriteRendererComponent.h"
 #include <vector>
 
-class SpriteAnimatorComponent : public IComponent, public IDrawable, public IUpdateable, public IMessageable
+class SpriteAnimatorComponent : public IComponent, public IDrawable, public IUpdateable
 {
 public:
 	struct Anim
@@ -56,7 +56,6 @@ public:
 
 	virtual void Draw(Graphics& gfx) override;
 	virtual void Update(float deltaTime) override;
-	virtual void RecieveMessage(IMessage & message) override;
 
 	void SetFilename(std::string fileName) { _fileName = fileName; }
 	void SetAnimations(int currentAnim, std::vector<AnimationDesc> animDescs);

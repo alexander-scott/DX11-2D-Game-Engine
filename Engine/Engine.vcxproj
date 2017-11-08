@@ -156,7 +156,6 @@
     <ClInclude Include="SpriteRendererComponent.h" />
     <ClInclude Include="TextRendererComponent.h" />
     <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="UpdateDirectionMessage.h" />
     <ClInclude Include="WinDefines.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
@@ -188,7 +187,6 @@
     <ClCompile Include="SpriteRendererComponent.cpp" />
     <ClCompile Include="TextRendererComponent.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
-    <ClCompile Include="UpdateDirectionMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

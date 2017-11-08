@@ -4,6 +4,8 @@
 
 RigidBodyComponent::RigidBodyComponent()
 {
+	_type = "Rigidbody";
+
 	velocity.Set(0, 0);
 	angularVelocity = 0;
 	torque = 0;

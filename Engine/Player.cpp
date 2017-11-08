@@ -60,24 +60,3 @@ void Player::Update(float deltaTime)
 			playerAnimator->UpdateAnimationSequence((int)AnimationType::WalkingRight);
 	}
 }
-
-void Player::UpdateDir(Vec2 dir)
-{
-	if (dir.x > 0.0f)
-	{
-		playerRigidBody->ApplyForce(Vec2(-0.000001f, 0));
-	}
-	else if (dir.x < 0.0f)
-	{
-		playerRigidBody->ApplyForce(Vec2(0.000001f, 0));
-	}
-
-	if (dir.y < 0.0f)
-	{
-		playerRigidBody->ApplyForce(Vec2(0, 0.000001f));
-	}
-	else if (dir.y > 0.0f)
-	{
-		playerRigidBody->ApplyForce(Vec2(0, -0.000001f));
-	}
-}
