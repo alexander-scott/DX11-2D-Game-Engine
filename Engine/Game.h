@@ -32,9 +32,6 @@ private:
 
 	FrameTimer ft;
 
-	GameObject* dragon;
-	GameObject* troll;
-
 	Player* player;
 
 	GameObject* guiText;

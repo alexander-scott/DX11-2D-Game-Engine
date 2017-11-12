@@ -8,23 +8,14 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
-	TransformComponent* dragonTransform = ComponentFactory::MakeTransform(Vec2(50, 75));
-	SpriteRendererComponent* dragonSprite = ComponentFactory::MakeSpriteRenderer("Images\\dragon.dds", dragonTransform);
-	dragon = new GameObject();
-	dragon->AddComponent(dragonTransform);
-	dragon->AddComponent(dragonSprite);
-	_gameObjects.push_back(dragon);
+	TransformComponent* pipeTransform = ComponentFactory::MakeTransform(Vec2(200, 200), 0, 0.3);
+	SpriteRendererComponent* pipeSprite = ComponentFactory::MakeSpriteRenderer("Images\\warp_pipe_edited.dds", pipeTransform);
+	GameObject* pipeObj = new GameObject();
+	pipeObj->AddComponent(pipeTransform);
+	pipeObj->AddComponent(pipeSprite);
+	_gameObjects.push_back(pipeObj);
 
-
-	TransformComponent* trollTransform = ComponentFactory::MakeTransform(Vec2(200, 75));
-	SpriteRendererComponent* trollSprite = ComponentFactory::MakeSpriteRenderer("Images\\troll.dds", trollTransform);
-	troll = new GameObject();
-	troll->AddComponent(trollTransform);
-	troll->AddComponent(trollSprite);
-	_gameObjects.push_back(troll);
-
-
-	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20));
+	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
 	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);
 	guiText = new GameObject();
 	guiText->AddComponent(guiTextTransform);

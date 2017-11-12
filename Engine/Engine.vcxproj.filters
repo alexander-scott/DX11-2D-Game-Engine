@@ -136,6 +136,9 @@
     <ClInclude Include="TextRendererComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="BoxColliderComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -174,9 +177,6 @@
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>Engine\GameObject\Components</Filter>
     </ClCompile>
-    <ClCompile Include="AddForceMessage.cpp">
-      <Filter>Engine\GameObject\Components\Messages</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteRendererComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
     </ClCompile>
@@ -194,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="TextRendererComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxColliderComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -14,5 +14,5 @@ SpriteRendererComponent::~SpriteRendererComponent()
 
 void SpriteRendererComponent::Draw(Graphics & gfx)
 {
-	gfx.DrawSpriteDX11(_fileName, GetTransform()->GetPosition(), GetTransform()->GetRotation());
+	gfx.DrawSpriteDX11(_fileName, GetTransform()->GetPosition(), nullptr, GetTransform()->GetRotation(), GetTransform()->GetScale());
 }

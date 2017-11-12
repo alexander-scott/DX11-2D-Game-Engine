@@ -47,8 +47,8 @@ public:
 	void EndFrame();
 	void BeginFrame();
 
-	void DrawSpriteDX11(std::string name, Vec2 pos, float rot);
 	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot);
+	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot, float scale);
 
 	void DrawTextDX11(std::string text, Vec2 pos);
 
