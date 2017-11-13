@@ -72,6 +72,7 @@ void Game::UpdateModel()
 		dir.x -= 0.000001f;
 	}
 
+	// Move the player in the specified direction
 	if (dir.x != 0 || dir.y != 0)
 	{
 		AddForceMessage addForceMsg("Add Force");
@@ -81,9 +82,22 @@ void Game::UpdateModel()
 
 	float deltaTime = ft.Mark();
 
+	// Update gameobjects
 	for (auto go : _gameObjects)
 	{
 		go->Update(deltaTime);
+	}
+
+	// TODO: PHYSICSSS
+	// Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.
+	for (auto go : _gameObjects)
+	{
+		ColliderComponent* goCollider = go->GetComponent<ColliderComponent>();
+
+		if (goCollider != nullptr)
+		{
+
+		}
 	}
 }
 
