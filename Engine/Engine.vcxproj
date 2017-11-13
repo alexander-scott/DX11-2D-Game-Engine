@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
     <ClInclude Include="BoxColliderComponent.h" />
+    <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />

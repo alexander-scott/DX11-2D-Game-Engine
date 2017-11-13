@@ -3,6 +3,8 @@
 #include <map>
 #include <vector>
 
+#include "IEMath.h"
+
 #pragma region Enums
 
 enum AnimationType
@@ -22,6 +24,12 @@ enum MessageType
 {
 	UpdateDirection,
 	AddForce
+};
+
+enum ColliderType 
+{
+	Circle,
+	Square
 };
 
 #pragma endregion
@@ -44,6 +52,27 @@ struct AnimationDesc
 	{
 
 	}
+};
+
+struct Collider {
+
+};
+
+struct AABB : public Collider
+{
+	AABB() : centre(), width(), height() {}
+
+	AABB(const Vec2 & center, const float & wid, const float & hei)
+		: centre(center)
+		, width(wid)
+		, height(hei)
+	{
+
+	}
+
+	Vec2 centre;
+	float width;
+	float height;
 };
 
 #pragma endregion

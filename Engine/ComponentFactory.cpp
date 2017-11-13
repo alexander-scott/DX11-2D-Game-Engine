@@ -38,12 +38,16 @@ SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileN
 	return spriteAnimator;
 }
 
-RigidBodyComponent * ComponentFactory::MakeRigidbody(TransformComponent* transform)
+RigidBodyComponent * ComponentFactory::MakeRigidbody(TransformComponent* transform, bool setStatic)
 {
 	RigidBodyComponent * rigidBody = new RigidBodyComponent();
 	if (transform == nullptr)
 	{
 		throw std::exception("This object requires a transform component.");
+	}
+	if (setStatic)
+	{
+		rigidBody->SetStatic();
 	}
 	rigidBody->SetTransform(transform);
 
@@ -61,4 +65,22 @@ TextRendererComponent * ComponentFactory::MakeTextRenderer(std::string text, Tra
 	textRenderer->SetText(text);
 
 	return textRenderer;
+}
+
+BoxColliderComponent * ComponentFactory::MakeBoxCollider(TransformComponent * transform, RigidBodyComponent * rigidbody, float width, float height)
+{
+	BoxColliderComponent* boxCollider = new BoxColliderComponent();
+	boxCollider->SetAABB(width, height);
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	boxCollider->SetTransformComponent(transform);
+	if (rigidbody == nullptr)
+	{
+		throw std::exception("This object requires a rigidbody component.");
+	}
+	boxCollider->SetRigidbodyComponent(rigidbody);
+
+	return nullptr;
 }

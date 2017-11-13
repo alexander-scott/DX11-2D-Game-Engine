@@ -33,6 +33,4 @@ private:
 	FrameTimer ft;
 
 	Player* player;
-
-	GameObject* guiText;
 };

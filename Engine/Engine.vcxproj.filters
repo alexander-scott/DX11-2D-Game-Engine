@@ -136,6 +136,9 @@
     <ClInclude Include="TextRendererComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="BoxColliderComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClInclude>

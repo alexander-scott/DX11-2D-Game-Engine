@@ -10,14 +10,16 @@ Game::Game(MainWindow& wnd)
 {
 	TransformComponent* pipeTransform = ComponentFactory::MakeTransform(Vec2(200, 200), 0, 0.3);
 	SpriteRendererComponent* pipeSprite = ComponentFactory::MakeSpriteRenderer("Images\\warp_pipe_edited.dds", pipeTransform);
+	RigidBodyComponent* pipeRigidbody = ComponentFactory::MakeRigidbody(pipeTransform, true);
 	GameObject* pipeObj = new GameObject();
 	pipeObj->AddComponent(pipeTransform);
 	pipeObj->AddComponent(pipeSprite);
+	pipeObj->AddComponent(pipeRigidbody);
 	_gameObjects.push_back(pipeObj);
 
 	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
 	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);
-	guiText = new GameObject();
+	GameObject* guiText = new GameObject();
 	guiText->AddComponent(guiTextTransform);
 	guiText->AddComponent(guiTextRenderer);
 	_gameObjects.push_back(guiText);

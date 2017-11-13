@@ -24,8 +24,8 @@ public:
 	void SetStatic();
 
 	Vec2 GetVelocity() { return velocity; }
+	Vec2 GetPosition() { return transformComponent->GetPosition(); }
 
-private:
 	TransformComponent* transformComponent;
 
 	Vec2 velocity;
