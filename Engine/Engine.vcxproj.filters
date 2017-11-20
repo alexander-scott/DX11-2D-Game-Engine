@@ -47,6 +47,9 @@
     <Filter Include="Engine\GameObject\Components\Component Types\Animator">
       <UniqueIdentifier>{8a0a7094-091e-424b-a30e-3fee5e903200}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Physics">
+      <UniqueIdentifier>{43af4fe9-3f6b-4ae2-a36f-dfc532bfb86e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -142,6 +145,9 @@
     <ClInclude Include="BoxColliderComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsManager.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -200,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="BoxColliderComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsManager.cpp">
+      <Filter>Engine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

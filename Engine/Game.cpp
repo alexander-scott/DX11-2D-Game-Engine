@@ -1,4 +1,3 @@
-#include "MainWindow.h"
 #include "Game.h"
 
 #include "AddForceMessage.h"
@@ -7,6 +6,12 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd)
+{
+	InitaliseObjects();
+	InitalisePhysics();
+}
+
+void Game::InitaliseObjects()
 {
 	TransformComponent* pipeTransform = ComponentFactory::MakeTransform(Vec2(200, 200), 0, 0.3);
 	SpriteRendererComponent* pipeSprite = ComponentFactory::MakeSpriteRenderer("Images\\warp_pipe_edited.dds", pipeTransform);
@@ -28,7 +33,22 @@ Game::Game(MainWindow& wnd)
 	_gameObjects.push_back(player);
 }
 
-void Game::Go()
+void Game::InitalisePhysics()
+{
+	// TODO: PHYSICSSS
+	// Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.
+	for (auto go : _gameObjects)
+	{
+		ColliderComponent* goCollider = go->GetComponent<ColliderComponent>();
+
+		if (goCollider != nullptr)
+		{
+
+		}
+	}
+}
+
+void Game::Update()
 {
 	gfx.BeginFrame();
 
@@ -86,18 +106,6 @@ void Game::UpdateModel()
 	for (auto go : _gameObjects)
 	{
 		go->Update(deltaTime);
-	}
-
-	// TODO: PHYSICSSS
-	// Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.
-	for (auto go : _gameObjects)
-	{
-		ColliderComponent* goCollider = go->GetComponent<ColliderComponent>();
-
-		if (goCollider != nullptr)
-		{
-
-		}
 	}
 }
 

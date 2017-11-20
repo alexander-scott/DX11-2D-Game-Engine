@@ -12,7 +12,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 			Game theGame(wnd);
 			while (wnd.ProcessMessage())
 			{
-				theGame.Go();
+				theGame.Update();
 			}
 		}
 		catch (const CustomException& e)

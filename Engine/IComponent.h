@@ -7,7 +7,7 @@ using namespace std;
 class IComponent
 {
 protected:
-	string _type;
+	string			_type;
 
 public:
 	virtual string GetType() { return _type; }

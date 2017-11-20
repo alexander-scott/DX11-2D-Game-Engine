@@ -140,6 +140,7 @@
     <ClInclude Include="AddForceMessage.h" />
     <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
+    <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoxColliderComponent.cpp" />
+    <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="SpriteAnimatorComponent.cpp" />
