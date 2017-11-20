@@ -15,10 +15,12 @@ public:
 	void SetTransformComponent(TransformComponent* trans) { transformComponent = trans; }
 	void SetRigidbodyComponent(RigidBodyComponent* rb) { rigidyBodyComponent = rb; }
 
-	virtual Collider ReturnCollider() = 0;
+	virtual ColliderType GetType(void) const = 0;
+
+	float radius;
+	Mat2 u;
 
 protected:
-	ColliderType colliderType;
 	TransformComponent* transformComponent;
 	RigidBodyComponent* rigidyBodyComponent;
 };

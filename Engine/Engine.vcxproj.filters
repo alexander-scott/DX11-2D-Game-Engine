@@ -142,12 +142,16 @@
     <ClInclude Include="ColliderComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="BoxColliderComponent.h">
-      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsManager.h">
       <Filter>Engine\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="CircleColliderComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Manifold.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonColliderComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -204,12 +208,16 @@
     <ClCompile Include="TextRendererComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="BoxColliderComponent.cpp">
-      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsManager.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="CircleColliderComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Manifold.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonColliderComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

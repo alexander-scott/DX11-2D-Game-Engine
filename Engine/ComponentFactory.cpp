@@ -66,21 +66,3 @@ TextRendererComponent * ComponentFactory::MakeTextRenderer(std::string text, Tra
 
 	return textRenderer;
 }
-
-BoxColliderComponent * ComponentFactory::MakeBoxCollider(TransformComponent * transform, RigidBodyComponent * rigidbody, float width, float height)
-{
-	BoxColliderComponent* boxCollider = new BoxColliderComponent();
-	boxCollider->SetAABB(width, height);
-	if (transform == nullptr)
-	{
-		throw std::exception("This object requires a transform component.");
-	}
-	boxCollider->SetTransformComponent(transform);
-	if (rigidbody == nullptr)
-	{
-		throw std::exception("This object requires a rigidbody component.");
-	}
-	boxCollider->SetRigidbodyComponent(rigidbody);
-
-	return nullptr;
-}
