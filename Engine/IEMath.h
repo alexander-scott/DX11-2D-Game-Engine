@@ -312,8 +312,8 @@ inline bool BiasGreaterThan( real a, real b )
   return a >= b * k_biasRelative + a * k_biasAbsolute;
 }
 
-const f32 gravityScale = 0.0f;
-const Vec2 gravity( 0, 10.0f * gravityScale );
+const f32 gravityScale = 10.0f;
+const Vec2 gravity( 0, 20.0f * gravityScale );
 const float dt = 1.0f / 60.0f;
 
 #endif // IEMATH_H

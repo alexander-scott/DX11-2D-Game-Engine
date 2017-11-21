@@ -14,9 +14,11 @@ public:
 
 	void AddCollider(ColliderComponent* go);
 
-	void Update();
+	void Update(float deltaTime);
 
 private:
+	void IntegrateForces(ColliderComponent* go, float deltaTime);
+	void IntegrateVelocity(ColliderComponent* go, float deltaTime);
 
 	std::vector<ColliderComponent*>			_colliders;
 	std::vector<Manifold>					_contacts;

@@ -52,7 +52,6 @@ void Game::Update()
 {
 	gfx.BeginFrame();
 
-	physicsManager.Update();
 	UpdateModel();
 	ComposeFrame();
 
@@ -102,6 +101,8 @@ void Game::UpdateModel()
 	}
 
 	float deltaTime = ft.Mark();
+
+	physicsManager.Update(deltaTime);
 
 	// Update gameobjects
 	for (auto go : _gameObjects)
