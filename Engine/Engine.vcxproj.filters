@@ -151,7 +151,9 @@
     <ClInclude Include="Manifold.h">
       <Filter>Engine\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonColliderComponent.h" />
+    <ClInclude Include="PolygonColliderComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -217,7 +219,9 @@
     <ClCompile Include="Manifold.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonColliderComponent.cpp" />
+    <ClCompile Include="PolygonColliderComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

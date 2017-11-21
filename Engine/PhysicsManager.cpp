@@ -28,7 +28,7 @@ void PhysicsManager::Update(float deltaTime)
 		for (uint32 j = i + 1; j < _colliders.size(); ++j)
 		{
 			ColliderComponent *B = _colliders[j];
-			if (A->GetRigidbodyComponent()->im == 0 && A->GetRigidbodyComponent()->im == 0)
+			if (A->GetRigidbodyComponent()->im == 0 && B->GetRigidbodyComponent()->im == 0)
 				continue;
 			Manifold m(A, B);
 			m.Solve();
@@ -43,7 +43,7 @@ void PhysicsManager::Update(float deltaTime)
 
 	// Initialize collision
 	for (uint32 i = 0; i < _contacts.size(); ++i)
-		_contacts[i].Initialize();
+		_contacts[i].Initialize(deltaTime);
 
 	// Solve collisions
 	//for (uint32 j = 0; j < m_iterations; ++j)
@@ -55,8 +55,8 @@ void PhysicsManager::Update(float deltaTime)
 		IntegrateVelocity(_colliders[i], deltaTime);
 
 	// Correct positions
-	for (uint32 i = 0; i < _contacts.size(); ++i)
-		_contacts[i].PositionalCorrection();
+	/*for (uint32 i = 0; i < _contacts.size(); ++i)
+		_contacts[i].PositionalCorrection();*/
 
 	// Clear all forces
 	for (uint32 i = 0; i < _colliders.size(); ++i)
@@ -84,5 +84,6 @@ void PhysicsManager::IntegrateVelocity(ColliderComponent * go, float deltaTime)
 	go->GetTransformComponent()->SetPosition(go->GetTransformComponent()->GetPosition() + go->GetRigidbodyComponent()->velocity * deltaTime);
 	go->GetRigidbodyComponent()->orient += go->GetRigidbodyComponent()->angularVelocity * deltaTime;
 	go->GetRigidbodyComponent()->SetOrient(go->GetRigidbodyComponent()->orient);
+	go->SetOrient(go->GetRigidbodyComponent()->orient);
 	IntegrateForces(go, deltaTime);
 }

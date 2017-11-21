@@ -4,14 +4,14 @@
 
 Player::Player()
 {
-	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(350, 75), 0, 1);
+	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(350, 150), 0, 1);
 	std::vector<AnimationDesc> animDescs;
 	animDescs.push_back(AnimationDesc(0, 4, 64, 64, 64, 64, 8, 0.16f)); // Walking
 	animDescs.push_back(AnimationDesc(4, 8, 0, 64, 64, 64, 1, 0.16f)); // Standing
 
 	playerAnimator = ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform, animDescs, (int)AnimationType::StandingDown);
 	playerRigidBody = ComponentFactory::MakeRigidbody(playerTransform, false);
-	playerCollider = ComponentFactory::MakeCircleCollider(1, playerTransform, playerRigidBody);
+	playerCollider = ComponentFactory::MakeCircleCollider(30, playerTransform, playerRigidBody);
 
 	AddComponent(playerTransform);
 	AddComponent(playerAnimator);

@@ -23,7 +23,7 @@ public:
 	int32 Clip(Vec2 n, real c, Vec2 *face);
 
 	void Solve(void);                 // Generate contact information
-	void Initialize(void);            // Precalculations for impulse solving
+	void Initialize(float deltaTime);            // Precalculations for impulse solving
 	void ApplyImpulse(void);          // Solve impulse and apply
 	void PositionalCorrection(void);  // Naive correction of positional penetration
 	void InfiniteMassCorrection(void);

@@ -25,7 +25,7 @@ void Manifold::Solve(void)
 	}
 }
 
-void Manifold::Initialize(void)
+void Manifold::Initialize(float deltaTime)
 {
 	// Calculate average restitution
 	e = std::min(cA->GetRigidbodyComponent()->restitution, cB->GetRigidbodyComponent()->restitution);
@@ -47,7 +47,7 @@ void Manifold::Initialize(void)
 		// Determine if we should perform a resting collision or not
 		// The idea is if the only thing moving this object is gravity,
 		// then the collision should be performed without any restitution
-		if (rv.LenSqr() < (dt * gravity).LenSqr() + EPSILON)
+		if (rv.LenSqr() < (deltaTime * gravity).LenSqr() + EPSILON)
 			e = 0.0f;
 	}
 }
@@ -269,7 +269,7 @@ void Manifold::PolygonToCircle()
 {
 	ColliderComponent* cC = cA;
 	cA = cB;
-	cB = cA;
+	cB = cC;
 	normal = -normal;
 
 	CircleToPolygon();

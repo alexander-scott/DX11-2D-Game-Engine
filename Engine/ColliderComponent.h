@@ -14,6 +14,7 @@ public:
 
 	void SetTransformComponent(TransformComponent* trans) { transformComponent = trans; }
 	void SetRigidbodyComponent(RigidBodyComponent* rb) { rigidyBodyComponent = rb; }
+	void SetOrient(float radians) { u.Set(radians); }
 
 	virtual ColliderType GetType(void) const = 0;
 

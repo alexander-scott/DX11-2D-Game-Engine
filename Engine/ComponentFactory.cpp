@@ -84,3 +84,22 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 
 	return circleCollider;
 }
+
+PolygonColliderComponent * ComponentFactory::MakePolygonCollider(Vec2 * verticies, int vertexCount, TransformComponent * transform, RigidBodyComponent * rigidbody)
+{
+	PolygonColliderComponent * polygonCollider = new PolygonColliderComponent();
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	if (rigidbody == nullptr)
+	{
+		throw std::exception("This object requires a rigidbody component.");
+	}
+	polygonCollider->SetTransformComponent(transform);
+	polygonCollider->SetRigidbodyComponent(rigidbody);
+	polygonCollider->SetVerticies(verticies, vertexCount);
+	polygonCollider->SetOrient(0);
+
+	return polygonCollider;
+}

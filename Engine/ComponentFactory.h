@@ -7,6 +7,7 @@
 #include "TextRendererComponent.h"
 #include "ColliderComponent.h"
 #include "CircleColliderComponent.h"
+#include "PolygonColliderComponent.h"
 
 namespace ComponentFactory
 {
@@ -16,4 +17,5 @@ namespace ComponentFactory
 	RigidBodyComponent * MakeRigidbody(TransformComponent* transform, bool setStatic);
 	TextRendererComponent * MakeTextRenderer(std::string text, TransformComponent* transform);
 	CircleColliderComponent * MakeCircleCollider(float radius, TransformComponent* transform, RigidBodyComponent* rigidbody);
+	PolygonColliderComponent * MakePolygonCollider(Vec2* verticies, int vertexCount, TransformComponent* transform, RigidBodyComponent* rigidbody);
 };

@@ -11,9 +11,9 @@ RigidBodyComponent::RigidBodyComponent()
 	torque = 0;
 	orient = Random(-PI, PI);
 	force.Set(0, 0);
-	staticFriction = 0.5f;
+	staticFriction = 1;
 	dynamicFriction = 0.3f;
-	restitution = 0.2f;
+	restitution = 0.5f;
 }
 
 

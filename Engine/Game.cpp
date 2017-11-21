@@ -13,13 +13,23 @@ Game::Game(MainWindow& wnd)
 
 void Game::InitaliseObjects()
 {
-	TransformComponent* pipeTransform = ComponentFactory::MakeTransform(Vec2(200, 200), 0, 0.3);
+	TransformComponent* pipeTransform = ComponentFactory::MakeTransform(Vec2(350, 200), 0, 0.3);
 	SpriteRendererComponent* pipeSprite = ComponentFactory::MakeSpriteRenderer("Images\\warp_pipe_edited.dds", pipeTransform);
 	RigidBodyComponent* pipeRigidbody = ComponentFactory::MakeRigidbody(pipeTransform, true);
+
+	Vec2 *vertices = new Vec2[4];
+	vertices[0].Set(5, 5);
+	vertices[1].Set(-5, 5);
+	vertices[2].Set(5, -5);
+	vertices[3].Set(-5, -5);
+
+	PolygonColliderComponent * pipeCollider = ComponentFactory::MakePolygonCollider(vertices, 4, pipeTransform, pipeRigidbody);
+
 	GameObject* pipeObj = new GameObject();
 	pipeObj->AddComponent(pipeTransform);
 	pipeObj->AddComponent(pipeSprite);
 	pipeObj->AddComponent(pipeRigidbody);
+	pipeObj->AddComponent(pipeCollider);
 	_gameObjects.push_back(pipeObj);
 
 	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
