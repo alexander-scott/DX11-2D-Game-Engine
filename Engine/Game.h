@@ -10,6 +10,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "MainWindow.h"
+#include "PhysicsManager.h"
 
 class Game
 {
@@ -32,6 +33,8 @@ private:
 	MainWindow& wnd;
 	Graphics gfx;
 	FrameTimer ft;
+
+	PhysicsManager physicsManager;
 
 	std::vector<GameObject*> _gameObjects;
 

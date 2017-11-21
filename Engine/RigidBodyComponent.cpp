@@ -21,23 +21,6 @@ RigidBodyComponent::~RigidBodyComponent()
 {
 }
 
-void RigidBodyComponent::Update(float deltaTime)
-{
-	if (im == 0.0f)
-		return;
-
-	velocity *= 0.75f;
-	force *= 0.95f;
-
-	transformComponent->SetPosition(transformComponent->GetPosition() + velocity * dt);
-
-	orient += angularVelocity * dt;
-	SetOrient(orient);
-
-	velocity += (force * im + gravity) * (dt / 2.0f);
-	angularVelocity += torque * iI * (dt / 2.0f);
-}
-
 void RigidBodyComponent::RecieveMessage(IMessage & message)
 {
 	switch (message.GetType())

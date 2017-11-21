@@ -14,5 +14,6 @@ public:
 private:
 	RigidBodyComponent* playerRigidBody;
 	SpriteAnimatorComponent* playerAnimator;
+	CircleColliderComponent* playerCollider;
 };
 

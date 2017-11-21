@@ -6,13 +6,12 @@
 
 #include "TransformComponent.h"
 
-class RigidBodyComponent : public IComponent, public IUpdateable, public IMessageable
+class RigidBodyComponent : public IComponent, public IMessageable
 {
 public:
 	RigidBodyComponent();
 	~RigidBodyComponent();
 
-	virtual void Update(float deltaTime) override;
 	virtual void RecieveMessage(IMessage& message) override;
 
 	void SetTransform(TransformComponent* transform) { transformComponent = transform; }

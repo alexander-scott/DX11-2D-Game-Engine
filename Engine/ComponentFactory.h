@@ -6,6 +6,7 @@
 #include "RigidBodyComponent.h"
 #include "TextRendererComponent.h"
 #include "ColliderComponent.h"
+#include "CircleColliderComponent.h"
 
 namespace ComponentFactory
 {
@@ -14,4 +15,5 @@ namespace ComponentFactory
 	SpriteAnimatorComponent * MakeSpriteAnimator(std::string fileName, TransformComponent* transform, std::vector<AnimationDesc> animDescs, int currentAnim);
 	RigidBodyComponent * MakeRigidbody(TransformComponent* transform, bool setStatic);
 	TextRendererComponent * MakeTextRenderer(std::string text, TransformComponent* transform);
+	CircleColliderComponent * MakeCircleCollider(float radius, TransformComponent* transform, RigidBodyComponent* rigidbody);
 };

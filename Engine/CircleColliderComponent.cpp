@@ -4,6 +4,7 @@
 
 CircleColliderComponent::CircleColliderComponent()
 {
+	_type = "Circle Collider";
 }
 
 

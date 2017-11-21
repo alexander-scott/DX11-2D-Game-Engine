@@ -43,7 +43,7 @@ void Game::InitalisePhysics()
 
 		if (goCollider != nullptr)
 		{
-
+			physicsManager.AddCollider(goCollider);
 		}
 	}
 }
@@ -52,6 +52,7 @@ void Game::Update()
 {
 	gfx.BeginFrame();
 
+	physicsManager.Update();
 	UpdateModel();
 	ComposeFrame();
 

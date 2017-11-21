@@ -66,3 +66,21 @@ TextRendererComponent * ComponentFactory::MakeTextRenderer(std::string text, Tra
 
 	return textRenderer;
 }
+
+CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, TransformComponent * transform, RigidBodyComponent * rigidbody)
+{
+	CircleColliderComponent * circleCollider = new CircleColliderComponent();
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	if (rigidbody == nullptr)
+	{
+		throw std::exception("This object requires a rigidbody component.");
+	}
+	circleCollider->SetTransformComponent(transform);
+	circleCollider->SetRigidbodyComponent(rigidbody);
+	circleCollider->SetRadius(radius);
+
+	return circleCollider;
+}

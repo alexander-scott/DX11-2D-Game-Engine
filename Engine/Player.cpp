@@ -11,10 +11,12 @@ Player::Player()
 
 	playerAnimator = ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform, animDescs, (int)AnimationType::StandingDown);
 	playerRigidBody = ComponentFactory::MakeRigidbody(playerTransform, false);
+	playerCollider = ComponentFactory::MakeCircleCollider(1, playerTransform, playerRigidBody);
 
 	AddComponent(playerTransform);
 	AddComponent(playerAnimator);
 	AddComponent(playerRigidBody);
+	AddComponent(playerCollider);
 }
 
 
