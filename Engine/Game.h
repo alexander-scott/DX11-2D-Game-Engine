@@ -8,9 +8,11 @@
 #include "FrameTimer.h"
 #include "ComponentFactory.h"
 #include "GameObject.h"
-#include "Player.h"
 #include "MainWindow.h"
 #include "PhysicsManager.h"
+
+#include "Player.h"
+#include "WorldTile.h"
 
 class Game
 {

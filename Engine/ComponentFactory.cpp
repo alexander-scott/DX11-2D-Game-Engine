@@ -94,5 +94,7 @@ PolygonColliderComponent * ComponentFactory::MakePolygonCollider(Vec2 * verticie
 	polygonCollider->SetVerticies(verticies, vertexCount);
 	polygonCollider->SetOrient(0);
 
+	delete verticies;
+
 	return polygonCollider;
 }

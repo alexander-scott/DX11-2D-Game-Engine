@@ -228,6 +228,9 @@
     <ClCompile Include="PolygonColliderComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="WorldTile.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

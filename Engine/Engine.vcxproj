@@ -196,6 +196,7 @@
     <ClCompile Include="SpriteRendererComponent.cpp" />
     <ClCompile Include="TextRendererComponent.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="WorldTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
