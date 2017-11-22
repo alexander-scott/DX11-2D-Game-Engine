@@ -6,14 +6,16 @@ RigidBodyComponent::RigidBodyComponent()
 {
 	_type = "Rigidbody";
 
-	velocity.Set(0, 0);
-	angularVelocity = 0;
-	torque = 0;
-	orient = Random(-PI, PI);
-	force.Set(0, 0);
-	staticFriction = 1;
-	dynamicFriction = 0.3f;
-	restitution = 0.5f;
+	rigidbodyData = RigidBodyData(Vec2(0,0), 0, 0, 0, Vec2(0,0), 0, 0, 0);
+	
+	rigidbodyData.velocity.Set(0, 0);
+	rigidbodyData.angularVelocity = 0;
+	rigidbodyData.torque = 0;
+	rigidbodyData.orient = Random(-PI, PI);
+	rigidbodyData.force.Set(0, 0);
+	rigidbodyData.staticFriction = 1;
+	rigidbodyData.dynamicFriction = 0.3f;
+	rigidbodyData.restitution = 0;
 }
 
 
@@ -32,26 +34,21 @@ void RigidBodyComponent::RecieveMessage(IMessage & message)
 	}
 }
 
-void RigidBodyComponent::SetOrient(float radians)
-{
-	orient = radians;
-}
-
 void RigidBodyComponent::ApplyForce(const Vec2& f)
 {
-	force += f;
+	rigidbodyData.force += f;
 }
 
 void RigidBodyComponent::ApplyImpulse(const Vec2 & impulse, const Vec2 & contactVector)
 {
-	velocity += im * impulse;
-	angularVelocity += iI * Cross(contactVector, impulse);
+	rigidbodyData.velocity += rigidbodyData.inverseMass * impulse;
+	rigidbodyData.angularVelocity += rigidbodyData.inverseInertia * Cross(contactVector, impulse);
 }
 
 void RigidBodyComponent::SetStatic()
 {
-	I = 0.0f;
-	iI = 0.0f;
-	m = 0.0f;
-	im = 0.0f;
+	rigidbodyData.intertia = 0.0f;
+	rigidbodyData.inverseInertia = 0.0f;
+	rigidbodyData.mass = 0.0f;
+	rigidbodyData.inverseMass = 0.0f;
 }

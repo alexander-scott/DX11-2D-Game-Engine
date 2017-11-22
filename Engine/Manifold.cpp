@@ -5,7 +5,7 @@ Manifold::~Manifold()
 {
 }
 
-void Manifold::Solve(void)
+void Manifold::Solve()
 {
 	if (cA->GetType() == ColliderType::eCircle && cB->GetType() == ColliderType::eCircle) // Circle to circle
 	{
@@ -28,81 +28,82 @@ void Manifold::Solve(void)
 void Manifold::Initialize(float deltaTime)
 {
 	// Calculate average restitution
-	e = std::min(cA->GetRigidbodyComponent()->restitution, cB->GetRigidbodyComponent()->restitution);
+	_mixedRestitution = std::min(cA->GetRigidbodyComponent()->GetRestitution(), cB->GetRigidbodyComponent()->GetRestitution());
 
 	// Calculate static and dynamic friction
-	sf = std::sqrt(cA->GetRigidbodyComponent()->staticFriction * cB->GetRigidbodyComponent()->staticFriction);
-	df = std::sqrt(cA->GetRigidbodyComponent()->dynamicFriction * cB->GetRigidbodyComponent()->dynamicFriction);
+	_mixedStaticFriction = std::sqrt(cA->GetRigidbodyComponent()->GetStaticFriction() * cB->GetRigidbodyComponent()->GetStaticFriction());
+	_mixedDynamicFriction = std::sqrt(cA->GetRigidbodyComponent()->GetDynamicFriction() * cB->GetRigidbodyComponent()->GetDynamicFriction());
 
-	for (uint32 i = 0; i < contact_count; ++i)
+	for (int i = 0; i < _contactCount; ++i)
 	{
 		// Calculate radii from COM to contact
-		Vec2 ra = contacts[i] - cA->GetTransformComponent()->GetPosition();
-		Vec2 rb = contacts[i] - cB->GetTransformComponent()->GetPosition();
+		Vec2 ra = _contacts[i] - cA->GetTransformComponent()->GetPosition();
+		Vec2 rb = _contacts[i] - cB->GetTransformComponent()->GetPosition();
 
-		Vec2 rv = cB->GetRigidbodyComponent()->velocity + Cross(cB->GetRigidbodyComponent()->angularVelocity, rb) -
-			cA->GetRigidbodyComponent()->velocity - Cross(cA->GetRigidbodyComponent()->angularVelocity, ra);
+		Vec2 rv = cB->GetRigidbodyComponent()->GetVelocity() + Cross(cB->GetRigidbodyComponent()->GetAngularVelocity(), rb) -
+			cA->GetRigidbodyComponent()->GetVelocity() - Cross(cA->GetRigidbodyComponent()->GetAngularVelocity(), ra);
 
 
 		// Determine if we should perform a resting collision or not
 		// The idea is if the only thing moving this object is gravity,
 		// then the collision should be performed without any restitution
 		if (rv.LenSqr() < (deltaTime * gravity).LenSqr() + EPSILON)
-			e = 0.0f;
+			_mixedRestitution = 0.0f;
 	}
 }
 
-void Manifold::ApplyImpulse(void)
+void Manifold::ApplyImpulse()
 {
 	// Early out and positional correct if both objects have infinite mass
-	if (Equal(cA->GetRigidbodyComponent()->im + cB->GetRigidbodyComponent()->im, 0))
+	if (Equal(cA->GetRigidbodyComponent()->GetInverseMass() + cB->GetRigidbodyComponent()->GetInverseMass(), 0))
 	{
 		InfiniteMassCorrection();
 		return;
 	}
 
-	for (uint32 i = 0; i < contact_count; ++i)
+	for (int i = 0; i < _contactCount; ++i)
 	{
 		// Calculate radii from COM to contact
-		Vec2 ra = contacts[i] - cA->GetTransformComponent()->GetPosition();
-		Vec2 rb = contacts[i] - cB->GetTransformComponent()->GetPosition();
+		Vec2 ra = _contacts[i] - cA->GetTransformComponent()->GetPosition();
+		Vec2 rb = _contacts[i] - cB->GetTransformComponent()->GetPosition();
 
 		// Relative velocity
-		Vec2 rv = cB->GetRigidbodyComponent()->velocity + Cross(cB->GetRigidbodyComponent()->angularVelocity, rb) -
-			cA->GetRigidbodyComponent()->velocity - Cross(cA->GetRigidbodyComponent()->angularVelocity, ra);
+		Vec2 rv = cB->GetRigidbodyComponent()->GetVelocity() + Cross(cB->GetRigidbodyComponent()->GetAngularVelocity(), rb) -
+			cA->GetRigidbodyComponent()->GetVelocity() - Cross(cA->GetRigidbodyComponent()->GetAngularVelocity(), ra);
 
 		// Relative velocity along the normal
-		float contactVel = Dot(rv, normal);
+		float contactVel = Dot(rv, _normal);
 
 		// Do not resolve if velocities are separating
 		if (contactVel > 0)
 			return;
 
-		float raCrossN = Cross(ra, normal);
-		float rbCrossN = Cross(rb, normal);
-		float invMassSum = cA->GetRigidbodyComponent()->im + cB->GetRigidbodyComponent()->im + Sqr(raCrossN) * cA->GetRigidbodyComponent()->iI + Sqr(rbCrossN) * cB->GetRigidbodyComponent()->iI;
+		float raCrossN = Cross(ra, _normal);
+		float rbCrossN = Cross(rb, _normal);
+		float invMassSum = cA->GetRigidbodyComponent()->GetInverseMass() + cB->GetRigidbodyComponent()->GetInverseMass() + 
+			Sqr(raCrossN) * cA->GetRigidbodyComponent()->GetInverseIntertia() + Sqr(rbCrossN) * cB->GetRigidbodyComponent()->GetInverseIntertia();
 
 		// Calculate impulse scalar
-		float j = -(1.0f + e) * contactVel;
+		float j = -(1.0f + _mixedRestitution) * contactVel;
 		j /= invMassSum;
-		j /= (float)contact_count;
+		j /= (float)_contactCount;
 
 		// Apply impulse
-		Vec2 impulse = normal * j;
+		Vec2 impulse = _normal * j;
 		cA->GetRigidbodyComponent()->ApplyImpulse(-impulse, ra);
 		cB->GetRigidbodyComponent()->ApplyImpulse(impulse, rb);
 
 		// Friction impulse
-		rv = cB->GetRigidbodyComponent()->velocity + Cross(cB->GetRigidbodyComponent()->angularVelocity, rb) -
-			cA->GetRigidbodyComponent()->velocity - Cross(cA->GetRigidbodyComponent()->angularVelocity, ra);
+		rv = cB->GetRigidbodyComponent()->GetVelocity() + Cross(cB->GetRigidbodyComponent()->GetAngularVelocity(), rb) -
+			cA->GetRigidbodyComponent()->GetVelocity() - Cross(cA->GetRigidbodyComponent()->GetAngularVelocity(), ra);
 
-		Vec2 t = rv - (normal * Dot(rv, normal));
+		Vec2 t = rv - (_normal * Dot(rv, _normal));
 		t.Normalize();
 
 		// j tangent magnitude
 		float jt = -Dot(rv, t);
 		jt /= invMassSum;
-		jt /= (float)contact_count;
+		jt /= (float)_contactCount;
 
 		// Don't apply tiny friction impulses
 		if (Equal(jt, 0.0f))
@@ -110,10 +111,10 @@ void Manifold::ApplyImpulse(void)
 
 		// Coulumb's law
 		Vec2 tangentImpulse;
-		if (std::abs(jt) < j * sf)
+		if (std::abs(jt) < j * _mixedStaticFriction)
 			tangentImpulse = t * jt;
 		else
-			tangentImpulse = t * -j * df;
+			tangentImpulse = t * -j * _mixedDynamicFriction;
 
 		// Apply friction impulse
 		cA->GetRigidbodyComponent()->ApplyImpulse(-tangentImpulse, ra);
@@ -121,19 +122,19 @@ void Manifold::ApplyImpulse(void)
 	}
 }
 
-void Manifold::PositionalCorrection(void)
+void Manifold::PositionalCorrection()
 {
 	const float k_slop = 0.05f; // Penetration allowance
 	const float percent = 0.4f; // Penetration percentage to correct
-	Vec2 correction = (std::max(penetration - k_slop, 0.0f) / (cA->GetRigidbodyComponent()->im + cB->GetRigidbodyComponent()->im)) * normal * percent;
-	cA->GetTransformComponent()->SetPosition(cA->GetTransformComponent()->GetPosition() - correction * cA->GetRigidbodyComponent()->im);
-	cB->GetTransformComponent()->SetPosition(cB->GetTransformComponent()->GetPosition() + correction * cB->GetRigidbodyComponent()->im);
+	Vec2 correction = (std::max(_penetration - k_slop, 0.0f) / (cA->GetRigidbodyComponent()->GetInverseMass() + cB->GetRigidbodyComponent()->GetInverseMass())) * _normal * percent;
+	cA->GetTransformComponent()->SetPosition(cA->GetTransformComponent()->GetPosition() - correction * cA->GetRigidbodyComponent()->GetInverseMass());
+	cB->GetTransformComponent()->SetPosition(cB->GetTransformComponent()->GetPosition() + correction * cB->GetRigidbodyComponent()->GetInverseMass());
 }
 
-void Manifold::InfiniteMassCorrection(void)
+void Manifold::InfiniteMassCorrection()
 {
-	cA->GetRigidbodyComponent()->velocity = Vec2(0, 0);
-	cB->GetRigidbodyComponent()->velocity = Vec2(0, 0);
+	cA->GetRigidbodyComponent()->SetVelocity(Vec2(0, 0));
+	cB->GetRigidbodyComponent()->SetVelocity(Vec2(0, 0));
 }
 
 void Manifold::CircletoCircle()
@@ -142,33 +143,33 @@ void Manifold::CircletoCircle()
 	CircleColliderComponent *B = reinterpret_cast<CircleColliderComponent *>(cB);
 
 	// Calculate translational vector, which is normal
-	Vec2 normal = B->GetTransformComponent()->GetPosition() - A->GetTransformComponent()->GetPosition();
+	Vec2 _normal = B->GetTransformComponent()->GetPosition() - A->GetTransformComponent()->GetPosition();
 
-	float dist_sqr = normal.LenSqr();
+	float dist_sqr = _normal.LenSqr();
 	float radius = A->GetRadius() + B->GetRadius();
 
 	// Not in contact
 	if (dist_sqr >= radius * radius)
 	{
-		contact_count = 0;
+		_contactCount = 0;
 		return;
 	}
 
-	real distance = std::sqrt(dist_sqr);
+	float distance = std::sqrt(dist_sqr);
 
-	contact_count = 1;
+	_contactCount = 1;
 
 	if (distance == 0.0f)
 	{
-		penetration = A->GetRadius();
-		normal = Vec2(1, 0);
-		contacts[0] = A->GetTransformComponent()->GetPosition();
+		_penetration = A->GetRadius();
+		_normal = Vec2(1, 0);
+		_contacts[0] = A->GetTransformComponent()->GetPosition();
 	}
 	else
 	{
-		penetration = radius - distance;
-		normal = normal / distance; // Faster than using Normalized since we already performed sqrt
-		contacts[0] = normal * A->GetRadius() + A->GetTransformComponent()->GetPosition();
+		_penetration = radius - distance;
+		_normal = _normal / distance; // Faster than using Normalized since we already performed sqrt
+		_contacts[0] = _normal * A->GetRadius() + A->GetTransformComponent()->GetPosition();
 	}
 }
 
@@ -177,19 +178,19 @@ void Manifold::CircleToPolygon()
 	CircleColliderComponent *A = reinterpret_cast<CircleColliderComponent *>(cA);
 	PolygonColliderComponent *B = reinterpret_cast<PolygonColliderComponent *>(cB);
 
-	contact_count = 0;
+	_contactCount = 0;
 
 	// Transform circle center to Polygon model space
 	Vec2 center = cA->GetTransformComponent()->GetPosition();
-	center = cB->u.Transpose() * (center - cB->GetTransformComponent()->GetPosition());
+	center = cB->orientationMatrix.Transpose() * (center - cB->GetTransformComponent()->GetPosition());
 
 	// Find edge with minimum penetration
 	// Exact concept as using support points in Polygon vs Polygon
-	real separation = -FLT_MAX;
-	uint32 faceNormal = 0;
-	for (uint32 i = 0; i < B->m_vertexCount; ++i)
+	float separation = -FLT_MAX;
+	int faceNormal = 0;
+	for (int i = 0; i < B->m_vertexCount; ++i)
 	{
-		real s = Dot(B->m_normals[i], center - B->m_vertices[i]);
+		float s = Dot(B->m_normals[i], center - B->m_vertices[i]);
 
 		if (s > A->radius)
 			return;
@@ -203,23 +204,23 @@ void Manifold::CircleToPolygon()
 
 	// Grab face's vertices
 	Vec2 v1 = B->m_vertices[faceNormal];
-	uint32 i2 = faceNormal + 1 < B->m_vertexCount ? faceNormal + 1 : 0;
+	int i2 = faceNormal + 1 < B->m_vertexCount ? faceNormal + 1 : 0;
 	Vec2 v2 = B->m_vertices[i2];
 
 	// Check to see if center is within polygon
 	if (separation < EPSILON)
 	{
-		contact_count = 1;
-		normal = -(B->u * B->m_normals[faceNormal]);
-		contacts[0] = normal * A->radius + cA->GetTransformComponent()->GetPosition();
-		penetration = A->radius;
+		_contactCount = 1;
+		_normal = -(B->orientationMatrix * B->m_normals[faceNormal]);
+		_contacts[0] = _normal * A->radius + cA->GetTransformComponent()->GetPosition();
+		_penetration = A->radius;
 		return;
 	}
 
 	// Determine which voronoi region of the edge center of circle lies within
-	real dot1 = Dot(center - v1, v2 - v1);
-	real dot2 = Dot(center - v2, v1 - v2);
-	penetration = A->radius - separation;
+	float dot1 = Dot(center - v1, v2 - v1);
+	float dot2 = Dot(center - v2, v1 - v2);
+	_penetration = A->radius - separation;
 
 	// Closest to v1
 	if (dot1 <= 0.0f)
@@ -227,13 +228,13 @@ void Manifold::CircleToPolygon()
 		if (DistSqr(center, v1) > A->radius * A->radius)
 			return;
 
-		contact_count = 1;
+		_contactCount = 1;
 		Vec2 n = v1 - center;
-		n = B->u * n;
+		n = B->orientationMatrix * n;
 		n.Normalize();
-		normal = n;
-		v1 = B->u * v1 + cB->GetTransformComponent()->GetPosition();
-		contacts[0] = v1;
+		_normal = n;
+		v1 = B->orientationMatrix * v1 + cB->GetTransformComponent()->GetPosition();
+		_contacts[0] = v1;
 	}
 
 	// Closest to v2
@@ -242,13 +243,13 @@ void Manifold::CircleToPolygon()
 		if (DistSqr(center, v2) > A->radius * A->radius)
 			return;
 
-		contact_count = 1;
+		_contactCount = 1;
 		Vec2 n = v2 - center;
-		v2 = B->u * v2 + cB->GetTransformComponent()->GetPosition();
-		contacts[0] = v2;
-		n = B->u * n;
+		v2 = B->orientationMatrix * v2 + cB->GetTransformComponent()->GetPosition();
+		_contacts[0] = v2;
+		n = B->orientationMatrix * n;
 		n.Normalize();
-		normal = n;
+		_normal = n;
 	}
 
 	// Closest to face
@@ -258,10 +259,10 @@ void Manifold::CircleToPolygon()
 		if (Dot(center - v1, n) > A->radius)
 			return;
 
-		n = B->u * n;
-		normal = -n;
-		contacts[0] = normal * A->radius + cA->GetTransformComponent()->GetPosition();
-		contact_count = 1;
+		n = B->orientationMatrix * n;
+		_normal = -n;
+		_contacts[0] = _normal * A->radius + cA->GetTransformComponent()->GetPosition();
+		_contactCount = 1;
 	}
 }
 
@@ -270,7 +271,7 @@ void Manifold::PolygonToCircle()
 	ColliderComponent* cC = cA;
 	cA = cB;
 	cB = cC;
-	normal = -normal;
+	_normal = -_normal;
 
 	CircleToPolygon();
 }
@@ -279,27 +280,27 @@ void Manifold::PolygonToPolygon()
 {
 	PolygonColliderComponent *A = reinterpret_cast<PolygonColliderComponent *>(cA);
 	PolygonColliderComponent *B = reinterpret_cast<PolygonColliderComponent *>(cB);
-	contact_count = 0;
+	_contactCount = 0;
 
 	// Check for a separating axis with A's face planes
-	uint32 faceA;
-	real penetrationA = FindAxisLeastPenetration(&faceA, A, B);
+	int faceA;
+	float penetrationA = FindAxisLeastPenetration(&faceA, A, B);
 	if (penetrationA >= 0.0f)
 		return;
 
 	// Check for a separating axis with B's face planes
-	uint32 faceB;
-	real penetrationB = FindAxisLeastPenetration(&faceB, B, A);
+	int faceB;
+	float penetrationB = FindAxisLeastPenetration(&faceB, B, A);
 	if (penetrationB >= 0.0f)
 		return;
 
-	uint32 referenceIndex;
+	int referenceIndex;
 	bool flip; // Always point from a to b
 
 	PolygonColliderComponent *RefPoly; // Reference
 	PolygonColliderComponent *IncPoly; // Incident
 
-						   // Determine which shape contains reference face
+	// Determine which shape contains reference face
 	if (BiasGreaterThan(penetrationA, penetrationB))
 	{
 		RefPoly = A;
@@ -339,8 +340,8 @@ void Manifold::PolygonToPolygon()
 	Vec2 v2 = RefPoly->m_vertices[referenceIndex];
 
 	// Transform vertices to world space
-	v1 = RefPoly->u * v1 + RefPoly->GetTransformComponent()->GetPosition();
-	v2 = RefPoly->u * v2 + RefPoly->GetTransformComponent()->GetPosition();
+	v1 = RefPoly->orientationMatrix * v1 + RefPoly->GetTransformComponent()->GetPosition();
+	v2 = RefPoly->orientationMatrix * v2 + RefPoly->GetTransformComponent()->GetPosition();
 
 	// Calculate reference face side normal in world space
 	Vec2 sidePlaneNormal = (v2 - v1);
@@ -351,9 +352,9 @@ void Manifold::PolygonToPolygon()
 
 	// ax + by = c
 	// c is distance from origin
-	real refC = Dot(refFaceNormal, v1);
-	real negSide = -Dot(sidePlaneNormal, v1);
-	real posSide = Dot(sidePlaneNormal, v2);
+	float refC = Dot(refFaceNormal, v1);
+	float negSide = -Dot(sidePlaneNormal, v1);
+	float posSide = Dot(sidePlaneNormal, v2);
 
 	// Clip incident face to reference face side planes
 	if (Clip(-sidePlaneNormal, negSide, incidentFace) < 2)
@@ -362,49 +363,49 @@ void Manifold::PolygonToPolygon()
 	if (Clip(sidePlaneNormal, posSide, incidentFace) < 2)
 		return; // Due to floating point error, possible to not have required points
 
-				// Flip
-	normal = flip ? -refFaceNormal : refFaceNormal;
+	// Flip
+	_normal = flip ? -refFaceNormal : refFaceNormal;
 
 	// Keep points behind reference face
-	uint32 cp = 0; // clipped points behind reference face
-	real separation = Dot(refFaceNormal, incidentFace[0]) - refC;
+	int cp = 0; // clipped points behind reference face
+	float separation = Dot(refFaceNormal, incidentFace[0]) - refC;
 	if (separation <= 0.0f)
 	{
-		contacts[cp] = incidentFace[0];
-		penetration = -separation;
+		_contacts[cp] = incidentFace[0];
+		_penetration = -separation;
 		++cp;
 	}
 	else
-		penetration = 0;
+		_penetration = 0;
 
 	separation = Dot(refFaceNormal, incidentFace[1]) - refC;
 	if (separation <= 0.0f)
 	{
-		contacts[cp] = incidentFace[1];
+		_contacts[cp] = incidentFace[1];
 
-		penetration += -separation;
+		_penetration += -separation;
 		++cp;
 
 		// Average penetration
-		penetration /= (real)cp;
+		_penetration /= (float)cp;
 	}
 
-	contact_count = cp;
+	_contactCount = cp;
 }
 
-float Manifold::FindAxisLeastPenetration(uint32 * faceIndex, PolygonColliderComponent * A, PolygonColliderComponent * B)
+float Manifold::FindAxisLeastPenetration(int * faceIndex, PolygonColliderComponent * A, PolygonColliderComponent * B)
 {
-	real bestDistance = -100000;
-	uint32 bestIndex;
+	float bestDistance = -100000;
+	int bestIndex;
 
-	for (uint32 i = 0; i < A->m_vertexCount; ++i)
+	for (int i = 0; i < A->m_vertexCount; ++i)
 	{
 		// Retrieve a face normal from A
 		Vec2 n = A->m_normals[i];
-		Vec2 nw = A->u * n;
+		Vec2 nw = A->orientationMatrix * n;
 
 		// Transform face normal into B's model space
-		Mat2 buT = B->u.Transpose();
+		Mat2 buT = B->orientationMatrix.Transpose();
 		n = buT * nw;
 
 		// Retrieve support point from B along -n
@@ -413,12 +414,12 @@ float Manifold::FindAxisLeastPenetration(uint32 * faceIndex, PolygonColliderComp
 		// Retrieve vertex on face from A, transform into
 		// B's model space
 		Vec2 v = A->m_vertices[i];
-		v = A->u * v + A->GetTransformComponent()->GetPosition();
+		v = A->orientationMatrix * v + A->GetTransformComponent()->GetPosition();
 		v -= B->GetTransformComponent()->GetPosition();
 		v = buT * v;
 
 		// Compute penetration distance (in B's model space)
-		real d = Dot(n, s - v);
+		float d = Dot(n, s - v);
 
 		// Store greatest distance
 		if (d > bestDistance)
@@ -432,20 +433,20 @@ float Manifold::FindAxisLeastPenetration(uint32 * faceIndex, PolygonColliderComp
 	return bestDistance;
 }
 
-void Manifold::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, PolygonColliderComponent * IncPoly, uint32 referenceIndex)
+void Manifold::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, PolygonColliderComponent * IncPoly, int referenceIndex)
 {
 	Vec2 referenceNormal = RefPoly->m_normals[referenceIndex];
 
 	// Calculate normal in incident's frame of reference
-	referenceNormal = RefPoly->u * referenceNormal; // To world space
-	referenceNormal = IncPoly->u.Transpose() * referenceNormal; // To incident's model space
+	referenceNormal = RefPoly->orientationMatrix * referenceNormal; // To world space
+	referenceNormal = IncPoly->orientationMatrix.Transpose() * referenceNormal; // To incident's model space
 
-																// Find most anti-normal face on incident polygon
-	int32 incidentFace = 0;
-	real minDot = FLT_MAX;
-	for (uint32 i = 0; i < IncPoly->m_vertexCount; ++i)
+	// Find most anti-normal face on incident polygon
+	int incidentFace = 0;
+	float minDot = FLT_MAX;
+	for (int i = 0; i < IncPoly->m_vertexCount; ++i)
 	{
-		real dot = Dot(referenceNormal, IncPoly->m_normals[i]);
+		float dot = Dot(referenceNormal, IncPoly->m_normals[i]);
 		if (dot < minDot)
 		{
 			minDot = dot;
@@ -454,14 +455,14 @@ void Manifold::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, Po
 	}
 
 	// Assign face vertices for incidentFace
-	v[0] = IncPoly->u * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
-	incidentFace = incidentFace + 1 >= (int32)IncPoly->m_vertexCount ? 0 : incidentFace + 1;
-	v[1] = IncPoly->u * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
+	v[0] = IncPoly->orientationMatrix * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
+	incidentFace = incidentFace + 1 >= (int)IncPoly->m_vertexCount ? 0 : incidentFace + 1;
+	v[1] = IncPoly->orientationMatrix * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
 }
 
-int32 Manifold::Clip(Vec2 n, real c, Vec2 * face)
+int Manifold::Clip(Vec2 n, float c, Vec2 * face)
 {
-	uint32 sp = 0;
+	int sp = 0;
 	Vec2 out[2] = {
 		face[0],
 		face[1]
@@ -469,8 +470,8 @@ int32 Manifold::Clip(Vec2 n, real c, Vec2 * face)
 
 	// Retrieve distances from each endpoint to the line
 	// d = ax + by - c
-	real d1 = Dot(n, face[0]) - c;
-	real d2 = Dot(n, face[1]) - c;
+	float d1 = Dot(n, face[0]) - c;
+	float d2 = Dot(n, face[1]) - c;
 
 	// If negative (behind plane) clip
 	if (d1 <= 0.0f) out[sp++] = face[0];
@@ -480,7 +481,7 @@ int32 Manifold::Clip(Vec2 n, real c, Vec2 * face)
 	if (d1 * d2 < 0.0f) // less than to ignore -0.0f
 	{
 		// Push interesection point
-		real alpha = d1 / (d1 - d2);
+		float alpha = d1 / (d1 - d2);
 		out[sp] = face[0] + alpha * (face[1] - face[0]);
 		++sp;
 	}

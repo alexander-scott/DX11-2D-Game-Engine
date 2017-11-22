@@ -38,18 +38,13 @@ SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileN
 	return spriteAnimator;
 }
 
-RigidBodyComponent * ComponentFactory::MakeRigidbody(TransformComponent* transform, bool setStatic)
+RigidBodyComponent * ComponentFactory::MakeRigidbody(bool setStatic)
 {
 	RigidBodyComponent * rigidBody = new RigidBodyComponent();
-	if (transform == nullptr)
-	{
-		throw std::exception("This object requires a transform component.");
-	}
 	if (setStatic)
 	{
 		rigidBody->SetStatic();
 	}
-	rigidBody->SetTransform(transform);
 
 	return rigidBody;
 }
@@ -69,7 +64,6 @@ TextRendererComponent * ComponentFactory::MakeTextRenderer(std::string text, Tra
 
 CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, TransformComponent * transform, RigidBodyComponent * rigidbody)
 {
-	CircleColliderComponent * circleCollider = new CircleColliderComponent();
 	if (transform == nullptr)
 	{
 		throw std::exception("This object requires a transform component.");
@@ -78,8 +72,8 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 	{
 		throw std::exception("This object requires a rigidbody component.");
 	}
-	circleCollider->SetTransformComponent(transform);
-	circleCollider->SetRigidbodyComponent(rigidbody);
+
+	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody);
 	circleCollider->SetRadius(radius);
 
 	return circleCollider;
@@ -87,7 +81,6 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 
 PolygonColliderComponent * ComponentFactory::MakePolygonCollider(Vec2 * verticies, int vertexCount, TransformComponent * transform, RigidBodyComponent * rigidbody)
 {
-	PolygonColliderComponent * polygonCollider = new PolygonColliderComponent();
 	if (transform == nullptr)
 	{
 		throw std::exception("This object requires a transform component.");
@@ -96,8 +89,8 @@ PolygonColliderComponent * ComponentFactory::MakePolygonCollider(Vec2 * verticie
 	{
 		throw std::exception("This object requires a rigidbody component.");
 	}
-	polygonCollider->SetTransformComponent(transform);
-	polygonCollider->SetRigidbodyComponent(rigidbody);
+
+	PolygonColliderComponent * polygonCollider = new PolygonColliderComponent(transform, rigidbody);
 	polygonCollider->SetVerticies(verticies, vertexCount);
 	polygonCollider->SetOrient(0);
 

@@ -2,8 +2,12 @@
 
 
 
-PolygonColliderComponent::PolygonColliderComponent()
+PolygonColliderComponent::PolygonColliderComponent(TransformComponent* trans, RigidBodyComponent* rb)
 {
+	_type = "Polygon Collider";
+
+	_transformComponent = trans;
+	_rigidyBodyComponent = rb;
 }
 
 

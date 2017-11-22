@@ -12,13 +12,13 @@ public:
 	PhysicsManager();
 	~PhysicsManager();
 
-	void AddCollider(ColliderComponent* go);
+	void AddCollider(ColliderComponent* collider);
 
 	void Update(float deltaTime);
 
 private:
-	void IntegrateForces(ColliderComponent* go, float deltaTime);
-	void IntegrateVelocity(ColliderComponent* go, float deltaTime);
+	void IntegrateForces(ColliderComponent* collider, float deltaTime);
+	void IntegrateVelocity(ColliderComponent* collider, float deltaTime);
 
 	std::vector<ColliderComponent*>			_colliders;
 	std::vector<Manifold>					_contacts;

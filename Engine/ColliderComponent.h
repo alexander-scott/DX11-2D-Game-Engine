@@ -9,20 +9,18 @@
 class ColliderComponent : public IComponent
 {
 public:
-	RigidBodyComponent* GetRigidbodyComponent() { return rigidyBodyComponent; }
-	TransformComponent* GetTransformComponent() { return transformComponent; }
+	RigidBodyComponent* GetRigidbodyComponent() { return _rigidyBodyComponent; }
+	TransformComponent* GetTransformComponent() { return _transformComponent; }
 
-	void SetTransformComponent(TransformComponent* trans) { transformComponent = trans; }
-	void SetRigidbodyComponent(RigidBodyComponent* rb) { rigidyBodyComponent = rb; }
-	void SetOrient(float radians) { u.Set(radians); }
+	void SetOrient(float radians) { orientationMatrix.Set(radians); }
 
 	virtual ColliderType GetType(void) const = 0;
 
 	float radius;
-	Mat2 u;
+	Mat2 orientationMatrix;
 
 protected:
-	TransformComponent* transformComponent;
-	RigidBodyComponent* rigidyBodyComponent;
+	TransformComponent*				_transformComponent;
+	RigidBodyComponent*				_rigidyBodyComponent;
 };
 

@@ -1,15 +1,18 @@
 #pragma once
 
 #include "ColliderComponent.h"
+#include "TransformComponent.h"
+#include "RigidBodyComponent.h"
 
 class CircleColliderComponent : public ColliderComponent
 {
 public:
-	CircleColliderComponent();
+	CircleColliderComponent(TransformComponent* trans, RigidBodyComponent* rb);
 	~CircleColliderComponent();
 
 	void SetRadius(float rad) { radius = rad; }
 	float GetRadius() { return radius; }
+
 	virtual ColliderType GetType(void) const override { return ColliderType::eCircle; }
 };
 

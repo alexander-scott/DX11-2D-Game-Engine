@@ -7,7 +7,7 @@
 class PolygonColliderComponent : public ColliderComponent
 {
 public:
-	PolygonColliderComponent();
+	PolygonColliderComponent(TransformComponent* trans, RigidBodyComponent* rb);
 	~PolygonColliderComponent();
 
 	virtual ColliderType GetType(void) const override { return ColliderType::ePolygon; }

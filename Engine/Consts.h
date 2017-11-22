@@ -62,4 +62,32 @@ struct AnimationDesc
 	}
 };
 
+struct RigidBodyData 
+{
+	Vec2 velocity;
+
+	float angularVelocity;
+	float torque;
+	float orient; // radians
+
+	Vec2 force;
+
+	// Set by shape
+	float intertia;  // moment of inertia
+	float inverseInertia; // inverse inertia
+	float mass;  // mass
+	float inverseMass; // inverse masee
+
+	float staticFriction;
+	float dynamicFriction;
+	float restitution;
+
+	RigidBodyData(Vec2 velocity, float angularVelocity, float torque, float orient, Vec2 force, float staticFriction, float dynamicFrication, float restituation)
+		: velocity(velocity), angularVelocity(angularVelocity), torque(torque), orient(orient), force(force), 
+		staticFriction(staticFriction), dynamicFriction(dynamicFrication), restitution(restituation)
+	{
+
+	}
+};
+
 #pragma endregion

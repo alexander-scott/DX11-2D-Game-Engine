@@ -4,8 +4,6 @@
 #include "IUpdateable.h"
 #include "IMessageable.h"
 
-#include "TransformComponent.h"
-
 class RigidBodyComponent : public IComponent, public IMessageable
 {
 public:
@@ -14,35 +12,50 @@ public:
 
 	virtual void RecieveMessage(IMessage& message) override;
 
-	void SetTransform(TransformComponent* transform) { transformComponent = transform; }
-	void SetOrient(float radians);
-
 	void ApplyForce(const Vec2& f);
 	void ApplyImpulse(const Vec2& impulse, const Vec2& contactVector);
 
 	void SetStatic();
 
-	Vec2 GetVelocity() { return velocity; }
-	Vec2 GetPosition() { return transformComponent->GetPosition(); }
+	RigidBodyData GetRigidbodyData() { return rigidbodyData; }
 
-	TransformComponent* transformComponent;
+	Vec2 GetVelocity() { return rigidbodyData.velocity; }
+	void SetVelocity(Vec2 vel) { rigidbodyData.velocity = vel; }
 
-	Vec2 velocity;
+	float GetAngularVelocity() { return rigidbodyData.angularVelocity; }
+	void SetAngularVelocity(float vel) { rigidbodyData.angularVelocity = vel; }
 
-	float angularVelocity;
-	float torque;
-	float orient; // radians
+	float GetTorque() { return rigidbodyData.torque; }
+	void SetTorque(float torq) { rigidbodyData.torque = torq; }
 
-	Vec2 force;
+	float GetOrient() { return rigidbodyData.orient; }
+	void SetOrient(float ori) { rigidbodyData.orient = ori; }
 
-	// Set by shape
-	float I;  // moment of inertia
-	float iI; // inverse inertia
-	float m;  // mass
-	float im; // inverse masee
+	Vec2 GetForce() { return rigidbodyData.force; }
+	void SetForce(Vec2 forc) { rigidbodyData.force = forc; }
 
-	float staticFriction;
-	float dynamicFriction;
-	float restitution;
+	float GetIntertia() { return rigidbodyData.intertia; }
+	void SetIntertia(float intert) { rigidbodyData.orient = intert; }
+
+	float GetInverseIntertia() { return rigidbodyData.inverseInertia; }
+	void SetInverseIntertia(float intert) { rigidbodyData.inverseInertia = intert; }
+
+	float GetMass() { return rigidbodyData.mass; }
+	void SetIMass(float m) { rigidbodyData.mass = m; }
+
+	float GetInverseMass() { return rigidbodyData.inverseMass; }
+	void SetInverseMass(float im) { rigidbodyData.inverseMass = im; }
+
+	float GetStaticFriction() { return rigidbodyData.staticFriction; }
+	void SetStaticFriction(float frict) { rigidbodyData.staticFriction = frict; }
+
+	float GetDynamicFriction() { return rigidbodyData.dynamicFriction; }
+	void SetDynamicFriction(float frict) { rigidbodyData.dynamicFriction = frict; }
+
+	float GetRestitution() { return rigidbodyData.restitution; }
+	void SetRestitution(float rest) { rigidbodyData.restitution = rest; }
+
+private:
+	RigidBodyData rigidbodyData = RigidBodyData(Vec2(0, 0), 0, 0, 0, Vec2(0, 0), 0, 0, 0);
 };
 

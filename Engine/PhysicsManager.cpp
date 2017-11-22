@@ -11,9 +11,9 @@ PhysicsManager::~PhysicsManager()
 {
 }
 
-void PhysicsManager::AddCollider(ColliderComponent * go)
+void PhysicsManager::AddCollider(ColliderComponent * collider)
 {
-	_colliders.push_back(go);
+	_colliders.push_back(collider);
 }
 
 void PhysicsManager::Update(float deltaTime)
@@ -28,12 +28,14 @@ void PhysicsManager::Update(float deltaTime)
 		for (uint32 j = i + 1; j < _colliders.size(); ++j)
 		{
 			ColliderComponent *B = _colliders[j];
-			if (A->GetRigidbodyComponent()->im == 0 && B->GetRigidbodyComponent()->im == 0)
+			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
 				continue;
-			Manifold m(A, B);
-			m.Solve();
-			if (m.contact_count)
-				_contacts.emplace_back(m);
+
+			Manifold manifold(A, B);
+			manifold.Solve();
+
+			if (manifold.GetContactCount())
+				_contacts.emplace_back(manifold);
 		}
 	}
 
@@ -55,35 +57,40 @@ void PhysicsManager::Update(float deltaTime)
 		IntegrateVelocity(_colliders[i], deltaTime);
 
 	// Correct positions
-	/*for (uint32 i = 0; i < _contacts.size(); ++i)
-		_contacts[i].PositionalCorrection();*/
+	for (uint32 i = 0; i < _contacts.size(); ++i)
+		_contacts[i].PositionalCorrection();
 
 	// Clear all forces
 	for (uint32 i = 0; i < _colliders.size(); ++i)
 	{
 		ColliderComponent *b = _colliders[i];
-		b->GetRigidbodyComponent()->force.Set(0, 0);
-		b->GetRigidbodyComponent()->torque = 0;
+		b->GetRigidbodyComponent()->SetForce(Vec2(0, 0));
+		b->GetRigidbodyComponent()->SetTorque(0);
 	}
 }
 
-void PhysicsManager::IntegrateForces(ColliderComponent * go, float deltaTime)
+void PhysicsManager::IntegrateForces(ColliderComponent * collider, float deltaTime)
 {
-	if (go->GetRigidbodyComponent()->im == 0.0f)
+	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f)
 		return;
 
-	go->GetRigidbodyComponent()->velocity += (go->GetRigidbodyComponent()->force * go->GetRigidbodyComponent()->im + gravity) * (deltaTime / 2.0f);
-	go->GetRigidbodyComponent()->angularVelocity += go->GetRigidbodyComponent()->torque * go->GetRigidbodyComponent()->iI * (deltaTime / 2.0f);
+	collider->GetRigidbodyComponent()->SetVelocity(collider->GetRigidbodyComponent()->GetVelocity() + 
+		(collider->GetRigidbodyComponent()->GetForce() * collider->GetRigidbodyComponent()->GetInverseMass() + gravity) * (deltaTime / 2.0f));
+
+	collider->GetRigidbodyComponent()->SetAngularVelocity(collider->GetRigidbodyComponent()->GetAngularVelocity() +
+		collider->GetRigidbodyComponent()->GetTorque() * collider->GetRigidbodyComponent()->GetInverseIntertia() * (deltaTime / 2.0f));
 }
 
-void PhysicsManager::IntegrateVelocity(ColliderComponent * go, float deltaTime)
+void PhysicsManager::IntegrateVelocity(ColliderComponent * collider, float deltaTime)
 {
-	if (go->GetRigidbodyComponent()->im == 0.0f)
+	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f)
 		return;
 
-	go->GetTransformComponent()->SetPosition(go->GetTransformComponent()->GetPosition() + go->GetRigidbodyComponent()->velocity * deltaTime);
-	go->GetRigidbodyComponent()->orient += go->GetRigidbodyComponent()->angularVelocity * deltaTime;
-	go->GetRigidbodyComponent()->SetOrient(go->GetRigidbodyComponent()->orient);
-	go->SetOrient(go->GetRigidbodyComponent()->orient);
-	IntegrateForces(go, deltaTime);
+	collider->GetTransformComponent()->SetPosition(collider->GetTransformComponent()->GetPosition() + collider->GetRigidbodyComponent()->GetVelocity() * deltaTime);
+
+	collider->GetRigidbodyComponent()->SetOrient(collider->GetRigidbodyComponent()->GetOrient() 
+		+ collider->GetRigidbodyComponent()->GetAngularVelocity() * deltaTime);
+
+	collider->SetOrient(collider->GetRigidbodyComponent()->GetOrient());
+	IntegrateForces(collider, deltaTime);
 }

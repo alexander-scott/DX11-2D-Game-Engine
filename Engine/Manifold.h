@@ -18,25 +18,28 @@ public:
 	void PolygonToCircle();
 	void PolygonToPolygon();
 
-	float FindAxisLeastPenetration(uint32 *faceIndex, PolygonColliderComponent *A, PolygonColliderComponent *B);
-	void FindIncidentFace(Vec2 *v, PolygonColliderComponent *RefPoly, PolygonColliderComponent *IncPoly, uint32 referenceIndex);
-	int32 Clip(Vec2 n, real c, Vec2 *face);
+	float FindAxisLeastPenetration(int *faceIndex, PolygonColliderComponent *A, PolygonColliderComponent *B);
+	void FindIncidentFace(Vec2 *v, PolygonColliderComponent *RefPoly, PolygonColliderComponent *IncPoly, int referenceIndex);
+	int Clip(Vec2 n, float c, Vec2 *face);
 
-	void Solve(void);                 // Generate contact information
+	void Solve();                 // Generate contact information
 	void Initialize(float deltaTime);            // Precalculations for impulse solving
-	void ApplyImpulse(void);          // Solve impulse and apply
-	void PositionalCorrection(void);  // Naive correction of positional penetration
-	void InfiniteMassCorrection(void);
+	void ApplyImpulse();          // Solve impulse and apply
+	void PositionalCorrection();  // Naive correction of positional penetration
+	void InfiniteMassCorrection();
 
+	int GetContactCount() { return _contactCount; }
+
+private:
 	ColliderComponent* cA;
 	ColliderComponent* cB;
 
-	float penetration;     // Depth of penetration from collision
-	Vec2 normal;          // From A to B
-	Vec2 contacts[2];     // Points of contact during collision
-	uint32 contact_count; // Number of contacts that occured during collision
-	float e;               // Mixed restitution
-	float df;              // Mixed dynamic friction
-	float sf;              // Mixed static friction
+	float					_penetration;			 // Depth of penetration from collision
+	Vec2					_normal;				 // From A to B
+	Vec2					_contacts[2];			 // Points of contact during collision
+	uint32					_contactCount;			 // Number of contacts that occured during collision
+	float					_mixedRestitution;       // Mixed restitution
+	float					_mixedDynamicFriction;   // Mixed dynamic friction
+	float					_mixedStaticFriction;	 // Mixed static friction
 };
 
