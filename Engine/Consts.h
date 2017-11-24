@@ -30,7 +30,7 @@ enum ColliderType
 {
 	eCircle,
 	ePolygon,
-	eCount
+	eColliderTypeCount
 };
 
 enum CollisionType 
@@ -43,8 +43,9 @@ enum CollisionType
 
 enum SpriteName 
 {
-	Pipe,
-	MageWalk
+	ePipe,
+	eMageWalk,
+	eSpriteNameCount
 };
 
 #pragma endregion
@@ -53,8 +54,8 @@ enum SpriteName
 
 static std::map<SpriteName, std::string> SpriteFilePaths = 
 {
-	{ Pipe,			"Images\\warp_pipe_edited.dds" },
-	{ MageWalk,		"Images\\mage_walk.dds" },
+	{ ePipe,			"Images\\warp_pipe_edited.dds" },
+	{ eMageWalk,		"Images\\mage_walk.dds" },
 };
 
 #pragma endregion

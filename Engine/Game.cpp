@@ -5,6 +5,8 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd)
 {
+	gfx.PreloadTextures();
+
 	InitaliseObjects();
 	InitalisePhysics();
 }
@@ -17,15 +19,15 @@ void Game::InitaliseObjects()
 
 	for (float i = 0; i < 15; i++)
 	{
-		_gameObjects.push_back(new WorldTile(SpriteName::Pipe, Vec2(startX + (i * 45), y)));
+		_gameObjects.push_back(new WorldTile(SpriteName::ePipe, Vec2(startX + (i * 45), y)));
 	}
 
 	for (float i = 0; i < 15; i++)
 	{
-		_gameObjects.push_back(new WorldTile(SpriteName::Pipe, Vec2(startX + (i * 45), y - 200)));
+		_gameObjects.push_back(new WorldTile(SpriteName::ePipe, Vec2(startX + (i * 45), y - 200)));
 	}
 
-	_gameObjects.push_back(new WorldTile(SpriteName::Pipe, Vec2(200, 200)));
+	_gameObjects.push_back(new WorldTile(SpriteName::ePipe, Vec2(200, 200)));
 	
 	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
 	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);

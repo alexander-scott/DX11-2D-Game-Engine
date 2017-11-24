@@ -222,21 +222,11 @@ Graphics::Graphics(HWNDKey& key)
 
 void Graphics::DrawSpriteDX11(SpriteName name, Vec2 pos, RECT * rect, float rot)
 {
-	if (!g_textures.count(name)) // If current texture exists
-	{
-		CreateShaderResourceView(name);
-	}
-
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
 }
 
 void Graphics::DrawSpriteDX11(SpriteName name, Vec2 pos, RECT * rect, float rot, float scale)
 {
-	if (!g_textures.count(name)) // If current texture exists
-	{
-		CreateShaderResourceView(name);
-	}
-
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot, XMFLOAT2(0,0), scale);
 }
 
@@ -319,6 +309,14 @@ void Graphics::BeginFrame()
 	g_primitiveBatch->Begin();
 }
 
+void Graphics::PreloadTextures()
+{
+	for (int i = 0; i < SpriteName::eSpriteNameCount; i++)
+	{
+		SpriteName eCurrent = (SpriteName)i;
+		CreateShaderResourceView(eCurrent);
+	}
+}
 
 //////////////////////////////////////////////////
 //           Graphics Exception
