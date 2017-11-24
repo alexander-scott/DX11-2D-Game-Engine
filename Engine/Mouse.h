@@ -1,8 +1,6 @@
 #pragma once
 #include <queue>
-#include "directxtk\Inc\SimpleMath.h"
-
-using namespace DirectX;
+#include "IEMath.h"
 
 class Mouse
 {
@@ -96,7 +94,7 @@ public:
 	Mouse() = default;
 	Mouse(const Mouse&) = delete;
 	Mouse& operator=(const Mouse&) = delete;
-	XMFLOAT2 GetPos() const;
+	Vec2 GetPos() const;
 	int GetPosX() const;
 	int GetPosY() const;
 	bool LeftIsPressed() const;

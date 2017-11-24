@@ -1,9 +1,9 @@
 #include "Mouse.h"
 
 
-XMFLOAT2 Mouse::GetPos() const
+Vec2 Mouse::GetPos() const
 {
-	return XMFLOAT2(x,y);
+	return Vec2(x,y);
 }
 
 int Mouse::GetPosX() const
