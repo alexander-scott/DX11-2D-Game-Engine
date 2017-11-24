@@ -11,7 +11,7 @@ TransformComponent * ComponentFactory::MakeTransform(Vec2 position, float rotati
 	return transform;
 }
 
-SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(SpriteName fileName, TransformComponent* transform)
+SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileName, TransformComponent* transform)
 {
 	SpriteRendererComponent * spriteRenderer = new SpriteRendererComponent();
 	spriteRenderer->SetFilename(fileName);
@@ -24,7 +24,7 @@ SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(SpriteName fileNa
 	return spriteRenderer;
 }
 
-SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(SpriteName fileName, TransformComponent * transform, std::vector<AnimationDesc> animDescs, int currentAnim)
+SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, TransformComponent * transform, std::vector<AnimationDesc> animDescs, int currentAnim)
 {
 	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent();
 	spriteAnimator->SetFilename(fileName);

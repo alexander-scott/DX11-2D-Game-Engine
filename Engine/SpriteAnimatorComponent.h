@@ -60,7 +60,7 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void RecieveMessage(IMessage& message) override;
 
-	void SetFilename(SpriteName fileName) { _fileName = fileName; }
+	void SetFilename(std::string fileName) { _fileName = fileName; }
 	void SetAnimations(int currentAnim, std::vector<AnimationDesc> animDescs);
 
 private:
@@ -68,6 +68,6 @@ private:
 
 	int iCurSequence;
 	std::vector<Anim>				_animations;
-	SpriteName						_fileName;
+	std::string						_fileName;
 };
 

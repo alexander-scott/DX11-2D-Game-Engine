@@ -141,10 +141,13 @@
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ColliderRendererComponent.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Manifold.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PolygonColliderComponent.h" />
+    <ClInclude Include="rapidxml.hpp" />
+    <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
@@ -178,6 +181,7 @@
   <ItemGroup>
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Manifold.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Player.cpp" />

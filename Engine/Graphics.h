@@ -52,8 +52,8 @@ public:
 
 	void PreloadTextures();
 
-	void DrawSpriteDX11(SpriteName name, Vec2 pos, RECT* rect, float rot);
-	void DrawSpriteDX11(SpriteName name, Vec2 pos, RECT* rect, float rot, float scale);
+	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot);
+	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot, float scale);
 	void DrawLineDX11(Vec2 v1, Vec2 v2);
 	void DrawTextDX11(std::string text, Vec2 pos);
 
@@ -75,9 +75,9 @@ private:
 	std::unique_ptr<SpriteBatch>							g_Sprites;
 	std::unique_ptr<SpriteFont>								g_Fonts;
 	std::unique_ptr<PrimitiveBatch<VertexPositionColor>>	g_primitiveBatch;
-	std::map<SpriteName, ID3D11ShaderResourceView*>			g_textures;
+	std::map<std::string, ID3D11ShaderResourceView*>		g_textures;
 
-	void CreateShaderResourceView(SpriteName name);
+	void CreateShaderResourceView(std::string name);
 
 public:
 	static constexpr int ScreenWidth = 800;

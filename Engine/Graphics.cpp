@@ -220,12 +220,12 @@ Graphics::Graphics(HWNDKey& key)
 	g_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }
 
-void Graphics::DrawSpriteDX11(SpriteName name, Vec2 pos, RECT * rect, float rot)
+void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot)
 {
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
 }
 
-void Graphics::DrawSpriteDX11(SpriteName name, Vec2 pos, RECT * rect, float rot, float scale)
+void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
 {
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot, XMFLOAT2(0,0), scale);
 }
@@ -251,7 +251,7 @@ Graphics::~Graphics()
 	if (pImmediateContext) pImmediateContext->ClearState();
 }
 
-void Graphics::CreateShaderResourceView(SpriteName name)
+void Graphics::CreateShaderResourceView(std::string name)
 {
 	HRESULT hr;
 
@@ -311,10 +311,9 @@ void Graphics::BeginFrame()
 
 void Graphics::PreloadTextures()
 {
-	for (int i = 0; i < SpriteName::eSpriteNameCount; i++)
+	for (auto s : SpriteFilePaths)
 	{
-		SpriteName eCurrent = (SpriteName)i;
-		CreateShaderResourceView(eCurrent);
+		CreateShaderResourceView(s.first);
 	}
 }
 

@@ -1,0 +1,7 @@
+<level width="5" height="1">
+	<tile x="0" y="0" sprite="Pipe"/>
+	<tile x="1" y="0" sprite="Pipe"/>
+	<tile x="2" y="0" sprite="Pipe"/>
+	<tile x="3" y="0" sprite="Pipe"/>
+	<tile x="4" y="0" sprite="Pipe"/>
+</level>

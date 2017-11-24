@@ -6,7 +6,5 @@
 class WorldTile  : public GameObject
 {
 public:
-	WorldTile(SpriteName fileName, Vec2 pos);
-private:
-
+	WorldTile(std::string fileName, Vec2 pos);
 };

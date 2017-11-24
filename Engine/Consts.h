@@ -41,21 +41,14 @@ enum CollisionType
 	ePolygonToPolygon
 };
 
-enum SpriteName 
-{
-	ePipe,
-	eMageWalk,
-	eSpriteNameCount
-};
-
 #pragma endregion
 
 #pragma region Maps
 
-static std::map<SpriteName, std::string> SpriteFilePaths = 
+static std::map<std::string, std::string> SpriteFilePaths = 
 {
-	{ ePipe,			"Images\\warp_pipe_edited.dds" },
-	{ eMageWalk,		"Images\\mage_walk.dds" },
+	{ "MageWalk",		"Images\\mage_walk.dds" },
+	{ "Pipe",			"Images\\warp_pipe_edited.dds" },
 };
 
 #pragma endregion

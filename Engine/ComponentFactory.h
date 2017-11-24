@@ -17,8 +17,8 @@ namespace ComponentFactory
 	RigidBodyComponent * MakeRigidbody(bool setStatic);
 
 	TextRendererComponent * MakeTextRenderer(std::string text, TransformComponent* transform);
-	SpriteRendererComponent * MakeSpriteRenderer(SpriteName fileName, TransformComponent* transform);
-	SpriteAnimatorComponent * MakeSpriteAnimator(SpriteName fileName, TransformComponent* transform, std::vector<AnimationDesc> animDescs, int currentAnim);
+	SpriteRendererComponent * MakeSpriteRenderer(std::string fileName, TransformComponent* transform);
+	SpriteAnimatorComponent * MakeSpriteAnimator(std::string fileName, TransformComponent* transform, std::vector<AnimationDesc> animDescs, int currentAnim);
 	ColliderRendererComponent * MakeColliderRenderer(TransformComponent* trans, ColliderComponent* collider);
 
 	CircleColliderComponent * MakeCircleCollider(float radius, TransformComponent* transform, RigidBodyComponent* rigidbody);
