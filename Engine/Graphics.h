@@ -13,6 +13,7 @@
 #include "directxtk\Inc\PrimitiveBatch.h"
 #include "directxtk\Inc\VertexTypes.h"
 #include "IEMath.h"
+#include "Consts.h"
 #include <map>
 #include <memory>
 
@@ -49,8 +50,8 @@ public:
 	void EndFrame();
 	void BeginFrame();
 
-	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot);
-	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot, float scale);
+	void DrawSpriteDX11(SpriteName name, Vec2 pos, RECT* rect, float rot);
+	void DrawSpriteDX11(SpriteName name, Vec2 pos, RECT* rect, float rot, float scale);
 
 	void DrawLineDX11(Vec2 v1, Vec2 v2);
 
@@ -74,9 +75,9 @@ private:
 	std::unique_ptr<SpriteBatch>							g_Sprites;
 	std::unique_ptr<SpriteFont>								g_Fonts;
 	std::unique_ptr<PrimitiveBatch<VertexPositionColor>>	g_primitiveBatch;
-	std::map<std::string, ID3D11ShaderResourceView*>		g_textures;
+	std::map<SpriteName, ID3D11ShaderResourceView*>		g_textures;
 
-	void CreateShaderResourceView(std::string name);
+	void CreateShaderResourceView(SpriteName name);
 
 public:
 	static constexpr int ScreenWidth = 800;

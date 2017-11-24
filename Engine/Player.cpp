@@ -1,7 +1,5 @@
 #include "Player.h"
 
-
-
 Player::Player()
 {
 	// TRANSFORM COMPONENT
@@ -19,9 +17,8 @@ Player::Player()
 	std::vector<AnimationDesc> animDescs;
 	animDescs.push_back(AnimationDesc(0, 4, 64, 64, 64, 64, 8, 0.16f)); // Walking
 	animDescs.push_back(AnimationDesc(4, 8, 0, 64, 64, 64, 1, 0.16f)); // Standing
-	AddComponent(ComponentFactory::MakeSpriteAnimator("Images\\mage_walk.dds", playerTransform, animDescs, (int)AnimationType::StandingDown));
+	AddComponent(ComponentFactory::MakeSpriteAnimator(SpriteName::MageWalk, playerTransform, animDescs, (int)AnimationType::StandingDown));
 }
-
 
 Player::~Player()
 {
@@ -47,30 +44,46 @@ void Player::UpdateAnimation()
 	if (downVal > upVal && downVal > leftVal && downVal > rightVal)
 	{
 		if (downVal < 5)
+		{
 			updateSeqMsg.SetSequence((int)AnimationType::StandingDown);
+		}
 		else
+		{
 			updateSeqMsg.SetSequence((int)AnimationType::WalkingDown);
+		}	
 	}
 	else if (upVal > downVal && upVal > leftVal && upVal > rightVal)
 	{
 		if (upVal < 5)
+		{
 			updateSeqMsg.SetSequence((int)AnimationType::StandingUp);
+		}
 		else
+		{
 			updateSeqMsg.SetSequence((int)AnimationType::WalkingUp);
+		}
 	}
 	else if (leftVal > downVal && leftVal > upVal && leftVal > rightVal)
 	{
 		if (leftVal < 5)
+		{
 			updateSeqMsg.SetSequence((int)AnimationType::StandingLeft);
+		}	
 		else
+		{
 			updateSeqMsg.SetSequence((int)AnimationType::WalkingLeft);
+		}	
 	}
 	else if (rightVal > downVal && rightVal > upVal && rightVal > leftVal)
 	{
 		if (rightVal < 5)
+		{
 			updateSeqMsg.SetSequence((int)AnimationType::StandingRight);
+		}
 		else
+		{
 			updateSeqMsg.SetSequence((int)AnimationType::WalkingRight);
+		}	
 	}
 
 	SendMessageToComponents(updateSeqMsg);

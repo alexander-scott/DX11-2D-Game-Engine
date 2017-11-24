@@ -21,11 +21,11 @@ void PhysicsManager::Update(float deltaTime)
 	// Generate new collision info
 	_contacts.clear();
 
-	for (uint32 i = 0; i < _colliders.size(); ++i)
+	for (int i = 0; i < _colliders.size(); ++i)
 	{
 		ColliderComponent *A = _colliders[i];
 
-		for (uint32 j = i + 1; j < _colliders.size(); ++j)
+		for (int j = i + 1; j < _colliders.size(); ++j)
 		{
 			ColliderComponent *B = _colliders[j];
 			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
@@ -40,28 +40,27 @@ void PhysicsManager::Update(float deltaTime)
 	}
 
 	// Integrate forces
-	for (uint32 i = 0; i < _colliders.size(); ++i)
+	for (int i = 0; i < _colliders.size(); ++i)
 		IntegrateForces(_colliders[i], deltaTime);
 
 	// Initialize collision
-	for (uint32 i = 0; i < _contacts.size(); ++i)
+	for (int i = 0; i < _contacts.size(); ++i)
 		_contacts[i].Initialize(deltaTime);
 
 	// Solve collisions
-	//for (uint32 j = 0; j < m_iterations; ++j)
-	for (uint32 i = 0; i < _contacts.size(); ++i)
+	for (int i = 0; i < _contacts.size(); ++i)
 		_contacts[i].ApplyImpulse();
 
 	// Integrate velocities
-	for (uint32 i = 0; i < _colliders.size(); ++i)
+	for (int i = 0; i < _colliders.size(); ++i)
 		IntegrateVelocity(_colliders[i], deltaTime);
 
 	// Correct positions
-	for (uint32 i = 0; i < _contacts.size(); ++i)
+	for (int i = 0; i < _contacts.size(); ++i)
 		_contacts[i].PositionalCorrection();
 
 	// Clear all forces
-	for (uint32 i = 0; i < _colliders.size(); ++i)
+	for (int i = 0; i < _colliders.size(); ++i)
 	{
 		ColliderComponent *b = _colliders[i];
 		b->GetRigidbodyComponent()->SetForce(Vec2(0, 0));

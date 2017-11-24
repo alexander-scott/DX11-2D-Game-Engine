@@ -11,20 +11,21 @@ Game::Game(MainWindow& wnd)
 
 void Game::InitaliseObjects()
 {
-	int startX = 50;
-	int y = 300;
-	int step = 50;
-	for (int i = 0; i < 15; i++)
+	float startX = 50;
+	float y = 300;
+	float step = 50;
+
+	for (float i = 0; i < 15; i++)
 	{
-		_gameObjects.push_back(new WorldTile("Images\\warp_pipe_edited.dds", Vec2(startX + (i * 45), y)));
+		_gameObjects.push_back(new WorldTile(SpriteName::Pipe, Vec2(startX + (i * 45), y)));
 	}
 
-	for (int i = 0; i < 15; i++)
+	for (float i = 0; i < 15; i++)
 	{
-		_gameObjects.push_back(new WorldTile("Images\\warp_pipe_edited.dds", Vec2(startX + (i * 45), y - 200)));
+		_gameObjects.push_back(new WorldTile(SpriteName::Pipe, Vec2(startX + (i * 45), y - 200)));
 	}
 
-	_gameObjects.push_back(new WorldTile("Images\\warp_pipe_edited.dds", Vec2(200, 200)));
+	_gameObjects.push_back(new WorldTile(SpriteName::Pipe, Vec2(200, 200)));
 	
 	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
 	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);

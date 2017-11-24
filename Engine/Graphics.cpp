@@ -220,7 +220,7 @@ Graphics::Graphics(HWNDKey& key)
 	g_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }
 
-void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot)
+void Graphics::DrawSpriteDX11(SpriteName name, Vec2 pos, RECT * rect, float rot)
 {
 	if (!g_textures.count(name)) // If current texture exists
 	{
@@ -230,7 +230,7 @@ void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
 }
 
-void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
+void Graphics::DrawSpriteDX11(SpriteName name, Vec2 pos, RECT * rect, float rot, float scale)
 {
 	if (!g_textures.count(name)) // If current texture exists
 	{
@@ -261,11 +261,11 @@ Graphics::~Graphics()
 	if (pImmediateContext) pImmediateContext->ClearState();
 }
 
-void Graphics::CreateShaderResourceView(std::string name)
+void Graphics::CreateShaderResourceView(SpriteName name)
 {
 	HRESULT hr;
 
-	std::wstring widestr = std::wstring(name.begin(), name.end());
+	std::wstring widestr = std::wstring(SpriteFilePaths[name].begin(), SpriteFilePaths[name].end());
 	const wchar_t* szName = widestr.c_str();
 
 	ID3D11ShaderResourceView* shaderRV = nullptr;

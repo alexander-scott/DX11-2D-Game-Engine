@@ -10,11 +10,11 @@ public:
 	SpriteRendererComponent();
 	~SpriteRendererComponent();
 
-	void SetFilename(std::string fileName) { _fileName = fileName; }
+	void SetFilename(SpriteName fileName) { _fileName = fileName; }
 
 	virtual void Draw(Graphics& gfx) override;
 
 private:
-	std::string _fileName;
+	SpriteName				 _fileName;
 };
 
