@@ -1,7 +1,5 @@
 #include "Game.h"
 
-#include "AddForceMessage.h"
-
 Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
@@ -74,34 +72,6 @@ Game::~Game()
 
 void Game::UpdateModel()
 {
-	// process key messages while any remain
-	/*while (!wnd.kbd.KeyIsEmpty())
-	{
-		const auto e = wnd.kbd.ReadKey();
-	}*/
-
-	Vec2 dir = Vec2(0.0f,0.0f);
-	if (wnd.kbd->KeyIsPressed(VK_SPACE))
-	{
-		dir.y += 0.00001f;
-	}
-	if (wnd.kbd->KeyIsPressed(VK_LEFT))
-	{
-		dir.x += 0.00001f;
-	}
-	if (wnd.kbd->KeyIsPressed(VK_RIGHT))
-	{
-		dir.x -= 0.00001f;
-	}
-
-	// Move the player in the specified direction
-	if (dir.x != 0 || dir.y != 0)
-	{
-		AddForceMessage addForceMsg("Add Force");
-		addForceMsg.SetForce(dir);
-		player->SendMessageToComponents(addForceMsg);
-	}
-
 	float deltaTime = ft.Mark();
 
 	physicsManager.Update(deltaTime);

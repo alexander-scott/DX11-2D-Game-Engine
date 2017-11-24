@@ -6,7 +6,7 @@
 class AddForceMessage : public IMessage
 {
 public:
-	AddForceMessage(std::string name) : _name(name)
+	AddForceMessage()
 	{
 		_type = MessageType::AddForce;
 	}
@@ -15,7 +15,6 @@ public:
 	Vec2 GetForce() { return _force; }
 
 private:
-	std::string			_name;
 	Vec2				_force;
 };
 

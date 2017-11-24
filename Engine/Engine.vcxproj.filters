@@ -53,9 +53,6 @@
     <Filter Include="Game\Player">
       <UniqueIdentifier>{6093c2ee-0247-4010-bec9-c6d1f8bedd11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Components\Component Types\Input">
-      <UniqueIdentifier>{8daf073c-d18d-41e6-85bc-622b09cf0a21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Components\Component Types\Rendering">
       <UniqueIdentifier>{9a6c9345-6d65-45d3-9109-c577978258c2}</UniqueIdentifier>
     </Filter>
@@ -166,11 +163,11 @@
     <ClInclude Include="Player.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardInputComponent.h">
-      <Filter>Engine\GameObject\Components\Component Types\Input</Filter>
-    </ClInclude>
     <ClInclude Include="ColliderRendererComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateAnimationSequenceMessage.h">
+      <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -242,9 +239,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyboardInputComponent.cpp">
-      <Filter>Engine\GameObject\Components\Component Types\Input</Filter>
     </ClCompile>
     <ClCompile Include="ColliderRendererComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>

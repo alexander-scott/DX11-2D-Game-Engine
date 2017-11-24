@@ -57,6 +57,12 @@ public:
 	};
 
 public:
+	static Keyboard& Instance()
+	{
+		static Keyboard Instance;
+		return Instance;
+	}
+
 	Keyboard() = default;
 	Keyboard(const Keyboard&) = delete;
 	Keyboard& operator=(const Keyboard&) = delete;

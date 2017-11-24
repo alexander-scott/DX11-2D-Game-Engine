@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include "Keyboard.h"
-#include "Mouse.h"
 #include "Graphics.h"
 #include "GUIText.h"
 #include "FrameTimer.h"

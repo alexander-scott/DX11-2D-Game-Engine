@@ -22,7 +22,7 @@ enum AnimationType
 
 enum MessageType
 {
-	UpdateDirection,
+	UpdateAnimationSequence,
 	AddForce
 };
 

@@ -87,6 +87,12 @@ public:
 	};
 
 public:
+	static Mouse& Instance()
+	{
+		static Mouse Instance;
+		return Instance;
+	}
+
 	Mouse() = default;
 	Mouse(const Mouse&) = delete;
 	Mouse& operator=(const Mouse&) = delete;
