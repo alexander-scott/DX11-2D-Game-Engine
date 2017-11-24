@@ -10,6 +10,8 @@
 #include "DirectXTK\Inc\SpriteBatch.h"
 #include "DirectXTK\Inc\SpriteFont.h"
 #include "DirectXTK\Inc\DDSTextureLoader.h"
+#include "directxtk\Inc\PrimitiveBatch.h"
+#include "directxtk\Inc\VertexTypes.h"
 #include "IEMath.h"
 #include <map>
 #include <memory>
@@ -50,26 +52,29 @@ public:
 	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot);
 	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot, float scale);
 
+	void DrawLineDX11(Vec2 v1, Vec2 v2);
+
 	void DrawTextDX11(std::string text, Vec2 pos);
 
 	~Graphics();
 
 private:
-	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
-	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;
-	Microsoft::WRL::ComPtr<ID3D11DeviceContext>			pImmediateContext;
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView>		pRenderTargetView;
-	Microsoft::WRL::ComPtr<ID3D11Texture2D>				pSysBufferTexture;
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	pSysBufferTextureView;
-	Microsoft::WRL::ComPtr<ID3D11PixelShader>			pPixelShader;
-	Microsoft::WRL::ComPtr<ID3D11VertexShader>			pVertexShader;
-	Microsoft::WRL::ComPtr<ID3D11Buffer>				pVertexBuffer;
-	Microsoft::WRL::ComPtr<ID3D11InputLayout>			pInputLayout;
-	Microsoft::WRL::ComPtr<ID3D11SamplerState>			pSamplerState;
+	Microsoft::WRL::ComPtr<IDXGISwapChain>					pSwapChain;
+	Microsoft::WRL::ComPtr<ID3D11Device>					pDevice;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext>				pImmediateContext;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView>			pRenderTargetView;
+	Microsoft::WRL::ComPtr<ID3D11Texture2D>					pSysBufferTexture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>		pSysBufferTextureView;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader>				pPixelShader;
+	Microsoft::WRL::ComPtr<ID3D11VertexShader>				pVertexShader;
+	Microsoft::WRL::ComPtr<ID3D11Buffer>					pVertexBuffer;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout>				pInputLayout;
+	Microsoft::WRL::ComPtr<ID3D11SamplerState>				pSamplerState;
 
-	std::unique_ptr<SpriteBatch>                        g_Sprites;
-	std::unique_ptr<SpriteFont>                         g_Fonts;
-	std::map<std::string, ID3D11ShaderResourceView*>	textures;
+	std::unique_ptr<SpriteBatch>							g_Sprites;
+	std::unique_ptr<SpriteFont>								g_Fonts;
+	std::unique_ptr<PrimitiveBatch<VertexPositionColor>>	g_primitiveBatch;
+	std::map<std::string, ID3D11ShaderResourceView*>		g_textures;
 
 	void CreateShaderResourceView(std::string name);
 

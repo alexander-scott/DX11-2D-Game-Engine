@@ -25,6 +25,8 @@ void Game::InitaliseObjects()
 	{
 		_gameObjects.push_back(new WorldTile("Images\\warp_pipe_edited.dds", Vec2(startX + (i * 45), y - 200)));
 	}
+
+	_gameObjects.push_back(new WorldTile("Images\\warp_pipe_edited.dds", Vec2(200, 200)));
 	
 	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
 	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);
@@ -73,25 +75,21 @@ Game::~Game()
 void Game::UpdateModel()
 {
 	// process key messages while any remain
-	while (!wnd.kbd.KeyIsEmpty())
+	/*while (!wnd.kbd.KeyIsEmpty())
 	{
 		const auto e = wnd.kbd.ReadKey();
-	}
+	}*/
 
 	Vec2 dir = Vec2(0.0f,0.0f);
-	/*if (wnd.kbd.KeyIsPressed(VK_UP))
+	if (wnd.kbd->KeyIsPressed(VK_SPACE))
 	{
 		dir.y += 0.00001f;
 	}
-	if (wnd.kbd.KeyIsPressed(VK_DOWN))
-	{
-		dir.y -= 0.00001f;
-	}*/
-	if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	if (wnd.kbd->KeyIsPressed(VK_LEFT))
 	{
 		dir.x += 0.00001f;
 	}
-	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	if (wnd.kbd->KeyIsPressed(VK_RIGHT))
 	{
 		dir.x -= 0.00001f;
 	}

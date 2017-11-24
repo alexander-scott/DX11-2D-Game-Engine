@@ -61,8 +61,8 @@ private:
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 public:
-	Keyboard kbd;
-	Mouse mouse;
+	Keyboard* kbd;
+	Mouse* mouse;
 
 private:
 	static constexpr wchar_t* wndClassName = L"DirectXTK Simple Sample Window";

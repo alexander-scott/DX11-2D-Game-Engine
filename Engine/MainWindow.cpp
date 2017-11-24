@@ -38,6 +38,9 @@ MainWindow::MainWindow(HINSTANCE hInst, wchar_t * pArgs)
 			L"Failed to get valid window handle.");
 	}
 
+	kbd = new Keyboard();
+	mouse = new Mouse();
+
 	// show and update
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 	UpdateWindow(hWnd);
@@ -116,21 +119,21 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	case WM_KILLFOCUS:
-		kbd.ClearState();
+		kbd->ClearState();
 		break;
 
 		// ************ KEYBOARD MESSAGES ************ //
 	case WM_KEYDOWN:
-		if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) // no thank you on the autorepeat
+		if (!(lParam & 0x40000000) || kbd->AutorepeatIsEnabled()) // no thank you on the autorepeat
 		{
-			kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+			kbd->OnKeyPressed(static_cast<unsigned char>(wParam));
 		}
 		break;
 	case WM_KEYUP:
-		kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+		kbd->OnKeyReleased(static_cast<unsigned char>(wParam));
 		break;
 	case WM_CHAR:
-		kbd.OnChar(static_cast<unsigned char>(wParam));
+		kbd->OnChar(static_cast<unsigned char>(wParam));
 		break;
 		// ************ END KEYBOARD MESSAGES ************ //
 
@@ -140,11 +143,11 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		POINTS pt = MAKEPOINTS(lParam);
 		if (pt.x > 0 && pt.x < Graphics::ScreenWidth && pt.y > 0 && pt.y < Graphics::ScreenHeight)
 		{
-			mouse.OnMouseMove(pt.x, pt.y);
-			if (!mouse.IsInWindow())
+			mouse->OnMouseMove(pt.x, pt.y);
+			if (!mouse->IsInWindow())
 			{
 				SetCapture(hWnd);
-				mouse.OnMouseEnter();
+				mouse->OnMouseEnter();
 			}
 		}
 		else
@@ -155,14 +158,14 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				pt.x = std::min(short(Graphics::ScreenWidth - 1), pt.x);
 				pt.y = std::max(short(0), pt.y);
 				pt.y = std::min(short(Graphics::ScreenHeight - 1), pt.y);
-				mouse.OnMouseMove(pt.x, pt.y);
+				mouse->OnMouseMove(pt.x, pt.y);
 			}
 			else
 			{
 				ReleaseCapture();
-				mouse.OnMouseLeave();
-				mouse.OnLeftReleased(pt.x, pt.y);
-				mouse.OnRightReleased(pt.x, pt.y);
+				mouse->OnMouseLeave();
+				mouse->OnLeftReleased(pt.x, pt.y);
+				mouse->OnRightReleased(pt.x, pt.y);
 			}
 		}
 		break;
@@ -170,26 +173,26 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnLeftPressed(pt.x, pt.y);
+		mouse->OnLeftPressed(pt.x, pt.y);
 		SetForegroundWindow(hWnd);
 		break;
 	}
 	case WM_RBUTTONDOWN:
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnRightPressed(pt.x, pt.y);
+		mouse->OnRightPressed(pt.x, pt.y);
 		break;
 	}
 	case WM_LBUTTONUP:
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnLeftReleased(pt.x, pt.y);
+		mouse->OnLeftReleased(pt.x, pt.y);
 		break;
 	}
 	case WM_RBUTTONUP:
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
-		mouse.OnRightReleased(pt.x, pt.y);
+		mouse->OnRightReleased(pt.x, pt.y);
 		break;
 	}
 	case WM_MOUSEWHEEL:
@@ -197,11 +200,11 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		const POINTS pt = MAKEPOINTS(lParam);
 		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0)
 		{
-			mouse.OnWheelUp(pt.x, pt.y);
+			mouse->OnWheelUp(pt.x, pt.y);
 		}
 		else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0)
 		{
-			mouse.OnWheelDown(pt.x, pt.y);
+			mouse->OnWheelDown(pt.x, pt.y);
 		}
 		break;
 	}

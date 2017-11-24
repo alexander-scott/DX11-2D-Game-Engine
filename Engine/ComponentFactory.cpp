@@ -98,3 +98,21 @@ PolygonColliderComponent * ComponentFactory::MakePolygonCollider(Vec2 * verticie
 
 	return polygonCollider;
 }
+
+ColliderRendererComponent * ComponentFactory::MakeColliderRenderer(TransformComponent* trans, ColliderComponent* collider)
+{
+	if (trans == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	if (collider == nullptr)
+	{
+		throw std::exception("This object requires a collider component");
+	}
+
+	ColliderRendererComponent * colliderRenderer = new ColliderRendererComponent();
+	colliderRenderer->SetCollider(collider);
+	colliderRenderer->SetTransform(trans);
+
+	return colliderRenderer;
+}

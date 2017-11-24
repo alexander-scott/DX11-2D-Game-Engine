@@ -217,26 +217,34 @@ Graphics::Graphics(HWNDKey& key)
 
 	g_Fonts.reset(new SpriteFont(pDevice.Get(), L"fonts\\italic.spritefont"));
 	g_Sprites.reset(new SpriteBatch(pImmediateContext.Get()));
+	g_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }
 
 void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot)
 {
-	if (!textures.count(name)) // If current texture exists
+	if (!g_textures.count(name)) // If current texture exists
 	{
 		CreateShaderResourceView(name);
 	}
 
-	g_Sprites->Draw(textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
+	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
 }
 
 void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
 {
-	if (!textures.count(name)) // If current texture exists
+	if (!g_textures.count(name)) // If current texture exists
 	{
 		CreateShaderResourceView(name);
 	}
 
-	g_Sprites->Draw(textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot, XMFLOAT2(0,0), scale);
+	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot, XMFLOAT2(0,0), scale);
+}
+
+void Graphics::DrawLineDX11(Vec2 v1, Vec2 v2)
+{
+	VertexPositionColor vec1(XMFLOAT3(v1.x, v1.y,0), XMFLOAT4(1,0,0,0));
+	VertexPositionColor vec2(XMFLOAT3(v2.x, v2.y, 0), XMFLOAT4(1, 0, 0, 0));
+	g_primitiveBatch->DrawLine(vec1, vec2);
 }
 
 void Graphics::DrawTextDX11(std::string text, Vec2 pos)
@@ -267,7 +275,7 @@ void Graphics::CreateShaderResourceView(std::string name)
 	if (FAILED(hr))
 		throw GFX_EXCEPTION(hr, L"Creating DDS texture from file.");
 
-	textures.insert(std::make_pair(name, shaderRV));
+	g_textures.insert(std::make_pair(name, shaderRV));
 }
 
 void Graphics::EndFrame()
@@ -287,6 +295,7 @@ void Graphics::EndFrame()
 	pImmediateContext->Draw(6u, 0u);
 
 	g_Sprites->End();
+	g_primitiveBatch->End();
 
 	// flip back/front buffers
 	if (FAILED(hr = pSwapChain->Present(1u, 0u)))
@@ -307,6 +316,7 @@ void Graphics::BeginFrame()
 	// clear render target view
 	pImmediateContext->ClearRenderTargetView(pRenderTargetView.Get(), Colors::MidnightBlue);
 	g_Sprites->Begin(SpriteSortMode_Deferred);
+	g_primitiveBatch->Begin();
 }
 
 
