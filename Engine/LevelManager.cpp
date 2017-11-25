@@ -2,11 +2,6 @@
 
 using namespace rapidxml;
 
-LevelManager::LevelManager()
-{
-}
-
-
 LevelManager::~LevelManager()
 {
 }
@@ -26,12 +21,12 @@ WorldTile * LevelManager::GetTile(unsigned int x, unsigned int y)
 		}
 		else
 		{
-			return 0;
+			return nullptr;
 		}
 	}
 	else
 	{
-		return 0;
+		return nullptr;
 	}
 }
 
@@ -70,8 +65,8 @@ void LevelManager::LoadLevel(std::string filename)
 	int height = atoi(root->first_attribute("height")->value());
 
 	//Resize level
-	this->w = width;
-	this->h = height;
+	this->_width = width;
+	this->_height = height;
 	SetDimensions(width, height);
 
 	//Go through each tile
@@ -82,8 +77,11 @@ void LevelManager::LoadLevel(std::string filename)
 		int x = atoi(tile->first_attribute("x")->value());
 		int y = atoi(tile->first_attribute("y")->value());
 
+		// Get the sprite for the tile
+		std::string spriteName = std::string(tile->first_attribute("sprite")->value());
+
 		//Create the tile and add it to the level.
-		WorldTile* newTile = new WorldTile(std::string(tile->first_attribute("y")->value()), Vec2(x,y));
+		WorldTile* newTile = new WorldTile(spriteName, Vec2(_xOrigin + (x * _xStep), _yOrigin + (y * _yStep)));
 		AddTile(x, y, newTile);
 
 		//Go to the next tile
@@ -93,12 +91,12 @@ void LevelManager::LoadLevel(std::string filename)
 
 int LevelManager::GetWidth()
 {
-	return w;
+	return _width;
 }
 
 int LevelManager::GetHeight()
 {
-	return h;
+	return _height;
 }
 
 void LevelManager::SetDimensions(int w, int h)
@@ -112,4 +110,3 @@ void LevelManager::SetDimensions(int w, int h)
 		map.at(i).resize(h, 0);
 	}
 }
-

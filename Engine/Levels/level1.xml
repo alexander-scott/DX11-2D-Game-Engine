@@ -1,7 +1,16 @@
-<level width="5" height="1">
+<level width="14" height="1">
 	<tile x="0" y="0" sprite="Pipe"/>
 	<tile x="1" y="0" sprite="Pipe"/>
 	<tile x="2" y="0" sprite="Pipe"/>
 	<tile x="3" y="0" sprite="Pipe"/>
 	<tile x="4" y="0" sprite="Pipe"/>
+  <tile x="5" y="0" sprite="Pipe"/>
+  <tile x="6" y="0" sprite="Pipe"/>
+  <tile x="7" y="0" sprite="Pipe"/>
+  <tile x="8" y="0" sprite="Pipe"/>
+  <tile x="9" y="0" sprite="Pipe"/>
+  <tile x="10" y="0" sprite="Pipe"/>
+  <tile x="11" y="0" sprite="Pipe"/>
+  <tile x="12" y="0" sprite="Pipe"/>
+  <tile x="13" y="0" sprite="Pipe"/>
 </level>

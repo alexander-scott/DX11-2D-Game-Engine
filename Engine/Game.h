@@ -10,7 +10,7 @@
 #include "PhysicsManager.h"
 
 #include "Player.h"
-#include "WorldTile.h"
+#include "LevelManager.h"
 
 class Game
 {
@@ -37,6 +37,4 @@ private:
 	PhysicsManager physicsManager;
 
 	std::vector<GameObject*> _gameObjects;
-
-	Player* player;
 };

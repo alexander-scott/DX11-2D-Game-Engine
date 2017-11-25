@@ -13,7 +13,7 @@ Game::Game(MainWindow& wnd)
 
 void Game::InitaliseObjects()
 {
-	float startX = 50;
+	/*float startX = 50;
 	float y = 300;
 	float step = 50;
 
@@ -27,7 +27,21 @@ void Game::InitaliseObjects()
 		_gameObjects.push_back(new WorldTile("Pipe", Vec2(startX + (i * 45), y - 200)));
 	}
 
-	_gameObjects.push_back(new WorldTile("Pipe", Vec2(200, 200)));
+	_gameObjects.push_back(new WorldTile("Pipe", Vec2(200, 200)));*/
+
+	LevelManager levelManager(45, 45, 0, 200);
+	levelManager.LoadLevel("Levels\\level1.xml");
+	for (int i = 0; i < levelManager.GetWidth(); i++)
+	{
+		for (int j = 0; j < levelManager.GetHeight(); j++)
+		{
+			WorldTile* t = levelManager.GetTile(i, j);
+			if (t != nullptr)
+			{
+				_gameObjects.push_back(t);
+			}
+		}
+	}
 	
 	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
 	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);
@@ -36,8 +50,7 @@ void Game::InitaliseObjects()
 	guiText->AddComponent(guiTextRenderer);
 	_gameObjects.push_back(guiText);
 
-	player = new Player();
-	_gameObjects.push_back(player);
+	_gameObjects.push_back(new Player());
 }
 
 void Game::InitalisePhysics()
