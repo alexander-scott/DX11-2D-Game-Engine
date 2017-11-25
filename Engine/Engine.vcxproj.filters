@@ -181,6 +181,12 @@
     <ClInclude Include="WorldTile.h">
       <Filter>Engine\Level Loading</Filter>
     </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphics.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -257,6 +263,9 @@
     </ClCompile>
     <ClCompile Include="WorldTile.cpp">
       <Filter>Engine\Level Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

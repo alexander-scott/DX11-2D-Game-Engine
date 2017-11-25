@@ -20,7 +20,7 @@ namespace FramebufferShaders
 
 using Microsoft::WRL::ComPtr;
 
-Graphics::Graphics(HWNDKey& key)
+void Graphics::Initalise(HWNDKey& key)
 {
 	assert(key.hWnd != nullptr);
 
@@ -220,24 +220,24 @@ Graphics::Graphics(HWNDKey& key)
 	g_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }
 
-void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot)
+void Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot)
 {
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
 }
 
-void Graphics::DrawSpriteDX11(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
+void Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
 {
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot, XMFLOAT2(0,0), scale);
 }
 
-void Graphics::DrawLineDX11(Vec2 v1, Vec2 v2)
+void Graphics::DrawLine(Vec2 v1, Vec2 v2)
 {
 	VertexPositionColor vec1(XMFLOAT3(v1.x, v1.y,0), XMFLOAT4(1,0,0,0));
 	VertexPositionColor vec2(XMFLOAT3(v2.x, v2.y, 0), XMFLOAT4(1, 0, 0, 0));
 	g_primitiveBatch->DrawLine(vec1, vec2);
 }
 
-void Graphics::DrawTextDX11(std::string text, Vec2 pos)
+void Graphics::DrawText(std::string text, Vec2 pos)
 {
 	std::wstring widestr = std::wstring(text.begin(), text.end());
 	const wchar_t* convertedText = widestr.c_str();
@@ -245,7 +245,7 @@ void Graphics::DrawTextDX11(std::string text, Vec2 pos)
 	g_Fonts->DrawString(g_Sprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), Colors::Yellow);
 }
 
-Graphics::~Graphics()
+void Graphics::Destroy()
 {
 	// clear the state of the device context before destruction
 	if (pImmediateContext) pImmediateContext->ClearState();

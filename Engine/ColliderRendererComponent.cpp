@@ -26,7 +26,7 @@ void ColliderRendererComponent::Draw(Graphics & gfx)
 			PolygonColliderComponent* col = reinterpret_cast<PolygonColliderComponent *>(_collider);
 			for (int i = 0; i < col->m_vertexCount - 1; i++)
 			{
-				gfx.DrawLineDX11(GetTransform()->GetPosition() + col->m_vertices[i], GetTransform()->GetPosition() + col->m_vertices[i + 1]);
+				gfx.DrawLine(GetTransform()->GetPosition() + col->m_vertices[i], GetTransform()->GetPosition() + col->m_vertices[i + 1]);
 			}
 			break;
 	}

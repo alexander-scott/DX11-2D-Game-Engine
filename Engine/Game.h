@@ -18,12 +18,14 @@ public:
 	Game(class MainWindow& wnd);
 	Game(const Game&) = delete;
 	Game& operator=(const Game&) = delete;
+
 	void Update();
 
 	~Game();
 
 private:
 	void InitaliseObjects();
+	void InitaliseLevel();
 	void InitalisePhysics();
 
 	void ComposeFrame();
@@ -32,9 +34,8 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
-	FrameTimer ft;
 
-	PhysicsManager physicsManager;
-
-	std::vector<GameObject*> _gameObjects;
+	FrameTimer						_frameTimer;
+	PhysicsManager					_physicsManager;
+	std::vector<GameObject*>		_gameObjects;
 };

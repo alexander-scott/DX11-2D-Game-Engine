@@ -29,13 +29,13 @@ private:
 	std::vector<std::vector<WorldTile*>> map;
 
 	//Width and height of level (in tiles)
-	int									_width;
-	int									_height;
+	int							_width;
+	int							_height;
 
-	int									_xStep;
-	int									_yStep;
+	int							_xStep;
+	int							_yStep;
 
-	int									_xOrigin;
-	int									_yOrigin;
+	int							_xOrigin;
+	int							_yOrigin;
 };
 

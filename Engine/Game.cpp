@@ -2,35 +2,36 @@
 
 Game::Game(MainWindow& wnd)
 	:
-	wnd(wnd),
-	gfx(wnd)
+	wnd(wnd)
 {
+	gfx.Initalise(wnd);
 	gfx.PreloadTextures();
 
 	InitaliseObjects();
+	InitaliseLevel();
 	InitalisePhysics();
 }
 
+// Create any custom objects such as player
 void Game::InitaliseObjects()
 {
-	/*float startX = 50;
-	float y = 300;
-	float step = 50;
+	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
+	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);
+	GameObject* guiText = new GameObject();
+	guiText->AddComponent(guiTextTransform);
+	guiText->AddComponent(guiTextRenderer);
+	_gameObjects.push_back(guiText);
 
-	for (float i = 0; i < 15; i++)
-	{
-		_gameObjects.push_back(new WorldTile("Pipe", Vec2(startX + (i * 45), y)));
-	}
+	_gameObjects.push_back(new Player());
+}
 
-	for (float i = 0; i < 15; i++)
-	{
-		_gameObjects.push_back(new WorldTile("Pipe", Vec2(startX + (i * 45), y - 200)));
-	}
-
-	_gameObjects.push_back(new WorldTile("Pipe", Vec2(200, 200)));*/
-
+// Read in level data from an XML file and build the level
+void Game::InitaliseLevel()
+{
 	LevelManager levelManager(45, 45, 0, 200);
 	levelManager.LoadLevel("Levels\\level1.xml");
+
+	// Add all created tiles to the _gameObjects vector
 	for (int i = 0; i < levelManager.GetWidth(); i++)
 	{
 		for (int j = 0; j < levelManager.GetHeight(); j++)
@@ -42,28 +43,18 @@ void Game::InitaliseObjects()
 			}
 		}
 	}
-	
-	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, 20), 0, 1);
-	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);
-	GameObject* guiText = new GameObject();
-	guiText->AddComponent(guiTextTransform);
-	guiText->AddComponent(guiTextRenderer);
-	_gameObjects.push_back(guiText);
-
-	_gameObjects.push_back(new Player());
 }
 
+// Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.
 void Game::InitalisePhysics()
 {
-	// TODO: PHYSICSSS
-	// Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.
 	for (auto go : _gameObjects)
 	{
 		ColliderComponent* goCollider = go->GetComponent<ColliderComponent>();
 
 		if (goCollider != nullptr)
 		{
-			physicsManager.AddCollider(goCollider);
+			_physicsManager.AddCollider(goCollider);
 		}
 	}
 }
@@ -88,9 +79,9 @@ Game::~Game()
 
 void Game::UpdateModel()
 {
-	float deltaTime = ft.Mark();
+	float deltaTime = _frameTimer.Mark();
 
-	physicsManager.Update(deltaTime);
+	_physicsManager.Update(deltaTime);
 
 	// Update gameobjects
 	for (auto go : _gameObjects)

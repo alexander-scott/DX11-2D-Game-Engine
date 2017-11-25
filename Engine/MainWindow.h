@@ -9,7 +9,8 @@
 // for granting special access to hWnd only for Graphics constructor
 class HWNDKey
 {
-	friend Graphics::Graphics(HWNDKey&);
+	friend class IGraphics;
+	friend class Graphics;
 
 public:
 	HWNDKey(const HWNDKey&) = delete;

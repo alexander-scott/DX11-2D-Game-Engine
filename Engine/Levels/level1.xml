@@ -1,4 +1,9 @@
-<level width="14" height="1">
+<!-- -
+<XmlTag variable="0" />
+Keep width as max X plus 1. Keep height as max Y plus 1.
+<!- -->
+
+<level width="14" height="1"> 
 	<tile x="0" y="0" sprite="Pipe"/>
 	<tile x="1" y="0" sprite="Pipe"/>
 	<tile x="2" y="0" sprite="Pipe"/>

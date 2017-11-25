@@ -1,40 +1,24 @@
 #pragma once
 
-#include "WinDefines.h"
-#include <d3d11.h>
-#include <wrl.h>
-#include "CustomException.h"
+#include "IGraphics.h"
+#include "Consts.h"
 #include "Colors.h"
-#include <cassert>
 
+#include <cassert>
+#include <map>
+#include <memory>
+
+#include <d3d11.h>
 #include "DirectXTK\Inc\SpriteBatch.h"
 #include "DirectXTK\Inc\SpriteFont.h"
 #include "DirectXTK\Inc\DDSTextureLoader.h"
 #include "directxtk\Inc\PrimitiveBatch.h"
 #include "directxtk\Inc\VertexTypes.h"
-#include "IEMath.h"
-#include "Consts.h"
-#include <map>
-#include <memory>
 
 using namespace DirectX;
 
-class Graphics
+class Graphics : public IGraphics
 {
-public:
-	class Exception : public CustomException
-	{
-	public:
-		Exception(HRESULT hr, const std::wstring& note, const wchar_t* file, unsigned int line);
-		std::wstring GetErrorName() const;
-		std::wstring GetErrorDescription() const;
-		virtual std::wstring GetFullMessage() const override;
-		virtual std::wstring GetExceptionType() const override;
-
-	private:
-		HRESULT hr;
-	};
-
 private:
 	// vertex format for the framebuffer fullscreen textured quad
 	struct FSQVertex
@@ -44,20 +28,19 @@ private:
 	};
 
 public:
-	Graphics(class HWNDKey& key);
-	Graphics(const Graphics&) = delete;
-	Graphics& operator=(const Graphics&) = delete;
-	void EndFrame();
-	void BeginFrame();
+	virtual void Initalise(class HWNDKey& key) override;
+	virtual void Destroy() override;
 
-	void PreloadTextures();
+	virtual void EndFrame() override;
+	virtual void BeginFrame() override;
 
-	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot);
-	void DrawSpriteDX11(std::string name, Vec2 pos, RECT* rect, float rot, float scale);
-	void DrawLineDX11(Vec2 v1, Vec2 v2);
-	void DrawTextDX11(std::string text, Vec2 pos);
+	virtual void PreloadTextures() override;
 
-	~Graphics();
+	virtual void DrawSprite(std::string name, Vec2 pos, RECT* rect, float rot) override;
+	virtual void DrawSprite(std::string name, Vec2 pos, RECT* rect, float rot, float scale) override;
+	virtual void DrawText(std::string text, Vec2 pos) override;
+
+	void DrawLine(Vec2 v1, Vec2 v2);
 
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>					pSwapChain;

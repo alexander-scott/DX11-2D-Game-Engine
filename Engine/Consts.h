@@ -83,7 +83,7 @@ struct RigidBodyData
 
 	Vec2 force;
 
-	// Set by shape
+	// Set by rigidbody
 	float intertia;  // moment of inertia
 	float inverseInertia; // inverse inertia
 	float mass;  // mass

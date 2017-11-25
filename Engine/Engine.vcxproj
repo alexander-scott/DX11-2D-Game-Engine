@@ -138,9 +138,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
+    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ColliderRendererComponent.h" />
+    <ClInclude Include="IGraphics.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Manifold.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -179,6 +181,7 @@
     <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
     <ClCompile Include="LevelManager.cpp" />
