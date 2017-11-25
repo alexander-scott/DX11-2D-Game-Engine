@@ -1,25 +1,20 @@
 #pragma once
 #include "WinDefines.h"
-#include "Graphics.h"
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "CustomException.h"
 #include <string>
 
+#include "Consts.h"
+
 // for granting special access to hWnd only for Graphics constructor
 class HWNDKey
 {
-	friend class IGraphics;
-	friend class Graphics;
 
 public:
 	HWNDKey(const HWNDKey&) = delete;
 	HWNDKey& operator=(HWNDKey&) = delete;
-
-protected:
 	HWNDKey() = default;
-
-protected:
 	HWND hWnd = nullptr;
 };
 

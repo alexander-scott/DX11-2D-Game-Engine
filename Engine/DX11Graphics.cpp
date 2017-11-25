@@ -1,7 +1,7 @@
+#include "DX11Graphics.h"
+
 #include "MainWindow.h"
-#include "Graphics.h"
 #include "DXErr.h"
-#include "CustomException.h"
 #include <assert.h>
 #include <string>
 #include <array>
@@ -16,11 +16,11 @@ namespace FramebufferShaders
 
 #pragma comment( lib,"d3d11.lib" )
 
-#define GFX_EXCEPTION( hr,note ) Graphics::Exception( hr,note,_CRT_WIDE(__FILE__),__LINE__ )
+#define GFX_EXCEPTION( hr,note ) DX11Graphics::Exception( hr,note,_CRT_WIDE(__FILE__),__LINE__ )
 
 using Microsoft::WRL::ComPtr;
 
-void Graphics::Initalise(HWNDKey& key)
+void DX11Graphics::Initalise(HWNDKey& key)
 {
 	assert(key.hWnd != nullptr);
 
@@ -28,8 +28,8 @@ void Graphics::Initalise(HWNDKey& key)
 	// create device and swap chain/get render target view
 	DXGI_SWAP_CHAIN_DESC sd = {};
 	sd.BufferCount = 1;
-	sd.BufferDesc.Width = Graphics::ScreenWidth;
-	sd.BufferDesc.Height = Graphics::ScreenHeight;
+	sd.BufferDesc.Width = SCREEN_WIDTH;
+	sd.BufferDesc.Height = SCREEN_HEIGHT;
 	sd.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 1;
 	sd.BufferDesc.RefreshRate.Denominator = 60;
@@ -91,8 +91,8 @@ void Graphics::Initalise(HWNDKey& key)
 
 	// set viewport dimensions
 	D3D11_VIEWPORT vp;
-	vp.Width = float(Graphics::ScreenWidth);
-	vp.Height = float(Graphics::ScreenHeight);
+	vp.Width = float(SCREEN_WIDTH);
+	vp.Height = float(SCREEN_HEIGHT);
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0.0f;
@@ -103,8 +103,8 @@ void Graphics::Initalise(HWNDKey& key)
 	///////////////////////////////////////
 	// create texture for cpu render target
 	D3D11_TEXTURE2D_DESC sysTexDesc;
-	sysTexDesc.Width = Graphics::ScreenWidth;
-	sysTexDesc.Height = Graphics::ScreenHeight;
+	sysTexDesc.Width = SCREEN_WIDTH;
+	sysTexDesc.Height = SCREEN_HEIGHT;
 	sysTexDesc.MipLevels = 1;
 	sysTexDesc.ArraySize = 1;
 	sysTexDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -220,24 +220,24 @@ void Graphics::Initalise(HWNDKey& key)
 	g_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }
 
-void Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot)
+void DX11Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot)
 {
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot);
 }
 
-void Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
+void DX11Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
 {
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot, XMFLOAT2(0,0), scale);
 }
 
-void Graphics::DrawLine(Vec2 v1, Vec2 v2)
+void DX11Graphics::DrawLine(Vec2 v1, Vec2 v2)
 {
 	VertexPositionColor vec1(XMFLOAT3(v1.x, v1.y,0), XMFLOAT4(1,0,0,0));
 	VertexPositionColor vec2(XMFLOAT3(v2.x, v2.y, 0), XMFLOAT4(1, 0, 0, 0));
 	g_primitiveBatch->DrawLine(vec1, vec2);
 }
 
-void Graphics::DrawText(std::string text, Vec2 pos)
+void DX11Graphics::DrawText(std::string text, Vec2 pos)
 {
 	std::wstring widestr = std::wstring(text.begin(), text.end());
 	const wchar_t* convertedText = widestr.c_str();
@@ -245,13 +245,13 @@ void Graphics::DrawText(std::string text, Vec2 pos)
 	g_Fonts->DrawString(g_Sprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), Colors::Yellow);
 }
 
-void Graphics::Destroy()
+void DX11Graphics::Destroy()
 {
 	// clear the state of the device context before destruction
 	if (pImmediateContext) pImmediateContext->ClearState();
 }
 
-void Graphics::CreateShaderResourceView(std::string name)
+void DX11Graphics::CreateShaderResourceView(std::string name)
 {
 	HRESULT hr;
 
@@ -268,7 +268,7 @@ void Graphics::CreateShaderResourceView(std::string name)
 	g_textures.insert(std::make_pair(name, shaderRV));
 }
 
-void Graphics::EndFrame()
+void DX11Graphics::EndFrame()
 {
 	HRESULT hr;
 
@@ -301,7 +301,7 @@ void Graphics::EndFrame()
 	}
 }
 
-void Graphics::BeginFrame()
+void DX11Graphics::BeginFrame()
 {
 	// clear render target view
 	pImmediateContext->ClearRenderTargetView(pRenderTargetView.Get(), Colors::MidnightBlue);
@@ -309,7 +309,7 @@ void Graphics::BeginFrame()
 	g_primitiveBatch->Begin();
 }
 
-void Graphics::PreloadTextures()
+void DX11Graphics::PreloadTextures()
 {
 	for (auto s : SpriteFilePaths)
 	{
@@ -318,14 +318,14 @@ void Graphics::PreloadTextures()
 }
 
 //////////////////////////////////////////////////
-//           Graphics Exception
-Graphics::Exception::Exception(HRESULT hr, const std::wstring& note, const wchar_t* file, unsigned int line)
+//           DX11Graphics Exception
+DX11Graphics::Exception::Exception(HRESULT hr, const std::wstring& note, const wchar_t* file, unsigned int line)
 	:
 	CustomException(file, line, note),
 	hr(hr)
 {}
 
-std::wstring Graphics::Exception::GetFullMessage() const
+std::wstring DX11Graphics::Exception::GetFullMessage() const
 {
 	const std::wstring empty = L"";
 	const std::wstring errorName = GetErrorName();
@@ -342,19 +342,19 @@ std::wstring Graphics::Exception::GetFullMessage() const
 			: empty);
 }
 
-std::wstring Graphics::Exception::GetErrorName() const
+std::wstring DX11Graphics::Exception::GetErrorName() const
 {
 	return DXGetErrorString(hr);
 }
 
-std::wstring Graphics::Exception::GetErrorDescription() const
+std::wstring DX11Graphics::Exception::GetErrorDescription() const
 {
 	std::array<wchar_t, 512> wideDescription;
 	DXGetErrorDescription(hr, wideDescription.data(), wideDescription.size());
 	return wideDescription.data();
 }
 
-std::wstring Graphics::Exception::GetExceptionType() const
+std::wstring DX11Graphics::Exception::GetExceptionType() const
 {
-	return L"Graphics Exception";
+	return L"DX11Graphics Exception";
 }

@@ -56,7 +56,7 @@ public:
 	SpriteAnimatorComponent();
 	~SpriteAnimatorComponent();
 
-	virtual void Draw(Graphics& gfx) override;
+	virtual void Draw(IGraphics& gfx) override;
 	virtual void Update(float deltaTime) override;
 	virtual void RecieveMessage(IMessage& message) override;
 

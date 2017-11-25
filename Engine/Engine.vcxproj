@@ -157,7 +157,6 @@
     <ClInclude Include="Consts.h" />
     <ClInclude Include="CustomException.h" />
     <ClInclude Include="FrameTimer.h" />
-    <ClInclude Include="GUIText.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="IEMath.h" />
@@ -173,7 +172,7 @@
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="DX11Graphics.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
@@ -197,8 +196,7 @@
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
-    <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="GUIText.cpp" />
+    <ClCompile Include="DX11Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />

@@ -32,7 +32,7 @@ void GameObject::SendMessageToComponents(IMessage & message)
 	}
 }
 
-void GameObject::Draw(Graphics& gfx) const
+void GameObject::Draw(IGraphics& gfx) const
 {
 	for (auto component : _components)
 	{

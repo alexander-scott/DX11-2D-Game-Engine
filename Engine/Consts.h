@@ -5,6 +5,13 @@
 
 #include "IEMath.h"
 
+#pragma region Values
+
+static constexpr int SCREEN_WIDTH = 800;
+static constexpr int SCREEN_HEIGHT = 600;
+
+#pragma endregion
+
 #pragma region Enums
 
 enum AnimationType

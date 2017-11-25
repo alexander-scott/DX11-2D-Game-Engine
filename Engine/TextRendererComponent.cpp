@@ -12,7 +12,7 @@ TextRendererComponent::~TextRendererComponent()
 {
 }
 
-void TextRendererComponent::Draw(Graphics & gfx)
+void TextRendererComponent::Draw(IGraphics & gfx)
 {
 	gfx.DrawText(_text, GetTransform()->GetPosition());
 }

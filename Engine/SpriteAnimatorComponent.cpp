@@ -12,7 +12,7 @@ SpriteAnimatorComponent::~SpriteAnimatorComponent()
 
 }
 
-void SpriteAnimatorComponent::Draw(Graphics & gfx)
+void SpriteAnimatorComponent::Draw(IGraphics & gfx)
 {
 	gfx.DrawSprite(_fileName, GetTransform()->GetPosition(), _animations[(int)iCurSequence]._animationFrames[_animations[(int)iCurSequence]._currentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale());
 }

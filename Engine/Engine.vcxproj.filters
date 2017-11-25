@@ -73,12 +73,6 @@
     <ClInclude Include="IEMath.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIText.h">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Colors.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
@@ -187,14 +181,11 @@
     <ClInclude Include="IGraphics.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="DX11Graphics.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Graphics.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIText.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Keyboard.cpp">
       <Filter>Engine\Input</Filter>
     </ClCompile>
@@ -266,6 +257,9 @@
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11Graphics.cpp">
+      <Filter>Engine\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

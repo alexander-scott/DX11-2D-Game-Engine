@@ -2,7 +2,6 @@
 
 #include "IComponent.h"
 #include "IDrawable.h"
-#include "Graphics.h"
 
 class TextRendererComponent : public IComponent, public IDrawable
 {
@@ -12,7 +11,7 @@ public:
 
 	void SetText(std::string text) { _text = text; }
 
-	virtual void Draw(Graphics& gfx) override;
+	virtual void Draw(IGraphics& gfx) override;
 
 private:
 	std::string _text;

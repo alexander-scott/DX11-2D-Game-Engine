@@ -18,7 +18,7 @@ void ColliderRendererComponent::SetCollider(ColliderComponent * collider)
 	_colliderType = collider->GetType();
 }
 
-void ColliderRendererComponent::Draw(Graphics & gfx)
+void ColliderRendererComponent::Draw(IGraphics & gfx)
 {
 	switch (_colliderType)
 	{

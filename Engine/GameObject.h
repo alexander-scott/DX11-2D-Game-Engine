@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Graphics.h"
+#include "DX11Graphics.h"
 #include "Consts.h"
 
 #include "IComponent.h"
@@ -13,7 +13,7 @@ class GameObject
 public:
 	~GameObject();
 
-	void Draw(Graphics& gfx) const;
+	void Draw(IGraphics& gfx) const;
 	virtual void Update(float deltaTime);
 	void SendMessageToComponents(IMessage& message);
 

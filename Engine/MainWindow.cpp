@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 #include "Resource.h"
-#include "Graphics.h"
+#include "IGraphics.h"
 #include "CustomException.h"
 #include "Game.h"
 #include <assert.h>
@@ -22,9 +22,9 @@ MainWindow::MainWindow(HINSTANCE hInst, wchar_t * pArgs)
 	// create window & get hWnd
 	RECT wr;
 	wr.left = 350;
-	wr.right = Graphics::ScreenWidth + wr.left;
+	wr.right = SCREEN_WIDTH + wr.left;
 	wr.top = 100;
-	wr.bottom = Graphics::ScreenHeight + wr.top;
+	wr.bottom = SCREEN_HEIGHT + wr.top;
 	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
 	hWnd = CreateWindow(wndClassName, L"DirectXTK Simple Sample",
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
@@ -138,7 +138,7 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_MOUSEMOVE:
 	{
 		POINTS pt = MAKEPOINTS(lParam);
-		if (pt.x > 0 && pt.x < Graphics::ScreenWidth && pt.y > 0 && pt.y < Graphics::ScreenHeight)
+		if (pt.x > 0 && pt.x < SCREEN_WIDTH && pt.y > 0 && pt.y < SCREEN_HEIGHT)
 		{
 			Mouse::Instance().OnMouseMove(pt.x, pt.y);
 			if (!Mouse::Instance().IsInWindow())
@@ -152,9 +152,9 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			if (wParam & (MK_LBUTTON | MK_RBUTTON))
 			{
 				pt.x = std::max(short(0), pt.x);
-				pt.x = std::min(short(Graphics::ScreenWidth - 1), pt.x);
+				pt.x = std::min(short(SCREEN_HEIGHT - 1), pt.x);
 				pt.y = std::max(short(0), pt.y);
-				pt.y = std::min(short(Graphics::ScreenHeight - 1), pt.y);
+				pt.y = std::min(short(SCREEN_HEIGHT - 1), pt.y);
 				Mouse::Instance().OnMouseMove(pt.x, pt.y);
 			}
 			else

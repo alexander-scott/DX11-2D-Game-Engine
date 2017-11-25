@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "Graphics.h"
-#include "GUIText.h"
+#include "DX11Graphics.h"
+
 #include "FrameTimer.h"
 #include "ComponentFactory.h"
 #include "GameObject.h"
@@ -33,7 +33,7 @@ private:
 
 private:
 	MainWindow& wnd;
-	Graphics gfx;
+	DX11Graphics gfx; // Select graphics library
 
 	FrameTimer						_frameTimer;
 	PhysicsManager					_physicsManager;
