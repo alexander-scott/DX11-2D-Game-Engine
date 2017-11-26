@@ -138,7 +138,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
-    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ColliderRendererComponent.h" />
@@ -180,7 +180,7 @@
     <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
     <ClCompile Include="LevelManager.cpp" />

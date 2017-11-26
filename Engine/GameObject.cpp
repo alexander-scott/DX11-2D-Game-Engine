@@ -32,7 +32,7 @@ void GameObject::SendMessageToComponents(IMessage & message)
 	}
 }
 
-void GameObject::Draw(IGraphics& gfx) const
+void GameObject::Draw(Camera* cam) const
 {
 	for (auto component : _components)
 	{
@@ -42,7 +42,7 @@ void GameObject::Draw(IGraphics& gfx) const
 		if (drawableComponent != nullptr)
 		{
 			// Is drawable
-			drawableComponent->Draw(gfx);
+			drawableComponent->Draw(cam);
 		}
 	}
 }

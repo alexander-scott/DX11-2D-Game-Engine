@@ -1,12 +1,12 @@
 #pragma once
 
 #include "TransformComponent.h"
-#include "IGraphics.h"
+#include "Camera.h"
 
 class IDrawable
 {
 public:
-	virtual void Draw(IGraphics& gfx) = 0;
+	virtual void Draw(Camera* cam) = 0;
 	void SetTransform(TransformComponent* transform) { _transform = transform; }
 
 	TransformComponent* GetTransform() { return _transform; }

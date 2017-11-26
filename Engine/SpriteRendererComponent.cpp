@@ -12,7 +12,7 @@ SpriteRendererComponent::~SpriteRendererComponent()
 {
 }
 
-void SpriteRendererComponent::Draw(IGraphics & gfx)
+void SpriteRendererComponent::Draw(Camera* cam)
 {
-	gfx.DrawSprite(_fileName, GetTransform()->GetPosition(), nullptr, GetTransform()->GetRotation(), GetTransform()->GetScale());
+	cam->GetGraphics()->DrawSprite(_fileName, GetTransform()->GetPosition(), nullptr, GetTransform()->GetRotation(), GetTransform()->GetScale());
 }

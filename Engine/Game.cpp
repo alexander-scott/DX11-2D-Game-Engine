@@ -4,8 +4,7 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd)
 {
-	gfx.Initalise(wnd);
-	gfx.PreloadTextures();
+	_camera = new Camera(wnd);
 
 	InitaliseObjects();
 	InitaliseLevel();
@@ -61,12 +60,12 @@ void Game::InitalisePhysics()
 
 void Game::Update()
 {
-	gfx.BeginFrame();
+	_camera->GetGraphics()->BeginFrame();
 
 	UpdateModel();
 	ComposeFrame();
 
-	gfx.EndFrame();
+	_camera->GetGraphics()->EndFrame();
 }
 
 Game::~Game()
@@ -94,6 +93,6 @@ void Game::ComposeFrame()
 {
 	for (auto go : _gameObjects)
 	{
-		go->Draw(gfx);
+		go->Draw(_camera);
 	}
 }

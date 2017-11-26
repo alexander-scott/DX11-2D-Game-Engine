@@ -11,7 +11,7 @@ public:
 
 	void SetFilename(std::string fileName) { _fileName = fileName; }
 
-	virtual void Draw(IGraphics& gfx) override;
+	virtual void Draw(Camera* cam) override;
 
 private:
 	std::string				 _fileName;

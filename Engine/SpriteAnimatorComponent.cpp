@@ -12,9 +12,9 @@ SpriteAnimatorComponent::~SpriteAnimatorComponent()
 
 }
 
-void SpriteAnimatorComponent::Draw(IGraphics & gfx)
+void SpriteAnimatorComponent::Draw(Camera* cam)
 {
-	gfx.DrawSprite(_fileName, GetTransform()->GetPosition(), _animations[(int)iCurSequence]._animationFrames[_animations[(int)iCurSequence]._currentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale());
+	cam->GetGraphics()->DrawSprite(_fileName, GetTransform()->GetPosition(), _animations[(int)iCurSequence]._animationFrames[_animations[(int)iCurSequence]._currentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale());
 }
 
 void SpriteAnimatorComponent::Update(float deltaTime)

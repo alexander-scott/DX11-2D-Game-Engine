@@ -9,6 +9,7 @@
 #include "MainWindow.h"
 #include "PhysicsManager.h"
 
+#include "Camera.h"
 #include "Player.h"
 #include "LevelManager.h"
 
@@ -33,7 +34,8 @@ private:
 
 private:
 	MainWindow& wnd;
-	DX11Graphics gfx; // Select graphics library
+
+	Camera*							_camera;
 
 	FrameTimer						_frameTimer;
 	PhysicsManager					_physicsManager;

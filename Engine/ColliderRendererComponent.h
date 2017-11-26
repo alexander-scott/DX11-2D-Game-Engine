@@ -15,7 +15,7 @@ public:
 
 	void SetCollider(ColliderComponent* collider);
 
-	virtual void Draw(IGraphics& gfx) override;
+	virtual void Draw(Camera* cam) override;
 
 private:
 	ColliderComponent*				_collider;

@@ -12,7 +12,7 @@ TextRendererComponent::~TextRendererComponent()
 {
 }
 
-void TextRendererComponent::Draw(IGraphics & gfx)
+void TextRendererComponent::Draw(Camera* cam)
 {
-	gfx.DrawText(_text, GetTransform()->GetPosition());
+	cam->GetGraphics()->DrawText(_text, GetTransform()->GetPosition());
 }
