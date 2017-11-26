@@ -60,12 +60,12 @@ void Game::InitalisePhysics()
 
 void Game::Update()
 {
-	_camera->GetGraphics()->BeginFrame();
+	_camera->BeginFrame();
 
 	UpdateModel();
 	ComposeFrame();
 
-	_camera->GetGraphics()->EndFrame();
+	_camera->EndFrame();
 }
 
 Game::~Game()

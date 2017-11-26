@@ -14,5 +14,5 @@ TextRendererComponent::~TextRendererComponent()
 
 void TextRendererComponent::Draw(Camera* cam)
 {
-	cam->GetGraphics()->DrawText(_text, GetTransform()->GetPosition());
+	cam->DrawText(_text, GetTransform()->GetPosition());
 }

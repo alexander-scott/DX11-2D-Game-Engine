@@ -14,5 +14,5 @@ SpriteRendererComponent::~SpriteRendererComponent()
 
 void SpriteRendererComponent::Draw(Camera* cam)
 {
-	cam->GetGraphics()->DrawSprite(_fileName, GetTransform()->GetPosition(), nullptr, GetTransform()->GetRotation(), GetTransform()->GetScale());
+	cam->DrawSprite(_fileName, GetTransform()->GetPosition(), nullptr, GetTransform()->GetRotation(), GetTransform()->GetScale());
 }
