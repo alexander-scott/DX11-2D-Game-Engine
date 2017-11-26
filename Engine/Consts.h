@@ -108,4 +108,14 @@ struct RigidBodyData
 	}
 };
 
+struct LevelData 
+{
+public:
+	int levelWidth;
+	int levelHeight;
+
+	float playerXPos;
+	float playerYPos;
+};
+
 #pragma endregion

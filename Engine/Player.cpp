@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(int xPos, int yPos)
+Player::Player(float xPos, float yPos)
 {
 	// TRANSFORM COMPONENT
 	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(xPos, yPos), 0, 1);

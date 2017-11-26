@@ -29,11 +29,23 @@ void Game::InitaliseObjects()
 void Game::InitaliseLevel()
 {
 	LevelManager levelManager(45, 45, 0, 600);
-	std::vector<GameObject*> levelObjects = levelManager.LoadLevel("Levels\\level1.xml");
+	levelManager.LoadLevel("Levels\\level1.xml");
 
-	_camera->SetFocusTrans(levelObjects[0]->GetComponent<TransformComponent>()); // First object is the player
+	Player* p = new Player(levelManager.GetLevelData().playerXPos, levelManager.GetLevelData().playerYPos);
+	_gameObjects.push_back(p);
+	_camera->SetFocusTrans(p->GetComponent<TransformComponent>()); // First object is the player
 
-	_gameObjects.insert(std::end(_gameObjects), std::begin(levelObjects), std::end(levelObjects));
+	for (int i = 0; i < levelManager.GetLevelData().levelWidth; i++)
+	{
+		for (int j = 0; j < levelManager.GetLevelData().levelHeight; j++)
+		{
+			WorldTile* t = levelManager.GetTile(i, j);
+			if (t != nullptr)
+			{
+				_gameObjects.push_back(t);
+			}
+		}
+	}
 }
 
 // Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.

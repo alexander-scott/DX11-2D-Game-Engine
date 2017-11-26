@@ -10,7 +10,7 @@
 class Player : public GameObject
 {
 public:
-	Player(int xPos, int yPos);
+	Player(float xPos, float yPos);
 	~Player();
 
 	virtual void Update(float deltaTime) override;

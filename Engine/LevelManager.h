@@ -3,7 +3,6 @@
 #include <vector>
 #include <fstream>
 
-#include "Player.h"
 #include "WorldTile.h"
 #include "Consts.h"
 
@@ -17,11 +16,9 @@ public:
 
 	void AddTile(int x, int y, WorldTile* tile);
 	WorldTile* GetTile(unsigned int x, unsigned int y);
+	LevelData GetLevelData() { return _levelData; }
 
-	std::vector<GameObject*> LoadLevel(std::string filename);
-
-	int GetWidth();
-	int GetHeight();
+	void LoadLevel(std::string filename);
 
 private:
 	void SetDimensions(int w, int h);
@@ -29,9 +26,7 @@ private:
 	//A 2D array of Tile pointers
 	std::vector<std::vector<WorldTile*>> map;
 
-	//Width and height of level (in tiles)
-	int							_width;
-	int							_height;
+	LevelData					_levelData;
 
 	int							_xStep;
 	int							_yStep;
