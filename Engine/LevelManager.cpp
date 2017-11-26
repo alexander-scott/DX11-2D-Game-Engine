@@ -30,7 +30,7 @@ WorldTile * LevelManager::GetTile(unsigned int x, unsigned int y)
 	}
 }
 
-void LevelManager::LoadLevel(std::string filename)
+std::vector<GameObject*> LevelManager::LoadLevel(std::string filename)
 {
 	//Loads a level from xml file
 	//Load the file
@@ -69,6 +69,16 @@ void LevelManager::LoadLevel(std::string filename)
 	this->_height = height;
 	SetDimensions(width, height);
 
+	std::vector<GameObject*> gameObjects;
+
+	// Find the player data
+	xml_node<>* player = root->first_node("player");
+	float playerXPos = (float)_xOrigin + (atoi(player->first_attribute("x")->value()) * _xStep);
+	float playerYPos = (float)_yOrigin + -(atoi(player->first_attribute("y")->value()) * _yStep);
+
+	Player* p = new Player(playerXPos, playerYPos);
+	gameObjects.push_back(p);
+
 	//Go through each tile
 	xml_node<>* tile = root->first_node("tile");
 	while (tile)
@@ -81,12 +91,17 @@ void LevelManager::LoadLevel(std::string filename)
 		std::string spriteName = std::string(tile->first_attribute("sprite")->value());
 
 		//Create the tile and add it to the level.
-		WorldTile* newTile = new WorldTile(spriteName, Vec2((float)_xOrigin + (x * _xStep), (float)_yOrigin + (y * _yStep)));
+		WorldTile* newTile = new WorldTile(spriteName, Vec2((float)_xOrigin + (x * _xStep), 
+			(float)_yOrigin + -(y * _yStep))); // The minus by the y is because I find it easier to create levels if postive Y goes up rather than down
+
+		gameObjects.push_back(newTile);
 		AddTile(x, y, newTile);
 
 		//Go to the next tile
 		tile = tile->next_sibling("tile");
 	}
+
+	return gameObjects;
 }
 
 int LevelManager::GetWidth()

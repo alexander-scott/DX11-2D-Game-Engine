@@ -3,6 +3,7 @@
 #include <vector>
 #include <fstream>
 
+#include "Player.h"
 #include "WorldTile.h"
 #include "Consts.h"
 
@@ -17,7 +18,7 @@ public:
 	void AddTile(int x, int y, WorldTile* tile);
 	WorldTile* GetTile(unsigned int x, unsigned int y);
 
-	void LoadLevel(std::string filename);
+	std::vector<GameObject*> LoadLevel(std::string filename);
 
 	int GetWidth();
 	int GetHeight();

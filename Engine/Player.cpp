@@ -1,9 +1,9 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player(int xPos, int yPos)
 {
 	// TRANSFORM COMPONENT
-	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(350, 150), 0, 1);
+	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(xPos, yPos), 0, 1);
 	AddComponent(playerTransform);
 
 	// RIGIDBODY COMPONENT

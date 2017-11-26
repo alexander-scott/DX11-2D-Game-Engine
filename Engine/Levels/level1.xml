@@ -1,9 +1,12 @@
 <!-- -
 <XmlTag variable="0" />
 Keep width as max X plus 1. Keep height as max Y plus 1.
+X postive is right. Y postive is up.
 <!- -->
 
-<level width="14" height="1"> 
+<level width="15" height="8">
+  <player x="7" y ="15"/>
+  
 	<tile x="0" y="0" sprite="Pipe"/>
 	<tile x="1" y="0" sprite="Pipe"/>
 	<tile x="2" y="0" sprite="Pipe"/>
@@ -18,4 +21,61 @@ Keep width as max X plus 1. Keep height as max Y plus 1.
   <tile x="11" y="0" sprite="Pipe"/>
   <tile x="12" y="0" sprite="Pipe"/>
   <tile x="13" y="0" sprite="Pipe"/>
+  <tile x="14" y="0" sprite="Pipe"/>
+
+  <tile x="1" y="1" sprite="Pipe"/>
+  <tile x="2" y="1" sprite="Pipe"/>
+  <tile x="3" y="1" sprite="Pipe"/>
+  <tile x="4" y="1" sprite="Pipe"/>
+  <tile x="5" y="1" sprite="Pipe"/>
+  <tile x="6" y="1" sprite="Pipe"/>
+  <tile x="7" y="1" sprite="Pipe"/>
+  <tile x="8" y="1" sprite="Pipe"/>
+  <tile x="9" y="1" sprite="Pipe"/>
+  <tile x="10" y="1" sprite="Pipe"/>
+  <tile x="11" y="1" sprite="Pipe"/>
+  <tile x="12" y="1" sprite="Pipe"/>
+  <tile x="13" y="1" sprite="Pipe"/>
+
+  <tile x="2" y="2" sprite="Pipe"/>
+  <tile x="3" y="2" sprite="Pipe"/>
+  <tile x="4" y="2" sprite="Pipe"/>
+  <tile x="5" y="2" sprite="Pipe"/>
+  <tile x="6" y="2" sprite="Pipe"/>
+  <tile x="7" y="2" sprite="Pipe"/>
+  <tile x="8" y="2" sprite="Pipe"/>
+  <tile x="9" y="2" sprite="Pipe"/>
+  <tile x="10" y="2" sprite="Pipe"/>
+  <tile x="11" y="2" sprite="Pipe"/>
+  <tile x="12" y="2" sprite="Pipe"/>
+
+  <tile x="3" y="3" sprite="Pipe"/>
+  <tile x="4" y="3" sprite="Pipe"/>
+  <tile x="5" y="3" sprite="Pipe"/>
+  <tile x="6" y="3" sprite="Pipe"/>
+  <tile x="7" y="3" sprite="Pipe"/>
+  <tile x="8" y="3" sprite="Pipe"/>
+  <tile x="9" y="3" sprite="Pipe"/>
+  <tile x="10" y="3" sprite="Pipe"/>
+  <tile x="11" y="3" sprite="Pipe"/>
+
+  <tile x="4" y="4" sprite="Pipe"/>
+  <tile x="5" y="4" sprite="Pipe"/>
+  <tile x="6" y="4" sprite="Pipe"/>
+  <tile x="7" y="4" sprite="Pipe"/>
+  <tile x="8" y="4" sprite="Pipe"/>
+  <tile x="9" y="4" sprite="Pipe"/>
+  <tile x="10" y="4" sprite="Pipe"/>
+
+  <tile x="5" y="5" sprite="Pipe"/>
+  <tile x="6" y="5" sprite="Pipe"/>
+  <tile x="7" y="5" sprite="Pipe"/>
+  <tile x="8" y="5" sprite="Pipe"/>
+  <tile x="9" y="5" sprite="Pipe"/>
+
+  <tile x="6" y="6" sprite="Pipe"/>
+  <tile x="7" y="6" sprite="Pipe"/>
+  <tile x="8" y="6" sprite="Pipe"/>
+
+  <tile x="7" y="7" sprite="Pipe"/>
 </level>

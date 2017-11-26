@@ -18,8 +18,10 @@ GameCamera::~GameCamera()
 void GameCamera::Update(float deltaTime)
 {
 	GameObject::Update(deltaTime);
+
+	// Set the cameras central position to be on the focus position
 	Vec2 pos = focusTrans->GetPosition();
-	pos.x -= (SCREEN_WIDTH / 2) - 32;
+	pos.x -= (SCREEN_WIDTH / 2) - 32; // -32 because that is the exact centre of the player sprite
 	pos.y -= (SCREEN_HEIGHT / 2) - 32;
 
 	trans->SetPosition(pos);
