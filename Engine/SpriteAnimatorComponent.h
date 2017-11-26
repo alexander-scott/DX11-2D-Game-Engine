@@ -56,7 +56,7 @@ public:
 	SpriteAnimatorComponent();
 	~SpriteAnimatorComponent();
 
-	virtual void Draw(Camera* cam) override;
+	virtual void Draw(ICamera* cam) override;
 	virtual void Update(float deltaTime) override;
 	virtual void RecieveMessage(IMessage& message) override;
 

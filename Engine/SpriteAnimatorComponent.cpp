@@ -12,7 +12,7 @@ SpriteAnimatorComponent::~SpriteAnimatorComponent()
 
 }
 
-void SpriteAnimatorComponent::Draw(Camera* cam)
+void SpriteAnimatorComponent::Draw(ICamera* cam)
 {
 	cam->DrawSprite(_fileName, GetTransform()->GetPosition(), _animations[(int)iCurSequence]._animationFrames[_animations[(int)iCurSequence]._currentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale());
 }

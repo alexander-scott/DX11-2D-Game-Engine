@@ -4,7 +4,8 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd)
 {
-	_camera = new Camera(wnd);
+	_camera = new GameCamera();
+	_camera->Initalise(wnd);
 
 	InitaliseObjects();
 	InitaliseLevel();
@@ -70,6 +71,8 @@ void Game::Update()
 
 Game::~Game()
 {
+	_camera->Destroy();
+
 	for (auto go : _gameObjects)
 	{
 		go->~GameObject();
@@ -81,6 +84,7 @@ void Game::UpdateModel()
 	float deltaTime = _frameTimer.Mark();
 
 	_physicsManager.Update(deltaTime);
+	_camera->Update(deltaTime);
 
 	// Update gameobjects
 	for (auto go : _gameObjects)

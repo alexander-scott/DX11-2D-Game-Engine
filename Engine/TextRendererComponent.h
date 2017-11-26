@@ -11,7 +11,7 @@ public:
 
 	void SetText(std::string text) { _text = text; }
 
-	virtual void Draw(Camera* cam) override;
+	virtual void Draw(ICamera* cam) override;
 
 private:
 	std::string _text;

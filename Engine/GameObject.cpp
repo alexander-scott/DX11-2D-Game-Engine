@@ -32,7 +32,7 @@ void GameObject::SendMessageToComponents(IMessage & message)
 	}
 }
 
-void GameObject::Draw(Camera* cam) const
+void GameObject::Draw(ICamera* cam) const
 {
 	for (auto component : _components)
 	{

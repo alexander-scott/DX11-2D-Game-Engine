@@ -1,17 +1,13 @@
-
 #pragma once
 
-#include "DX11Graphics.h"
-
 #include "FrameTimer.h"
-#include "ComponentFactory.h"
-#include "GameObject.h"
 #include "MainWindow.h"
-#include "PhysicsManager.h"
 
-#include "Camera.h"
+#include "ComponentFactory.h"
+#include "GameCamera.h"
 #include "Player.h"
 #include "LevelManager.h"
+#include "PhysicsManager.h"
 
 class Game
 {
@@ -35,7 +31,7 @@ private:
 private:
 	MainWindow& wnd;
 
-	Camera*							_camera;
+	ICamera*						_camera;
 
 	FrameTimer						_frameTimer;
 	PhysicsManager					_physicsManager;

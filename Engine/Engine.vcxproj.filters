@@ -56,6 +56,9 @@
     <Filter Include="Engine\Level Loading\XML Reader">
       <UniqueIdentifier>{c5f6b9d8-c478-4984-ad19-a126a89534ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Graphics\APIs">
+      <UniqueIdentifier>{d13b61ca-a214-4435-b9c7-cd543c5c937e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -172,14 +175,17 @@
     <ClInclude Include="IGraphics.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="DX11Graphics.h">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="DX11Graphics.h">
+      <Filter>Engine\Graphics\APIs</Filter>
+    </ClInclude>
+    <ClInclude Include="ICamera.h">
       <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCamera.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -249,14 +255,14 @@
     <ClCompile Include="WorldTile.cpp">
       <Filter>Engine\Level Loading</Filter>
     </ClCompile>
-    <ClCompile Include="DX11Graphics.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Engine\Graphics</Filter>
+    <ClCompile Include="DX11Graphics.cpp">
+      <Filter>Engine\Graphics\APIs</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCamera.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

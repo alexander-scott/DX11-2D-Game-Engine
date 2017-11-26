@@ -18,7 +18,7 @@ void ColliderRendererComponent::SetCollider(ColliderComponent * collider)
 	_colliderType = collider->GetType();
 }
 
-void ColliderRendererComponent::Draw(Camera* cam)
+void ColliderRendererComponent::Draw(ICamera* cam)
 {
 	switch (_colliderType)
 	{

@@ -8,14 +8,14 @@
 #include "IDrawable.h"
 #include "IMessageable.h"
 
-#include "Camera.h"
+#include "ICamera.h"
 
 class GameObject
 {
 public:
 	~GameObject();
 
-	void Draw(Camera* cam) const;
+	void Draw(ICamera* cam) const;
 	virtual void Update(float deltaTime);
 	void SendMessageToComponents(IMessage& message);
 

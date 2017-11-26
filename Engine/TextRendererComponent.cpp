@@ -12,7 +12,7 @@ TextRendererComponent::~TextRendererComponent()
 {
 }
 
-void TextRendererComponent::Draw(Camera* cam)
+void TextRendererComponent::Draw(ICamera* cam)
 {
 	cam->DrawText(_text, GetTransform()->GetPosition());
 }
