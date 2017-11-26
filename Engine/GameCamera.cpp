@@ -6,7 +6,7 @@ GameCamera::GameCamera()
 {
 	gfx = new DX11Graphics();
 
-	trans = ComponentFactory::MakeTransform(Vec2(100, 0), 0, 0);
+	trans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0);
 	AddComponent(trans);
 }
 
@@ -17,9 +17,12 @@ GameCamera::~GameCamera()
 
 void GameCamera::Update(float deltaTime)
 {
-	Vec2 oldPos = trans->GetPosition();
-	oldPos.x += 0.5f;
-	trans->SetPosition(oldPos);
+	GameObject::Update(deltaTime);
+	Vec2 pos = focusTrans->GetPosition();
+	pos.x -= (SCREEN_WIDTH / 2) - 32;
+	pos.y -= (SCREEN_HEIGHT / 2) - 32;
+
+	trans->SetPosition(pos);
 }
 
 void GameCamera::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot)

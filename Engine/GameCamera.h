@@ -10,6 +10,8 @@ public:
 	GameCamera();
 	~GameCamera();
 
+	void SetFocusTrans(TransformComponent* fTrans) { focusTrans = fTrans; }
+
 	virtual void Update(float deltaTime) override;
 
 	virtual void DrawSprite(std::string name, Vec2 pos, RECT* rect, float rot) override;
@@ -19,5 +21,6 @@ public:
 
 private:
 	TransformComponent* trans;
+	TransformComponent* focusTrans;
 };
 

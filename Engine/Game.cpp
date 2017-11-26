@@ -22,8 +22,10 @@ void Game::InitaliseObjects()
 	guiText->AddComponent(guiTextRenderer);
 	_gameObjects.push_back(guiText);
 
-	_gameObjects.push_back(new Player());
+	Player* p = new Player();
+	_gameObjects.push_back(p);
 
+	_camera->SetFocusTrans(p->GetComponent<TransformComponent>());
 	_gameObjects.push_back(_camera);
 }
 
@@ -73,8 +75,6 @@ void Game::Update()
 
 Game::~Game()
 {
-	_camera->Destroy();
-
 	for (auto go : _gameObjects)
 	{
 		go->~GameObject();
