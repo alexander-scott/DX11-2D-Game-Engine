@@ -23,6 +23,8 @@ void Game::InitaliseObjects()
 	_gameObjects.push_back(guiText);
 
 	_gameObjects.push_back(new Player());
+
+	_gameObjects.push_back(_camera);
 }
 
 // Read in level data from an XML file and build the level
@@ -84,7 +86,6 @@ void Game::UpdateModel()
 	float deltaTime = _frameTimer.Mark();
 
 	_physicsManager.Update(deltaTime);
-	_camera->Update(deltaTime);
 
 	// Update gameobjects
 	for (auto go : _gameObjects)

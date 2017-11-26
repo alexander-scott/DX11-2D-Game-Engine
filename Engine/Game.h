@@ -31,7 +31,7 @@ private:
 private:
 	MainWindow& wnd;
 
-	ICamera*						_camera;
+	GameCamera*						_camera;
 
 	FrameTimer						_frameTimer;
 	PhysicsManager					_physicsManager;
