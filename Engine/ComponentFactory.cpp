@@ -116,3 +116,23 @@ ColliderRendererComponent * ComponentFactory::MakeColliderRenderer(TransformComp
 
 	return colliderRenderer;
 }
+
+TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, float spriteWidth, float spriteHeight, TransformComponent * trans, TransformComponent * focusTrans)
+{
+	if (trans == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	if (focusTrans == nullptr)
+	{
+		throw std::exception("This object requires a focus transform component");
+	}
+
+	TiledBGRenderer * bgRenderer = new TiledBGRenderer();
+	bgRenderer->SetTransform(trans);
+	bgRenderer->SetFocusTrans(focusTrans);
+	bgRenderer->SetMoveRate(0);
+	bgRenderer->SetSprite(spriteName, spriteWidth, spriteHeight);
+
+	return bgRenderer;
+}

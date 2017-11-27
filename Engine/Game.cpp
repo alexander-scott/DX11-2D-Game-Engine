@@ -32,8 +32,15 @@ void Game::InitaliseLevel()
 	levelManager.LoadLevel("Levels\\level1.xml");
 
 	Player* p = new Player(levelManager.GetLevelData().playerXPos, levelManager.GetLevelData().playerYPos);
-	_gameObjects.push_back(p);
 	_camera->SetFocusTrans(p->GetComponent<TransformComponent>()); // First object is the player
+
+	GameObject* background = new GameObject();
+	TransformComponent* bgTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 1);
+	background->AddComponent(bgTrans);
+	background->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Sky", 640, 480, bgTrans, p->GetComponent<TransformComponent>()));
+
+	_gameObjects.push_back(background);
+	_gameObjects.push_back(p);
 
 	for (int i = 0; i < levelManager.GetLevelData().levelWidth; i++)
 	{

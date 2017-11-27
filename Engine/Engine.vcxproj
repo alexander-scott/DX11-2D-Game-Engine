@@ -166,6 +166,7 @@
     <ClInclude Include="IUpdateable.h" />
     <ClInclude Include="SpriteRendererComponent.h" />
     <ClInclude Include="TextRendererComponent.h" />
+    <ClInclude Include="TiledBGRenderer.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UpdateAnimationSequenceMessage.h" />
     <ClInclude Include="WinDefines.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="SpriteRendererComponent.cpp" />
     <ClCompile Include="TextRendererComponent.cpp" />
+    <ClCompile Include="TiledBGRenderer.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="WorldTile.cpp" />
   </ItemGroup>

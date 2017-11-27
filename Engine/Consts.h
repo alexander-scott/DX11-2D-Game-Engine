@@ -56,6 +56,8 @@ static std::map<std::string, std::string> SpriteFilePaths =
 {
 	{ "MageWalk",		"Images\\mage_walk.dds" },
 	{ "Pipe",			"Images\\warp_pipe_edited.dds" },
+	{ "BG_Sky",			"Images\\Backgrounds\\Sky_back_layer.dds" },
+	{ "BG_Ground",		"Images\\Backgrounds\\Ground_(front_layer).dds" },
 };
 
 #pragma endregion

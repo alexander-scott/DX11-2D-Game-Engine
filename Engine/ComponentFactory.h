@@ -9,6 +9,7 @@
 #include "CircleColliderComponent.h"
 #include "PolygonColliderComponent.h"
 #include "ColliderRendererComponent.h"
+#include "TiledBGRenderer.h"
 
 namespace ComponentFactory
 {
@@ -20,6 +21,7 @@ namespace ComponentFactory
 	SpriteRendererComponent * MakeSpriteRenderer(std::string fileName, TransformComponent* transform);
 	SpriteAnimatorComponent * MakeSpriteAnimator(std::string fileName, TransformComponent* transform, std::vector<AnimationDesc> animDescs, int currentAnim);
 	ColliderRendererComponent * MakeColliderRenderer(TransformComponent* trans, ColliderComponent* collider);
+	TiledBGRenderer * MakeTiledBGRenderer(std::string spriteName, float spriteWidth, float spriteHeight, TransformComponent* trans, TransformComponent* focusTrans);
 
 	CircleColliderComponent * MakeCircleCollider(float radius, TransformComponent* transform, RigidBodyComponent* rigidbody);
 	PolygonColliderComponent * MakePolygonCollider(Vec2* verticies, int vertexCount, TransformComponent* transform, RigidBodyComponent* rigidbody);

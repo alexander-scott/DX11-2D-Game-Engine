@@ -187,6 +187,9 @@
     <ClInclude Include="GameCamera.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="TiledBGRenderer.h">
+      <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -263,6 +266,9 @@
     </ClCompile>
     <ClCompile Include="GameCamera.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledBGRenderer.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

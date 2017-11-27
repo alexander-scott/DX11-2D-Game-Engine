@@ -15,7 +15,7 @@ RigidBodyComponent::RigidBodyComponent()
 	rigidbodyData.force.Set(0, 0);
 	rigidbodyData.staticFriction = 1;
 	rigidbodyData.dynamicFriction = 0.3f;
-	rigidbodyData.restitution = 0;
+	rigidbodyData.restitution = 0.1f;
 }
 
 
