@@ -48,6 +48,13 @@ enum CollisionType
 	ePolygonToPolygon
 };
 
+enum TiledBGDirection
+{
+	eHorizontal,
+	eVertical,
+	eHoriztonalAndVertical
+};
+
 #pragma endregion
 
 #pragma region Maps

@@ -37,9 +37,15 @@ void Game::InitaliseLevel()
 	GameObject* background = new GameObject();
 	TransformComponent* bgTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 1);
 	background->AddComponent(bgTrans);
-	background->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Sky", 640, 480, bgTrans, p->GetComponent<TransformComponent>()));
+	background->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Sky", 640, 480, 0.1f, TiledBGDirection::eHoriztonalAndVertical, bgTrans,  p->GetComponent<TransformComponent>()));
+
+	GameObject* background2 = new GameObject();
+	TransformComponent* bgTrans2 = ComponentFactory::MakeTransform(Vec2(0, 200), 0, 1);
+	background->AddComponent(bgTrans2);
+	background->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Ground", 640, 480, 1, TiledBGDirection::eHorizontal, bgTrans2, p->GetComponent<TransformComponent>()));
 
 	_gameObjects.push_back(background);
+	_gameObjects.push_back(background2);
 	_gameObjects.push_back(p);
 
 	for (int i = 0; i < levelManager.GetLevelData().levelWidth; i++)

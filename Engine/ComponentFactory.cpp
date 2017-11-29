@@ -117,7 +117,7 @@ ColliderRendererComponent * ComponentFactory::MakeColliderRenderer(TransformComp
 	return colliderRenderer;
 }
 
-TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, float spriteWidth, float spriteHeight, TransformComponent * trans, TransformComponent * focusTrans)
+TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, float spriteWidth, float spriteHeight, float moveRate, TiledBGDirection direction, TransformComponent * trans, TransformComponent * focusTrans)
 {
 	if (trans == nullptr)
 	{
@@ -131,7 +131,8 @@ TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, 
 	TiledBGRenderer * bgRenderer = new TiledBGRenderer();
 	bgRenderer->SetTransform(trans);
 	bgRenderer->SetFocusTrans(focusTrans);
-	bgRenderer->SetMoveRate(0);
+	bgRenderer->SetMoveRate(moveRate);
+	bgRenderer->SetDirection(direction);
 	bgRenderer->SetSprite(spriteName, spriteWidth, spriteHeight);
 
 	return bgRenderer;

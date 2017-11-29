@@ -7,12 +7,6 @@
 
 #include <vector>
 
-/*
-Move transform by MOVERATE * FocusTransform movement.
-Multiply transform by tile width + height to find the 9 closest tile centres to FocusTransform.
-Draw the sprite on these 9 tiles.
-*/
-
 class TiledBGRenderer : public IComponent, public IDrawable, public IUpdateable
 {
 public:
@@ -22,17 +16,20 @@ public:
 	virtual void Draw(ICamera* cam) override;
 	virtual void Update(float deltaTime) override;
 
-	void SetFocusTrans(TransformComponent* focTrans) { focusTrans = focTrans; prevFocusPos = focusTrans->GetPosition(); }
-	void SetSprite(std::string sName, float sWidth, float sHeight) { spriteName = sName; spriteWidth = sWidth; spriteHeight = sHeight; }
-	void SetMoveRate(float mRate) { moveRate = mRate; }
+	void SetFocusTrans(TransformComponent* focTrans) { _focusTrans = focTrans; _prevFocusPos = _focusTrans->GetPosition(); }
+	void SetSprite(std::string sName, float sWidth, float sHeight) { _spriteName = sName; _spriteWidth = sWidth; _spriteHeight = sHeight; }
+	void SetMoveRate(float mRate) { _moveRate = mRate; }
+	void SetDirection(TiledBGDirection dir) { _scrollDir = dir; }
 
 private:
-	TransformComponent* focusTrans;
+	TransformComponent*					_focusTrans;
 
-	Vec2 prevFocusPos;
-	float moveRate;
+	Vec2								_prevFocusPos;
+	float								_moveRate;
 
-	std::string spriteName;
-	float spriteWidth;
-	float spriteHeight;
+	TiledBGDirection					_scrollDir;
+
+	std::string							_spriteName;
+	float								_spriteWidth;
+	float								_spriteHeight;
 };
