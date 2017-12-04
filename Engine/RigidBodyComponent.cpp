@@ -6,12 +6,11 @@ RigidBodyComponent::RigidBodyComponent()
 {
 	_type = "Rigidbody";
 
-	rigidbodyData = RigidBodyData(Vec2(0,0), 0, 0, 0, Vec2(0,0), 0, 0, 0);
+	rigidbodyData = RigidBodyData(Vec2(0,0), 0, 0, Vec2(0,0), 0, 0, 0);
 	
 	rigidbodyData.velocity.Set(0, 0);
 	rigidbodyData.angularVelocity = 0;
 	rigidbodyData.torque = 0;
-	rigidbodyData.orient = Random(-PI, PI);
 	rigidbodyData.force.Set(0, 0);
 	rigidbodyData.staticFriction = 1;
 	rigidbodyData.dynamicFriction = 0.3f;

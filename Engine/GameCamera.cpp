@@ -4,7 +4,7 @@
 
 GameCamera::GameCamera()
 {
-	gfx = new DX11Graphics();
+	gfx = new DX11Graphics(); // DECIDE ON GRAPHICS API HERE
 
 	trans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0);
 	AddComponent(trans);
@@ -23,6 +23,16 @@ void GameCamera::Update(float deltaTime)
 	Vec2 pos = focusTrans->GetPosition();
 	pos.x -= (SCREEN_WIDTH / 2) - 32; // -32 because that is the exact centre of the player sprite
 	pos.y -= (SCREEN_HEIGHT / 2) - 32;
+
+	if (pos.x - ((SCREEN_WIDTH / 2) - 32) < levelLeftBound)
+	{
+		pos.x = levelLeftBound + ((SCREEN_WIDTH / 2) - 32);
+	}
+
+	if (pos.x + ((SCREEN_WIDTH / 2) - 32) > levelRightBound)
+	{
+		pos.x = levelRightBound - ((SCREEN_WIDTH / 2) - 32);
+	}
 
 	trans->SetPosition(pos);
 }

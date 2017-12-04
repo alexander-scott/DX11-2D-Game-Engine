@@ -28,14 +28,11 @@ public:
 	float GetTorque() { return rigidbodyData.torque; }
 	void SetTorque(float torq) { rigidbodyData.torque = torq; }
 
-	float GetOrient() { return rigidbodyData.orient; }
-	void SetOrient(float ori) { rigidbodyData.orient = ori; }
-
 	Vec2 GetForce() { return rigidbodyData.force; }
 	void SetForce(Vec2 forc) { rigidbodyData.force = forc; }
 
 	float GetIntertia() { return rigidbodyData.intertia; }
-	void SetIntertia(float intert) { rigidbodyData.orient = intert; }
+	void SetIntertia(float intert) { rigidbodyData.intertia = intert; }
 
 	float GetInverseIntertia() { return rigidbodyData.inverseInertia; }
 	void SetInverseIntertia(float intert) { rigidbodyData.inverseInertia = intert; }
@@ -56,6 +53,6 @@ public:
 	void SetRestitution(float rest) { rigidbodyData.restitution = rest; }
 
 private:
-	RigidBodyData rigidbodyData = RigidBodyData(Vec2(0, 0), 0, 0, 0, Vec2(0, 0), 0, 0, 0);
+	RigidBodyData rigidbodyData = RigidBodyData(Vec2(0, 0), 0, 0, Vec2(0, 0), 0, 0, 0);
 };
 

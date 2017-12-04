@@ -166,9 +166,6 @@
     <ClInclude Include="rapidxml.hpp">
       <Filter>Engine\Level Loading\XML Reader</Filter>
     </ClInclude>
-    <ClInclude Include="LevelManager.h">
-      <Filter>Engine\Level Loading</Filter>
-    </ClInclude>
     <ClInclude Include="WorldTile.h">
       <Filter>Engine\Level Loading</Filter>
     </ClInclude>
@@ -189,6 +186,12 @@
     </ClInclude>
     <ClInclude Include="TiledBGRenderer.h">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ILevelManager.h">
+      <Filter>Engine\Level Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevelManager.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -252,9 +255,6 @@
     <ClCompile Include="ColliderRendererComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="LevelManager.cpp">
-      <Filter>Engine\Level Loading</Filter>
-    </ClCompile>
     <ClCompile Include="WorldTile.cpp">
       <Filter>Engine\Level Loading</Filter>
     </ClCompile>
@@ -269,6 +269,12 @@
     </ClCompile>
     <ClCompile Include="TiledBGRenderer.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ILevelManager.cpp">
+      <Filter>Engine\Level Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevelManager.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

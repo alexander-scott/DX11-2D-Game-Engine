@@ -29,32 +29,35 @@ void Game::InitaliseObjects()
 // Read in level data from an XML file and build the level
 void Game::InitaliseLevel()
 {
-	LevelManager levelManager(45, 45, 0, 600);
+	// Init LevelManager (xStep, yStep, xOrigin, yOrigin)
+	GameLevelManager levelManager(TILE_WIDTH, TILE_HEIGHT, 0, 0);
 	levelManager.LoadLevel("Levels\\level1.xml");
 
 	Player* p = new Player(levelManager.GetLevelData().playerXPos, levelManager.GetLevelData().playerYPos);
-	_camera->SetFocusTrans(p->GetComponent<TransformComponent>()); // First object is the player
+
+	_camera->SetFocusTrans(p->GetComponent<TransformComponent>());
+	// WHY IS IT -8 AND -10 ??????????
+	_camera->SetLevelBounds((levelManager.GetLevelData().levelLeftBounds - 8) * TILE_WIDTH, (levelManager.GetLevelData().levelRightBounds - 10) * TILE_HEIGHT);
 
 	GameObject* skyBackground = new GameObject();
 	TransformComponent* skyTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 1);
 	skyBackground->AddComponent(skyTrans);
 	skyBackground->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Sky", 640, 480, 0.1f, 
 		TiledBGDirection::eHoriztonalAndVertical, skyTrans,  p->GetComponent<TransformComponent>()));
+	_gameObjects.push_back(skyBackground);
 
 	GameObject* vegBackground = new GameObject();
-	TransformComponent* vegTrans = ComponentFactory::MakeTransform(Vec2(0, 200), 0, 1);
+	TransformComponent* vegTrans = ComponentFactory::MakeTransform(Vec2(0, -400), 0, 1);
 	vegBackground->AddComponent(vegTrans);
 	vegBackground->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Vegetation", 640, 480, 0.5f, 
 		TiledBGDirection::eHorizontal, vegTrans, p->GetComponent<TransformComponent>()));
+	_gameObjects.push_back(vegBackground);
 
 	GameObject* groundBackground = new GameObject();
-	TransformComponent* groundTrans = ComponentFactory::MakeTransform(Vec2(0, 200), 0, 1);
+	TransformComponent* groundTrans = ComponentFactory::MakeTransform(Vec2(0, -400), 0, 1);
 	groundBackground->AddComponent(groundTrans);
 	groundBackground->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Ground", 640, 480, 3, 
 		TiledBGDirection::eHorizontal, groundTrans, p->GetComponent<TransformComponent>()));
-
-	_gameObjects.push_back(skyBackground);
-	_gameObjects.push_back(vegBackground);
 	_gameObjects.push_back(groundBackground);
 
 	_gameObjects.push_back(p);
@@ -70,6 +73,36 @@ void Game::InitaliseLevel()
 			}
 		}
 	}
+
+	GameObject* leftSideCollider = new GameObject();
+	TransformComponent* leftSideTrans = ComponentFactory::MakeTransform(Vec2((levelManager.GetLevelData().levelLeftBounds - 1) * TILE_WIDTH, 0), 0, 1);
+	leftSideCollider->AddComponent(leftSideTrans);
+	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(true);
+	leftSideCollider->AddComponent(leftSideRb);
+
+	Vec2 *vertices = new Vec2[4];
+	vertices[0].Set(1, 10000); // Bot right
+	vertices[1].Set(-1, 10000); // Bot left
+	vertices[2].Set(1, -10000); // Top right
+	vertices[3].Set(-1, -10000); // Top left
+	PolygonColliderComponent* leftSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, leftSideTrans, leftSideRb);
+	leftSideCollider->AddComponent(leftSidePolyCollide);
+	_gameObjects.push_back(leftSideCollider);
+
+	GameObject* rightSideCollider = new GameObject();
+	TransformComponent* rightSideTrans = ComponentFactory::MakeTransform(Vec2((levelManager.GetLevelData().levelRightBounds - 1) * TILE_WIDTH, 0), 0, 1);
+	rightSideCollider->AddComponent(rightSideTrans);
+	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(true);
+	rightSideCollider->AddComponent(rightSideRb);
+
+	vertices = new Vec2[4];
+	vertices[0].Set(1, 10000); // Bot right
+	vertices[1].Set(-1, 10000); // Bot left
+	vertices[2].Set(1, -10000); // Top right
+	vertices[3].Set(-1, -10000); // Top left
+	PolygonColliderComponent* rightSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, rightSideTrans, rightSideRb);
+	rightSideCollider->AddComponent(rightSidePolyCollide);
+	_gameObjects.push_back(rightSideCollider);
 }
 
 // Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.

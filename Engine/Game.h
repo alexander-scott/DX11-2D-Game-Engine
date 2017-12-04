@@ -4,10 +4,11 @@
 #include "MainWindow.h"
 
 #include "ComponentFactory.h"
+#include "PhysicsManager.h"
+
 #include "GameCamera.h"
 #include "Player.h"
-#include "LevelManager.h"
-#include "PhysicsManager.h"
+#include "GameLevelManager.h"
 
 class Game
 {
@@ -23,6 +24,7 @@ public:
 private:
 	void InitaliseObjects();
 	void InitaliseLevel();
+
 	void InitalisePhysics();
 
 	void ComposeFrame();

@@ -10,6 +10,9 @@
 static constexpr int SCREEN_WIDTH = 800;
 static constexpr int SCREEN_HEIGHT = 600;
 
+static constexpr int TILE_WIDTH = 45;
+static constexpr int TILE_HEIGHT = 45;
+
 #pragma endregion
 
 #pragma region Enums
@@ -96,7 +99,6 @@ struct RigidBodyData
 
 	float angularVelocity;
 	float torque;
-	float orient; // radians
 
 	Vec2 force;
 
@@ -110,15 +112,17 @@ struct RigidBodyData
 	float dynamicFriction;
 	float restitution;
 
-	RigidBodyData(Vec2 velocity, float angularVelocity, float torque, float orient, Vec2 force, float staticFriction, float dynamicFrication, float restituation)
-		: velocity(velocity), angularVelocity(angularVelocity), torque(torque), orient(orient), force(force), 
+	RigidBodyData(Vec2 velocity, float angularVelocity, float torque, Vec2 force, float staticFriction, float dynamicFrication, float restituation)
+		: velocity(velocity), angularVelocity(angularVelocity), torque(torque), force(force), 
 		staticFriction(staticFriction), dynamicFriction(dynamicFrication), restitution(restituation)
 	{
 
 	}
 };
 
-struct LevelData 
+struct ILevelData {};
+
+struct LevelData : public ILevelData
 {
 public:
 	int levelWidth;
@@ -126,6 +130,9 @@ public:
 
 	float playerXPos;
 	float playerYPos;
+
+	float levelLeftBounds;
+	float levelRightBounds;
 };
 
 #pragma endregion

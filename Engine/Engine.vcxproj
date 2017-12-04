@@ -139,12 +139,13 @@
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameLevelManager.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ColliderRendererComponent.h" />
     <ClInclude Include="IGraphics.h" />
-    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="ILevelManager.h" />
     <ClInclude Include="Manifold.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="Player.h" />
@@ -185,7 +186,8 @@
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="GameLevelManager.cpp" />
+    <ClCompile Include="ILevelManager.cpp" />
     <ClCompile Include="Manifold.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Player.cpp" />
