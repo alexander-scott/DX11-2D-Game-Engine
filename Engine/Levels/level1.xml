@@ -4,7 +4,7 @@ Keep width as max X plus 1. Keep height as max Y plus 1.
 X postive is right. Y postive is up.
 <!- -->
 
-<level width="51" height="8" levelLeftBounds="0" levelRightBounds="51">
+<level width="51" height="8" levelLeftBounds="0" levelRightBounds="51" levelBottomBounds="0" levelTopBounds="100">
   <player x="7" y ="15"/>
 
 	<tile x="0" y="0" sprite="Pipe"/>

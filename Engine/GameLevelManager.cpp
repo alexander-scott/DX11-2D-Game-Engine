@@ -9,8 +9,11 @@ void GameLevelManager::ExtractLevelData(xml_node<>* root)
 	_levelData.levelHeight = atoi(root->first_attribute("height")->value());
 	SetDimensions(_levelData.levelWidth, _levelData.levelHeight);
 
-	_levelData.levelLeftBounds = atoi(root->first_attribute("levelLeftBounds")->value());
-	_levelData.levelRightBounds = atoi(root->first_attribute("levelRightBounds")->value());
+	_levelData.levelLeftBounds = (float)atoi(root->first_attribute("levelLeftBounds")->value());
+	_levelData.levelRightBounds = (float)atoi(root->first_attribute("levelRightBounds")->value());
+
+	_levelData.levelBottomBounds = (float)atoi(root->first_attribute("levelBottomBounds")->value());
+	_levelData.levelTopBounds = (float)atoi(root->first_attribute("levelTopBounds")->value());
 
 	// Find the player data
 	xml_node<>* player = root->first_node("player");

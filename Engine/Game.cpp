@@ -37,7 +37,10 @@ void Game::InitaliseLevel()
 
 	_camera->SetFocusTrans(p->GetComponent<TransformComponent>());
 	// WHY IS IT -8 AND -10 ??????????
-	_camera->SetLevelBounds((levelManager.GetLevelData().levelLeftBounds - 8) * TILE_WIDTH, (levelManager.GetLevelData().levelRightBounds - 10) * TILE_HEIGHT);
+	_camera->SetLevelBounds((levelManager.GetLevelData().levelLeftBounds - 8) * TILE_WIDTH, 
+		(levelManager.GetLevelData().levelRightBounds - 10) * TILE_HEIGHT, 
+		(-levelManager.GetLevelData().levelBottomBounds - 7) * TILE_HEIGHT, 
+		(-levelManager.GetLevelData().levelTopBounds) * TILE_HEIGHT);
 
 	GameObject* skyBackground = new GameObject();
 	TransformComponent* skyTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 1);

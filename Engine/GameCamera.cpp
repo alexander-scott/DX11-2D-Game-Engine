@@ -24,15 +24,26 @@ void GameCamera::Update(float deltaTime)
 	pos.x -= (SCREEN_WIDTH / 2) - 32; // -32 because that is the exact centre of the player sprite
 	pos.y -= (SCREEN_HEIGHT / 2) - 32;
 
-	if (pos.x - ((SCREEN_WIDTH / 2) - 32) < levelLeftBound)
+	if (pos.x - ((SCREEN_WIDTH / 2) - 32) < _levelLeftBound)
 	{
-		pos.x = levelLeftBound + ((SCREEN_WIDTH / 2) - 32);
+		pos.x = _levelLeftBound + ((SCREEN_WIDTH / 2) - 32);
 	}
 
-	if (pos.x + ((SCREEN_WIDTH / 2) - 32) > levelRightBound)
+	if (pos.x + ((SCREEN_WIDTH / 2) - 32) > _levelRightBound)
 	{
-		pos.x = levelRightBound - ((SCREEN_WIDTH / 2) - 32);
+		pos.x = _levelRightBound - ((SCREEN_WIDTH / 2) - 32);
 	}
+
+	if (pos.y + ((SCREEN_HEIGHT / 2) - 32) > _levelBottomBound)
+	{
+		pos.y = _levelBottomBound - ((SCREEN_HEIGHT / 2) - 32);
+	}
+
+	if (pos.y - ((SCREEN_HEIGHT / 2) - 32) < _levelTopBound)
+	{
+		pos.y = _levelTopBound + ((SCREEN_HEIGHT / 2) - 32);
+	}
+
 
 	trans->SetPosition(pos);
 }

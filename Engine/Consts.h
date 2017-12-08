@@ -133,6 +133,9 @@ public:
 
 	float levelLeftBounds;
 	float levelRightBounds;
+
+	float levelBottomBounds;
+	float levelTopBounds;
 };
 
 #pragma endregion

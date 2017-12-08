@@ -11,7 +11,8 @@ public:
 	~GameCamera();
 
 	void SetFocusTrans(TransformComponent* fTrans) { focusTrans = fTrans; }
-	void SetLevelBounds(float leftBound, float rightBound) { levelLeftBound = leftBound; levelRightBound = rightBound; }
+	void SetLevelBounds(float leftBound, float rightBound, float botBound, float topBound) 
+	{ _levelLeftBound = leftBound; _levelRightBound = rightBound; _levelBottomBound = botBound; _levelTopBound = topBound; }
 
 	virtual void Update(float deltaTime) override;
 
@@ -24,7 +25,10 @@ private:
 	TransformComponent* trans;
 	TransformComponent* focusTrans;
 
-	float levelLeftBound;
-	float levelRightBound;
+	float					_levelLeftBound;
+	float					_levelRightBound;
+
+	float					_levelBottomBound;
+	float					_levelTopBound;
 };
 
