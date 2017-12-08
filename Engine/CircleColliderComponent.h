@@ -14,5 +14,6 @@ public:
 	float GetRadius() { return radius; }
 
 	virtual ColliderType GetType(void) const override { return ColliderType::eCircle; }
+	virtual void ComputeMass(float density) override;
 };
 

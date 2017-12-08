@@ -17,7 +17,6 @@ RigidBodyComponent::RigidBodyComponent()
 	rigidbodyData.restitution = 0.1f;
 }
 
-
 RigidBodyComponent::~RigidBodyComponent()
 {
 }

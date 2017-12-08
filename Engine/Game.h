@@ -8,6 +8,7 @@
 
 #include "GameCamera.h"
 #include "Player.h"
+#include "Ball.h"
 #include "GameLevelManager.h"
 
 class Game
@@ -22,8 +23,10 @@ public:
 	~Game();
 
 private:
-	void InitaliseObjects();
 	void InitaliseLevel();
+	void InitaliseBackground(LevelData& levelData);
+	void InitaliseObjects(LevelData& levelData);
+	void InitaliseGUI();
 
 	void InitalisePhysics();
 
@@ -34,6 +37,7 @@ private:
 	MainWindow& wnd;
 
 	GameCamera*						_camera;
+	Player*							_player;
 
 	FrameTimer						_frameTimer;
 	PhysicsManager					_physicsManager;

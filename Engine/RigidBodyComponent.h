@@ -38,7 +38,7 @@ public:
 	void SetInverseIntertia(float intert) { rigidbodyData.inverseInertia = intert; }
 
 	float GetMass() { return rigidbodyData.mass; }
-	void SetIMass(float m) { rigidbodyData.mass = m; }
+	void SetMass(float m) { rigidbodyData.mass = m; }
 
 	float GetInverseMass() { return rigidbodyData.inverseMass; }
 	void SetInverseMass(float im) { rigidbodyData.inverseMass = im; }

@@ -15,6 +15,7 @@ public:
 	void SetOrient(float radians) { orientationMatrix.Set(radians); }
 
 	virtual ColliderType GetType(void) const = 0;
+	virtual void ComputeMass(float density) = 0;
 
 	float radius;
 	Mat2 orientationMatrix;

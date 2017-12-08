@@ -75,6 +75,7 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 
 	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody);
 	circleCollider->SetRadius(radius);
+	//circleCollider->ComputeMass(0.3f);
 
 	return circleCollider;
 }
@@ -92,6 +93,7 @@ PolygonColliderComponent * ComponentFactory::MakePolygonCollider(Vec2 * verticie
 
 	PolygonColliderComponent * polygonCollider = new PolygonColliderComponent(transform, rigidbody);
 	polygonCollider->SetVerticies(verticies, vertexCount);
+	//polygonCollider->ComputeMass(1.0f);
 	polygonCollider->SetOrient(0);
 
 	delete verticies;

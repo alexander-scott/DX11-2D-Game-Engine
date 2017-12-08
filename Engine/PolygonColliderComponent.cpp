@@ -15,6 +15,48 @@ PolygonColliderComponent::~PolygonColliderComponent()
 {
 }
 
+void PolygonColliderComponent::ComputeMass(float density)
+{
+	// Calculate centroid and moment of interia
+	Vec2 c(0.0f, 0.0f); // centroid
+	float area = 0.0f;
+	float I = 0.0f;
+	const float k_inv3 = 1.0f / 3.0f;
+
+	for (int i1 = 0; i1 < m_vertexCount; ++i1)
+	{
+		// Triangle vertices, third vertex implied as (0, 0)
+		Vec2 p1(m_vertices[i1]);
+		uint32 i2 = i1 + 1 < m_vertexCount ? i1 + 1 : 0;
+		Vec2 p2(m_vertices[i2]);
+
+		float D = Cross(p1, p2);
+		float triangleArea = 0.5f * D;
+
+		area += triangleArea;
+
+		// Use area to weight the centroid average, not just vertex position
+		c += triangleArea * k_inv3 * (p1 + p2);
+
+		float intx2 = p1.x * p1.x + p2.x * p1.x + p2.x * p2.x;
+		float inty2 = p1.y * p1.y + p2.y * p1.y + p2.y * p2.y;
+		I += (0.25f * k_inv3 * D) * (intx2 + inty2);
+	}
+
+	c *= 1.0f / area;
+
+	// Translate vertices to centroid (make the centroid (0, 0)
+	// for the polygon in model space)
+	// Not really necessary, but I like doing this anyway
+	for (uint32 i = 0; i < m_vertexCount; ++i)
+		m_vertices[i] -= c;
+
+	_rigidyBodyComponent->SetMass(density * area);
+	_rigidyBodyComponent->SetInverseMass(_rigidyBodyComponent->GetMass() ? 1.0f / _rigidyBodyComponent->GetMass() : 0.0f);
+	_rigidyBodyComponent->SetIntertia(I * density);
+	_rigidyBodyComponent->SetInverseIntertia(_rigidyBodyComponent->GetIntertia() ? 1.0 / _rigidyBodyComponent->GetIntertia() : 0.0f);
+}
+
 void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 {
 	// No hulls with less than 3 vertices (ensure actual polygon)

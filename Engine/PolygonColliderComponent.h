@@ -11,6 +11,7 @@ public:
 	~PolygonColliderComponent();
 
 	virtual ColliderType GetType(void) const override { return ColliderType::ePolygon; }
+	virtual void ComputeMass(float density) override;
 
 	void SetVerticies(Vec2 *vertices, int count);
 	void SetBox(float hw, float hh);

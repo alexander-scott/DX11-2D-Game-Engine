@@ -19,4 +19,6 @@ WorldTile::WorldTile(std::string fileName, Vec2 pos)
 	AddComponent(pipeSprite);
 	AddComponent(pipeRigidbody);
 	AddComponent(pipeCollider);
+
+	pipeRigidbody->SetStatic();
 }
