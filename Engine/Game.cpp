@@ -36,11 +36,11 @@ void Game::InitaliseLevel()
 	Player* p = new Player(levelManager.GetLevelData().playerXPos, levelManager.GetLevelData().playerYPos);
 
 	_camera->SetFocusTrans(p->GetComponent<TransformComponent>());
-	// WHY IS IT -8 AND -10 ??????????
+	// WHY ARE WE SUBTRACTING THESE HARD VALUES?!?!?!!?
 	_camera->SetLevelBounds((levelManager.GetLevelData().levelLeftBounds - 8) * TILE_WIDTH, 
 		(levelManager.GetLevelData().levelRightBounds - 10) * TILE_HEIGHT, 
-		(-levelManager.GetLevelData().levelBottomBounds - 7) * TILE_HEIGHT, 
-		(-levelManager.GetLevelData().levelTopBounds) * TILE_HEIGHT);
+		(levelManager.GetLevelData().levelBottomBounds - 7) * TILE_HEIGHT, 
+		(levelManager.GetLevelData().levelTopBounds) * TILE_HEIGHT);
 
 	GameObject* skyBackground = new GameObject();
 	TransformComponent* skyTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 1);
@@ -106,6 +106,36 @@ void Game::InitaliseLevel()
 	PolygonColliderComponent* rightSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, rightSideTrans, rightSideRb);
 	rightSideCollider->AddComponent(rightSidePolyCollide);
 	_gameObjects.push_back(rightSideCollider);
+
+	GameObject* bottomSideCollider = new GameObject();
+	TransformComponent* bottomSideTrans = ComponentFactory::MakeTransform(Vec2(0, (levelManager.GetLevelData().levelBottomBounds) * TILE_HEIGHT), 0, 1);
+	bottomSideCollider->AddComponent(bottomSideTrans);
+	RigidBodyComponent* bottomSideRb = ComponentFactory::MakeRigidbody(true);
+	bottomSideCollider->AddComponent(bottomSideRb);
+
+	vertices = new Vec2[4];
+	vertices[0].Set(10000, 1); // Bot right
+	vertices[1].Set(10000, -1); // Bot left
+	vertices[2].Set(-10000, 1); // Top right
+	vertices[3].Set(-10000, -1); // Top left
+	PolygonColliderComponent* bottomSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, bottomSideTrans, bottomSideRb);
+	bottomSideCollider->AddComponent(bottomSidePolyCollide);
+	_gameObjects.push_back(bottomSideCollider);
+
+	GameObject* topSideCollider = new GameObject();
+	TransformComponent* topSideTrans = ComponentFactory::MakeTransform(Vec2(0, (levelManager.GetLevelData().levelTopBounds + 6) * TILE_HEIGHT), 0, 1);
+	topSideCollider->AddComponent(topSideTrans);
+	RigidBodyComponent* topSideRb = ComponentFactory::MakeRigidbody(true);
+	topSideCollider->AddComponent(topSideRb);
+
+	vertices = new Vec2[4];
+	vertices[0].Set(10000, 1); // Bot right
+	vertices[1].Set(10000, -1); // Bot left
+	vertices[2].Set(-10000, 1); // Top right
+	vertices[3].Set(-10000, -1); // Top left
+	PolygonColliderComponent* topSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, topSideTrans, topSideRb);
+	topSideCollider->AddComponent(topSidePolyCollide);
+	_gameObjects.push_back(topSideCollider);
 }
 
 // Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.
