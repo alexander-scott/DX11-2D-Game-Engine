@@ -39,14 +39,10 @@ SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileN
 	return spriteAnimator;
 }
 
-RigidBodyComponent * ComponentFactory::MakeRigidbody(bool setStatic)
+RigidBodyComponent * ComponentFactory::MakeRigidbody(float staticF, float dynamicF, float rest)
 {
-	RigidBodyComponent * rigidBody = new RigidBodyComponent();
-	if (setStatic)
-	{
-		rigidBody->SetStatic();
-	}
-
+	RigidBodyComponent * rigidBody = new RigidBodyComponent(staticF, dynamicF, rest);
+	
 	return rigidBody;
 }
 
@@ -76,7 +72,7 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 
 	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody);
 	circleCollider->SetRadius(radius);
-	circleCollider->ComputeMass(0.3f);
+	circleCollider->ComputeMass(1);
 
 	return circleCollider;
 }

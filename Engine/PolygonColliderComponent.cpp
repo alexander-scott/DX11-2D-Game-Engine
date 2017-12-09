@@ -27,7 +27,7 @@ void PolygonColliderComponent::ComputeMass(float density)
 	{
 		// Triangle vertices, third vertex implied as (0, 0)
 		Vec2 p1(m_vertices[i1]);
-		uint32 i2 = i1 + 1 < m_vertexCount ? i1 + 1 : 0;
+		int i2 = i1 + 1 < m_vertexCount ? i1 + 1 : 0;
 		Vec2 p2(m_vertices[i2]);
 
 		float D = Cross(p1, p2);
@@ -48,13 +48,13 @@ void PolygonColliderComponent::ComputeMass(float density)
 	// Translate vertices to centroid (make the centroid (0, 0)
 	// for the polygon in model space)
 	// Not really necessary, but I like doing this anyway
-	for (uint32 i = 0; i < m_vertexCount; ++i)
+	for (int i = 0; i < m_vertexCount; ++i)
 		m_vertices[i] -= _centre;
 
 	_rigidyBodyComponent->SetMass(density * area);
 	_rigidyBodyComponent->SetInverseMass(_rigidyBodyComponent->GetMass() ? 1.0f / _rigidyBodyComponent->GetMass() : 0.0f);
 	_rigidyBodyComponent->SetIntertia(I * density);
-	_rigidyBodyComponent->SetInverseIntertia(_rigidyBodyComponent->GetIntertia() ? 1.0 / _rigidyBodyComponent->GetIntertia() : 0.0f);
+	_rigidyBodyComponent->SetInverseIntertia(_rigidyBodyComponent->GetIntertia() ? 1.0f / _rigidyBodyComponent->GetIntertia() : 0.0f);
 }
 
 void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)

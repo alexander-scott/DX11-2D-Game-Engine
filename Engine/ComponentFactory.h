@@ -16,7 +16,7 @@ namespace ComponentFactory
 {
 	TransformComponent * MakeTransform(Vec2 position, float rotation, float scale);
 	
-	RigidBodyComponent * MakeRigidbody(bool setStatic);
+	RigidBodyComponent * MakeRigidbody(float staticF, float dynamicF, float rest);
 
 	TextRendererComponent * MakeTextRenderer(std::string text, TransformComponent* transform);
 	SpriteRendererComponent * MakeSpriteRenderer(std::string fileName, TransformComponent* transform, Vec2 offset);

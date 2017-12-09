@@ -7,7 +7,7 @@ Player::Player(float xPos, float yPos)
 	AddComponent(playerTransform);
 
 	// RIGIDBODY COMPONENT
-	playerRigidBody = ComponentFactory::MakeRigidbody(false); // Cache the rigidbody
+	playerRigidBody = ComponentFactory::MakeRigidbody(1, 0.3f, 0.1f); // Cache the rigidbody
 	AddComponent(playerRigidBody);
 
 	// CIRCLE COLLIDER COMPONENT

@@ -14,7 +14,7 @@ Game::Game(MainWindow& wnd)
 	InitalisePhysics();
 }
 
-// Create any custom objects such as player
+// Create any custom objects
 void Game::InitaliseObjects(LevelData& levelData)
 {
 	Ball* b = new Ball(levelData.playerXPos + 200, levelData.playerYPos - 200);
@@ -39,6 +39,7 @@ void Game::InitaliseLevel()
 
 	// Build the background and add that first as that needs to get renderered at the very back
 	InitaliseBackground(levelManager.GetLevelData());
+
 	// Build objects that will exist in the level and render that on top of the background layers
 	InitaliseObjects(levelManager.GetLevelData());
 
@@ -96,7 +97,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* leftSideCollider = new GameObject();
 	TransformComponent* leftSideTrans = ComponentFactory::MakeTransform(Vec2((levelData.levelLeftBounds - 1) * TILE_WIDTH, 0), 0, 1);
 	leftSideCollider->AddComponent(leftSideTrans);
-	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(true);
+	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	leftSideCollider->AddComponent(leftSideRb);
 
 	Vec2 *vertices = new Vec2[4];
@@ -112,7 +113,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* rightSideCollider = new GameObject();
 	TransformComponent* rightSideTrans = ComponentFactory::MakeTransform(Vec2((levelData.levelRightBounds - 1) * TILE_WIDTH, 0), 0, 1);
 	rightSideCollider->AddComponent(rightSideTrans);
-	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(true);
+	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	rightSideCollider->AddComponent(rightSideRb);
 
 	vertices = new Vec2[4];
@@ -128,7 +129,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* bottomSideCollider = new GameObject();
 	TransformComponent* bottomSideTrans = ComponentFactory::MakeTransform(Vec2(0, (levelData.levelBottomBounds) * TILE_HEIGHT), 0, 1);
 	bottomSideCollider->AddComponent(bottomSideTrans);
-	RigidBodyComponent* bottomSideRb = ComponentFactory::MakeRigidbody(true);
+	RigidBodyComponent* bottomSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	bottomSideCollider->AddComponent(bottomSideRb);
 
 	vertices = new Vec2[4];
@@ -144,7 +145,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* topSideCollider = new GameObject();
 	TransformComponent* topSideTrans = ComponentFactory::MakeTransform(Vec2(0, (levelData.levelTopBounds + 6) * TILE_HEIGHT), 0, 1);
 	topSideCollider->AddComponent(topSideTrans);
-	RigidBodyComponent* topSideRb = ComponentFactory::MakeRigidbody(true);
+	RigidBodyComponent* topSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	topSideCollider->AddComponent(topSideRb);
 
 	vertices = new Vec2[4];

@@ -7,7 +7,7 @@
 class RigidBodyComponent : public IComponent, public IMessageable
 {
 public:
-	RigidBodyComponent();
+	RigidBodyComponent(float staticF, float dynamicF, float rest);
 	~RigidBodyComponent();
 
 	virtual void RecieveMessage(IMessage& message) override;

@@ -9,7 +9,7 @@ Ball::Ball(float xPos, float yPos)
 	AddComponent(trans);
 
 	// RIGIDBODY COMPONENT
-	RigidBodyComponent* rigidbody = ComponentFactory::MakeRigidbody(false); // Cache the rigidbody
+	RigidBodyComponent* rigidbody = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
 	AddComponent(rigidbody);
 
 	// CIRCLE COLLIDER COMPONENT

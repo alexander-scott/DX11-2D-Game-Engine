@@ -2,7 +2,7 @@
 #include "AddForceMessage.h"
 
 
-RigidBodyComponent::RigidBodyComponent()
+RigidBodyComponent::RigidBodyComponent(float staticF, float dynamicF, float rest)
 {
 	_type = "Rigidbody";
 
@@ -12,9 +12,9 @@ RigidBodyComponent::RigidBodyComponent()
 	rigidbodyData.angularVelocity = 0;
 	rigidbodyData.torque = 0;
 	rigidbodyData.force.Set(0, 0);
-	rigidbodyData.staticFriction = 1;
-	rigidbodyData.dynamicFriction = 0.3f;
-	rigidbodyData.restitution = 0.1f;
+	rigidbodyData.staticFriction = staticF; //1
+	rigidbodyData.dynamicFriction = dynamicF; //0.3f
+	rigidbodyData.restitution = rest; //0.1f
 }
 
 RigidBodyComponent::~RigidBodyComponent()
