@@ -12,9 +12,10 @@ RigidBodyComponent::RigidBodyComponent(float staticF, float dynamicF, float rest
 	rigidbodyData.angularVelocity = 0;
 	rigidbodyData.torque = 0;
 	rigidbodyData.force.Set(0, 0);
-	rigidbodyData.staticFriction = staticF; //1
-	rigidbodyData.dynamicFriction = dynamicF; //0.3f
-	rigidbodyData.restitution = rest; //0.1f
+	rigidbodyData.orientationMatrix = 0;
+	rigidbodyData.staticFriction = staticF;
+	rigidbodyData.dynamicFriction = dynamicF;
+	rigidbodyData.restitution = rest;
 }
 
 RigidBodyComponent::~RigidBodyComponent()

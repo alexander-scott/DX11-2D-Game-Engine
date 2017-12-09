@@ -90,6 +90,6 @@ void PhysicsManager::IntegrateVelocity(ColliderComponent * collider, float delta
 	collider->GetTransformComponent()->SetRotation(collider->GetTransformComponent()->GetRotation()
 		+ collider->GetRigidbodyComponent()->GetAngularVelocity() * deltaTime);
 
-	collider->SetOrient(collider->GetTransformComponent()->GetRotation());
+	collider->GetRigidbodyComponent()->SetOrientationMatrix(collider->GetTransformComponent()->GetRotation());
 	IntegrateForces(collider, deltaTime);
 }

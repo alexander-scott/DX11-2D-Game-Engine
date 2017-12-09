@@ -103,6 +103,8 @@ struct RigidBodyData
 
 	Vec2 force;
 
+	Mat2 orientationMatrix;
+
 	// Set by rigidbody
 	float intertia;  // moment of inertia
 	float inverseInertia; // inverse inertia

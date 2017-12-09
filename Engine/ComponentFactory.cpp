@@ -91,7 +91,6 @@ PolygonColliderComponent * ComponentFactory::MakePolygonCollider(Vec2 * verticie
 	PolygonColliderComponent * polygonCollider = new PolygonColliderComponent(transform, rigidbody);
 	polygonCollider->SetVerticies(verticies, vertexCount);
 	polygonCollider->ComputeMass(0.3f);
-	polygonCollider->SetOrient(0);
 
 	delete verticies;
 
@@ -112,7 +111,6 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float halfWidth, float 
 	BoxColliderComponent * boxCollider = new BoxColliderComponent(transform, rigidBody);
 	boxCollider->SetBox(halfWidth, halfHeight);
 	boxCollider->ComputeMass(0.3f);
-	boxCollider->SetOrient(0);
 
 	return boxCollider;
 }

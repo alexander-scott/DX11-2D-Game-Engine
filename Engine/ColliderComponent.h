@@ -12,13 +12,10 @@ public:
 	RigidBodyComponent* GetRigidbodyComponent() { return _rigidyBodyComponent; }
 	TransformComponent* GetTransformComponent() { return _transformComponent; }
 
-	void SetOrient(float radians) { orientationMatrix.Set(radians); }
-
 	virtual ColliderType GetType(void) const = 0;
 	virtual void ComputeMass(float density) = 0;
 
 	float radius;
-	Mat2 orientationMatrix;
 
 protected:
 	TransformComponent*				_transformComponent;

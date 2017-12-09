@@ -17,7 +17,10 @@ public:
 
 	void SetStatic();
 
-	RigidBodyData GetRigidbodyData() { return rigidbodyData; }
+#pragma region Getters and Setters
+
+	Mat2 GetOrientationMatrix() { return rigidbodyData.orientationMatrix; }
+	void SetOrientationMatrix(Mat2 mat) { rigidbodyData.orientationMatrix = mat; }
 
 	Vec2 GetVelocity() { return rigidbodyData.velocity; }
 	void SetVelocity(Vec2 vel) { rigidbodyData.velocity = vel; }
@@ -51,6 +54,8 @@ public:
 
 	float GetRestitution() { return rigidbodyData.restitution; }
 	void SetRestitution(float rest) { rigidbodyData.restitution = rest; }
+
+#pragma endregion
 
 private:
 	RigidBodyData rigidbodyData = RigidBodyData(Vec2(0, 0), 0, 0, Vec2(0, 0), 0, 0, 0);

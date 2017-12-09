@@ -182,7 +182,7 @@ void Manifold::CircleToPolygon()
 
 	// Transform circle center to Polygon model space
 	Vec2 center = cA->GetTransformComponent()->GetPosition();
-	center = cB->orientationMatrix.Transpose() * (center - cB->GetTransformComponent()->GetPosition());
+	center = cB->GetRigidbodyComponent()->GetOrientationMatrix().Transpose() * (center - cB->GetTransformComponent()->GetPosition());
 
 	// Find edge with minimum penetration
 	// Exact concept as using support points in Polygon vs Polygon
@@ -211,7 +211,7 @@ void Manifold::CircleToPolygon()
 	if (separation < EPSILON)
 	{
 		_contactCount = 1;
-		_normal = -(B->orientationMatrix * B->m_normals[faceNormal]);
+		_normal = -(B->GetRigidbodyComponent()->GetOrientationMatrix() * B->m_normals[faceNormal]);
 		_contacts[0] = _normal * A->radius + cA->GetTransformComponent()->GetPosition();
 		_penetration = A->radius;
 		return;
@@ -230,10 +230,10 @@ void Manifold::CircleToPolygon()
 
 		_contactCount = 1;
 		Vec2 n = v1 - center;
-		n = B->orientationMatrix * n;
+		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 		n.Normalize();
 		_normal = n;
-		v1 = B->orientationMatrix * v1 + cB->GetTransformComponent()->GetPosition();
+		v1 = B->GetRigidbodyComponent()->GetOrientationMatrix() * v1 + cB->GetTransformComponent()->GetPosition();
 		_contacts[0] = v1;
 	}
 
@@ -245,9 +245,9 @@ void Manifold::CircleToPolygon()
 
 		_contactCount = 1;
 		Vec2 n = v2 - center;
-		v2 = B->orientationMatrix * v2 + cB->GetTransformComponent()->GetPosition();
+		v2 = B->GetRigidbodyComponent()->GetOrientationMatrix() * v2 + cB->GetTransformComponent()->GetPosition();
 		_contacts[0] = v2;
-		n = B->orientationMatrix * n;
+		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 		n.Normalize();
 		_normal = n;
 	}
@@ -259,7 +259,7 @@ void Manifold::CircleToPolygon()
 		if (Dot(center - v1, n) > A->radius)
 			return;
 
-		n = B->orientationMatrix * n;
+		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 		_normal = -n;
 		_contacts[0] = _normal * A->radius + cA->GetTransformComponent()->GetPosition();
 		_contactCount = 1;
@@ -340,8 +340,8 @@ void Manifold::PolygonToPolygon()
 	Vec2 v2 = RefPoly->m_vertices[referenceIndex];
 
 	// Transform vertices to world space
-	v1 = RefPoly->orientationMatrix * v1 + RefPoly->GetTransformComponent()->GetPosition();
-	v2 = RefPoly->orientationMatrix * v2 + RefPoly->GetTransformComponent()->GetPosition();
+	v1 = RefPoly->GetRigidbodyComponent()->GetOrientationMatrix() * v1 + RefPoly->GetTransformComponent()->GetPosition();
+	v2 = RefPoly->GetRigidbodyComponent()->GetOrientationMatrix() * v2 + RefPoly->GetTransformComponent()->GetPosition();
 
 	// Calculate reference face side normal in world space
 	Vec2 sidePlaneNormal = (v2 - v1);
@@ -402,10 +402,10 @@ float Manifold::FindAxisLeastPenetration(int * faceIndex, PolygonColliderCompone
 	{
 		// Retrieve a face normal from A
 		Vec2 n = A->m_normals[i];
-		Vec2 nw = A->orientationMatrix * n;
+		Vec2 nw = A->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 
 		// Transform face normal into B's model space
-		Mat2 buT = B->orientationMatrix.Transpose();
+		Mat2 buT = B->GetRigidbodyComponent()->GetOrientationMatrix().Transpose();
 		n = buT * nw;
 
 		// Retrieve support point from B along -n
@@ -414,7 +414,7 @@ float Manifold::FindAxisLeastPenetration(int * faceIndex, PolygonColliderCompone
 		// Retrieve vertex on face from A, transform into
 		// B's model space
 		Vec2 v = A->m_vertices[i];
-		v = A->orientationMatrix * v + A->GetTransformComponent()->GetPosition();
+		v = A->GetRigidbodyComponent()->GetOrientationMatrix() * v + A->GetTransformComponent()->GetPosition();
 		v -= B->GetTransformComponent()->GetPosition();
 		v = buT * v;
 
@@ -438,8 +438,8 @@ void Manifold::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, Po
 	Vec2 referenceNormal = RefPoly->m_normals[referenceIndex];
 
 	// Calculate normal in incident's frame of reference
-	referenceNormal = RefPoly->orientationMatrix * referenceNormal; // To world space
-	referenceNormal = IncPoly->orientationMatrix.Transpose() * referenceNormal; // To incident's model space
+	referenceNormal = RefPoly->GetRigidbodyComponent()->GetOrientationMatrix() * referenceNormal; // To world space
+	referenceNormal = IncPoly->GetRigidbodyComponent()->GetOrientationMatrix().Transpose() * referenceNormal; // To incident's model space
 
 	// Find most anti-normal face on incident polygon
 	int incidentFace = 0;
@@ -455,9 +455,9 @@ void Manifold::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, Po
 	}
 
 	// Assign face vertices for incidentFace
-	v[0] = IncPoly->orientationMatrix * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
+	v[0] = IncPoly->GetRigidbodyComponent()->GetOrientationMatrix() * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
 	incidentFace = incidentFace + 1 >= (int)IncPoly->m_vertexCount ? 0 : incidentFace + 1;
-	v[1] = IncPoly->orientationMatrix * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
+	v[1] = IncPoly->GetRigidbodyComponent()->GetOrientationMatrix() * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
 }
 
 int Manifold::Clip(Vec2 n, float c, Vec2 * face)
