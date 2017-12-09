@@ -143,7 +143,7 @@ void Manifold::CircletoCircle()
 	CircleColliderComponent *B = reinterpret_cast<CircleColliderComponent *>(cB);
 
 	// Calculate translational vector, which is normal
-	Vec2 _normal = B->GetTransformComponent()->GetPosition() - A->GetTransformComponent()->GetPosition();
+	_normal = B->GetTransformComponent()->GetPosition() - A->GetTransformComponent()->GetPosition();
 
 	float dist_sqr = _normal.LenSqr();
 	float radius = A->GetRadius() + B->GetRadius();

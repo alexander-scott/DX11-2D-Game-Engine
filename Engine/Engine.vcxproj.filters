@@ -59,6 +59,9 @@
     <Filter Include="Engine\Graphics\APIs">
       <UniqueIdentifier>{d13b61ca-a214-4435-b9c7-cd543c5c937e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameEntities">
+      <UniqueIdentifier>{3bf70872-6277-4369-95cc-6bdf95216ade}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -172,9 +175,6 @@
     <ClInclude Include="IGraphics.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="DX11Graphics.h">
       <Filter>Engine\Graphics\APIs</Filter>
     </ClInclude>
@@ -194,7 +194,13 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>Game</Filter>
+      <Filter>Game\GameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\GameEntities</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxColliderComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -261,9 +267,6 @@
     <ClCompile Include="WorldTile.cpp">
       <Filter>Engine\Level Loading</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="DX11Graphics.cpp">
       <Filter>Engine\Graphics\APIs</Filter>
     </ClCompile>
@@ -280,7 +283,13 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\GameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\GameEntities</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxColliderComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

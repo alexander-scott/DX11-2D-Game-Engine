@@ -17,8 +17,14 @@ Game::Game(MainWindow& wnd)
 // Create any custom objects such as player
 void Game::InitaliseObjects(LevelData& levelData)
 {
-	Ball* b = new Ball(levelData.playerXPos + 200, levelData.playerYPos);
+	Ball* b = new Ball(levelData.playerXPos + 200, levelData.playerYPos - 200);
 	_gameObjects.push_back(b);
+
+	Ball* b2 = new Ball(levelData.playerXPos + 230, levelData.playerYPos - 400);
+	_gameObjects.push_back(b2);
+
+	Ball* b3 = new Ball(levelData.playerXPos + 170, levelData.playerYPos - 600);
+	_gameObjects.push_back(b3);
 }
 
 // Read in level data from an XML file and build the level
@@ -100,6 +106,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	vertices[3].Set(-1, -10000); // Top left
 	PolygonColliderComponent* leftSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, leftSideTrans, leftSideRb);
 	leftSideCollider->AddComponent(leftSidePolyCollide);
+	leftSideRb->SetStatic();
 	_gameObjects.push_back(leftSideCollider);
 
 	GameObject* rightSideCollider = new GameObject();
@@ -115,6 +122,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	vertices[3].Set(-1, -10000); // Top left
 	PolygonColliderComponent* rightSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, rightSideTrans, rightSideRb);
 	rightSideCollider->AddComponent(rightSidePolyCollide);
+	rightSideRb->SetStatic();
 	_gameObjects.push_back(rightSideCollider);
 
 	GameObject* bottomSideCollider = new GameObject();
@@ -130,6 +138,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	vertices[3].Set(-10000, -1); // Top left
 	PolygonColliderComponent* bottomSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, bottomSideTrans, bottomSideRb);
 	bottomSideCollider->AddComponent(bottomSidePolyCollide);
+	bottomSideRb->SetStatic();
 	_gameObjects.push_back(bottomSideCollider);
 
 	GameObject* topSideCollider = new GameObject();
@@ -145,6 +154,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	vertices[3].Set(-10000, -1); // Top left
 	PolygonColliderComponent* topSidePolyCollide = ComponentFactory::MakePolygonCollider(vertices, 4, topSideTrans, topSideRb);
 	topSideCollider->AddComponent(topSidePolyCollide);
+	topSideRb->SetStatic();
 	_gameObjects.push_back(topSideCollider);
 }
 

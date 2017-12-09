@@ -8,6 +8,7 @@
 #include "ColliderComponent.h"
 #include "CircleColliderComponent.h"
 #include "PolygonColliderComponent.h"
+#include "BoxColliderComponent.h"
 #include "ColliderRendererComponent.h"
 #include "TiledBGRenderer.h"
 
@@ -25,4 +26,5 @@ namespace ComponentFactory
 
 	CircleColliderComponent * MakeCircleCollider(float radius, TransformComponent* transform, RigidBodyComponent* rigidbody);
 	PolygonColliderComponent * MakePolygonCollider(Vec2* verticies, int vertexCount, TransformComponent* transform, RigidBodyComponent* rigidbody);
+	BoxColliderComponent * MakeBoxCollider(float halfWidth, float halfHeight, TransformComponent* transform, RigidBodyComponent* rigidBody);
 };

@@ -34,7 +34,7 @@ void RigidBodyComponent::RecieveMessage(IMessage & message)
 
 void RigidBodyComponent::ApplyForce(const Vec2& f)
 {
-	rigidbodyData.force += f;
+	rigidbodyData.force += (f * 10000000000);
 }
 
 void RigidBodyComponent::ApplyImpulse(const Vec2 & impulse, const Vec2 & contactVector)

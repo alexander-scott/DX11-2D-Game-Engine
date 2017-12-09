@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameLevelManager.h" />
     <ClInclude Include="ICamera.h" />
@@ -185,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="BoxColliderComponent.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
     <ClCompile Include="GameCamera.cpp" />
