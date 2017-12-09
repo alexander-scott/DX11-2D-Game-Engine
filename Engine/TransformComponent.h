@@ -7,14 +7,14 @@ class TransformComponent : public IComponent
 {
 private:
 	Vec2					_pos;
-	float					_rot;
+	float					_rot; // RADIANS
 	float					_scale;
 
 public:
 	TransformComponent();
 	~TransformComponent();
 
-	void SetPosition(float x, float y, float z) { _pos = Vec2(x, y); }
+	void SetPosition(float x, float y) { _pos = Vec2(x, y); }
 	void SetPosition(Vec2 position) { _pos = position; }
 
 	void SetScale(float scale) { _scale = scale; }

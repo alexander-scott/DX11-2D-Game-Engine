@@ -14,7 +14,21 @@ SpriteAnimatorComponent::~SpriteAnimatorComponent()
 
 void SpriteAnimatorComponent::Draw(ICamera* cam)
 {
-	cam->DrawSprite(_fileName, GetTransform()->GetPosition(), _animations[(int)iCurSequence]._animationFrames[_animations[(int)iCurSequence]._currentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale());
+	float halfSpriteWidth = _spriteWidth / 2;
+	float halfSpriteHeight = _spriteHeight / 2;
+
+	TransformComponent* trans = GetTransform();
+
+	Vec2 pos = trans->GetPosition();
+	float newPosX = pos.x
+		- halfSpriteWidth * cos(trans->GetRotation())
+		+ halfSpriteHeight * sin(trans->GetRotation());
+
+	float newPosY = pos.y
+		- halfSpriteHeight * cos(trans->GetRotation())
+		- halfSpriteWidth * sin(trans->GetRotation());
+
+	cam->DrawSprite(_fileName, Vec2(newPosX, newPosY), _animations[(int)iCurSequence]._animationFrames[_animations[(int)iCurSequence]._currentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale());
 }
 
 void SpriteAnimatorComponent::Update(float deltaTime)

@@ -62,6 +62,7 @@ public:
 
 	void SetFilename(std::string fileName) { _fileName = fileName; }
 	void SetAnimations(int currentAnim, std::vector<AnimationDesc> animDescs);
+	void SetWidthHeight(float wid, float hei) { _spriteWidth = wid; _spriteHeight = hei; }
 
 private:
 	void UpdateAnimationSequence(int sequence);
@@ -69,5 +70,8 @@ private:
 	int iCurSequence;
 	std::vector<Anim>				_animations;
 	std::string						_fileName;
+
+	float							_spriteWidth;
+	float							_spriteHeight;
 };
 

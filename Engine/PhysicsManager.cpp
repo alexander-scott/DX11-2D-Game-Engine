@@ -85,11 +85,14 @@ void PhysicsManager::IntegrateVelocity(ColliderComponent * collider, float delta
 	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f)
 		return;
 
+	// Calculate position
 	collider->GetTransformComponent()->SetPosition(collider->GetTransformComponent()->GetPosition() + collider->GetRigidbodyComponent()->GetVelocity() * deltaTime);
 
+	// Calculate rotation (RADIANS)
 	collider->GetTransformComponent()->SetRotation(collider->GetTransformComponent()->GetRotation()
 		+ collider->GetRigidbodyComponent()->GetAngularVelocity() * deltaTime);
 
+	// Set RB orientation matrix
 	collider->GetRigidbodyComponent()->SetOrientationMatrix(collider->GetTransformComponent()->GetRotation());
 	IntegrateForces(collider, deltaTime);
 }

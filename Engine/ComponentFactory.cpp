@@ -11,7 +11,7 @@ TransformComponent * ComponentFactory::MakeTransform(Vec2 position, float rotati
 	return transform;
 }
 
-SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileName, TransformComponent* transform, Vec2 offset)
+SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileName, TransformComponent* transform, float width, float height, Vec2 offset)
 {
 	SpriteRendererComponent * spriteRenderer = new SpriteRendererComponent();
 	spriteRenderer->SetFilename(fileName);
@@ -21,11 +21,12 @@ SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileN
 	}
 	spriteRenderer->SetTransform(transform);
 	spriteRenderer->SetOffset(offset);
+	spriteRenderer->SetWidthHeight(width, height);
 
 	return spriteRenderer;
 }
 
-SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, TransformComponent * transform, std::vector<AnimationDesc> animDescs, int currentAnim)
+SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, TransformComponent * transform, float width, float height, std::vector<AnimationDesc> animDescs, int currentAnim)
 {
 	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent();
 	spriteAnimator->SetFilename(fileName);
@@ -35,6 +36,7 @@ SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileN
 	}
 	spriteAnimator->SetTransform(transform);
 	spriteAnimator->SetAnimations(currentAnim, animDescs);
+	spriteAnimator->SetWidthHeight(width, height);
 
 	return spriteAnimator;
 }

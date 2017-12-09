@@ -18,7 +18,7 @@ Player::Player(float xPos, float yPos)
 	std::vector<AnimationDesc> animDescs;
 	animDescs.push_back(AnimationDesc(0, 4, 64, 64, 64, 64, 8, 0.16f)); // Walking
 	animDescs.push_back(AnimationDesc(4, 8, 0, 64, 64, 64, 1, 0.16f)); // Standing
-	AddComponent(ComponentFactory::MakeSpriteAnimator("MageWalk", playerTransform, animDescs, (int)AnimationType::StandingDown));
+	AddComponent(ComponentFactory::MakeSpriteAnimator("MageWalk", playerTransform, 64, 64, animDescs, (int)AnimationType::StandingDown));
 }
 
 Player::~Player()

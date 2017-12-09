@@ -16,7 +16,7 @@ Ball::Ball(float xPos, float yPos)
 	AddComponent(ComponentFactory::MakeCircleCollider(30, trans, rigidbody));
 
 	// SPRITE RENDERER COMPONENT
-	AddComponent(ComponentFactory::MakeSpriteRenderer("Ball", trans, Vec2(0,0)));
+	AddComponent(ComponentFactory::MakeSpriteRenderer("Ball", trans, 64, 64, Vec2(0,0)));
 }
 
 
