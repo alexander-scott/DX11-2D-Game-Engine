@@ -10,10 +10,12 @@ public:
 	~SpriteRendererComponent();
 
 	void SetFilename(std::string fileName) { _fileName = fileName; }
+	void SetOffset(Vec2 offset) { _offset = offset; }
 
 	virtual void Draw(ICamera* cam) override;
 
 private:
 	std::string				 _fileName;
+	Vec2					 _offset;
 };
 

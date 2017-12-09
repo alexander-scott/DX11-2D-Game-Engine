@@ -19,7 +19,7 @@ namespace ComponentFactory
 	RigidBodyComponent * MakeRigidbody(bool setStatic);
 
 	TextRendererComponent * MakeTextRenderer(std::string text, TransformComponent* transform);
-	SpriteRendererComponent * MakeSpriteRenderer(std::string fileName, TransformComponent* transform);
+	SpriteRendererComponent * MakeSpriteRenderer(std::string fileName, TransformComponent* transform, Vec2 offset);
 	SpriteAnimatorComponent * MakeSpriteAnimator(std::string fileName, TransformComponent* transform, std::vector<AnimationDesc> animDescs, int currentAnim);
 	ColliderRendererComponent * MakeColliderRenderer(TransformComponent* trans, ColliderComponent* collider);
 	TiledBGRenderer * MakeTiledBGRenderer(std::string spriteName, float spriteWidth, float spriteHeight, float moveRate, TiledBGDirection direction, TransformComponent* trans, TransformComponent* focusTrans);

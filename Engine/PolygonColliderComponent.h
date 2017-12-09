@@ -14,11 +14,13 @@ public:
 	virtual void ComputeMass(float density) override;
 
 	void SetVerticies(Vec2 *vertices, int count);
-	void SetBox(float hw, float hh);
 	Vec2 GetSupport(const Vec2& dir);
 
 	int m_vertexCount;
 	Vec2 m_vertices[MaxPolyVertexCount];
 	Vec2 m_normals[MaxPolyVertexCount];
+
+private:
+	Vec2				_centre;
 };
 

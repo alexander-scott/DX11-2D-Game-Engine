@@ -222,12 +222,17 @@ void DX11Graphics::Initalise(HWNDKey& key)
 
 void DX11Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot)
 {
-	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, 0);
+	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, 0, XMFLOAT2(0,0));
 }
 
 void DX11Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
 {
 	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, 0, XMFLOAT2(0,0), scale);
+}
+
+void DX11Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale, Vec2 offset)
+{
+	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, 0, XMFLOAT2(offset.x, offset.y), scale);
 }
 
 void DX11Graphics::DrawLine(Vec2 v1, Vec2 v2)

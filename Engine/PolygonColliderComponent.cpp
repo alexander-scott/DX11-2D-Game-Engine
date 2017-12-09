@@ -18,7 +18,7 @@ PolygonColliderComponent::~PolygonColliderComponent()
 void PolygonColliderComponent::ComputeMass(float density)
 {
 	// Calculate centroid and moment of interia
-	Vec2 c(0.0f, 0.0f); // centroid
+	_centre = Vec2(0.0f, 0.0f); // centroid
 	float area = 0.0f;
 	float I = 0.0f;
 	const float k_inv3 = 1.0f / 3.0f;
@@ -36,20 +36,20 @@ void PolygonColliderComponent::ComputeMass(float density)
 		area += triangleArea;
 
 		// Use area to weight the centroid average, not just vertex position
-		c += triangleArea * k_inv3 * (p1 + p2);
+		_centre += triangleArea * k_inv3 * (p1 + p2);
 
 		float intx2 = p1.x * p1.x + p2.x * p1.x + p2.x * p2.x;
 		float inty2 = p1.y * p1.y + p2.y * p1.y + p2.y * p2.y;
 		I += (0.25f * k_inv3 * D) * (intx2 + inty2);
 	}
 
-	c *= 1.0f / area;
+	_centre *= 1.0f / area;
 
 	// Translate vertices to centroid (make the centroid (0, 0)
 	// for the polygon in model space)
 	// Not really necessary, but I like doing this anyway
 	for (uint32 i = 0; i < m_vertexCount; ++i)
-		m_vertices[i] -= c;
+		m_vertices[i] -= _centre;
 
 	_rigidyBodyComponent->SetMass(density * area);
 	_rigidyBodyComponent->SetInverseMass(_rigidyBodyComponent->GetMass() ? 1.0f / _rigidyBodyComponent->GetMass() : 0.0f);
@@ -147,19 +147,6 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 		m_normals[i1] = Vec2(face.y, -face.x);
 		m_normals[i1].Normalize();
 	}
-}
-
-void PolygonColliderComponent::SetBox(float hw, float hh)
-{
-	m_vertexCount = 4;
-	m_vertices[0].Set(-hw, -hh);
-	m_vertices[1].Set(hw, -hh);
-	m_vertices[2].Set(hw, hh);
-	m_vertices[3].Set(-hw, hh);
-	m_normals[0].Set(0.0f, -1.0f);
-	m_normals[1].Set(1.0f, 0.0f);
-	m_normals[2].Set(0.0f, 1.0f);
-	m_normals[3].Set(-1.0f, 0.0f);
 }
 
 // The extreme point along a direction within a polygon

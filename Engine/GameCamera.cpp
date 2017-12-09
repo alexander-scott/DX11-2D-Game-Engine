@@ -58,6 +58,11 @@ void GameCamera::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, 
 	gfx->DrawSprite(name, pos - trans->GetPosition(), rect, rot, scale);
 }
 
+void GameCamera::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale, Vec2 offset)
+{
+	gfx->DrawSprite(name, pos - trans->GetPosition(), rect, rot, scale, offset);
+}
+
 void GameCamera::DrawText(std::string text, Vec2 pos)
 {
 	gfx->DrawText(text, pos - trans->GetPosition());

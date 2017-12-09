@@ -11,7 +11,7 @@ TransformComponent * ComponentFactory::MakeTransform(Vec2 position, float rotati
 	return transform;
 }
 
-SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileName, TransformComponent* transform)
+SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileName, TransformComponent* transform, Vec2 offset)
 {
 	SpriteRendererComponent * spriteRenderer = new SpriteRendererComponent();
 	spriteRenderer->SetFilename(fileName);
@@ -20,6 +20,7 @@ SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileN
 		throw std::exception("This object requires a transform component.");
 	}
 	spriteRenderer->SetTransform(transform);
+	spriteRenderer->SetOffset(offset);
 
 	return spriteRenderer;
 }
