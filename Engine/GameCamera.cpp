@@ -21,22 +21,20 @@ void GameCamera::Update(float deltaTime)
 
 	// Set the cameras central position to be on the focus position
 	Vec2 pos = focusTrans->GetPosition();
-	pos.x -= (SCREEN_WIDTH / 2) - 32; // -32 because that is the exact centre of the player sprite
-	pos.y -= (SCREEN_HEIGHT / 2) - 32;
 
 	if (pos.x - ((SCREEN_WIDTH / 2) - 32) < _levelLeftBound)
 	{
 		pos.x = _levelLeftBound + ((SCREEN_WIDTH / 2) - 32);
 	}
 
-	if (pos.x + ((SCREEN_WIDTH / 2) - 32) > _levelRightBound)
+	if (pos.x + ((SCREEN_WIDTH / 2) + 32) > _levelRightBound)
 	{
-		pos.x = _levelRightBound - ((SCREEN_WIDTH / 2) - 32);
+		pos.x = _levelRightBound - ((SCREEN_WIDTH / 2) + 32);
 	}
 
-	if (pos.y + ((SCREEN_HEIGHT / 2) - 32) > _levelBottomBound)
+	if (pos.y + ((SCREEN_HEIGHT / 2) + 32) > _levelBottomBound)
 	{
-		pos.y = _levelBottomBound - ((SCREEN_HEIGHT / 2) - 32);
+		pos.y = _levelBottomBound - ((SCREEN_HEIGHT / 2) + 32);
 	}
 
 	if (pos.y - ((SCREEN_HEIGHT / 2) - 32) < _levelTopBound)
@@ -44,6 +42,8 @@ void GameCamera::Update(float deltaTime)
 		pos.y = _levelTopBound + ((SCREEN_HEIGHT / 2) - 32);
 	}
 
+	pos.x -= (SCREEN_WIDTH / 2) - 32; // -32 because that is the exact centre of the player sprite
+	pos.y -= (SCREEN_HEIGHT / 2) - 32;
 
 	trans->SetPosition(pos);
 }

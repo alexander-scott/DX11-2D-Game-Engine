@@ -67,10 +67,9 @@ void Game::InitaliseBackground(LevelData& levelData)
 {
 	_camera->SetFocusTrans(_player->GetComponent<TransformComponent>());
 
-	// WHY ARE WE SUBTRACTING THESE HARD VALUES?!?!?!!?
-	_camera->SetLevelBounds((levelData.levelLeftBounds - 9) * TILE_WIDTH,
-		(levelData.levelRightBounds - 10) * TILE_HEIGHT,
-		(levelData.levelBottomBounds - 7) * TILE_HEIGHT,
+	_camera->SetLevelBounds((levelData.levelLeftBounds) * TILE_WIDTH,
+		(levelData.levelRightBounds) * TILE_HEIGHT,
+		(levelData.levelBottomBounds) * TILE_HEIGHT,
 		(levelData.levelTopBounds) * TILE_HEIGHT);
 
 	GameObject* skyBackground = new GameObject();
@@ -95,7 +94,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	_gameObjects.push_back(groundBackground);
 
 	GameObject* leftSideCollider = new GameObject();
-	TransformComponent* leftSideTrans = ComponentFactory::MakeTransform(Vec2((levelData.levelLeftBounds - 1) * TILE_WIDTH, 0), 0, 1);
+	TransformComponent* leftSideTrans = ComponentFactory::MakeTransform(Vec2((levelData.levelLeftBounds) * TILE_WIDTH, 0), 0, 1);
 	leftSideCollider->AddComponent(leftSideTrans);
 	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	leftSideCollider->AddComponent(leftSideRb);
@@ -111,7 +110,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	_gameObjects.push_back(leftSideCollider);
 
 	GameObject* rightSideCollider = new GameObject();
-	TransformComponent* rightSideTrans = ComponentFactory::MakeTransform(Vec2((levelData.levelRightBounds - 1) * TILE_WIDTH, 0), 0, 1);
+	TransformComponent* rightSideTrans = ComponentFactory::MakeTransform(Vec2((levelData.levelRightBounds) * TILE_WIDTH, 0), 0, 1);
 	rightSideCollider->AddComponent(rightSideTrans);
 	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	rightSideCollider->AddComponent(rightSideRb);

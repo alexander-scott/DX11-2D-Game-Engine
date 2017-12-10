@@ -13,7 +13,7 @@ Player::Player(float xPos, float yPos)
 
 	// CIRCLE COLLIDER COMPONENT
 	//AddComponent(ComponentFactory::MakeCircleCollider(32, playerTransform, playerRigidBody));
-	AddComponent(ComponentFactory::MakeBoxCollider(20, 28, playerTransform, playerRigidBody));
+	AddComponent(ComponentFactory::MakeBoxCollider(32, 32, playerTransform, playerRigidBody));
 
 	// SPRITE ANIMATOR COMPONENT
 	std::vector<AnimationDesc> animDescs;
