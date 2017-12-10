@@ -9,7 +9,7 @@ class CollisionMessage : public IMessage
 public:
 	CollisionMessage(GameObject* collidedObj)
 	{
-		_type = MessageType::Collision;
+		_type = MessageType::eCollision;
 		collidedObject = collidedObj;
 	}
 

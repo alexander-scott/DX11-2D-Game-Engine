@@ -8,7 +8,7 @@ class AddForceMessage : public IMessage
 public:
 	AddForceMessage()
 	{
-		_type = MessageType::AddForce;
+		_type = MessageType::eAddForce;
 	}
 
 	void SetForce(Vec2 force) { _force = force; }

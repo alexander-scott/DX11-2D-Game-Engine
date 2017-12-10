@@ -151,9 +151,6 @@
     <ClInclude Include="CircleColliderComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Manifold.h">
-      <Filter>Engine\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="PolygonColliderComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClInclude>
@@ -204,6 +201,9 @@
     </ClInclude>
     <ClInclude Include="CollisionMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -258,9 +258,6 @@
     <ClCompile Include="CircleColliderComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Manifold.cpp">
-      <Filter>Engine\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="PolygonColliderComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
     </ClCompile>
@@ -293,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="GameComponentFactory.cpp">
       <Filter>Game\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Engine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,11 @@
-#include "Manifold.h"
+#include "Collision.h"
 
 
-Manifold::~Manifold()
+Collision::~Collision()
 {
 }
 
-void Manifold::Solve()
+void Collision::Solve()
 {
 	if (cA->GetType() == ColliderType::eCircle && cB->GetType() == ColliderType::eCircle) // Circle to circle
 	{
@@ -25,7 +25,7 @@ void Manifold::Solve()
 	}
 }
 
-void Manifold::Initialize(float deltaTime)
+void Collision::Initialize(float deltaTime)
 {
 	// Calculate average restitution
 	_mixedRestitution = std::min(cA->GetRigidbodyComponent()->GetRestitution(), cB->GetRigidbodyComponent()->GetRestitution());
@@ -52,7 +52,7 @@ void Manifold::Initialize(float deltaTime)
 	}
 }
 
-void Manifold::ApplyImpulse()
+void Collision::ApplyImpulse()
 {
 	// Early out and positional correct if both objects have infinite mass
 	if (Equal(cA->GetRigidbodyComponent()->GetInverseMass() + cB->GetRigidbodyComponent()->GetInverseMass(), 0))
@@ -122,7 +122,7 @@ void Manifold::ApplyImpulse()
 	}
 }
 
-void Manifold::PositionalCorrection()
+void Collision::PositionalCorrection()
 {
 	const float k_slop = 0.05f; // Penetration allowance
 	const float percent = 0.4f; // Penetration percentage to correct
@@ -131,13 +131,13 @@ void Manifold::PositionalCorrection()
 	cB->GetTransformComponent()->SetPosition(cB->GetTransformComponent()->GetPosition() + correction * cB->GetRigidbodyComponent()->GetInverseMass());
 }
 
-void Manifold::InfiniteMassCorrection()
+void Collision::InfiniteMassCorrection()
 {
 	cA->GetRigidbodyComponent()->SetVelocity(Vec2(0, 0));
 	cB->GetRigidbodyComponent()->SetVelocity(Vec2(0, 0));
 }
 
-void Manifold::CircletoCircle()
+void Collision::CircletoCircle()
 {
 	CircleColliderComponent *A = reinterpret_cast<CircleColliderComponent *>(cA);
 	CircleColliderComponent *B = reinterpret_cast<CircleColliderComponent *>(cB);
@@ -173,7 +173,7 @@ void Manifold::CircletoCircle()
 	}
 }
 
-void Manifold::CircleToPolygon()
+void Collision::CircleToPolygon()
 {
 	CircleColliderComponent *A = reinterpret_cast<CircleColliderComponent *>(cA);
 	PolygonColliderComponent *B = reinterpret_cast<PolygonColliderComponent *>(cB);
@@ -266,7 +266,7 @@ void Manifold::CircleToPolygon()
 	}
 }
 
-void Manifold::PolygonToCircle()
+void Collision::PolygonToCircle()
 {
 	ColliderComponent* cC = cA;
 	cA = cB;
@@ -276,7 +276,7 @@ void Manifold::PolygonToCircle()
 	CircleToPolygon();
 }
 
-void Manifold::PolygonToPolygon()
+void Collision::PolygonToPolygon()
 {
 	PolygonColliderComponent *A = reinterpret_cast<PolygonColliderComponent *>(cA);
 	PolygonColliderComponent *B = reinterpret_cast<PolygonColliderComponent *>(cB);
@@ -393,7 +393,7 @@ void Manifold::PolygonToPolygon()
 	_contactCount = cp;
 }
 
-float Manifold::FindAxisLeastPenetration(int * faceIndex, PolygonColliderComponent * A, PolygonColliderComponent * B)
+float Collision::FindAxisLeastPenetration(int * faceIndex, PolygonColliderComponent * A, PolygonColliderComponent * B)
 {
 	float bestDistance = -100000;
 	int bestIndex;
@@ -433,7 +433,7 @@ float Manifold::FindAxisLeastPenetration(int * faceIndex, PolygonColliderCompone
 	return bestDistance;
 }
 
-void Manifold::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, PolygonColliderComponent * IncPoly, int referenceIndex)
+void Collision::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, PolygonColliderComponent * IncPoly, int referenceIndex)
 {
 	Vec2 referenceNormal = RefPoly->m_normals[referenceIndex];
 
@@ -460,7 +460,7 @@ void Manifold::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, Po
 	v[1] = IncPoly->GetRigidbodyComponent()->GetOrientationMatrix() * IncPoly->m_vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
 }
 
-int Manifold::Clip(Vec2 n, float c, Vec2 * face)
+int Collision::Clip(Vec2 n, float c, Vec2 * face)
 {
 	int sp = 0;
 	Vec2 out[2] = {

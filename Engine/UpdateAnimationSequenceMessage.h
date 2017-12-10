@@ -7,7 +7,7 @@ class UpdateAnimationSequenceMessage : public IMessage
 public:
 	UpdateAnimationSequenceMessage()
 	{
-		_type = MessageType::UpdateAnimationSequence;
+		_type = MessageType::eUpdateAnimationSequence;
 	}
 
 	void SetSequence(int seq) { _sequence = seq; }

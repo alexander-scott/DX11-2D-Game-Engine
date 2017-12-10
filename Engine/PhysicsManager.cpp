@@ -32,12 +32,12 @@ void PhysicsManager::Update(float deltaTime)
 			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
 				continue;
 
-			Manifold manifold(A, B);
-			manifold.Solve();
+			Collision collision(A, B);
+			collision.Solve();
 
-			if (manifold.GetContactCount())
+			if (collision.GetContactCount())
 			{
-				_contacts.emplace_back(manifold);
+				_contacts.emplace_back(collision);
 
 				CollisionMessage colMsg(_gameObjects[i]);
 				_gameObjects[j]->SendMessageToComponents(colMsg);

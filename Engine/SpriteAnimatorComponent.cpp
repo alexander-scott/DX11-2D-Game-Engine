@@ -40,7 +40,7 @@ void SpriteAnimatorComponent::RecieveMessage(IMessage & message)
 {
 	switch (message.GetType())
 	{
-		case MessageType::UpdateAnimationSequence:
+		case MessageType::eUpdateAnimationSequence:
 			UpdateAnimationSequenceMessage& updateSeqMsg = static_cast<UpdateAnimationSequenceMessage &> (message);
 			UpdateAnimationSequence(updateSeqMsg.GetSequence());
 			break;

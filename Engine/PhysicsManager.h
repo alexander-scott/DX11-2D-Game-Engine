@@ -5,7 +5,7 @@
 #include "IEMath.h"
 #include "ColliderComponent.h"
 #include "GameObject.h"
-#include "Manifold.h"
+#include "Collision.h"
 
 class PhysicsManager
 {
@@ -23,6 +23,6 @@ private:
 
 	std::vector<GameObject*>				_gameObjects;
 	std::vector<ColliderComponent*>			_colliders;
-	std::vector<Manifold>					_contacts;
+	std::vector<Collision>					_contacts;
 };
 

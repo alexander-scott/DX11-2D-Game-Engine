@@ -4,11 +4,11 @@
 #include "CircleColliderComponent.h"
 #include "PolygonColliderComponent.h"
 
-class Manifold
+class Collision
 {
 public:
-	Manifold(ColliderComponent* a, ColliderComponent* b) : cA(a), cB(b) { }
-	~Manifold();
+	Collision(ColliderComponent* a, ColliderComponent* b) : cA(a), cB(b) { }
+	~Collision();
 
 	void CircletoCircle();
 	void CircleToPolygon();

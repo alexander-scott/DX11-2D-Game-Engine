@@ -26,16 +26,20 @@ void PlayerComponent::RecieveMessage(IMessage & message)
 {
 	switch (message.GetType())
 	{
-		case MessageType::Collision:
+		case MessageType::eCollision:
 			CollisionMessage& colMsg = static_cast<CollisionMessage &> (message);
 			if (colMsg.collidedObject->GetTag() == "Tile")
 			{
 				TransformComponent* tileTrans = colMsg.collidedObject->GetComponent<TransformComponent>();
-				if (tileTrans->GetPosition().y > _playerTransform->GetPosition().y)
+
+				// Check if the tile we have collided with is directly beneath us aka we're standing on it. And make sure it's not a tile that is touching our sides
+				if (tileTrans->GetPosition().y > _playerTransform->GetPosition().y &&
+					!(tileTrans->GetPosition().x <= _playerTransform->GetPosition().x - 32 || 
+						tileTrans->GetPosition().x >= _playerTransform->GetPosition().x + 32))
 				{
+					// If it is then we are on the ground
 					_grounded = true;
 				}
-				break;
 			}
 			break;
 	}
@@ -103,7 +107,7 @@ void PlayerComponent::CheckInput()
 	Vec2 dir = Vec2(0.0f, 0.0f);
 	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && _grounded)
 	{
-		dir.y -= 12;
+		dir.y -= 10;
 	}
 	if (Keyboard::Instance().KeyIsPressed(VK_LEFT))
 	{
