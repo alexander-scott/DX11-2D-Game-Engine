@@ -18,7 +18,6 @@ void GameObject::AddComponent(IComponent * component)
 {
 	if (component != nullptr)
 	{
-		component->SetGameObject(this);
 		_components.push_back(component);
 	}
 }

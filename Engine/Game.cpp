@@ -21,7 +21,7 @@ void Game::InitaliseLevel()
 	levelManager.LoadLevel("Levels\\level1.xml");
 
 	// Build any objects that are dependecies to other objects (global vars). Such as player.
-	_player = new Player("Player", levelManager.GetLevelData().playerXPos, levelManager.GetLevelData().playerYPos);
+	InitaliseImportantObjects(levelManager.GetLevelData());
 
 	// Build the background and add that first as that needs to get renderered at the very back
 	InitaliseBackground(levelManager.GetLevelData());
@@ -49,6 +49,33 @@ void Game::InitaliseLevel()
 	InitaliseGUI();
 }
 
+// Create any objects which are dependecies to other objects
+void Game::InitaliseImportantObjects(LevelData & levelData)
+{
+	_player = new GameObject("Player");
+	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos, levelData.playerYPos), 0, 1);
+	_player->AddComponent(playerTransform);
+
+	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.1f);
+	playerRigidBody->LockRotation();
+	_player->AddComponent(playerRigidBody);
+
+	BoxColliderComponent* playerCollider = ComponentFactory::MakeBoxCollider(32, 32, playerTransform, playerRigidBody);
+	_player->AddComponent(playerCollider);
+
+	// SPRITE ANIMATOR COMPONENT
+	std::vector<AnimationDesc> animDescs;
+	animDescs.push_back(AnimationDesc(0, 4, 64, 64, 64, 64, 8, 0.16f)); // Walking
+	animDescs.push_back(AnimationDesc(4, 8, 0, 64, 64, 64, 1, 0.16f)); // Standing
+
+	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("MageWalk", playerTransform, 64, 64, animDescs, (int)AnimationType::StandingDown);
+	_player->AddComponent(playerAnimator);
+
+	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerAnimator, playerRigidBody);
+	_player->AddComponent(playerComponent);
+}
+
+// Create objects that draw the background. Also create level limit colliders. Also create the camera and define it's bounds.
 void Game::InitaliseBackground(LevelData& levelData)
 {
 	_camera->SetFocusTrans(_player->GetComponent<TransformComponent>());
@@ -147,14 +174,19 @@ void Game::InitaliseBackground(LevelData& levelData)
 // Create any custom objects
 void Game::InitaliseObjects(LevelData& levelData)
 {
-	Ball* b = new Ball("Ball", levelData.playerXPos + 200, levelData.playerYPos - 200);
-	_gameObjects.push_back(b);
-
-	Ball* b2 = new Ball("Ball", levelData.playerXPos + 230, levelData.playerYPos - 400);
-	_gameObjects.push_back(b2);
-
-	Ball* b3 = new Ball("Ball", levelData.playerXPos + 170, levelData.playerYPos - 600);
-	_gameObjects.push_back(b3);
+	for (int i = 1; i <= 3; i++)
+	{
+		GameObject* ball = new GameObject("Ball");
+		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos + 200 + (30 * i), levelData.playerYPos - (200 * i)), 0, 0.5f);
+		ball->AddComponent(ballTrans);
+		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
+		ball->AddComponent(ballRb);
+		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(32, ballTrans, ballRb);
+		ball->AddComponent(ballCollider);
+		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 64, 64, Vec2(0, 0));
+		ball->AddComponent(ballRenderer);
+		_gameObjects.push_back(ball);
+	}
 }
 
 void Game::InitaliseGUI()

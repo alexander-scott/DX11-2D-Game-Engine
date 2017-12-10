@@ -3,12 +3,10 @@
 #include "FrameTimer.h"
 #include "MainWindow.h"
 
-#include "ComponentFactory.h"
+#include "GameComponentFactory.h"
 #include "PhysicsManager.h"
 
 #include "GameCamera.h"
-#include "Player.h"
-#include "Ball.h"
 #include "GameLevelManager.h"
 
 class Game
@@ -25,6 +23,7 @@ public:
 private:
 	void InitaliseLevel();
 	void InitaliseBackground(LevelData& levelData);
+	void InitaliseImportantObjects(LevelData& levelData);
 	void InitaliseObjects(LevelData& levelData);
 	void InitaliseGUI();
 
@@ -37,7 +36,7 @@ private:
 	MainWindow& wnd;
 
 	GameCamera*						_camera;
-	Player*							_player;
+	GameObject*						_player;
 
 	FrameTimer						_frameTimer;
 	PhysicsManager					_physicsManager;

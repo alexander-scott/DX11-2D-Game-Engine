@@ -2,7 +2,7 @@
 
 #include "ICamera.h"
 #include "GameObject.h"
-#include "ComponentFactory.h"
+#include "GameComponentFactory.h"
 
 class GameCamera : public ICamera, public GameObject
 {

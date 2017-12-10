@@ -138,9 +138,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
-    <ClInclude Include="Ball.h" />
     <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="GameLevelManager.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="CircleColliderComponent.h" />
@@ -150,7 +150,7 @@
     <ClInclude Include="ILevelManager.h" />
     <ClInclude Include="Manifold.h" />
     <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PolygonColliderComponent.h" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="rapidxml_print.hpp" />
@@ -185,16 +185,16 @@
     <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BoxColliderComponent.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameComponentFactory.cpp" />
     <ClCompile Include="GameLevelManager.cpp" />
     <ClCompile Include="ILevelManager.cpp" />
     <ClCompile Include="Manifold.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PolygonColliderComponent.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="SpriteAnimatorComponent.cpp" />
