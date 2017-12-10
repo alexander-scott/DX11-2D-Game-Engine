@@ -70,7 +70,7 @@ void ILevelManager::LoadLevel(std::string filename)
 		std::string spriteName = std::string(tile->first_attribute("sprite")->value());
 
 		//Create the tile and add it to the level.
-		WorldTile* newTile = new WorldTile(spriteName, Vec2((float)_xOrigin + (x * _xStep),
+		WorldTile* newTile = new WorldTile("Tile", spriteName, Vec2((float)_xOrigin + (x * _xStep),
 			(float)_yOrigin + -(y * _yStep))); // The minus by the y is because I find it easier to create levels if postive Y goes up rather than down
 
 		AddTile(x, y, newTile);

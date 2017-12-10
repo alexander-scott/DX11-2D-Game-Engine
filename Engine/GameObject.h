@@ -13,6 +13,7 @@
 class GameObject
 {
 public:
+	GameObject(std::string tag);
 	~GameObject();
 
 	void Draw(ICamera* cam) const;
@@ -20,6 +21,8 @@ public:
 	void SendMessageToComponents(IMessage& message);
 
 	void AddComponent(IComponent* component);
+
+	std::string GetTag() { return _tag; }
 
 	template<class T>
 	T * GetComponent()
@@ -55,5 +58,6 @@ public:
 	}
 
 protected:
-	std::vector<IComponent*> _components;
+	std::vector<IComponent*>	_components;
+	std::string					_tag;
 };

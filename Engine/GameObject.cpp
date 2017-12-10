@@ -1,5 +1,10 @@
 #include "GameObject.h"
 
+GameObject::GameObject(std::string tag)
+{
+	_tag = tag;
+}
+
 GameObject::~GameObject()
 {
 	for (auto component : _components)
@@ -13,6 +18,7 @@ void GameObject::AddComponent(IComponent * component)
 {
 	if (component != nullptr)
 	{
+		component->SetGameObject(this);
 		_components.push_back(component);
 	}
 }

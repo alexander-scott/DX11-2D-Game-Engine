@@ -7,7 +7,7 @@
 class GameCamera : public ICamera, public GameObject
 {
 public:
-	GameCamera();
+	GameCamera(std::string tag);
 	~GameCamera();
 
 	void SetFocusTrans(TransformComponent* fTrans) { focusTrans = fTrans; }

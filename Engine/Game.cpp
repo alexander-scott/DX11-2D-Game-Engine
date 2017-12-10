@@ -4,27 +4,13 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd)
 {
-	_camera = new GameCamera();
+	_camera = new GameCamera("Camera");
 	_camera->Initalise(wnd);
 	_gameObjects.push_back(_camera);
-
 	
 	InitaliseLevel();
 
 	InitalisePhysics();
-}
-
-// Create any custom objects
-void Game::InitaliseObjects(LevelData& levelData)
-{
-	Ball* b = new Ball(levelData.playerXPos + 200, levelData.playerYPos - 200);
-	_gameObjects.push_back(b);
-
-	Ball* b2 = new Ball(levelData.playerXPos + 230, levelData.playerYPos - 400);
-	_gameObjects.push_back(b2);
-
-	Ball* b3 = new Ball(levelData.playerXPos + 170, levelData.playerYPos - 600);
-	_gameObjects.push_back(b3);
 }
 
 // Read in level data from an XML file and build the level
@@ -35,7 +21,7 @@ void Game::InitaliseLevel()
 	levelManager.LoadLevel("Levels\\level1.xml");
 
 	// Build any objects that are dependecies to other objects (global vars). Such as player.
-	_player = new Player(levelManager.GetLevelData().playerXPos, levelManager.GetLevelData().playerYPos);
+	_player = new Player("Player", levelManager.GetLevelData().playerXPos, levelManager.GetLevelData().playerYPos);
 
 	// Build the background and add that first as that needs to get renderered at the very back
 	InitaliseBackground(levelManager.GetLevelData());
@@ -72,29 +58,29 @@ void Game::InitaliseBackground(LevelData& levelData)
 		(levelData.levelBottomBounds) * TILE_HEIGHT,
 		(levelData.levelTopBounds) * TILE_HEIGHT);
 
-	GameObject* skyBackground = new GameObject();
+	GameObject* skyBackground = new GameObject("Background");
 	TransformComponent* skyTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 1);
 	skyBackground->AddComponent(skyTrans);
 	skyBackground->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Sky", 640, 480, 0.1f,
 		TiledBGDirection::eHoriztonalAndVertical, skyTrans, _player->GetComponent<TransformComponent>()));
 	_gameObjects.push_back(skyBackground);
 
-	GameObject* vegBackground = new GameObject();
+	GameObject* vegBackground = new GameObject("Background");
 	TransformComponent* vegTrans = ComponentFactory::MakeTransform(Vec2(0, -400), 0, 1);
 	vegBackground->AddComponent(vegTrans);
 	vegBackground->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Vegetation", 640, 480, 0.5f,
 		TiledBGDirection::eHorizontal, vegTrans, _player->GetComponent<TransformComponent>()));
 	_gameObjects.push_back(vegBackground);
 
-	GameObject* groundBackground = new GameObject();
+	GameObject* groundBackground = new GameObject("Background");
 	TransformComponent* groundTrans = ComponentFactory::MakeTransform(Vec2(0, -400), 0, 1);
 	groundBackground->AddComponent(groundTrans);
 	groundBackground->AddComponent(ComponentFactory::MakeTiledBGRenderer("BG_Ground", 640, 480, 3,
 		TiledBGDirection::eHorizontal, groundTrans, _player->GetComponent<TransformComponent>()));
 	_gameObjects.push_back(groundBackground);
 
-	GameObject* leftSideCollider = new GameObject();
-	TransformComponent* leftSideTrans = ComponentFactory::MakeTransform(Vec2((levelData.levelLeftBounds) * TILE_WIDTH, 0), 0, 1);
+	GameObject* leftSideCollider = new GameObject("LevelCollider");
+	TransformComponent* leftSideTrans = ComponentFactory::MakeTransform(Vec2(levelData.levelLeftBounds * TILE_WIDTH, 0), 0, 1);
 	leftSideCollider->AddComponent(leftSideTrans);
 	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	leftSideCollider->AddComponent(leftSideRb);
@@ -109,8 +95,8 @@ void Game::InitaliseBackground(LevelData& levelData)
 	leftSideRb->SetStatic();
 	_gameObjects.push_back(leftSideCollider);
 
-	GameObject* rightSideCollider = new GameObject();
-	TransformComponent* rightSideTrans = ComponentFactory::MakeTransform(Vec2((levelData.levelRightBounds) * TILE_WIDTH, 0), 0, 1);
+	GameObject* rightSideCollider = new GameObject("LevelCollider");
+	TransformComponent* rightSideTrans = ComponentFactory::MakeTransform(Vec2(levelData.levelRightBounds * TILE_WIDTH, 0), 0, 1);
 	rightSideCollider->AddComponent(rightSideTrans);
 	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	rightSideCollider->AddComponent(rightSideRb);
@@ -125,8 +111,8 @@ void Game::InitaliseBackground(LevelData& levelData)
 	rightSideRb->SetStatic();
 	_gameObjects.push_back(rightSideCollider);
 
-	GameObject* bottomSideCollider = new GameObject();
-	TransformComponent* bottomSideTrans = ComponentFactory::MakeTransform(Vec2(0, (levelData.levelBottomBounds) * TILE_HEIGHT), 0, 1);
+	GameObject* bottomSideCollider = new GameObject("LevelCollider");
+	TransformComponent* bottomSideTrans = ComponentFactory::MakeTransform(Vec2(0, levelData.levelBottomBounds * TILE_HEIGHT), 0, 1);
 	bottomSideCollider->AddComponent(bottomSideTrans);
 	RigidBodyComponent* bottomSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	bottomSideCollider->AddComponent(bottomSideRb);
@@ -141,8 +127,8 @@ void Game::InitaliseBackground(LevelData& levelData)
 	bottomSideRb->SetStatic();
 	_gameObjects.push_back(bottomSideCollider);
 
-	GameObject* topSideCollider = new GameObject();
-	TransformComponent* topSideTrans = ComponentFactory::MakeTransform(Vec2(0, (levelData.levelTopBounds + 6) * TILE_HEIGHT), 0, 1);
+	GameObject* topSideCollider = new GameObject("LevelCollider");
+	TransformComponent* topSideTrans = ComponentFactory::MakeTransform(Vec2(0, levelData.levelTopBounds * TILE_HEIGHT), 0, 1);
 	topSideCollider->AddComponent(topSideTrans);
 	RigidBodyComponent* topSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
 	topSideCollider->AddComponent(topSideRb);
@@ -158,9 +144,22 @@ void Game::InitaliseBackground(LevelData& levelData)
 	_gameObjects.push_back(topSideCollider);
 }
 
+// Create any custom objects
+void Game::InitaliseObjects(LevelData& levelData)
+{
+	Ball* b = new Ball("Ball", levelData.playerXPos + 200, levelData.playerYPos - 200);
+	_gameObjects.push_back(b);
+
+	Ball* b2 = new Ball("Ball", levelData.playerXPos + 230, levelData.playerYPos - 400);
+	_gameObjects.push_back(b2);
+
+	Ball* b3 = new Ball("Ball", levelData.playerXPos + 170, levelData.playerYPos - 600);
+	_gameObjects.push_back(b3);
+}
+
 void Game::InitaliseGUI()
 {
-	GameObject* guiText = new GameObject();
+	GameObject* guiText = new GameObject("GUI");
 	TransformComponent* guiTextTransform = ComponentFactory::MakeTransform(Vec2(100, -500), 0, 1);
 	TextRendererComponent* guiTextRenderer = ComponentFactory::MakeTextRenderer("DirectXTK Simple Sample", guiTextTransform);
 	guiText->AddComponent(guiTextTransform);

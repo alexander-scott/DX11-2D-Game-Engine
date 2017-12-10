@@ -2,7 +2,7 @@
 
 
 
-GameCamera::GameCamera()
+GameCamera::GameCamera(std::string tag) : GameObject(tag)
 {
 	gfx = new DX11Graphics(); // DECIDE ON GRAPHICS API HERE
 

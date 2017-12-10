@@ -128,6 +128,6 @@ void TiledBGRenderer::Update(float deltaTime)
 			break;
 	}
 
-	GetTransform()->SetPosition(GetTransform()->GetPosition() - (dist * _moveRate));
+	GetTransform()->SetPosition(GetTransform()->GetPosition() - (dist * _scrollRate));
 	_prevFocusPos = _focusTrans->GetPosition();
 }

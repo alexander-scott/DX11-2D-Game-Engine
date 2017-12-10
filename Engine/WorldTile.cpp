@@ -1,6 +1,6 @@
 #include "WorldTile.h"
 
-WorldTile::WorldTile(std::string fileName, Vec2 pos)
+WorldTile::WorldTile(std::string tag, std::string fileName, Vec2 pos) : GameObject(tag)
 {
 	TransformComponent* pipeTransform = ComponentFactory::MakeTransform(pos, 0, 1);
 	SpriteRendererComponent* pipeSprite = ComponentFactory::MakeSpriteRenderer(fileName, pipeTransform, 45, 45, Vec2(0,0));

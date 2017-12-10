@@ -10,7 +10,7 @@
 class Player : public GameObject
 {
 public:
-	Player(float xPos, float yPos);
+	Player(std::string tag, float xPos, float yPos);
 	~Player();
 
 	virtual void Update(float deltaTime) override;

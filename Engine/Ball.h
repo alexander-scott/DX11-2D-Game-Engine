@@ -6,7 +6,7 @@
 class Ball : public GameObject
 {
 public:
-	Ball(float xPos, float yPos);
+	Ball(std::string tag, float xPos, float yPos);
 	~Ball();
 };
 

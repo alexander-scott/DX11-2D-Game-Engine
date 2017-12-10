@@ -56,6 +56,9 @@ public:
 	float GetRestitution() { return rigidbodyData.restitution; }
 	void SetRestitution(float rest) { rigidbodyData.restitution = rest; }
 
+	void SetGrounded(bool grounded) { _grounded = grounded; }
+	bool GetGrounded() { return _grounded; }
+
 	bool RotationLocked() {	return _rotationLocked;	}
 
 #pragma endregion
@@ -63,5 +66,6 @@ public:
 private:
 	RigidBodyData rigidbodyData = RigidBodyData(Vec2(0, 0), 0, 0, Vec2(0, 0), 0, 0, 0);
 	bool				_rotationLocked;
+	bool				_grounded;
 };
 

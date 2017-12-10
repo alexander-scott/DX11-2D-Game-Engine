@@ -74,10 +74,17 @@ void PhysicsManager::IntegrateForces(ColliderComponent * collider, float deltaTi
 		return;
 
 	collider->GetRigidbodyComponent()->SetVelocity(collider->GetRigidbodyComponent()->GetVelocity() + 
-		(collider->GetRigidbodyComponent()->GetForce() * collider->GetRigidbodyComponent()->GetInverseMass() + gravity) * (deltaTime / 2.0f));
+		(collider->GetRigidbodyComponent()->GetForce() * collider->GetRigidbodyComponent()->GetInverseMass() + 
+		(gravity * (collider->GetRigidbodyComponent()->GetInverseMass() * 3000))) * (deltaTime / 2.0f));
 
 	collider->GetRigidbodyComponent()->SetAngularVelocity(collider->GetRigidbodyComponent()->GetAngularVelocity() +
 		collider->GetRigidbodyComponent()->GetTorque() * collider->GetRigidbodyComponent()->GetInverseIntertia() * (deltaTime / 2.0f));
+
+	if (abs(collider->GetRigidbodyComponent()->GetVelocity().y) < 3)
+		collider->GetRigidbodyComponent()->SetGrounded(true);
+	else
+		collider->GetRigidbodyComponent()->SetGrounded(false);
+
 }
 
 void PhysicsManager::IntegrateVelocity(ColliderComponent * collider, float deltaTime)

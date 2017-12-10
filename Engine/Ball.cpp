@@ -2,7 +2,7 @@
 
 
 
-Ball::Ball(float xPos, float yPos)
+Ball::Ball(std::string tag, float xPos, float yPos) : GameObject(tag)
 {
 	// TRANSFORM COMPONENT
 	TransformComponent* trans = ComponentFactory::MakeTransform(Vec2(xPos, yPos), 0, 0.5f);

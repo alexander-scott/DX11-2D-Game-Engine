@@ -149,7 +149,7 @@ TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, 
 	TiledBGRenderer * bgRenderer = new TiledBGRenderer();
 	bgRenderer->SetTransform(trans);
 	bgRenderer->SetFocusTrans(focusTrans);
-	bgRenderer->SetMoveRate(moveRate);
+	bgRenderer->SetScrollRate(moveRate);
 	bgRenderer->SetDirection(direction);
 	bgRenderer->SetSprite(spriteName, spriteWidth, spriteHeight);
 

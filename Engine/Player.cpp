@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(float xPos, float yPos)
+Player::Player(std::string tag, float xPos, float yPos) : GameObject(tag)
 {
 	// TRANSFORM COMPONENT
 	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(xPos, yPos), 0, 1);
@@ -94,9 +94,9 @@ void Player::UpdateAnimation()
 void Player::CheckInput()
 {
 	Vec2 dir = Vec2(0.0f, 0.0f);
-	if (Keyboard::Instance().KeyIsPressed(VK_SPACE))
+	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && playerRigidBody->GetGrounded())
 	{
-		dir.y -= 1;
+		dir.y -= 12;
 	}
 	if (Keyboard::Instance().KeyIsPressed(VK_LEFT))
 	{
