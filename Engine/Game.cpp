@@ -71,7 +71,7 @@ void Game::InitaliseImportantObjects(LevelData & levelData)
 	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("MageWalk", playerTransform, 64, 64, animDescs, (int)AnimationType::StandingDown);
 	_player->AddComponent(playerAnimator);
 
-	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerAnimator, playerRigidBody);
+	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody);
 	_player->AddComponent(playerComponent);
 }
 
@@ -208,7 +208,7 @@ void Game::InitalisePhysics()
 
 		if (goCollider != nullptr)
 		{
-			_physicsManager.AddCollider(goCollider);
+			_physicsManager.AddCollider(go, goCollider);
 		}
 	}
 }

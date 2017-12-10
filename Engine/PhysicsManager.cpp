@@ -1,6 +1,6 @@
 #include "PhysicsManager.h"
 
-
+#include "CollisionMessage.h"
 
 PhysicsManager::PhysicsManager()
 {
@@ -11,8 +11,9 @@ PhysicsManager::~PhysicsManager()
 {
 }
 
-void PhysicsManager::AddCollider(ColliderComponent * collider)
+void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * collider)
 {
+	_gameObjects.push_back(gameObject);
 	_colliders.push_back(collider);
 }
 
@@ -35,7 +36,12 @@ void PhysicsManager::Update(float deltaTime)
 			manifold.Solve();
 
 			if (manifold.GetContactCount())
+			{
 				_contacts.emplace_back(manifold);
+
+				CollisionMessage colMsg(_gameObjects[i]);
+				_gameObjects[j]->SendMessageToComponents(colMsg);
+			}				
 		}
 	}
 
@@ -46,7 +52,7 @@ void PhysicsManager::Update(float deltaTime)
 	// Initialize collision
 	for (int i = 0; i < _contacts.size(); ++i)
 		_contacts[i].Initialize(deltaTime);
-
+		
 	// Solve collisions
 	for (int i = 0; i < _contacts.size(); ++i)
 		_contacts[i].ApplyImpulse();
@@ -79,12 +85,6 @@ void PhysicsManager::IntegrateForces(ColliderComponent * collider, float deltaTi
 
 	collider->GetRigidbodyComponent()->SetAngularVelocity(collider->GetRigidbodyComponent()->GetAngularVelocity() +
 		collider->GetRigidbodyComponent()->GetTorque() * collider->GetRigidbodyComponent()->GetInverseIntertia() * (deltaTime / 2.0f));
-
-	if (abs(collider->GetRigidbodyComponent()->GetVelocity().y) < 3)
-		collider->GetRigidbodyComponent()->SetGrounded(true);
-	else
-		collider->GetRigidbodyComponent()->SetGrounded(false);
-
 }
 
 void PhysicsManager::IntegrateVelocity(ColliderComponent * collider, float deltaTime)

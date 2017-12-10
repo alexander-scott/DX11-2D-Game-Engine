@@ -1,7 +1,7 @@
 #include "GameComponentFactory.h"
 
 
-PlayerComponent * ComponentFactory::MakePlayerComponent(SpriteAnimatorComponent * anim, RigidBodyComponent * rb)
+PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb)
 {
 	if (anim == nullptr)
 	{
@@ -13,7 +13,7 @@ PlayerComponent * ComponentFactory::MakePlayerComponent(SpriteAnimatorComponent 
 		throw std::exception("This object requires a rigidbody component.");
 	}
 
-	PlayerComponent* playerComponent = new PlayerComponent(anim, rb);
+	PlayerComponent* playerComponent = new PlayerComponent(trans, anim, rb);
 
 	return playerComponent;
 }

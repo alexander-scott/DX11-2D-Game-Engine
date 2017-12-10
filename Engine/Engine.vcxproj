@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
     <ClInclude Include="BoxColliderComponent.h" />
+    <ClInclude Include="CollisionMessage.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="GameLevelManager.h" />

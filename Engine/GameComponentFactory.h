@@ -6,6 +6,6 @@
 
 namespace ComponentFactory
 {
-	PlayerComponent * MakePlayerComponent(SpriteAnimatorComponent* anim, RigidBodyComponent* rb);
+	PlayerComponent * MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb);
 }
 

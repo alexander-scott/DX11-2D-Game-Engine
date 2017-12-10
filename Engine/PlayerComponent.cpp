@@ -2,9 +2,11 @@
 
 #include "UpdateAnimationSequenceMessage.h"
 #include "AddForceMessage.h"
+#include "CollisionMessage.h"
 
-PlayerComponent::PlayerComponent(SpriteAnimatorComponent* anim, RigidBodyComponent* rb) : _playerAnimator(anim), _playerRigidBody(rb)
+PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb) : _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb)
 {
+	_grounded = false;
 }
 
 
@@ -16,6 +18,27 @@ void PlayerComponent::Update(float deltaTime)
 {
 	CheckInput();
 	UpdateAnimation();	
+
+	_grounded = false;
+}
+
+void PlayerComponent::RecieveMessage(IMessage & message)
+{
+	switch (message.GetType())
+	{
+		case MessageType::Collision:
+			CollisionMessage& colMsg = static_cast<CollisionMessage &> (message);
+			if (colMsg.collidedObject->GetTag() == "Tile")
+			{
+				TransformComponent* tileTrans = colMsg.collidedObject->GetComponent<TransformComponent>();
+				if (tileTrans->GetPosition().y > _playerTransform->GetPosition().y)
+				{
+					_grounded = true;
+				}
+				break;
+			}
+			break;
+	}
 }
 
 void PlayerComponent::UpdateAnimation()
@@ -78,7 +101,7 @@ void PlayerComponent::UpdateAnimation()
 void PlayerComponent::CheckInput()
 {
 	Vec2 dir = Vec2(0.0f, 0.0f);
-	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && _playerRigidBody->GetGrounded())
+	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && _grounded)
 	{
 		dir.y -= 12;
 	}

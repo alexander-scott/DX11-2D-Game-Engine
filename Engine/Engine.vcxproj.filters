@@ -202,6 +202,9 @@
     <ClInclude Include="GameComponentFactory.h">
       <Filter>Game\GameComponents</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionMessage.h">
+      <Filter>Engine\GameObject\Components\Messages</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">

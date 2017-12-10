@@ -33,7 +33,8 @@ enum AnimationType
 enum MessageType
 {
 	UpdateAnimationSequence,
-	AddForce
+	AddForce,
+	Collision
 };
 
 enum ColliderType 
