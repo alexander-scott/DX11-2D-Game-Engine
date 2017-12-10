@@ -78,8 +78,13 @@ X postive is right. Y postive is up.
   <tile x="8" y="6" sprite="Pipe"/>
 
   <tile x="7" y="7" sprite="Pipe"/>
-  
-    <tile x="20" y="0" sprite="Pipe"/>
+
+  <tile x="15" y="0" sprite="Pipe"/>
+  <tile x="16" y="0" sprite="Pipe"/>
+  <tile x="17" y="0" sprite="Pipe"/>
+  <tile x="18" y="0" sprite="Pipe"/>
+  <tile x="19" y="0" sprite="Pipe"/>
+  <tile x="20" y="0" sprite="Pipe"/>
   <tile x="21" y="0" sprite="Pipe"/>
   <tile x="22" y="0" sprite="Pipe"/>
   <tile x="23" y="0" sprite="Pipe"/>

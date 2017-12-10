@@ -68,7 +68,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	_camera->SetFocusTrans(_player->GetComponent<TransformComponent>());
 
 	// WHY ARE WE SUBTRACTING THESE HARD VALUES?!?!?!!?
-	_camera->SetLevelBounds((levelData.levelLeftBounds - 8) * TILE_WIDTH,
+	_camera->SetLevelBounds((levelData.levelLeftBounds - 9) * TILE_WIDTH,
 		(levelData.levelRightBounds - 10) * TILE_HEIGHT,
 		(levelData.levelBottomBounds - 7) * TILE_HEIGHT,
 		(levelData.levelTopBounds) * TILE_HEIGHT);

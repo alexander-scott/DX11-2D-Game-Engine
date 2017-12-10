@@ -16,6 +16,7 @@ public:
 	void ApplyImpulse(const Vec2& impulse, const Vec2& contactVector);
 
 	void SetStatic();
+	void LockRotation() { _rotationLocked = true; }
 
 #pragma region Getters and Setters
 
@@ -55,9 +56,12 @@ public:
 	float GetRestitution() { return rigidbodyData.restitution; }
 	void SetRestitution(float rest) { rigidbodyData.restitution = rest; }
 
+	bool RotationLocked() {	return _rotationLocked;	}
+
 #pragma endregion
 
 private:
 	RigidBodyData rigidbodyData = RigidBodyData(Vec2(0, 0), 0, 0, Vec2(0, 0), 0, 0, 0);
+	bool				_rotationLocked;
 };
 

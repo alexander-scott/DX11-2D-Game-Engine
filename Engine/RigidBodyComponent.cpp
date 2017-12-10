@@ -16,6 +16,8 @@ RigidBodyComponent::RigidBodyComponent(float staticF, float dynamicF, float rest
 	rigidbodyData.staticFriction = staticF;
 	rigidbodyData.dynamicFriction = dynamicF;
 	rigidbodyData.restitution = rest;
+
+	_rotationLocked = false;
 }
 
 RigidBodyComponent::~RigidBodyComponent()
@@ -35,7 +37,7 @@ void RigidBodyComponent::RecieveMessage(IMessage & message)
 
 void RigidBodyComponent::ApplyForce(const Vec2& f)
 {
-	rigidbodyData.force += (f * 100000000000);
+	rigidbodyData.force += (f * 1000000);
 }
 
 void RigidBodyComponent::ApplyImpulse(const Vec2 & impulse, const Vec2 & contactVector)

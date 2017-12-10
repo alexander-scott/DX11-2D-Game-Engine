@@ -6,7 +6,7 @@ WorldTile::WorldTile(std::string fileName, Vec2 pos)
 	SpriteRendererComponent* pipeSprite = ComponentFactory::MakeSpriteRenderer(fileName, pipeTransform, 45, 45, Vec2(0,0));
 	RigidBodyComponent* pipeRigidbody = ComponentFactory::MakeRigidbody(1,1,1);
 
-	BoxColliderComponent * pipeCollider = ComponentFactory::MakeBoxCollider(23, 30, pipeTransform, pipeRigidbody);
+	BoxColliderComponent * pipeCollider = ComponentFactory::MakeBoxCollider(23, 25, pipeTransform, pipeRigidbody);
 
 	AddComponent(pipeTransform);
 	AddComponent(pipeSprite);

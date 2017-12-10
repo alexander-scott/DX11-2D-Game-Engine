@@ -65,7 +65,7 @@ enum TiledBGDirection
 static std::map<std::string, std::string> SpriteFilePaths = 
 {
 	{ "MageWalk",		"Images\\mage_walk.dds" },
-	{ "Ball",			"Images\\RedBall.dds" },
+	{ "Ball",			"Images\\ColourBall.dds" },
 	{ "Pipe",			"Images\\NewPipe.dds" },
 	{ "BG_Sky",			"Images\\Backgrounds\\Sky_back_layer.dds" },
 	{ "BG_Vegetation",	"Images\\Backgrounds\\Vegetation_layer.dds" },

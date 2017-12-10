@@ -7,12 +7,13 @@ Player::Player(float xPos, float yPos)
 	AddComponent(playerTransform);
 
 	// RIGIDBODY COMPONENT
-	playerRigidBody = ComponentFactory::MakeRigidbody(1, 0.3f, 0.1f); // Cache the rigidbody
+	playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.1f); // Cache the rigidbody
+	playerRigidBody->LockRotation();
 	AddComponent(playerRigidBody);
 
 	// CIRCLE COLLIDER COMPONENT
 	//AddComponent(ComponentFactory::MakeCircleCollider(32, playerTransform, playerRigidBody));
-	AddComponent(ComponentFactory::MakeBoxCollider(32, 32, playerTransform, playerRigidBody));
+	AddComponent(ComponentFactory::MakeBoxCollider(20, 28, playerTransform, playerRigidBody));
 
 	// SPRITE ANIMATOR COMPONENT
 	std::vector<AnimationDesc> animDescs;
@@ -95,15 +96,15 @@ void Player::CheckInput()
 	Vec2 dir = Vec2(0.0f, 0.0f);
 	if (Keyboard::Instance().KeyIsPressed(VK_SPACE))
 	{
-		dir.y += 0.00001f;
+		dir.y -= 1;
 	}
 	if (Keyboard::Instance().KeyIsPressed(VK_LEFT))
 	{
-		dir.x += 0.00001f;
+		dir.x -= 1;
 	}
 	if (Keyboard::Instance().KeyIsPressed(VK_RIGHT))
 	{
-		dir.x -= 0.00001f;
+		dir.x += 1;
 	}
 
 	// Move the player in the specified direction
