@@ -10,12 +10,13 @@ private:
 	float					_rot; // RADIANS
 	float					_scale;
 
+	bool					_hasChanged;
+
 public:
 	TransformComponent();
 	~TransformComponent();
 
-	void SetPosition(float x, float y) { _pos = Vec2(x, y); }
-	void SetPosition(Vec2 position) { _pos = position; }
+	void SetPosition(Vec2 position);
 
 	void SetScale(float scale) { _scale = scale; }
 	void SetRotation(float rot) { _rot = rot; }
@@ -23,4 +24,7 @@ public:
 	float GetRotation() const { return _rot; }
 	float GetScale() const { return _scale; }
 	Vec2 GetPosition() const { return _pos; }
+
+	bool CheckedChanged() { return _hasChanged; }
+	void SetChanged(bool changed) { _hasChanged = changed; }
 };

@@ -5,6 +5,7 @@
 
 #include "GameComponentFactory.h"
 #include "PhysicsManager.h"
+#include "QuadTree.h"
 
 #include "GameCamera.h"
 #include "GameLevelManager.h"
@@ -37,6 +38,8 @@ private:
 
 	GameCamera*						_camera;
 	GameObject*						_player;
+
+	QuadTree*						_quadTree;
 
 	FrameTimer						_frameTimer;
 	PhysicsManager					_physicsManager;

@@ -153,6 +153,7 @@
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PolygonColliderComponent.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="RigidBodyComponent.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PolygonColliderComponent.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="SpriteAnimatorComponent.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />

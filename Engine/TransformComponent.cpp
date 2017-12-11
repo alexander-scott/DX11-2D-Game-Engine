@@ -14,3 +14,13 @@ TransformComponent::TransformComponent()
 TransformComponent::~TransformComponent()
 {
 }
+
+void TransformComponent::SetPosition(Vec2 position)
+{
+	if (position.x != _pos.x || position.y != _pos.y)
+	{
+		_hasChanged = true;
+	}
+
+	_pos = position;
+}
