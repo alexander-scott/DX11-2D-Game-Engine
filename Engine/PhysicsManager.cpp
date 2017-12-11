@@ -4,17 +4,27 @@
 
 PhysicsManager::PhysicsManager()
 {
+	_quadTree = new QuadTree(0, Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 }
 
 
 PhysicsManager::~PhysicsManager()
 {
+	delete _quadTree;
 }
 
 void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * collider)
 {
 	_gameObjects.push_back(gameObject);
 	_colliders.push_back(collider);
+
+	Rect r;
+	r.xPos = (int)collider->GetTransformComponent()->GetPosition().x;
+	r.yPos = (int)collider->GetTransformComponent()->GetPosition().y;
+	r.width = 100;
+	r.height = 100;
+	r.colliderIndex = (int)_colliders.size() - 1;
+	_quadTree->Insert(r);
 }
 
 void PhysicsManager::Update(float deltaTime)

@@ -7,7 +7,7 @@ Game::Game(MainWindow& wnd)
 	_camera = new GameCamera("Camera");
 	_camera->Initalise(wnd);
 	_gameObjects.push_back(_camera);
-	
+
 	InitaliseLevel();
 
 	InitalisePhysics();

@@ -13,6 +13,9 @@ static constexpr int SCREEN_HEIGHT = 600;
 static constexpr int TILE_WIDTH = 45;
 static constexpr int TILE_HEIGHT = 45;
 
+static constexpr int MAX_QUADTREE_OBJECTS = 10;
+static constexpr int MAX_QUADTREE_LEVELS = 5;
+
 #pragma endregion
 
 #pragma region Enums
@@ -122,6 +125,20 @@ struct RigidBodyData
 	{
 
 	}
+};
+
+struct Rect
+{
+public:
+	int xPos;
+	int yPos;
+	int width;
+	int height;
+
+	int colliderIndex;
+
+	Rect() { }
+	Rect(int x, int y, int wid, int hei, int colIndex = -1) : xPos(x), yPos(y), width(wid), height(hei), colliderIndex(colIndex) { }
 };
 
 struct ILevelData {};
