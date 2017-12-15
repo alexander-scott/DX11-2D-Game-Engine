@@ -32,7 +32,47 @@ void PhysicsManager::Update(float deltaTime)
 	// Generate new collision info
 	_contacts.clear();
 
-	for (int i = 0; i < _colliders.size(); ++i)
+	Rect r;
+	r.width = 100;
+	r.height = 100;
+
+	std::vector<int> objs;
+
+	// Loop through every collider
+	for (int i = 0; i < _colliders.size(); i++)
+	{
+		ColliderComponent *A = _colliders[i];
+		
+		r.xPos = (int)A->GetTransformComponent()->GetPosition().x;
+		r.yPos = (int)A->GetTransformComponent()->GetPosition().y;
+
+		objs.clear();
+
+		// Retrieve any objects around the collider A
+		_quadTree->Retrieve(objs, r);
+
+		// For all objects around the collider A, check if there's an actual intersection
+		for (int j = 0; j < objs.size(); j++)
+		{
+			ColliderComponent *B = _colliders[objs[j]];
+
+			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
+				continue;
+
+			Collision collision(A, B);
+			collision.Solve();
+
+			if (collision.GetContactCount())
+			{
+				_contacts.emplace_back(collision);
+
+				CollisionMessage colMsg(_gameObjects[i]);
+				_gameObjects[objs[j]]->SendMessageToComponents(colMsg);
+			}
+		}
+	}
+
+	/*for (int i = 0; i < _colliders.size(); ++i)
 	{
 		ColliderComponent *A = _colliders[i];
 
@@ -53,7 +93,7 @@ void PhysicsManager::Update(float deltaTime)
 				_gameObjects[j]->SendMessageToComponents(colMsg);
 			}				
 		}
-	}
+	}*/
 
 	// Integrate forces
 	for (int i = 0; i < _colliders.size(); ++i)

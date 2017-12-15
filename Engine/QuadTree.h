@@ -21,4 +21,3 @@ private:
 	std::vector<Rect>			 _objects;
 	std::vector<QuadTree*>		 _nodes;
 };	
-
