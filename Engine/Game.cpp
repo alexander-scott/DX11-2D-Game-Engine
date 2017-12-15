@@ -221,6 +221,8 @@ void Game::Update()
 	ComposeFrame();
 
 	_camera->EndFrame();
+
+	Audio::Instance().Update();
 }
 
 Game::~Game()

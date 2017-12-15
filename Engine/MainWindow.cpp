@@ -38,6 +38,18 @@ MainWindow::MainWindow(HINSTANCE hInst, wchar_t * pArgs)
 			L"Failed to get valid window handle.");
 	}
 
+	HDEVNOTIFY hNewAudio = nullptr;
+	DEV_BROADCAST_DEVICEINTERFACE filter = { 0 };
+	filter.dbcc_size = sizeof(filter);
+	filter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
+	filter.dbcc_classguid = KSCATEGORY_AUDIO;
+
+	hNewAudio = RegisterDeviceNotification(hWnd, &filter,
+		DEVICE_NOTIFY_WINDOW_HANDLE);
+
+	if (hNewAudio)
+		UnregisterDeviceNotification(hNewAudio);
+
 	// show and update
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 	UpdateWindow(hWnd);
@@ -206,6 +218,24 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 	// ************ END MOUSE MESSAGES ************ //
+	case WM_DEVICECHANGE:
+		if (wParam == DBT_DEVICEARRIVAL)
+		{
+			auto pDev = reinterpret_cast<PDEV_BROADCAST_HDR>(lParam);
+			if (pDev)
+			{
+				if (pDev->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE)
+				{
+					auto pInter = reinterpret_cast<
+						const PDEV_BROADCAST_DEVICEINTERFACE>(pDev);
+					if (pInter->dbcc_classguid == KSCATEGORY_AUDIO)
+					{
+						Audio::Instance().OnNewAudioDevice();
+					}
+				}
+			}
+		}
+		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);

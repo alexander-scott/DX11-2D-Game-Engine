@@ -17,9 +17,6 @@
     <Filter Include="Engine\Graphics\Shaders">
       <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Input">
-      <UniqueIdentifier>{76caa40f-803c-4ae9-ad3b-20ffe0354232}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{d208ffd9-440e-4c27-b94c-ad86bc5623a3}</UniqueIdentifier>
     </Filter>
@@ -65,6 +62,9 @@
     <Filter Include="Engine\Scene">
       <UniqueIdentifier>{e2f2402f-bb60-4e14-bed7-9c3ffcc55102}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\I/O">
+      <UniqueIdentifier>{76caa40f-803c-4ae9-ad3b-20ffe0354232}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -83,10 +83,10 @@
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Keyboard.h">
-      <Filter>Engine\Input</Filter>
+      <Filter>Engine\I/O</Filter>
     </ClInclude>
     <ClInclude Include="Mouse.h">
-      <Filter>Engine\Input</Filter>
+      <Filter>Engine\I/O</Filter>
     </ClInclude>
     <ClInclude Include="FrameTimer.h">
       <Filter>Engine\Graphics</Filter>
@@ -211,13 +211,16 @@
     <ClInclude Include="QuadTree.h">
       <Filter>Engine\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Engine\I/O</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
-      <Filter>Engine\Input</Filter>
+      <Filter>Engine\I/O</Filter>
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
-      <Filter>Engine\Input</Filter>
+      <Filter>Engine\I/O</Filter>
     </ClCompile>
     <ClCompile Include="FrameTimer.cpp">
       <Filter>Engine\Graphics</Filter>
@@ -302,6 +305,9 @@
     </ClCompile>
     <ClCompile Include="QuadTree.cpp">
       <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>Engine\I/O</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

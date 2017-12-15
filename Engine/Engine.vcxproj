@@ -138,6 +138,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="CollisionMessage.h" />
     <ClInclude Include="GameCamera.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="BoxColliderComponent.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
@@ -287,6 +289,9 @@
     <Image Include="directx.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="DirectXTK\Audio\DirectXTKAudio_Desktop_2013_Win8.vcxproj">
+      <Project>{4f150a30-cecb-49d1-8283-6a3f57438cf5}</Project>
+    </ProjectReference>
     <ProjectReference Include="DirectXTK\DirectXTK_Desktop_2013.vcxproj">
       <Project>{e0b52ae7-e160-4d32-bf3f-910b785e5a8e}</Project>
     </ProjectReference>

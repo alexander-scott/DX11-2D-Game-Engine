@@ -2,8 +2,10 @@
 #include "WinDefines.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Audio.h"
 #include "CustomException.h"
 #include <string>
+#include <Dbt.h>
 
 #include "Consts.h"
 
