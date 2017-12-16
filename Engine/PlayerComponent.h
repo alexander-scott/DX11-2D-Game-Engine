@@ -6,11 +6,12 @@
 
 #include "RigidBodyComponent.h"
 #include "SpriteAnimatorComponent.h"
+#include "DamageableComponent.h"
 
 class PlayerComponent : public IComponent, public IUpdateable, public IMessageable
 {
 public:
-	PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb);
+	PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg);
 	~PlayerComponent();
 
 	virtual void Update(float deltaTime) override;
@@ -23,6 +24,7 @@ private:
 	TransformComponent*			_playerTransform;
 	SpriteAnimatorComponent*	_playerAnimator;
 	RigidBodyComponent*			_playerRigidBody;
+	DamageableComponent*		_playerDamageable;
 
 	bool						_grounded;
 };

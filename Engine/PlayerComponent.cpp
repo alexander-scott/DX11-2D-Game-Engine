@@ -4,7 +4,8 @@
 #include "AddForceMessage.h"
 #include "CollisionMessage.h"
 
-PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb) : _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb)
+PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg)
+	: _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb), _playerDamageable(dmg)
 {
 	_grounded = false;
 }

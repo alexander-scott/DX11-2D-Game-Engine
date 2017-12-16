@@ -37,7 +37,8 @@ enum MessageType
 {
 	eUpdateAnimationSequence,
 	eAddForce,
-	eCollision
+	eCollision,
+	eRecieveDamage
 };
 
 enum ColliderType 

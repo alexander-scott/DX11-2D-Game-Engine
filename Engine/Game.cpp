@@ -71,7 +71,10 @@ void Game::InitaliseImportantObjects(LevelData & levelData)
 	SpriteAnimatorComponent* playerAnimator = ComponentFactory::MakeSpriteAnimator("MageWalk", playerTransform, 64, 64, animDescs, (int)AnimationType::StandingDown);
 	_player->AddComponent(playerAnimator);
 
-	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody);
+	DamageableComponent* playerDamageable = ComponentFactory::MakeDamageableComponent(100);
+	_player->AddComponent(playerDamageable);
+
+	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody, playerDamageable);
 	_player->AddComponent(playerComponent);
 }
 

@@ -141,6 +141,7 @@
     <ClInclude Include="Audio.h" />
     <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="CollisionMessage.h" />
+    <ClInclude Include="DamageableComponent.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="GameLevelManager.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="rapidxml_print.hpp" />
+    <ClInclude Include="RecieveDamageMessage.h" />
     <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
@@ -192,6 +194,7 @@
     <ClCompile Include="BoxColliderComponent.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
+    <ClCompile Include="DamageableComponent.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
     <ClCompile Include="GameLevelManager.cpp" />

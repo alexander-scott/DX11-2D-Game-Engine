@@ -12,7 +12,6 @@ public:
 		_type = MessageType::eCollision;
 		collidedObject = collidedObj;
 	}
-
 	
 	GameObject* collidedObject;
 };
