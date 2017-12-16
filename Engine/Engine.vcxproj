@@ -156,11 +156,13 @@
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PolygonColliderComponent.h" />
     <ClInclude Include="ProjectileComponent.h" />
+    <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="RecieveDamageMessage.h" />
     <ClInclude Include="RigidBodyComponent.h" />
+    <ClInclude Include="SetActiveMessage.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="GameObject.h" />
@@ -205,6 +207,7 @@
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PolygonColliderComponent.cpp" />
     <ClCompile Include="ProjectileComponent.cpp" />
+    <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="SpriteAnimatorComponent.cpp" />

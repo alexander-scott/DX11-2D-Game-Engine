@@ -65,6 +65,9 @@
     <Filter Include="Engine\I/O">
       <UniqueIdentifier>{76caa40f-803c-4ae9-ad3b-20ffe0354232}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Components\Component Types\GamePlay">
+      <UniqueIdentifier>{79328e8d-1c3e-4ddc-af06-e8fec9ff7352}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -221,7 +224,13 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="ProjectileComponent.h">
-      <Filter>Game\GameComponents</Filter>
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileManager.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SetActiveMessage.h">
+      <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -322,7 +331,10 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="ProjectileComponent.cpp">
-      <Filter>Game\GameComponents</Filter>
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileManager.cpp">
+      <Filter>Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

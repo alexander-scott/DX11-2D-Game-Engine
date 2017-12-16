@@ -38,7 +38,8 @@ enum MessageType
 	eUpdateAnimationSequence,
 	eAddForce,
 	eCollision,
-	eRecieveDamage
+	eRecieveDamage,
+	eSetActive
 };
 
 enum ColliderType 

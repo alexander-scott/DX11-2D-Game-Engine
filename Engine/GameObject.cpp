@@ -26,13 +26,16 @@ void GameObject::SendMessageToComponents(IMessage & message)
 {
 	for (auto component : _components)
 	{
-		// Cast component to IDrawable
-		IMessageable * messageableComponent = dynamic_cast<IMessageable *> (component);
-
-		if (messageableComponent != nullptr)
+		if (component->GetActive() || message.GetType() == MessageType::eSetActive)
 		{
-			// Is drawable
-			messageableComponent->RecieveMessage(message);
+			// Cast component to IMessageable
+			IMessageable * messageableComponent = dynamic_cast<IMessageable *> (component);
+
+			if (messageableComponent != nullptr)
+			{
+				// Is messageable
+				messageableComponent->RecieveMessage(message);
+			}
 		}
 	}
 }
@@ -41,13 +44,16 @@ void GameObject::Draw(ICamera* cam) const
 {
 	for (auto component : _components)
 	{
-		// Cast component to IDrawable
-		IDrawable * drawableComponent = dynamic_cast<IDrawable *> (component);
-
-		if (drawableComponent != nullptr)
+		if (component->GetActive())
 		{
-			// Is drawable
-			drawableComponent->Draw(cam);
+			// Cast component to IDrawable
+			IDrawable * drawableComponent = dynamic_cast<IDrawable *> (component);
+
+			if (drawableComponent != nullptr)
+			{
+				// Is drawable
+				drawableComponent->Draw(cam);
+			}
 		}
 	}
 }
@@ -57,13 +63,16 @@ void GameObject::Update(float deltaTime)
 	// Update all updateable components
 	for (auto component : _components)
 	{
-		// Cast component to IUpdateable - This is bad!!
-		IUpdateable * updateableComponent = dynamic_cast<IUpdateable *> (component);
-
-		if (updateableComponent != nullptr)
+		if (component->GetActive())
 		{
-			// Is updateable
-			updateableComponent->Update(deltaTime);
+			// Cast component to IUpdateable - This is bad!!
+			IUpdateable * updateableComponent = dynamic_cast<IUpdateable *> (component);
+
+			if (updateableComponent != nullptr)
+			{
+				// Is updateable
+				updateableComponent->Update(deltaTime);
+			}
 		}
 	}
 }
