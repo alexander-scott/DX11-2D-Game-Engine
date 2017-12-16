@@ -17,10 +17,13 @@ PlayerComponent::~PlayerComponent()
 
 void PlayerComponent::Update(float deltaTime)
 {
-	CheckInput();
-	UpdateAnimation();	
+	if (!_playerDamageable->IsDead())
+	{
+		CheckInput();
+		UpdateAnimation();
 
-	_grounded = false;
+		_grounded = false;
+	}
 }
 
 void PlayerComponent::RecieveMessage(IMessage & message)
@@ -42,6 +45,7 @@ void PlayerComponent::RecieveMessage(IMessage & message)
 					_grounded = true;
 				}
 			}
+
 			break;
 	}
 }

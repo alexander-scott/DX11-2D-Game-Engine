@@ -199,9 +199,6 @@
     <ClInclude Include="PlayerComponent.h">
       <Filter>Game\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponentFactory.h">
-      <Filter>Game\GameComponents</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
@@ -219,6 +216,12 @@
     </ClInclude>
     <ClInclude Include="RecieveDamageMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponentFactory.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileComponent.h">
+      <Filter>Game\GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +306,6 @@
     <ClCompile Include="PlayerComponent.cpp">
       <Filter>Game\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="GameComponentFactory.cpp">
-      <Filter>Game\GameComponents</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
@@ -316,6 +316,12 @@
       <Filter>Engine\I/O</Filter>
     </ClCompile>
     <ClCompile Include="DamageableComponent.cpp">
+      <Filter>Game\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponentFactory.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileComponent.cpp">
       <Filter>Game\GameComponents</Filter>
     </ClCompile>
   </ItemGroup>

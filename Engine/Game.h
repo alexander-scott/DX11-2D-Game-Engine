@@ -36,6 +36,7 @@ private:
 	MainWindow& wnd;
 
 	GameCamera*						_camera;
+
 	GameObject*						_player;
 
 	FrameTimer						_frameTimer;

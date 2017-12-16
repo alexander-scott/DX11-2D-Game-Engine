@@ -4,6 +4,7 @@ DamageableComponent::DamageableComponent(float startHealth)
 {
 	_type = "Damageable Component";
 	_health = startHealth;
+	_isDead = false;
 }
 
 DamageableComponent::~DamageableComponent()

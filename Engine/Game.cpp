@@ -63,7 +63,6 @@ void Game::InitaliseImportantObjects(LevelData & levelData)
 	BoxColliderComponent* playerCollider = ComponentFactory::MakeBoxCollider(32, 32, playerTransform, playerRigidBody);
 	_player->AddComponent(playerCollider);
 
-	// SPRITE ANIMATOR COMPONENT
 	std::vector<AnimationDesc> animDescs;
 	animDescs.push_back(AnimationDesc(0, 4, 64, 64, 64, 64, 8, 0.16f)); // Walking
 	animDescs.push_back(AnimationDesc(4, 8, 0, 64, 64, 64, 1, 0.16f)); // Standing
@@ -177,7 +176,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 // Create any custom objects
 void Game::InitaliseObjects(LevelData& levelData)
 {
-	for (int i = 1; i <= 3; i++)
+	for (int i = 1; i <= 5; i++)
 	{
 		GameObject* ball = new GameObject("Ball");
 		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos + 200 + (30 * i), levelData.playerYPos - (200 * i)), 0, 0.5f);
