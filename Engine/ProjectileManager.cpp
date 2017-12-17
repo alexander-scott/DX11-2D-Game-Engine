@@ -16,7 +16,7 @@ ProjectileManager::~ProjectileManager()
 void ProjectileManager::AddCreatedGameObject(GameObject * go)
 {
 	ProjectilePoolObj obj(go, go->GetComponent<ProjectileComponent>());
-	//obj.gameObject->SetActive(true);
+	obj.gameObject->SetActive(false);
 	_inactiveGameObjects.push_back(obj);
 }
 
@@ -29,7 +29,7 @@ GameObject * ProjectileManager::GetGameObject()
 		_inactiveGameObjects.erase(_inactiveGameObjects.begin());
 
 		// SET ACTIVE
-		//obj.gameObject->SetActive(true);
+		obj.gameObject->SetActive(true);
 
 		return obj.gameObject;
 	}
@@ -52,7 +52,7 @@ void ProjectileManager::Update(float deltaTime)
 			_activeGameObjects.erase(_activeGameObjects.begin() + i);
 
 			// SET INACTIVE
-			//obj.gameObject->SetActive(false);
+			obj.gameObject->SetActive(false);
 		}
 	}
 }

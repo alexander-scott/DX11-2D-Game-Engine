@@ -74,6 +74,9 @@ void PhysicsManager::Update(float deltaTime)
 
 				CollisionMessage colMsg(_gameObjects[i]);
 				_gameObjects[objs[j]]->SendMessageToComponents(colMsg);
+
+				CollisionMessage colMsg2(_gameObjects[objs[j]]);
+				_gameObjects[i]->SendMessageToComponents(colMsg2);
 			}
 		}
 	}
