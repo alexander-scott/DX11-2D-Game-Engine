@@ -1,7 +1,7 @@
 #include "GameComponentFactory.h"
 
 
-PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent* dmg)
+PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent* dmg, ProjectileManager* proj)
 {
 	if (anim == nullptr)
 	{
@@ -18,7 +18,7 @@ PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* tran
 		throw std::exception("This object requires a damageable component.");
 	}
 
-	PlayerComponent* playerComponent = new PlayerComponent(trans, anim, rb, dmg);
+	PlayerComponent* playerComponent = new PlayerComponent(trans, anim, rb, dmg, proj);
 
 	return playerComponent;
 }
@@ -27,4 +27,10 @@ DamageableComponent * ComponentFactory::MakeDamageableComponent(float startHealt
 {
 	DamageableComponent* damageComponent = new DamageableComponent(startHealth);
 	return damageComponent;
+}
+
+ProjectileComponent * ComponentFactory::MakeProjectileComponent(std::string affectedTag, float lifeSpan, float dmg)
+{
+	ProjectileComponent* projectileComponent = new ProjectileComponent(affectedTag, lifeSpan, dmg);
+	return projectileComponent;
 }

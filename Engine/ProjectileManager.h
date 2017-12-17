@@ -3,9 +3,10 @@
 #include "GameObject.h"
 #include "ProjectileComponent.h"
 
-#include <vector>
+#include "IComponent.h"
+#include "IUpdateable.h"
 
-class ProjectileManager
+class ProjectileManager : public IComponent, public IUpdateable
 {
 public:
 	struct ProjectilePoolObj 
@@ -17,11 +18,12 @@ public:
 		ProjectileComponent* projectileComponent;
 	};
 
-	ProjectileManager(int numToCreate);
 	~ProjectileManager();
 
+	void AddCreatedGameObject(GameObject* go);
+
 	GameObject* GetGameObject();
-	void Update(float deltaTime);
+	virtual void Update(float deltaTime) override;
 
 private:
 	std::vector<ProjectilePoolObj>	_activeGameObjects;

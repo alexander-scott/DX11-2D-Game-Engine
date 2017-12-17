@@ -8,6 +8,7 @@
 
 #include "GameCamera.h"
 #include "GameLevelManager.h"
+#include "ProjectileManager.h"
 
 class Game
 {
@@ -24,7 +25,6 @@ private:
 	void InitaliseLevel();
 	void InitaliseBackground(LevelData& levelData);
 	void InitaliseImportantObjects(LevelData& levelData);
-	void InitaliseObjects(LevelData& levelData);
 	void InitaliseGUI();
 
 	void InitalisePhysics();
@@ -41,5 +41,6 @@ private:
 
 	FrameTimer						_frameTimer;
 	PhysicsManager					_physicsManager;
+	
 	std::vector<GameObject*>		_gameObjects;
 };

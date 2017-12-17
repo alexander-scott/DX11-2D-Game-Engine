@@ -42,7 +42,10 @@ void PhysicsManager::Update(float deltaTime)
 	for (int i = 0; i < _colliders.size(); i++)
 	{
 		ColliderComponent *A = _colliders[i];
-		
+
+		if (!A->GetActive())
+			continue;
+
 		r.xPos = (int)A->GetTransformComponent()->GetPosition().x;
 		r.yPos = (int)A->GetTransformComponent()->GetPosition().y;
 
@@ -55,6 +58,9 @@ void PhysicsManager::Update(float deltaTime)
 		for (int j = 0; j < objs.size(); j++)
 		{
 			ColliderComponent *B = _colliders[objs[j]];
+
+			if (!B->GetActive())
+				continue;
 
 			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
 				continue;

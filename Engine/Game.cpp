@@ -26,9 +26,6 @@ void Game::InitaliseLevel()
 	// Build the background and add that first as that needs to get renderered at the very back
 	InitaliseBackground(levelManager.GetLevelData());
 
-	// Build objects that will exist in the level and render that on top of the background layers
-	InitaliseObjects(levelManager.GetLevelData());
-
 	// Build the tile level
 	for (int i = 0; i < levelManager.GetLevelData().levelWidth; i++)
 	{
@@ -73,7 +70,28 @@ void Game::InitaliseImportantObjects(LevelData & levelData)
 	DamageableComponent* playerDamageable = ComponentFactory::MakeDamageableComponent(100);
 	_player->AddComponent(playerDamageable);
 
-	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody, playerDamageable);
+	ProjectileManager* playerProjectiles = new ProjectileManager;
+	for (int i = 0; i < 30; i++)
+	{
+		GameObject* ball = new GameObject("Ball");
+		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0,0), 0, 0.5f);
+		ball->AddComponent(ballTrans);
+		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
+		ball->AddComponent(ballRb);
+		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(32, ballTrans, ballRb);
+		ball->AddComponent(ballCollider);
+		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 64, 64, Vec2(0, 0));
+		ball->AddComponent(ballRenderer);
+		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Player", 10, 10);
+		ball->AddComponent(ballProjectile);
+
+		_gameObjects.push_back(ball);
+
+		playerProjectiles->AddCreatedGameObject(ball);
+	}
+	_player->AddComponent(playerProjectiles);
+
+	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody, playerDamageable, playerProjectiles);
 	_player->AddComponent(playerComponent);
 }
 
@@ -171,24 +189,6 @@ void Game::InitaliseBackground(LevelData& levelData)
 	topSideCollider->AddComponent(topSidePolyCollide);
 	topSideRb->SetStatic();
 	_gameObjects.push_back(topSideCollider);
-}
-
-// Create any custom objects
-void Game::InitaliseObjects(LevelData& levelData)
-{
-	for (int i = 1; i <= 5; i++)
-	{
-		GameObject* ball = new GameObject("Ball");
-		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos + 200 + (30 * i), levelData.playerYPos - (200 * i)), 0, 0.5f);
-		ball->AddComponent(ballTrans);
-		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
-		ball->AddComponent(ballRb);
-		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(32, ballTrans, ballRb);
-		ball->AddComponent(ballCollider);
-		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 64, 64, Vec2(0, 0));
-		ball->AddComponent(ballRenderer);
-		_gameObjects.push_back(ball);
-	}
 }
 
 void Game::InitaliseGUI()

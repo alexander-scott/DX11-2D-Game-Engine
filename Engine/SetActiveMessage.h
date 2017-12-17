@@ -4,6 +4,7 @@
 
 class SetActiveMessage : public IMessage 
 {
+public:
 	SetActiveMessage(bool active) 
 	{
 		_type = MessageType::eSetActive;
