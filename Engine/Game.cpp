@@ -26,6 +26,9 @@ void Game::InitaliseLevel()
 	// Build the background and add that first as that needs to get renderered at the very back
 	InitaliseBackground(levelManager.GetLevelData());
 
+	// Build any other objects that need drawing
+	InitaliseObjects(levelManager.GetLevelData());
+
 	// Build the tile level
 	for (int i = 0; i < levelManager.GetLevelData().levelWidth; i++)
 	{
@@ -50,8 +53,16 @@ void Game::InitaliseLevel()
 void Game::InitaliseImportantObjects(LevelData & levelData)
 {
 	_player = new GameObject("Player");
+
+	// Initalise the players transform as this is needed by the parallax backgrounds
 	TransformComponent* playerTransform = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos, levelData.playerYPos), 0, 1);
 	_player->AddComponent(playerTransform);
+}
+
+// Create any other objects
+void Game::InitaliseObjects(LevelData & levelData)
+{
+	TransformComponent* playerTransform = _player->GetComponent<TransformComponent>();
 
 	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.1f);
 	playerRigidBody->LockRotation();
@@ -74,7 +85,7 @@ void Game::InitaliseImportantObjects(LevelData & levelData)
 	for (int i = 0; i < 30; i++)
 	{
 		GameObject* ball = new GameObject("Ball");
-		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0,0), 0, 0.5f);
+		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.5f);
 		ball->AddComponent(ballTrans);
 		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
 		ball->AddComponent(ballRb);
@@ -82,7 +93,7 @@ void Game::InitaliseImportantObjects(LevelData & levelData)
 		ball->AddComponent(ballCollider);
 		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 64, 64, Vec2(0, 0));
 		ball->AddComponent(ballRenderer);
-		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Player", 10, 10);
+		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Player", 10000, 10);
 		ball->AddComponent(ballProjectile);
 
 		_gameObjects.push_back(ball);

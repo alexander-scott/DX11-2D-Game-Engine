@@ -24,6 +24,17 @@ public:
 
 	std::string GetTag() { return _tag; }
 
+	void SetActive(bool active) 
+	{
+		_active = active;
+		for (auto component : _components)
+		{
+			component->SetActive(active);
+		}
+	}
+
+	bool GetActive() { return _active; }
+
 	template<class T>
 	T * GetComponent()
 	{
@@ -60,4 +71,5 @@ public:
 protected:
 	std::vector<IComponent*>	_components;
 	std::string					_tag;
+	bool						_active;
 };

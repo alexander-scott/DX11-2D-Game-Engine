@@ -5,6 +5,8 @@ ProjectileComponent::ProjectileComponent(std::string affectedTag, float lifeSpan
 	_affectedTag = affectedTag;
 	_lifeLeft = lifeSpan;
 	_damage = dmg;
+
+	_isDead = false;
 }
 
 ProjectileComponent::~ProjectileComponent()
@@ -15,16 +17,18 @@ void ProjectileComponent::RecieveMessage(IMessage & msg)
 {
 	switch (msg.GetType())
 	{
-	case MessageType::eCollision:
-		CollisionMessage& colMsg = static_cast<CollisionMessage &> (msg);
-		if (colMsg.collidedObject->GetTag() == _affectedTag)
+		case MessageType::eCollision:
 		{
-			RecieveDamageMessage recieveDmg(_damage);
-			colMsg.collidedObject->SendMessageToComponents(recieveDmg);
-			_isDead = true;
-		}
+			CollisionMessage& colMsg = static_cast<CollisionMessage &> (msg);
+			if (colMsg.collidedObject->GetTag() == _affectedTag)
+			{
+				RecieveDamageMessage recieveDmg(_damage);
+				colMsg.collidedObject->SendMessageToComponents(recieveDmg);
+				_isDead = true;
+			}
 
-		break;
+			break;
+		}
 	}
 }
 

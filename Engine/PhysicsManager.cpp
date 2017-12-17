@@ -132,7 +132,7 @@ void PhysicsManager::Update(float deltaTime)
 
 void PhysicsManager::IntegrateForces(ColliderComponent * collider, float deltaTime)
 {
-	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f)
+	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f || !collider->GetActive())
 		return;
 
 	collider->GetRigidbodyComponent()->SetVelocity(collider->GetRigidbodyComponent()->GetVelocity() + 
@@ -145,7 +145,7 @@ void PhysicsManager::IntegrateForces(ColliderComponent * collider, float deltaTi
 
 void PhysicsManager::IntegrateVelocity(ColliderComponent * collider, float deltaTime)
 {
-	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f)
+	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f || !collider->GetActive())
 		return;
 
 	// Calculate position

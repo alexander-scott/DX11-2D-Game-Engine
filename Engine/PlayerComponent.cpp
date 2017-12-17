@@ -8,6 +8,7 @@ PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorCompon
 	: _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb), _playerDamageable(dmg), _playerProjectiles(projectileMan)
 {
 	_grounded = false;
+	_isShooting = false;
 }
 
 
@@ -129,5 +130,19 @@ void PlayerComponent::CheckInput()
 		AddForceMessage addForceMsg;
 		addForceMsg.SetForce(dir);
 		_playerRigidBody->RecieveMessage(addForceMsg);
+	}
+
+	if (Mouse::Instance().LeftIsPressed())
+	{
+		if (!_isShooting)
+		{
+			_isShooting = true;
+			GameObject* go = _playerProjectiles->GetGameObject();
+			go->GetComponent<TransformComponent>()->SetPosition(Vec2(_playerTransform->GetPosition().x, _playerTransform->GetPosition().y - 600));
+		}
+	}
+	else
+	{
+		_isShooting = false;
 	}
 }

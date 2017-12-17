@@ -25,6 +25,7 @@ private:
 	void InitaliseLevel();
 	void InitaliseBackground(LevelData& levelData);
 	void InitaliseImportantObjects(LevelData& levelData);
+	void InitaliseObjects(LevelData& levelData);
 	void InitaliseGUI();
 
 	void InitalisePhysics();

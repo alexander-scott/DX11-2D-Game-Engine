@@ -31,5 +31,6 @@ private:
 	ProjectileManager*			_playerProjectiles;
 
 	bool						_grounded;
+	bool						_isShooting;
 };
 

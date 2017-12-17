@@ -1,7 +1,5 @@
 #include "ProjectileManager.h"
 
-#include "SetActiveMessage.h"
-
 ProjectileManager::~ProjectileManager()
 {
 	for (auto g : _activeGameObjects)
@@ -18,8 +16,7 @@ ProjectileManager::~ProjectileManager()
 void ProjectileManager::AddCreatedGameObject(GameObject * go)
 {
 	ProjectilePoolObj obj(go, go->GetComponent<ProjectileComponent>());
-	SetActiveMessage activeMsg(true);
-	obj.gameObject->SendMessageToComponents(activeMsg);
+	//obj.gameObject->SetActive(true);
 	_inactiveGameObjects.push_back(obj);
 }
 
@@ -32,8 +29,7 @@ GameObject * ProjectileManager::GetGameObject()
 		_inactiveGameObjects.erase(_inactiveGameObjects.begin());
 
 		// SET ACTIVE
-		SetActiveMessage activeMsg(true);
-		obj.gameObject->SendMessageToComponents(activeMsg);
+		//obj.gameObject->SetActive(true);
 
 		return obj.gameObject;
 	}
@@ -56,8 +52,7 @@ void ProjectileManager::Update(float deltaTime)
 			_activeGameObjects.erase(_activeGameObjects.begin() + i);
 
 			// SET INACTIVE
-			SetActiveMessage activeMsg(false);
-			obj.gameObject->SendMessageToComponents(activeMsg);
+			//obj.gameObject->SetActive(false);
 		}
 	}
 }

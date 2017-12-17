@@ -229,9 +229,6 @@
     <ClInclude Include="ProjectileManager.h">
       <Filter>Engine\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SetActiveMessage.h">
-      <Filter>Engine\GameObject\Components\Messages</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">

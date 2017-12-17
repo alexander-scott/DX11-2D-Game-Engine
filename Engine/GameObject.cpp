@@ -26,7 +26,7 @@ void GameObject::SendMessageToComponents(IMessage & message)
 {
 	for (auto component : _components)
 	{
-		if (component->GetActive() || message.GetType() == MessageType::eSetActive)
+		if (component->GetActive())
 		{
 			// Cast component to IMessageable
 			IMessageable * messageableComponent = dynamic_cast<IMessageable *> (component);

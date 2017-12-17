@@ -162,7 +162,6 @@
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="RecieveDamageMessage.h" />
     <ClInclude Include="RigidBodyComponent.h" />
-    <ClInclude Include="SetActiveMessage.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="GameObject.h" />
