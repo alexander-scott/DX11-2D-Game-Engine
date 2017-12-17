@@ -137,12 +137,17 @@ void PlayerComponent::CheckInput()
 		if (!_isShooting)
 		{
 			_isShooting = true;
-			GameObject* go = _playerProjectiles->GetGameObject();
-			go->GetComponent<TransformComponent>()->SetPosition(Vec2(_playerTransform->GetPosition().x, _playerTransform->GetPosition().y - 600));
+			ShootProjectile();
 		}
 	}
 	else
 	{
 		_isShooting = false;
 	}
+}
+
+void PlayerComponent::ShootProjectile()
+{
+	GameObject* go = _playerProjectiles->GetGameObject();
+	go->GetComponent<TransformComponent>()->SetPosition(Vec2(_playerTransform->GetPosition().x, _playerTransform->GetPosition().y - 600));
 }

@@ -72,8 +72,7 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 		throw std::exception("This object requires a rigidbody component.");
 	}
 
-	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody);
-	circleCollider->SetRadius(radius);
+	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody, radius);
 	circleCollider->ComputeMass(1);
 
 	return circleCollider;
@@ -99,7 +98,7 @@ PolygonColliderComponent * ComponentFactory::MakePolygonCollider(Vec2 * verticie
 	return polygonCollider;
 }
 
-BoxColliderComponent * ComponentFactory::MakeBoxCollider(float halfWidth, float halfHeight, TransformComponent * transform, RigidBodyComponent * rigidBody)
+BoxColliderComponent * ComponentFactory::MakeBoxCollider(float width, float height, TransformComponent * transform, RigidBodyComponent * rigidBody)
 {
 	if (transform == nullptr)
 	{
@@ -111,7 +110,7 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float halfWidth, float 
 	}
 
 	BoxColliderComponent * boxCollider = new BoxColliderComponent(transform, rigidBody);
-	boxCollider->SetBox(halfWidth, halfHeight);
+	boxCollider->SetBox((width/2) * transform->GetScale(), (height/2) * transform->GetScale());
 	boxCollider->ComputeMass(0.3f);
 
 	return boxCollider;

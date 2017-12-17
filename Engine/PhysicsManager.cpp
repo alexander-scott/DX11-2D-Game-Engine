@@ -81,29 +81,6 @@ void PhysicsManager::Update(float deltaTime)
 		}
 	}
 
-	/*for (int i = 0; i < _colliders.size(); ++i)
-	{
-		ColliderComponent *A = _colliders[i];
-
-		for (int j = i + 1; j < _colliders.size(); ++j)
-		{
-			ColliderComponent *B = _colliders[j];
-			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
-				continue;
-
-			Collision collision(A, B);
-			collision.Solve();
-
-			if (collision.GetContactCount())
-			{
-				_contacts.emplace_back(collision);
-
-				CollisionMessage colMsg(_gameObjects[i]);
-				_gameObjects[j]->SendMessageToComponents(colMsg);
-			}				
-		}
-	}*/
-
 	// Integrate forces
 	for (int i = 0; i < _colliders.size(); ++i)
 		IntegrateForces(_colliders[i], deltaTime);

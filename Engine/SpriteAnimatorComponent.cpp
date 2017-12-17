@@ -14,10 +14,10 @@ SpriteAnimatorComponent::~SpriteAnimatorComponent()
 
 void SpriteAnimatorComponent::Draw(ICamera* cam)
 {
-	float halfSpriteWidth = _spriteWidth / 2;
-	float halfSpriteHeight = _spriteHeight / 2;
-
 	TransformComponent* trans = GetTransform();
+
+	float halfSpriteWidth = (_spriteWidth / 2) * trans->GetScale();
+	float halfSpriteHeight = (_spriteHeight / 2) * trans->GetScale();
 
 	Vec2 pos = trans->GetPosition();
 	float newPosX = pos.x

@@ -64,11 +64,11 @@ void Game::InitaliseObjects(LevelData & levelData)
 {
 	TransformComponent* playerTransform = _player->GetComponent<TransformComponent>();
 
-	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.1f);
+	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f);
 	playerRigidBody->LockRotation();
 	_player->AddComponent(playerRigidBody);
 
-	BoxColliderComponent* playerCollider = ComponentFactory::MakeBoxCollider(32, 32, playerTransform, playerRigidBody);
+	BoxColliderComponent* playerCollider = ComponentFactory::MakeBoxCollider(64, 64, playerTransform, playerRigidBody);
 	_player->AddComponent(playerCollider);
 
 	std::vector<AnimationDesc> animDescs;
@@ -85,15 +85,15 @@ void Game::InitaliseObjects(LevelData & levelData)
 	for (int i = 0; i < 30; i++)
 	{
 		GameObject* ball = new GameObject("Ball");
-		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.5f);
+		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.3f);
 		ball->AddComponent(ballTrans);
 		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
 		ball->AddComponent(ballRb);
-		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(32, ballTrans, ballRb);
+		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 		ball->AddComponent(ballCollider);
-		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 64, 64, Vec2(0, 0));
+		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 128, 128, Vec2(0, 0));
 		ball->AddComponent(ballRenderer);
-		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Player", 10000, 10);
+		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Enemy", 10000, 10);
 		ball->AddComponent(ballProjectile);
 
 		_gameObjects.push_back(ball);

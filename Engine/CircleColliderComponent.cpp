@@ -2,12 +2,14 @@
 
 
 
-CircleColliderComponent::CircleColliderComponent(TransformComponent* trans, RigidBodyComponent* rb)
+CircleColliderComponent::CircleColliderComponent(TransformComponent* trans, RigidBodyComponent* rb, float rad)
 {
 	_type = "Circle Collider";
 
 	_transformComponent = trans;
 	_rigidyBodyComponent = rb;
+
+	radius = rad * GetTransformComponent()->GetScale();
 }
 
 

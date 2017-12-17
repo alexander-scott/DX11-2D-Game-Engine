@@ -23,6 +23,8 @@ private:
 	void UpdateAnimation();
 	void CheckInput();
 
+	void ShootProjectile();
+
 	TransformComponent*			_playerTransform;
 	SpriteAnimatorComponent*	_playerAnimator;
 	RigidBodyComponent*			_playerRigidBody;
