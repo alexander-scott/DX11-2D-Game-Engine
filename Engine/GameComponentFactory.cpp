@@ -1,7 +1,8 @@
 #include "GameComponentFactory.h"
 
 
-PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent* dmg, ProjectileManager* proj)
+PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent * anim, 
+	RigidBodyComponent * rb, DamageableComponent* dmg, ProjectileManager* proj, TransformComponent* cameraTrans)
 {
 	if (anim == nullptr)
 	{
@@ -18,7 +19,12 @@ PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* tran
 		throw std::exception("This object requires a damageable component.");
 	}
 
-	PlayerComponent* playerComponent = new PlayerComponent(trans, anim, rb, dmg, proj);
+	if (cameraTrans == nullptr)
+	{
+		throw std::exception("This object requires a camera transform.");
+	}
+
+	PlayerComponent* playerComponent = new PlayerComponent(trans, anim, rb, dmg, proj, cameraTrans);
 
 	return playerComponent;
 }

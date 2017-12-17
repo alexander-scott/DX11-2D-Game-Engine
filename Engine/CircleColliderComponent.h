@@ -7,9 +7,10 @@
 class CircleColliderComponent : public ColliderComponent
 {
 public:
-	CircleColliderComponent(TransformComponent* trans, RigidBodyComponent* rb, float rad);
+	CircleColliderComponent(TransformComponent* trans, RigidBodyComponent* rb);
 	~CircleColliderComponent();
 
+	void SetRadius(float rad) { radius = rad; }
 	float GetRadius() { return radius; }
 
 	virtual ColliderType GetType(void) const override { return ColliderType::eCircle; }

@@ -13,6 +13,7 @@ public:
 	void Split();
 	int GetIndex(Rect rect);
 	void Insert(Rect rect);
+	bool Erase(int colliderIndex);
 	std::vector<int> Retrieve(std::vector<int> &objects, Rect rect);
 
 private:

@@ -13,7 +13,8 @@
 class PlayerComponent : public IComponent, public IUpdateable, public IMessageable
 {
 public:
-	PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* projectileMan);
+	PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, 
+		RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* projectileMan, TransformComponent* cameraTransform);
 	~PlayerComponent();
 
 	virtual void Update(float deltaTime) override;
@@ -31,6 +32,7 @@ private:
 	DamageableComponent*		_playerDamageable;
 
 	ProjectileManager*			_playerProjectiles;
+	TransformComponent*			_cameraTransform;
 
 	bool						_grounded;
 	bool						_isShooting;

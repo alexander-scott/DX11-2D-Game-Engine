@@ -4,8 +4,9 @@
 #include "AddForceMessage.h"
 #include "CollisionMessage.h"
 
-PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* projectileMan)
-	: _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb), _playerDamageable(dmg), _playerProjectiles(projectileMan)
+PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, 
+	RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* projectileMan, TransformComponent* cameraTransform)
+	: _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb), _playerDamageable(dmg), _playerProjectiles(projectileMan), _cameraTransform(cameraTransform)
 {
 	_grounded = false;
 	_isShooting = false;
@@ -149,5 +150,10 @@ void PlayerComponent::CheckInput()
 void PlayerComponent::ShootProjectile()
 {
 	GameObject* go = _playerProjectiles->GetGameObject();
-	go->GetComponent<TransformComponent>()->SetPosition(Vec2(_playerTransform->GetPosition().x, _playerTransform->GetPosition().y - 600));
+	Vec2 spawnPos = Vec2(Mouse::Instance().GetPosX() + _cameraTransform->GetPosition().x, Mouse::Instance().GetPosY() + _cameraTransform->GetPosition().y);
+	Vec2 dir = spawnPos - _playerTransform->GetPosition();
+	dir.Normalize();
+
+	go->GetComponent<TransformComponent>()->SetPosition(_playerTransform->GetPosition() + (dir * 10));
+	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * 100);
 }

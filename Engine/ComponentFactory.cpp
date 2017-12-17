@@ -72,7 +72,8 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 		throw std::exception("This object requires a rigidbody component.");
 	}
 
-	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody, radius);
+	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody);
+	circleCollider->SetRadius(radius * transform->GetScale());
 	circleCollider->ComputeMass(1);
 
 	return circleCollider;

@@ -10,7 +10,7 @@
 
 namespace ComponentFactory
 {
-	PlayerComponent * MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* proj);
+	PlayerComponent * MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* proj, TransformComponent* cameraTransform);
 	DamageableComponent * MakeDamageableComponent(float startHealth);
 	ProjectileComponent * MakeProjectileComponent(std::string affectedTag, float lifeSpan, float dmg);
 }

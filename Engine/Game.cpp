@@ -102,7 +102,7 @@ void Game::InitaliseObjects(LevelData & levelData)
 	}
 	_player->AddComponent(playerProjectiles);
 
-	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody, playerDamageable, playerProjectiles);
+	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody, playerDamageable, playerProjectiles, _camera->GetComponent<TransformComponent>());
 	_player->AddComponent(playerComponent);
 }
 

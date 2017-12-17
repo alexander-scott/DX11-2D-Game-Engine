@@ -7,7 +7,6 @@ PhysicsManager::PhysicsManager()
 	_quadTree = new QuadTree(0, Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 }
 
-
 PhysicsManager::~PhysicsManager()
 {
 	delete _quadTree;
@@ -38,30 +37,73 @@ void PhysicsManager::Update(float deltaTime)
 
 	std::vector<int> objs;
 
+	/*for (int i = 0; i < _colliders.size(); i++)
+	{
+		if (_colliders[i]->GetTransformComponent()->CheckedChanged())
+		{
+			_colliders[i]->GetTransformComponent()->SetChanged(false);
+			_quadTree->Erase(i);
+
+			Rect r;
+			r.xPos = (int)_colliders[i]->GetTransformComponent()->GetPosition().x;
+			r.yPos = (int)_colliders[i]->GetTransformComponent()->GetPosition().y;
+			r.width = 100;
+			r.height = 100;
+			r.colliderIndex = (int)_colliders.size() - 1;
+			_quadTree->Insert(r);
+		}
+	}*/
+
 	// Loop through every collider
-	for (int i = 0; i < _colliders.size(); i++)
+	//for (int i = 0; i < _colliders.size(); i++)
+	//{
+	//	ColliderComponent *A = _colliders[i];
+
+	//	if (!A->GetActive())
+	//		continue;
+
+	//	r.xPos = (int)A->GetTransformComponent()->GetPosition().x;
+	//	r.yPos = (int)A->GetTransformComponent()->GetPosition().y;
+
+	//	objs.clear();
+
+	//	// Retrieve any objects around the collider A
+	//	_quadTree->Retrieve(objs, r);
+
+	//	// For all objects around the collider A, check if there's an actual intersection
+	//	for (int j = 0; j < objs.size(); j++)
+	//	{
+	//		ColliderComponent *B = _colliders[objs[j]];
+
+	//		if (!B->GetActive())
+	//			continue;
+
+	//		if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
+	//			continue;
+
+	//		Collision collision(A, B);
+	//		collision.Solve();
+
+	//		if (collision.GetContactCount())
+	//		{
+	//			_contacts.emplace_back(collision);
+
+	//			CollisionMessage colMsg(_gameObjects[i]);
+	//			_gameObjects[objs[j]]->SendMessageToComponents(colMsg);
+
+	//			CollisionMessage colMsg2(_gameObjects[objs[j]]);
+	//			_gameObjects[i]->SendMessageToComponents(colMsg2);
+	//		}
+	//	}
+	//}
+
+	for (int i = 0; i < _colliders.size(); ++i)
 	{
 		ColliderComponent *A = _colliders[i];
 
-		if (!A->GetActive())
-			continue;
-
-		r.xPos = (int)A->GetTransformComponent()->GetPosition().x;
-		r.yPos = (int)A->GetTransformComponent()->GetPosition().y;
-
-		objs.clear();
-
-		// Retrieve any objects around the collider A
-		_quadTree->Retrieve(objs, r);
-
-		// For all objects around the collider A, check if there's an actual intersection
-		for (int j = 0; j < objs.size(); j++)
+		for (int j = i + 1; j < _colliders.size(); ++j)
 		{
-			ColliderComponent *B = _colliders[objs[j]];
-
-			if (!B->GetActive())
-				continue;
-
+			ColliderComponent *B = _colliders[j];
 			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
 				continue;
 
@@ -73,9 +115,9 @@ void PhysicsManager::Update(float deltaTime)
 				_contacts.emplace_back(collision);
 
 				CollisionMessage colMsg(_gameObjects[i]);
-				_gameObjects[objs[j]]->SendMessageToComponents(colMsg);
+				_gameObjects[j]->SendMessageToComponents(colMsg);
 
-				CollisionMessage colMsg2(_gameObjects[objs[j]]);
+				CollisionMessage colMsg2(_gameObjects[j]);
 				_gameObjects[i]->SendMessageToComponents(colMsg2);
 			}
 		}
