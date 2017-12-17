@@ -30,6 +30,7 @@ GameObject * ProjectileManager::GetGameObject()
 
 		// SET ACTIVE
 		obj.gameObject->SetActive(true);
+		obj.projectileComponent->Reset();
 
 		return obj.gameObject;
 	}

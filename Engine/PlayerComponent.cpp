@@ -155,5 +155,5 @@ void PlayerComponent::ShootProjectile()
 	dir.Normalize();
 
 	go->GetComponent<TransformComponent>()->SetPosition(_playerTransform->GetPosition() + (dir * 10));
-	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * 100);
+	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * 50);
 }

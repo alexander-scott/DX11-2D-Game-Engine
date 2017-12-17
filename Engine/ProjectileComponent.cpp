@@ -4,6 +4,7 @@ ProjectileComponent::ProjectileComponent(std::string affectedTag, float lifeSpan
 {
 	_affectedTag = affectedTag;
 	_lifeLeft = lifeSpan;
+	_startingLife = lifeSpan;
 	_damage = dmg;
 
 	_isDead = false;
@@ -39,4 +40,16 @@ void ProjectileComponent::Update(float deltaTime)
 	{
 		_isDead = true;
 	}
+}
+
+void ProjectileComponent::Reset()
+{
+	_lifeLeft = _startingLife;
+	_isDead = false;
+}
+
+void ProjectileComponent::Reset(float lifeSpan)
+{
+	_lifeLeft = lifeSpan;
+	_isDead = false;
 }

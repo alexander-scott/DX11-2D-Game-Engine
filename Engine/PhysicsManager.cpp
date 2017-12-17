@@ -101,10 +101,16 @@ void PhysicsManager::Update(float deltaTime)
 	{
 		ColliderComponent *A = _colliders[i];
 
+		if (!A->GetActive())
+			continue;
+
 		for (int j = i + 1; j < _colliders.size(); ++j)
 		{
 			ColliderComponent *B = _colliders[j];
 			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
+				continue;
+
+			if (!B->GetActive())
 				continue;
 
 			Collision collision(A, B);

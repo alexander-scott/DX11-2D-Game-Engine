@@ -17,11 +17,14 @@ public:
 	virtual void Update(float deltaTime) override;
 
 	bool IsDead() { return _isDead; }
+	void Reset();
+	void Reset(float lifeSpan);
 
 private:
 	std::string		_affectedTag;
 	float			_damage;
 
+	float			_startingLife;
 	float			_lifeLeft;
 	bool			_isDead;
 };

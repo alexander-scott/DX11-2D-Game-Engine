@@ -82,10 +82,10 @@ void Game::InitaliseObjects(LevelData & levelData)
 	_player->AddComponent(playerDamageable);
 
 	ProjectileManager* playerProjectiles = new ProjectileManager;
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		GameObject* ball = new GameObject("Ball");
-		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.3f);
+		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 		ball->AddComponent(ballTrans);
 		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
 		ball->AddComponent(ballRb);
@@ -93,7 +93,7 @@ void Game::InitaliseObjects(LevelData & levelData)
 		ball->AddComponent(ballCollider);
 		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 128, 128, Vec2(0, 0));
 		ball->AddComponent(ballRenderer);
-		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Enemy", 10000, 10);
+		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Enemy", 10, 10);
 		ball->AddComponent(ballProjectile);
 
 		_gameObjects.push_back(ball);
