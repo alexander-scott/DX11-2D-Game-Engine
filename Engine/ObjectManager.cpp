@@ -129,14 +129,14 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		xml_node<>* animDescs = node->first_node("AnimDesc");
 		while (animDescs)
 		{
-			int startingIndex = atoi(node->first_attribute("startingindex")->value());
-			int endingIndex = atoi(node->first_attribute("endingindex")->value());
-			int x = atoi(node->first_attribute("x")->value());
-			int y = atoi(node->first_attribute("y")->value());
-			int width = atoi(node->first_attribute("width")->value());
-			int height = atoi(node->first_attribute("height")->value());
-			int frameCount = atoi(node->first_attribute("framecount")->value());
-			float holdTime = atof(node->first_attribute("holdtime")->value());
+			int startingIndex = atoi(animDescs->first_attribute("startingindex")->value());
+			int endingIndex = atoi(animDescs->first_attribute("endingindex")->value());
+			int x = atoi(animDescs->first_attribute("x")->value());
+			int y = atoi(animDescs->first_attribute("y")->value());
+			int width = atoi(animDescs->first_attribute("width")->value());
+			int height = atoi(animDescs->first_attribute("height")->value());
+			int frameCount = atoi(animDescs->first_attribute("framecount")->value());
+			float holdTime = atof(animDescs->first_attribute("holdtime")->value());
 
 			animDescriptions.push_back(AnimationDesc(startingIndex, endingIndex, x, y, width, height, frameCount, holdTime));
 
@@ -157,7 +157,11 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		if (std::string(node->first_attribute("static")->value()) == "true")
 			isStatic = true;
 
-		return ComponentFactory::MakeRigidbody(staticF, dynamicF, restitution, isStatic);
+		bool lockRotation = false;
+		if (std::string(node->first_attribute("lockrotation")->value()) == "true")
+			lockRotation = true;
+
+		return ComponentFactory::MakeRigidbody(staticF, dynamicF, restitution, isStatic, lockRotation);
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "TextRendererComponent")
 	{
@@ -229,9 +233,9 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		float moveRate = atof(node->first_attribute("moverate")->value());
 
 		TiledBGDirection dir;
-		if (node->first_attribute("direction")->value() == "horizontal")
+		if (std::string(node->first_attribute("direction")->value()) == "horizontal")
 			dir = TiledBGDirection::eHorizontal;
-		else if (node->first_attribute("direction")->value() == "vertical")
+		else if (std::string(node->first_attribute("direction")->value()) == "vertical")
 			dir = TiledBGDirection::eVertical;
 		else
 			dir = TiledBGDirection::eHoriztonalAndVertical;
@@ -277,7 +281,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			dmg = mGameObjects[atoi(node->first_attribute("damageablecomponentid")->value())]->GetComponent<DamageableComponent>();
 
-		ProjectileManager* projectiles = new ProjectileManager;
+		ProjectileManagerComponent* projectiles = new ProjectileManagerComponent;
 		int projectileCount = atoi(node->first_attribute("projectilecount")->value());
 		std::string projectHitTag = std::string(node->first_attribute("projecthittag")->value());
 		for (int i = 0; i < projectileCount; i++)
@@ -285,7 +289,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 			GameObject* ball = new GameObject("Ball");
 			TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 			ball->AddComponent(ballTrans);
-			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false); // Cache the rigidbody
+			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false, false); // Cache the rigidbody
 			ball->AddComponent(ballRb);
 			CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 			ball->AddComponent(ballCollider);
@@ -301,7 +305,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "DamageableComponent")
 	{
-		float startHealth = atoi(node->first_attribute("damageablecomponentid")->value());
+		float startHealth = atoi(node->first_attribute("starthealth")->value());
 
 		return ComponentFactory::MakeDamageableComponent(startHealth);
 	}
@@ -343,7 +347,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			dmg = mGameObjects[atoi(node->first_attribute("damageablecomponentid")->value())]->GetComponent<DamageableComponent>();
 
-		ProjectileManager* projectiles = new ProjectileManager;
+		ProjectileManagerComponent* projectiles = new ProjectileManagerComponent;
 		int projectileCount = atoi(node->first_attribute("projectilecount")->value());
 		std::string projectHitTag = std::string(node->first_attribute("projecthittag")->value());
 		for (int i = 0; i < projectileCount; i++)
@@ -351,7 +355,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 			GameObject* ball = new GameObject("Ball");
 			TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 			ball->AddComponent(ballTrans);
-			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false); // Cache the rigidbody
+			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false, false); // Cache the rigidbody
 			ball->AddComponent(ballRb);
 			CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 			ball->AddComponent(ballCollider);
@@ -366,9 +370,9 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		float patrolTime = atof(node->first_attribute("patrolTime")->value());
 
 		AIAgentPatrolDirection dir;
-		if (node->first_attribute("startdirection")->value() == "left")
+		if (std::string(node->first_attribute("startdirection")->value()) == "left")
 			dir = AIAgentPatrolDirection::ePatrollingLeft;
-		else if (node->first_attribute("startdirection")->value() == "right")
+		else if (std::string(node->first_attribute("startdirection")->value()) == "right")
 			dir = AIAgentPatrolDirection::ePatrollingRight;
 
 		float idleTime = atof(node->first_attribute("idletime")->value());

@@ -68,8 +68,7 @@ void Game::InitaliseObjects(LevelData & levelData)
 {
 	TransformComponent* playerTransform = _player->GetComponent<TransformComponent>();
 
-	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f, false);
-	playerRigidBody->LockRotation();
+	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f, false, true);
 	_player->AddComponent(playerRigidBody);
 
 	BoxColliderComponent* playerCollider = ComponentFactory::MakeBoxCollider(64, 64, playerTransform, playerRigidBody);
@@ -85,13 +84,13 @@ void Game::InitaliseObjects(LevelData & levelData)
 	DamageableComponent* playerDamageable = ComponentFactory::MakeDamageableComponent(100);
 	_player->AddComponent(playerDamageable);
 
-	ProjectileManager* playerProjectiles = new ProjectileManager;
+	ProjectileManagerComponent* playerProjectiles = new ProjectileManagerComponent;
 	for (int i = 0; i < 100; i++)
 	{
 		GameObject* ball = new GameObject("Ball");
 		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 		ball->AddComponent(ballTrans);
-		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false); // Cache the rigidbody
+		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false, false); // Cache the rigidbody
 		ball->AddComponent(ballRb);
 		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 		ball->AddComponent(ballCollider);
@@ -112,7 +111,7 @@ void Game::InitaliseObjects(LevelData & levelData)
 	GameObject* aiAgent = new GameObject("Enemy");
 	TransformComponent* agentTransform = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos + 400, levelData.playerYPos), 0, 1);
 
-	RigidBodyComponent* agentRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f, false);
+	RigidBodyComponent* agentRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f, false, true);
 	agentRigidBody->LockRotation();
 	aiAgent->AddComponent(agentRigidBody);
 
@@ -125,13 +124,13 @@ void Game::InitaliseObjects(LevelData & levelData)
 	DamageableComponent* agentDamageable = ComponentFactory::MakeDamageableComponent(100);
 	aiAgent->AddComponent(agentDamageable);
 
-	ProjectileManager* agentProjectiles = new ProjectileManager;
+	ProjectileManagerComponent* agentProjectiles = new ProjectileManagerComponent;
 	for (int i = 0; i < 100; i++)
 	{
 		GameObject* ball = new GameObject("Ball");
 		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 		ball->AddComponent(ballTrans);
-		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false); // Cache the rigidbody
+		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false, false); // Cache the rigidbody
 		ball->AddComponent(ballRb);
 		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 		ball->AddComponent(ballCollider);
@@ -186,7 +185,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* leftSideCollider = new GameObject("LevelCollider");
 	TransformComponent* leftSideTrans = ComponentFactory::MakeTransform(Vec2(levelData.levelLeftBounds * TILE_WIDTH, 0), 0, 1);
 	leftSideCollider->AddComponent(leftSideTrans);
-	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true);
+	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true, false);
 	leftSideCollider->AddComponent(leftSideRb);
 
 	Vec2 *vertices = new Vec2[4];
@@ -202,7 +201,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* rightSideCollider = new GameObject("LevelCollider");
 	TransformComponent* rightSideTrans = ComponentFactory::MakeTransform(Vec2(levelData.levelRightBounds * TILE_WIDTH, 0), 0, 1);
 	rightSideCollider->AddComponent(rightSideTrans);
-	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true);
+	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true, false);
 	rightSideCollider->AddComponent(rightSideRb);
 
 	vertices = new Vec2[4];
@@ -218,7 +217,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* bottomSideCollider = new GameObject("LevelCollider");
 	TransformComponent* bottomSideTrans = ComponentFactory::MakeTransform(Vec2(0, levelData.levelBottomBounds * TILE_HEIGHT), 0, 1);
 	bottomSideCollider->AddComponent(bottomSideTrans);
-	RigidBodyComponent* bottomSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true);
+	RigidBodyComponent* bottomSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true, false);
 	bottomSideCollider->AddComponent(bottomSideRb);
 
 	vertices = new Vec2[4];
@@ -234,7 +233,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* topSideCollider = new GameObject("LevelCollider");
 	TransformComponent* topSideTrans = ComponentFactory::MakeTransform(Vec2(0, levelData.levelTopBounds * TILE_HEIGHT), 0, 1);
 	topSideCollider->AddComponent(topSideTrans);
-	RigidBodyComponent* topSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true);
+	RigidBodyComponent* topSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true, false);
 	topSideCollider->AddComponent(topSideRb);
 
 	vertices = new Vec2[4];

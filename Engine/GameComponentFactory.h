@@ -7,13 +7,13 @@
 #include "ProjectileComponent.h"
 #include "AIAgentComponent.h"
 
-#include "ProjectileManager.h"
+#include "ProjectileManagerComponent.h"
 
 namespace ComponentFactory
 {
-	PlayerComponent * MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* proj, TransformComponent* cameraTransform);
+	PlayerComponent * MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManagerComponent* proj, TransformComponent* cameraTransform);
 	DamageableComponent * MakeDamageableComponent(float startHealth);
 	ProjectileComponent * MakeProjectileComponent(std::string affectedTag, float lifeSpan, float dmg);
-	AIAgentComponent * MakeAIAgentComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* proj, TransformComponent* cameraTransform, float patrolTime, AIAgentPatrolDirection patrolStartDir, float idleTime);
+	AIAgentComponent * MakeAIAgentComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManagerComponent* proj, TransformComponent* cameraTransform, float patrolTime, AIAgentPatrolDirection patrolStartDir, float idleTime);
 }
 

@@ -9,7 +9,7 @@
 #include "GameLevel.h"
 #include "GameCamera.h"
 #include "GameLevelManager.h"
-#include "ProjectileManager.h"
+#include "ProjectileManagerComponent.h"
 
 class Game
 {

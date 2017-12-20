@@ -229,9 +229,6 @@
     <ClInclude Include="ProjectileComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectileManager.h">
-      <Filter>Engine\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="AIAgentComponent.h">
       <Filter>Game\GameComponents\AI</Filter>
     </ClInclude>
@@ -240,6 +237,9 @@
     </ClInclude>
     <ClInclude Include="GameLevel.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileManagerComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -342,9 +342,6 @@
     <ClCompile Include="ProjectileComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectileManager.cpp">
-      <Filter>Engine\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="AIAgentComponent.cpp">
       <Filter>Game\GameComponents\AI</Filter>
     </ClCompile>
@@ -353,6 +350,9 @@
     </ClCompile>
     <ClCompile Include="GameLevel.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileManagerComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

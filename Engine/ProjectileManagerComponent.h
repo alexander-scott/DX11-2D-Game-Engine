@@ -6,7 +6,7 @@
 #include "IComponent.h"
 #include "IUpdateable.h"
 
-class ProjectileManager : public IComponent, public IUpdateable
+class ProjectileManagerComponent : public IComponent, public IUpdateable
 {
 public:
 	struct ProjectilePoolObj 
@@ -18,7 +18,7 @@ public:
 		ProjectileComponent* projectileComponent;
 	};
 
-	~ProjectileManager();
+	~ProjectileManagerComponent();
 
 	void AddCreatedGameObject(GameObject* go);
 

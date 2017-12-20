@@ -2,7 +2,7 @@
 
 
 PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* trans, SpriteAnimatorComponent * anim, 
-	RigidBodyComponent * rb, DamageableComponent* dmg, ProjectileManager* proj, TransformComponent* cameraTrans)
+	RigidBodyComponent * rb, DamageableComponent* dmg, ProjectileManagerComponent* proj, TransformComponent* cameraTrans)
 {
 	if (trans == nullptr)
 	{
@@ -47,7 +47,7 @@ ProjectileComponent * ComponentFactory::MakeProjectileComponent(std::string affe
 }
 
 AIAgentComponent * ComponentFactory::MakeAIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg, 
-	ProjectileManager * proj, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection patrolStartDir, float idleTime)
+	ProjectileManagerComponent * proj, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection patrolStartDir, float idleTime)
 {
 	if (trans == nullptr)
 	{
