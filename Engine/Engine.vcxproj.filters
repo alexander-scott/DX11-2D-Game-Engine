@@ -235,6 +235,9 @@
     <ClInclude Include="AIAgentComponent.h">
       <Filter>Game\GameComponents\AI</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Engine\Level Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -341,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="AIAgentComponent.cpp">
       <Filter>Game\GameComponents\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Engine\Level Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

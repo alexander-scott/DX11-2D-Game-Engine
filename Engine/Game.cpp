@@ -6,6 +6,10 @@ Game::Game(MainWindow& wnd)
 {
 	_camera = new GameCamera("Camera");
 	_camera->Initalise(wnd);
+
+	_objectManager.Initalise("Levels\\GameValues.xml");
+	_objectManager.SetCamera(_camera);
+
 	_gameObjects.push_back(_camera);
 
 	InitaliseLevel();
@@ -105,21 +109,21 @@ void Game::InitaliseObjects(LevelData & levelData)
 	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody, playerDamageable, playerProjectiles, _camera->GetComponent<TransformComponent>());
 	_player->AddComponent(playerComponent);
 
-	_aiAgent = new GameObject("Enemy");
+	GameObject* aiAgent = new GameObject("Enemy");
 	TransformComponent* agentTransform = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos + 400, levelData.playerYPos), 0, 1);
 
 	RigidBodyComponent* agentRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f);
 	agentRigidBody->LockRotation();
-	_aiAgent->AddComponent(agentRigidBody);
+	aiAgent->AddComponent(agentRigidBody);
 
 	BoxColliderComponent* agentCollider = ComponentFactory::MakeBoxCollider(64, 64, agentTransform, agentRigidBody);
-	_aiAgent->AddComponent(agentCollider);
+	aiAgent->AddComponent(agentCollider);
 
 	SpriteAnimatorComponent* agentAnimator = ComponentFactory::MakeSpriteAnimator("MageWalk", agentTransform, 64, 64, animDescs, (int)AnimationType::StandingDown);
-	_aiAgent->AddComponent(agentAnimator);
+	aiAgent->AddComponent(agentAnimator);
 
 	DamageableComponent* agentDamageable = ComponentFactory::MakeDamageableComponent(100);
-	_aiAgent->AddComponent(agentDamageable);
+	aiAgent->AddComponent(agentDamageable);
 
 	ProjectileManager* agentProjectiles = new ProjectileManager;
 	for (int i = 0; i < 100; i++)
@@ -140,12 +144,12 @@ void Game::InitaliseObjects(LevelData & levelData)
 
 		agentProjectiles->AddCreatedGameObject(ball);
 	}
-	_aiAgent->AddComponent(agentProjectiles);
+	aiAgent->AddComponent(agentProjectiles);
 
 	AIAgentComponent* agentAI = ComponentFactory::MakeAIAgentComponent(agentTransform, agentAnimator, agentRigidBody, agentDamageable, agentProjectiles, _camera->GetComponent<TransformComponent>(), 5, AIAgentPatrolDirection::ePatrollingRight, 1);
-	_aiAgent->AddComponent(agentAI);
+	aiAgent->AddComponent(agentAI);
 
-	_gameObjects.push_back(_aiAgent);
+	_gameObjects.push_back(aiAgent);
 }
 
 // Create objects that draw the background. Also create level limit colliders. Also create the camera and define it's bounds.
@@ -303,7 +307,8 @@ void Game::UpdateModel()
 	// Check all objects that can be damaged to see if they are dead or not. Do something additional if the object that died is special or not
 	for (auto dGo : _damageableGameObjects)
 	{
-		if (dGo.second->IsDead())
+		// First is GameObject* and second is DamagableComponent*
+		if (dGo.first->GetActive() && dGo.second->IsDead())
 		{
 			dGo.first->SetActive(false);
 
@@ -314,6 +319,7 @@ void Game::UpdateModel()
 			else if (dGo.first->GetTag() == "Enemy")
 			{
 				// Increase score
+				Audio::Instance().PlaySoundEffect("Death");
 			}
 		}
 	}

@@ -6,6 +6,7 @@
 #include "GameComponentFactory.h"
 #include "PhysicsManager.h"
 
+#include "ObjectManager.h"
 #include "GameCamera.h"
 #include "GameLevelManager.h"
 #include "ProjectileManager.h"
@@ -39,10 +40,10 @@ private:
 	GameCamera*									_camera;
 
 	GameObject*									_player;
-	GameObject*									_aiAgent;
 
 	FrameTimer									_frameTimer;
 	PhysicsManager								_physicsManager;
+	ObjectManager								_objectManager;
 	
 	std::vector<GameObject*>					_gameObjects;
 	std::map<GameObject*,DamageableComponent*>  _damageableGameObjects;

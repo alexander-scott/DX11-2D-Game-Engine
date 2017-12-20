@@ -4,5 +4,13 @@ All the variables for the game
 <!- -->
 
 <game>
-  <PlayerProjectileSpeed val="20"></PlayerProjectileSpeed>
+  <values>
+    <PlayerProjectileSpeed val="20"></PlayerProjectileSpeed>
+  </values>
+  <GameObjects>
+    <GameObject id="0" tag="Player">
+      <Component type="TransformComponent"></Component>
+      
+    </GameObject>
+  </GameObjects>
 </game>
