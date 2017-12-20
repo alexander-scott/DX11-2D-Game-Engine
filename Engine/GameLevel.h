@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ObjectManager.h"
+#include "PhysicsManager.h"
 
 #include "rapidxml.hpp"
 
@@ -15,14 +16,18 @@ public:
 	void Initalise(GameCamera* cam) { mCamera = cam; }
 	void BuildLevel(std::string fileName);
 
+	void CacheComponents(GameObject* gameObj);
+
 	void Update(float deltaTime);
 	void Draw();
 
 private:
-	ObjectManager				mObjectManager;
+	ObjectManager									mObjectManager;
+	PhysicsManager									mPhysicsManager;
 
-	GameCamera*					mCamera;
+	GameCamera*										mCamera;
 
-	std::vector<GameObject*>	mGameObjects;
+	std::vector<GameObject*>						mGameObjects;
+	std::map<GameObject*, DamageableComponent*>		mDamageableGameObjects;
 };
 

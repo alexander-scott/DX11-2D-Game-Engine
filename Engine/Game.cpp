@@ -68,7 +68,7 @@ void Game::InitaliseObjects(LevelData & levelData)
 {
 	TransformComponent* playerTransform = _player->GetComponent<TransformComponent>();
 
-	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f);
+	RigidBodyComponent* playerRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f, false);
 	playerRigidBody->LockRotation();
 	_player->AddComponent(playerRigidBody);
 
@@ -91,7 +91,7 @@ void Game::InitaliseObjects(LevelData & levelData)
 		GameObject* ball = new GameObject("Ball");
 		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 		ball->AddComponent(ballTrans);
-		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
+		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false); // Cache the rigidbody
 		ball->AddComponent(ballRb);
 		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 		ball->AddComponent(ballCollider);
@@ -112,7 +112,7 @@ void Game::InitaliseObjects(LevelData & levelData)
 	GameObject* aiAgent = new GameObject("Enemy");
 	TransformComponent* agentTransform = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos + 400, levelData.playerYPos), 0, 1);
 
-	RigidBodyComponent* agentRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f);
+	RigidBodyComponent* agentRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f, false);
 	agentRigidBody->LockRotation();
 	aiAgent->AddComponent(agentRigidBody);
 
@@ -131,7 +131,7 @@ void Game::InitaliseObjects(LevelData & levelData)
 		GameObject* ball = new GameObject("Ball");
 		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 		ball->AddComponent(ballTrans);
-		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
+		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false); // Cache the rigidbody
 		ball->AddComponent(ballRb);
 		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 		ball->AddComponent(ballCollider);
@@ -186,7 +186,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* leftSideCollider = new GameObject("LevelCollider");
 	TransformComponent* leftSideTrans = ComponentFactory::MakeTransform(Vec2(levelData.levelLeftBounds * TILE_WIDTH, 0), 0, 1);
 	leftSideCollider->AddComponent(leftSideTrans);
-	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
+	RigidBodyComponent* leftSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true);
 	leftSideCollider->AddComponent(leftSideRb);
 
 	Vec2 *vertices = new Vec2[4];
@@ -202,7 +202,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* rightSideCollider = new GameObject("LevelCollider");
 	TransformComponent* rightSideTrans = ComponentFactory::MakeTransform(Vec2(levelData.levelRightBounds * TILE_WIDTH, 0), 0, 1);
 	rightSideCollider->AddComponent(rightSideTrans);
-	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
+	RigidBodyComponent* rightSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true);
 	rightSideCollider->AddComponent(rightSideRb);
 
 	vertices = new Vec2[4];
@@ -218,7 +218,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* bottomSideCollider = new GameObject("LevelCollider");
 	TransformComponent* bottomSideTrans = ComponentFactory::MakeTransform(Vec2(0, levelData.levelBottomBounds * TILE_HEIGHT), 0, 1);
 	bottomSideCollider->AddComponent(bottomSideTrans);
-	RigidBodyComponent* bottomSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
+	RigidBodyComponent* bottomSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true);
 	bottomSideCollider->AddComponent(bottomSideRb);
 
 	vertices = new Vec2[4];
@@ -234,7 +234,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	GameObject* topSideCollider = new GameObject("LevelCollider");
 	TransformComponent* topSideTrans = ComponentFactory::MakeTransform(Vec2(0, levelData.levelTopBounds * TILE_HEIGHT), 0, 1);
 	topSideCollider->AddComponent(topSideTrans);
-	RigidBodyComponent* topSideRb = ComponentFactory::MakeRigidbody(1, 1, 1);
+	RigidBodyComponent* topSideRb = ComponentFactory::MakeRigidbody(1, 1, 1, true);
 	topSideCollider->AddComponent(topSideRb);
 
 	vertices = new Vec2[4];

@@ -54,15 +54,23 @@ GameObject* ObjectManager::CreateObject(int instanceID, int blueprintID)
 				}
 				else
 				{
-					mGameObjects.insert(std::make_pair(std::rand(), go));
+					int rand = std::rand();
+					auto it = mGameObjects.find(rand);
+					while (it != mGameObjects.end()) // Make sure it doesn't already exist in the map
+					{
+						rand = std::rand();
+						it = mGameObjects.find(rand);
+					}
+					mGameObjects.insert(std::make_pair(rand, go));
 				}
 
 				xml_node<>* component = gameObject->first_node("Component");
-				while (component) // Create all this game objects components
+				while (component) // Create all this gameobject's components
 				{
 					go->AddComponent(CreateComponent(go, component));
 					component = component->next_sibling("Component");
 				}
+
 				return go;
 			}
 
@@ -146,10 +154,10 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		float restitution = atof(node->first_attribute("restitution")->value());
 
 		bool isStatic = false;
-		if (node->first_attribute("static")->value() == "true")
+		if (std::string(node->first_attribute("static")->value()) == "true")
 			isStatic = true;
 
-		return ComponentFactory::MakeRigidbody(staticF, dynamicF, restitution);
+		return ComponentFactory::MakeRigidbody(staticF, dynamicF, restitution, isStatic);
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "TextRendererComponent")
 	{
@@ -277,7 +285,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 			GameObject* ball = new GameObject("Ball");
 			TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 			ball->AddComponent(ballTrans);
-			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
+			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false); // Cache the rigidbody
 			ball->AddComponent(ballRb);
 			CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 			ball->AddComponent(ballCollider);
@@ -343,7 +351,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 			GameObject* ball = new GameObject("Ball");
 			TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 			ball->AddComponent(ballTrans);
-			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
+			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false); // Cache the rigidbody
 			ball->AddComponent(ballRb);
 			CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 			ball->AddComponent(ballCollider);

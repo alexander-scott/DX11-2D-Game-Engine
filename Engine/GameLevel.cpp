@@ -59,14 +59,34 @@ void GameLevel::BuildLevel(std::string fileName)
 			obj->GetComponent<TransformComponent>()->SetPosition(newPos);
 		}
 
-		mGameObjects.push_back(obj);
+		CacheComponents(obj);
 
 		gameObject = gameObject->next_sibling("GameObject");
 	}
 }
 
+void GameLevel::CacheComponents(GameObject* gameObj)
+{
+	mGameObjects.push_back(gameObj);
+
+	ColliderComponent* goCollider = gameObj->GetComponent<ColliderComponent>();
+	if (goCollider != nullptr)
+	{
+		mPhysicsManager.AddCollider(gameObj, goCollider);
+	}
+
+	DamageableComponent* goDamagable = gameObj->GetComponent<DamageableComponent>();
+	if (goDamagable != nullptr)
+	{
+		mDamageableGameObjects.insert(std::make_pair(gameObj, goDamagable));
+	}
+}
+
 void GameLevel::Update(float deltaTime)
 {
+	// Update object rigid bodies
+	mPhysicsManager.Update(deltaTime);
+
 	// Update gameobjects
 	for (auto go : mGameObjects)
 	{
