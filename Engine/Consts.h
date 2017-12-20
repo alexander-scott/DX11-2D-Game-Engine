@@ -5,6 +5,13 @@
 
 #include "IEMath.h"
 
+#pragma region GamePlay Vals
+
+static constexpr float PLAYER_PROJECTILE_DAMAGE = 20; // Default 20
+static constexpr float PLAYER_PROJECTILE_SPEED = 50; // Default 50
+
+#pragma endregion
+
 #pragma region Values
 
 static constexpr int SCREEN_WIDTH = 800;

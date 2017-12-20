@@ -9,6 +9,7 @@
 #include "DamageableComponent.h"
 
 #include "ProjectileManager.h"
+#include "Audio.h"
 
 class PlayerComponent : public IComponent, public IUpdateable, public IMessageable
 {
@@ -35,6 +36,7 @@ private:
 	TransformComponent*			_cameraTransform;
 
 	bool						_grounded;
+	bool						_canJump;
 	bool						_isShooting;
 };
 

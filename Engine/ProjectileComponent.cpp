@@ -50,6 +50,16 @@ void ProjectileComponent::Reset()
 
 void ProjectileComponent::Reset(float lifeSpan)
 {
+	_startingLife = lifeSpan;
 	_lifeLeft = lifeSpan;
 	_isDead = false;
+}
+
+void ProjectileComponent::Reset(std::string affectedTag, float damage)
+{
+	_lifeLeft = _startingLife;
+	_isDead = false;
+
+	_affectedTag = affectedTag;
+	_damage = damage;
 }

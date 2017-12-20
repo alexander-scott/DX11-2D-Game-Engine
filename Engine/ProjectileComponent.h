@@ -19,6 +19,7 @@ public:
 	bool IsDead() { return _isDead; }
 	void Reset();
 	void Reset(float lifeSpan);
+	void Reset(std::string affectedTag, float damage);
 
 private:
 	std::string		_affectedTag;

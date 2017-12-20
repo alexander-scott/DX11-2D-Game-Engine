@@ -9,6 +9,7 @@ PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorCompon
 	: _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb), _playerDamageable(dmg), _playerProjectiles(projectileMan), _cameraTransform(cameraTransform)
 {
 	_grounded = false;
+	_canJump = true;
 	_isShooting = false;
 }
 
@@ -25,6 +26,10 @@ void PlayerComponent::Update(float deltaTime)
 		UpdateAnimation();
 
 		_grounded = false;
+	}
+	else 
+	{
+		throw;
 	}
 }
 
@@ -112,10 +117,17 @@ void PlayerComponent::UpdateAnimation()
 void PlayerComponent::CheckInput()
 {
 	Vec2 dir = Vec2(0.0f, 0.0f);
-	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && _grounded)
+	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && _grounded && _canJump)
 	{
-		dir.y -= 10;
+		_canJump = false;
+		dir.y -= 20;
+		Audio::Instance().PlaySoundEffect("Jump");
 	}
+	else if (!Keyboard::Instance().KeyIsPressed(VK_SPACE))
+	{
+		_canJump = true;
+	}
+
 	if (Keyboard::Instance().KeyIsPressed(VK_LEFT))
 	{
 		dir.x -= 1;
@@ -149,11 +161,13 @@ void PlayerComponent::CheckInput()
 
 void PlayerComponent::ShootProjectile()
 {
-	GameObject* go = _playerProjectiles->GetGameObject();
+	GameObject* go = _playerProjectiles->GetGameObject("Enemy", PLAYER_PROJECTILE_DAMAGE);
 	Vec2 spawnPos = Vec2(Mouse::Instance().GetPosX() + _cameraTransform->GetPosition().x, Mouse::Instance().GetPosY() + _cameraTransform->GetPosition().y);
 	Vec2 dir = spawnPos - _playerTransform->GetPosition();
 	dir.Normalize();
 
 	go->GetComponent<TransformComponent>()->SetPosition(_playerTransform->GetPosition() + (dir * 10));
-	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * 50);
+	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * PLAYER_PROJECTILE_SPEED);
+
+	Audio::Instance().PlaySoundEffect("GunShot");
 }

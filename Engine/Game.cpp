@@ -112,7 +112,7 @@ void Game::InitaliseBackground(LevelData& levelData)
 	_camera->SetFocusTrans(_player->GetComponent<TransformComponent>());
 
 	_camera->SetLevelBounds((levelData.levelLeftBounds) * TILE_WIDTH,
-		(levelData.levelRightBounds) * TILE_HEIGHT,
+		(levelData.levelRightBounds) * TILE_WIDTH,
 		(levelData.levelBottomBounds) * TILE_HEIGHT,
 		(levelData.levelTopBounds) * TILE_HEIGHT);
 

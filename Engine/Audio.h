@@ -4,9 +4,12 @@
 
 #include <map>
 
+// WHY IS THIS HERE AND NOT IN CONSTS.H????
 static std::map<std::string, std::string> AudioFilePaths =
 {
-	{ "Whoosh",			"Audio\\Whoosh.wav" },
+	{ "Whoosh",			"Audio\\Whoosh.wav"  },
+	{ "GunShot",		"Audio\\GunShot.wav" },	
+	{ "Jump",			"Audio\\Jump.wav"	 },
 };
 
 class Audio 

@@ -23,6 +23,7 @@ public:
 	void AddCreatedGameObject(GameObject* go);
 
 	GameObject* GetGameObject();
+	GameObject* GetGameObject(std::string affectedTag, float damage);
 	virtual void Update(float deltaTime) override;
 
 private:
