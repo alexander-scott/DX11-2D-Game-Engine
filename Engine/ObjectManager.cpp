@@ -2,12 +2,17 @@
 
 void ObjectManager::Initalise(std::string fileName)
 {
+
+}
+
+GameObject* ObjectManager::CreateObject(int instanceID, int blueprintID)
+{
 	//Loads a level from xml file
 	//Load the file
-	std::ifstream inFile(fileName);
+	std::ifstream inFile(mfileName);
 
 	if (!inFile)
-		throw "Could not load tileset: " + fileName;
+		throw "Could not load tileset: " + mfileName;
 
 	//Dump contents of file into a string
 	std::string xmlContents;
@@ -20,40 +25,42 @@ void ObjectManager::Initalise(std::string fileName)
 	}
 
 	//Convert string to rapidxml readable char*
-	std::vector<char> xmlData = std::vector<char>(xmlContents.begin(), xmlContents.end());
-	xmlData.push_back('\0');
+	std::vector<char> mXmlData = std::vector<char>(xmlContents.begin(), xmlContents.end());
+	mXmlData.push_back('\0');
 
 	//Create a parsed document with &xmlData[0] which is the char*
-	xml_document<> doc;
-	doc.parse<parse_no_data_nodes>(&xmlData[0]);
+	mXmlDoc.parse<parse_no_data_nodes>(&mXmlData[0]);
 
 	//Get the root node
-	xml_node<>* root = doc.first_node();
+	xml_node<>* root = mXmlDoc.first_node();
 
 	//Go through each tile
 	mGameObjectBluePrints = root->first_node("GameObjects");
-}
-
-GameObject* ObjectManager::CreateObject(int id)
-{
 	while (mGameObjectBluePrints)
 	{
 		xml_node<>* gameObject = mGameObjectBluePrints->first_node("GameObject");
 		while (gameObject)
 		{
-			int objID = atoi(gameObject->first_attribute("id")->value());
-			if (id == objID)
+			int objBlueprintID = atoi(gameObject->first_attribute("blueprintid")->value());
+			if (blueprintID == objBlueprintID)
 			{
 				// Create the gameobject
 				GameObject* go = new GameObject(gameObject->first_attribute("tag")->value());
 
-				// Push it to the map with it's ID
-				mGameObjects.insert(std::make_pair(id, go));
+				if (instanceID != -1)
+				{
+					// Push it to the map with it's ID
+					mGameObjects.insert(std::make_pair(instanceID, go));
+				}
+				else
+				{
+					mGameObjects.insert(std::make_pair(std::rand(), go));
+				}
 
 				xml_node<>* component = gameObject->first_node("Component");
 				while (component) // Create all this game objects components
 				{
-					go->AddComponent(CreateComponent(component));
+					go->AddComponent(CreateComponent(go, component));
 					component = component->next_sibling("Component");
 				}
 				return go;
@@ -63,13 +70,13 @@ GameObject* ObjectManager::CreateObject(int id)
 		}
 	}
 
-	throw std::exception("DID NOT FIND ID");
+	throw std::exception("DID NOT FIND BLUEPRINT ID");
 	return nullptr;
 }
 
-IComponent* ObjectManager::CreateComponent(xml_node<>* node)
+IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 {
-	if (node->first_attribute("type")->value() == "TransformComponent")
+	if (std::string(node->first_attribute("type")->value()) == "TransformComponent")
 	{
 		float xPos = atof(node->first_attribute("xpos")->value());
 		float yPos = atof(node->first_attribute("ypos")->value());
@@ -78,10 +85,17 @@ IComponent* ObjectManager::CreateComponent(xml_node<>* node)
 
 		return ComponentFactory::MakeTransform(Vec2(xPos, yPos), rot, scale);
 	}
-	else if (node->first_attribute("type")->value() == "SpriteRendererComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "SpriteRendererComponent")
 	{
-		std::string fileName = node->first_attribute("filename")->value();
-		TransformComponent* trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+		std::string fileName = std::string(node->first_attribute("filename")->value());
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
 		float width = atof(node->first_attribute("width")->value());
 		float height = atof(node->first_attribute("height")->value());
 		float xOffset = atof(node->first_attribute("xoffset")->value());
@@ -89,10 +103,17 @@ IComponent* ObjectManager::CreateComponent(xml_node<>* node)
 
 		return ComponentFactory::MakeSpriteRenderer(fileName, trans, width, height, Vec2(xOffset, yOffset));
 	}
-	else if (node->first_attribute("type")->value() == "SpriteAnimatorComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "SpriteAnimatorComponent")
 	{
-		std::string fileName = node->first_attribute("filename")->value();
-		TransformComponent* trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+		std::string fileName = std::string(node->first_attribute("filename")->value());
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
 		float width = atof(node->first_attribute("width")->value());
 		float height = atof(node->first_attribute("height")->value());
 
@@ -118,52 +139,87 @@ IComponent* ObjectManager::CreateComponent(xml_node<>* node)
 
 		return ComponentFactory::MakeSpriteAnimator(fileName, trans, width, height, animDescriptions, currentAnim);
 	}
-	else if (node->first_attribute("type")->value() == "RigidBodyComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "RigidBodyComponent")
 	{
 		float staticF = atof(node->first_attribute("staticfriction")->value());
 		float dynamicF = atof(node->first_attribute("dynamicfriction")->value());
 		float restitution = atof(node->first_attribute("restitution")->value());
 
+		bool isStatic = false;
+		if (node->first_attribute("static")->value() == "true")
+			isStatic = true;
+
 		return ComponentFactory::MakeRigidbody(staticF, dynamicF, restitution);
 	}
-	else if (node->first_attribute("type")->value() == "TextRendererComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "TextRendererComponent")
 	{
-		std::string text = node->first_attribute("text")->value();
-		TransformComponent* trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+		std::string text = std::string(node->first_attribute("text")->value());
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
 
 		return ComponentFactory::MakeTextRenderer(text, trans);
 	}
-	else if (node->first_attribute("type")->value() == "CircleColliderComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "CircleColliderComponent")
 	{
 		float radius = atof(node->first_attribute("radius")->value());
-		TransformComponent* trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
-		RigidBodyComponent* rb = mGameObjects[atoi(node->first_attribute("rigidbodycomponentid")->value())]->GetComponent<RigidBodyComponent>();
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
+		RigidBodyComponent* rb;
+		int rigidBodyComponentID = atoi(node->first_attribute("rigidbodycomponentid")->value());
+		if (rigidBodyComponentID == -1)
+			rb = go->GetComponent<RigidBodyComponent>();
+		else
+			rb = mGameObjects[atoi(node->first_attribute("rigidbodycomponentid")->value())]->GetComponent<RigidBodyComponent>();
 		
 		return ComponentFactory::MakeCircleCollider(radius, trans, rb);
 	}
-	else if (node->first_attribute("type")->value() == "PolygonColliderComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "PolygonColliderComponent")
 	{
-		throw;
+		throw std::exception("WRONG");
 	}
-	else if (node->first_attribute("type")->value() == "BoxColliderComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "BoxColliderComponent")
 	{
 		float width = atof(node->first_attribute("width")->value());
 		float height = atof(node->first_attribute("height")->value());
-		TransformComponent* trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
-		RigidBodyComponent* rb = mGameObjects[atoi(node->first_attribute("rigidbodycomponentid")->value())]->GetComponent<RigidBodyComponent>();
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
+		RigidBodyComponent* rb;
+		int rigidBodyComponentID = atoi(node->first_attribute("rigidbodycomponentid")->value());
+		if (rigidBodyComponentID == -1)
+			rb = go->GetComponent<RigidBodyComponent>();
+		else
+			rb = mGameObjects[atoi(node->first_attribute("rigidbodycomponentid")->value())]->GetComponent<RigidBodyComponent>();
 
 		return ComponentFactory::MakeBoxCollider(width, height, trans, rb);
 	}
-	else if (node->first_attribute("type")->value() == "ColliderRendererComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "ColliderRendererComponent")
 	{
 		throw;
 	}
-	else if (node->first_attribute("type")->value() == "TiledBGRenderer")
+	else if (std::string(node->first_attribute("type")->value()) == "TiledBGRenderer")
 	{
-		std::string spriteName = node->first_attribute("spritename")->value();
+		std::string spriteName = std::string(node->first_attribute("spritename")->value());
 		float width = atof(node->first_attribute("spritewidth")->value());
 		float height = atof(node->first_attribute("spriteheight")->value());
 		float moveRate = atof(node->first_attribute("moverate")->value());
+
 		TiledBGDirection dir;
 		if (node->first_attribute("direction")->value() == "horizontal")
 			dir = TiledBGDirection::eHorizontal;
@@ -171,21 +227,51 @@ IComponent* ObjectManager::CreateComponent(xml_node<>* node)
 			dir = TiledBGDirection::eVertical;
 		else
 			dir = TiledBGDirection::eHoriztonalAndVertical;
-		TransformComponent* trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
 		TransformComponent* focusTrans = mGameObjects[atoi(node->first_attribute("focustransformcomponentid")->value())]->GetComponent<TransformComponent>();
 
 		return ComponentFactory::MakeTiledBGRenderer(spriteName, width, height, moveRate, dir, trans, focusTrans);
 	}
-	else if (node->first_attribute("type")->value() == "PlayerComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "PlayerComponent")
 	{
-		TransformComponent* trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
-		SpriteAnimatorComponent* anim = mGameObjects[atoi(node->first_attribute("animatorcomponentid")->value())]->GetComponent<SpriteAnimatorComponent>();
-		RigidBodyComponent* rb = mGameObjects[atoi(node->first_attribute("rigidbodycomponentid")->value())]->GetComponent<RigidBodyComponent>();
-		DamageableComponent* dmg = mGameObjects[atoi(node->first_attribute("damageablecomponentid")->value())]->GetComponent<DamageableComponent>();
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
+		SpriteAnimatorComponent* anim;
+		int animComponentID = atoi(node->first_attribute("animatorcomponentid")->value());
+		if (animComponentID == -1)
+			anim = go->GetComponent<SpriteAnimatorComponent>();
+		else
+			anim = mGameObjects[atoi(node->first_attribute("animatorcomponentid")->value())]->GetComponent<SpriteAnimatorComponent>();
+
+		RigidBodyComponent* rb;
+		int rigidBodyComponentID = atoi(node->first_attribute("rigidbodycomponentid")->value());
+		if (rigidBodyComponentID == -1)
+			rb = go->GetComponent<RigidBodyComponent>();
+		else
+			rb = mGameObjects[atoi(node->first_attribute("rigidbodycomponentid")->value())]->GetComponent<RigidBodyComponent>();
+
+		DamageableComponent* dmg;
+		int dmgComponentID = atoi(node->first_attribute("damageablecomponentid")->value());
+		if (dmgComponentID == -1)
+			dmg = go->GetComponent<DamageableComponent>();
+		else
+			dmg = mGameObjects[atoi(node->first_attribute("damageablecomponentid")->value())]->GetComponent<DamageableComponent>();
 
 		ProjectileManager* projectiles = new ProjectileManager;
 		int projectileCount = atoi(node->first_attribute("projectilecount")->value());
-		std::string projectHitTag = node->first_attribute("projecthittag")->value();
+		std::string projectHitTag = std::string(node->first_attribute("projecthittag")->value());
 		for (int i = 0; i < projectileCount; i++)
 		{
 			GameObject* ball = new GameObject("Ball");
@@ -205,30 +291,53 @@ IComponent* ObjectManager::CreateComponent(xml_node<>* node)
 
 		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectiles, mCamera->GetComponent<TransformComponent>());
 	}
-	else if (node->first_attribute("type")->value() == "DamageableComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "DamageableComponent")
 	{
 		float startHealth = atoi(node->first_attribute("damageablecomponentid")->value());
 
 		return ComponentFactory::MakeDamageableComponent(startHealth);
 	}
-	else if (node->first_attribute("type")->value() == "ProjectileComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "ProjectileComponent")
 	{
-		std::string affectedTag = node->first_attribute("affectedTag")->value();
+		std::string affectedTag = std::string(node->first_attribute("affectedTag")->value());
 		float lifeSpan = atoi(node->first_attribute("lifespan")->value());
 		float damage = atoi(node->first_attribute("damage")->value());
 
 		return ComponentFactory::MakeProjectileComponent(affectedTag, lifeSpan, damage);
 	}
-	else if (node->first_attribute("type")->value() == "AIAgentComponent")
+	else if (std::string(node->first_attribute("type")->value()) == "AIAgentComponent")
 	{
-		TransformComponent* trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
-		SpriteAnimatorComponent* anim = mGameObjects[atoi(node->first_attribute("animatorcomponentid")->value())]->GetComponent<SpriteAnimatorComponent>();
-		RigidBodyComponent* rb = mGameObjects[atoi(node->first_attribute("rigidbodycomponentid")->value())]->GetComponent<RigidBodyComponent>();
-		DamageableComponent* dmg = mGameObjects[atoi(node->first_attribute("damageablecomponentid")->value())]->GetComponent<DamageableComponent>();
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
+		SpriteAnimatorComponent* anim;
+		int animComponentID = atoi(node->first_attribute("animatorcomponentid")->value());
+		if (animComponentID == -1)
+			anim = go->GetComponent<SpriteAnimatorComponent>();
+		else
+			anim = mGameObjects[atoi(node->first_attribute("animatorcomponentid")->value())]->GetComponent<SpriteAnimatorComponent>();
+
+		RigidBodyComponent* rb;
+		int rigidBodyComponentID = atoi(node->first_attribute("rigidbodycomponentid")->value());
+		if (rigidBodyComponentID == -1)
+			rb = go->GetComponent<RigidBodyComponent>();
+		else
+			rb = mGameObjects[atoi(node->first_attribute("rigidbodycomponentid")->value())]->GetComponent<RigidBodyComponent>();
+
+		DamageableComponent* dmg;
+		int dmgComponentID = atoi(node->first_attribute("damageablecomponentid")->value());
+		if (dmgComponentID == -1)
+			dmg = go->GetComponent<DamageableComponent>();
+		else
+			dmg = mGameObjects[atoi(node->first_attribute("damageablecomponentid")->value())]->GetComponent<DamageableComponent>();
 
 		ProjectileManager* projectiles = new ProjectileManager;
 		int projectileCount = atoi(node->first_attribute("projectilecount")->value());
-		std::string projectHitTag = node->first_attribute("projecthittag")->value();
+		std::string projectHitTag = std::string(node->first_attribute("projecthittag")->value());
 		for (int i = 0; i < projectileCount; i++)
 		{
 			GameObject* ball = new GameObject("Ball");

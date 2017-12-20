@@ -44,7 +44,7 @@ SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileN
 RigidBodyComponent * ComponentFactory::MakeRigidbody(float staticF, float dynamicF, float rest)
 {
 	RigidBodyComponent * rigidBody = new RigidBodyComponent(staticF, dynamicF, rest);
-	
+
 	return rigidBody;
 }
 

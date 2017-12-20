@@ -20,16 +20,16 @@ public:
 	void Initalise(std::string fileName);
 	void SetCamera(GameCamera* cam) { mCamera = cam; }
 
-	GameObject* CreateObject(int id);
-
-	void Update();
+	GameObject* CreateObject(int instanceID, int blueprintID);
 
 private:
-	IComponent* CreateComponent(xml_node<>* node);
+	IComponent* CreateComponent(GameObject* go, xml_node<>* node);
 
 	GameCamera*							mCamera;
 
 	xml_node<>*							mGameObjectBluePrints;
 	std::map<int, GameObject*>			mGameObjects;
+	xml_document<>						mXmlDoc;
+	std::string							mfileName = "Levels\\GameValues.xml";
 };
 

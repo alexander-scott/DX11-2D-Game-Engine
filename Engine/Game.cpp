@@ -7,14 +7,14 @@ Game::Game(MainWindow& wnd)
 	_camera = new GameCamera("Camera");
 	_camera->Initalise(wnd);
 
-	_objectManager.Initalise("Levels\\GameValues.xml");
-	_objectManager.SetCamera(_camera);
+	_gameLevel.Initalise(_camera);
+	_gameLevel.BuildLevel("Levels\\Level1.xml");
 
-	_gameObjects.push_back(_camera);
+	//_gameObjects.push_back(_camera);
 
-	InitaliseLevel();
+	//InitaliseLevel();
 
-	CacheSpecificComponents();
+	//CacheSpecificComponents();
 }
 
 // Read in level data from an XML file and build the level
@@ -329,6 +329,8 @@ void Game::UpdateModel()
 	{
 		go->Update(deltaTime);
 	}
+
+	_gameLevel.Update(deltaTime);
 }
 
 void Game::ComposeFrame()
@@ -337,4 +339,6 @@ void Game::ComposeFrame()
 	{
 		go->Draw(_camera);
 	}
+
+	_gameLevel.Draw();
 }

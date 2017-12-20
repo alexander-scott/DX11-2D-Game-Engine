@@ -238,6 +238,9 @@
     <ClInclude Include="ObjectManager.h">
       <Filter>Engine\Level Loading</Filter>
     </ClInclude>
+    <ClInclude Include="GameLevel.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -347,6 +350,9 @@
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>Engine\Level Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevel.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
