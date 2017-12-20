@@ -14,6 +14,7 @@ public:
 	int GetIndex(Rect rect);
 	void Insert(Rect rect);
 	bool Erase(int colliderIndex);
+	bool Erase(int colliderIndex, Rect rect);
 	std::vector<int> Retrieve(std::vector<int> &objects, Rect rect);
 
 private:

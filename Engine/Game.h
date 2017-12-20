@@ -28,7 +28,7 @@ private:
 	void InitaliseObjects(LevelData& levelData);
 	void InitaliseGUI();
 
-	void InitalisePhysics();
+	void CacheSpecificComponents();
 
 	void ComposeFrame();
 	void UpdateModel();
@@ -36,12 +36,14 @@ private:
 private:
 	MainWindow& wnd;
 
-	GameCamera*						_camera;
+	GameCamera*									_camera;
 
-	GameObject*						_player;
+	GameObject*									_player;
+	GameObject*									_aiAgent;
 
-	FrameTimer						_frameTimer;
-	PhysicsManager					_physicsManager;
+	FrameTimer									_frameTimer;
+	PhysicsManager								_physicsManager;
 	
-	std::vector<GameObject*>		_gameObjects;
+	std::vector<GameObject*>					_gameObjects;
+	std::map<GameObject*,DamageableComponent*>  _damageableGameObjects;
 };

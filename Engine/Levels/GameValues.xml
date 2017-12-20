@@ -1,0 +1,8 @@
+<!-- -
+<XmlTag variable="0" />
+All the variables for the game
+<!- -->
+
+<game>
+  <PlayerProjectileSpeed val="20"></PlayerProjectileSpeed>
+</game>

@@ -117,6 +117,8 @@ void PlayerComponent::UpdateAnimation()
 void PlayerComponent::CheckInput()
 {
 	Vec2 dir = Vec2(0.0f, 0.0f);
+
+	// If the player is on the ground they are allowed to jump. The player cannot hold down jump however, they must release the space bar before jumping again
 	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && _grounded && _canJump)
 	{
 		_canJump = false;
@@ -130,11 +132,17 @@ void PlayerComponent::CheckInput()
 
 	if (Keyboard::Instance().KeyIsPressed(VK_LEFT))
 	{
-		dir.x -= 1;
+		if (_playerRigidBody->GetVelocity().x > -PLAYER_LATERAL_MAX_SPEED)
+		{
+			dir.x -= 1;
+		}
 	}
 	if (Keyboard::Instance().KeyIsPressed(VK_RIGHT))
 	{
-		dir.x += 1;
+		if (_playerRigidBody->GetVelocity().x < PLAYER_LATERAL_MAX_SPEED)
+		{
+			dir.x += 1;
+		}
 	}
 
 	// Move the player in the specified direction
