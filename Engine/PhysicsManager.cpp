@@ -42,14 +42,12 @@ void PhysicsManager::Update(float deltaTime)
 		if (_colliders[i]->GetTransformComponent()->CheckedChanged())
 		{
 			_colliders[i]->GetTransformComponent()->SetChanged(false);
-			_quadTree->Erase(i);
 
-			Rect r;
 			r.xPos = (int)_colliders[i]->GetTransformComponent()->GetPosition().x;
 			r.yPos = (int)_colliders[i]->GetTransformComponent()->GetPosition().y;
-			r.width = 100;
-			r.height = 100;
-			r.colliderIndex = (int)_colliders.size() - 1;
+			r.colliderIndex = i;
+
+			_quadTree->Erase(i);
 			_quadTree->Insert(r);
 		}
 	}*/

@@ -10,7 +10,7 @@ Game::Game(MainWindow& wnd)
 
 	InitaliseLevel();
 
-	InitalisePhysics();
+	CacheSpecificComponents();
 }
 
 // Read in level data from an XML file and build the level
@@ -105,23 +105,21 @@ void Game::InitaliseObjects(LevelData & levelData)
 	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody, playerDamageable, playerProjectiles, _camera->GetComponent<TransformComponent>());
 	_player->AddComponent(playerComponent);
 
-
-
-	GameObject* aiAgent = new GameObject("Enemy");
+	_aiAgent = new GameObject("Enemy");
 	TransformComponent* agentTransform = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos + 400, levelData.playerYPos), 0, 1);
 
 	RigidBodyComponent* agentRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f);
 	agentRigidBody->LockRotation();
-	aiAgent->AddComponent(agentRigidBody);
+	_aiAgent->AddComponent(agentRigidBody);
 
 	BoxColliderComponent* agentCollider = ComponentFactory::MakeBoxCollider(64, 64, agentTransform, agentRigidBody);
-	aiAgent->AddComponent(agentCollider);
+	_aiAgent->AddComponent(agentCollider);
 
 	SpriteAnimatorComponent* agentAnimator = ComponentFactory::MakeSpriteAnimator("MageWalk", agentTransform, 64, 64, animDescs, (int)AnimationType::StandingDown);
-	aiAgent->AddComponent(agentAnimator);
+	_aiAgent->AddComponent(agentAnimator);
 
 	DamageableComponent* agentDamageable = ComponentFactory::MakeDamageableComponent(100);
-	aiAgent->AddComponent(agentDamageable);
+	_aiAgent->AddComponent(agentDamageable);
 
 	ProjectileManager* agentProjectiles = new ProjectileManager;
 	for (int i = 0; i < 100; i++)
@@ -135,19 +133,19 @@ void Game::InitaliseObjects(LevelData & levelData)
 		ball->AddComponent(ballCollider);
 		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 128, 128, Vec2(0, 0));
 		ball->AddComponent(ballRenderer);
-		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Enemy", 10, 10);
+		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Player", 10, 10);
 		ball->AddComponent(ballProjectile);
 
 		_gameObjects.push_back(ball);
 
 		agentProjectiles->AddCreatedGameObject(ball);
 	}
-	aiAgent->AddComponent(agentProjectiles);
+	_aiAgent->AddComponent(agentProjectiles);
 
 	AIAgentComponent* agentAI = ComponentFactory::MakeAIAgentComponent(agentTransform, agentAnimator, agentRigidBody, agentDamageable, agentProjectiles, _camera->GetComponent<TransformComponent>(), 5, AIAgentPatrolDirection::ePatrollingRight, 1);
-	aiAgent->AddComponent(agentAI);
+	_aiAgent->AddComponent(agentAI);
 
-	_gameObjects.push_back(aiAgent);
+	_gameObjects.push_back(_aiAgent);
 }
 
 // Create objects that draw the background. Also create level limit colliders. Also create the camera and define it's bounds.
@@ -256,16 +254,21 @@ void Game::InitaliseGUI()
 	_gameObjects.push_back(guiText);
 }
 
-// Add all gameobjects which have colliders to a physics manager which will then check for collisions every frame.
-void Game::InitalisePhysics()
+// Cache gameobjects with specific components so components aren't fetched every frame
+void Game::CacheSpecificComponents()
 {
 	for (auto go : _gameObjects)
 	{
 		ColliderComponent* goCollider = go->GetComponent<ColliderComponent>();
-
 		if (goCollider != nullptr)
 		{
 			_physicsManager.AddCollider(go, goCollider);
+		}
+
+		DamageableComponent* goDamagable = go->GetComponent<DamageableComponent>();
+		if (goDamagable != nullptr)
+		{
+			_damageableGameObjects.insert(std::make_pair(go, goDamagable));
 		}
 	}
 }
@@ -294,7 +297,26 @@ void Game::UpdateModel()
 {
 	float deltaTime = _frameTimer.Mark();
 
+	// Update object rigid bodies
 	_physicsManager.Update(deltaTime);
+
+	// Check all objects that can be damaged to see if they are dead or not. Do something additional if the object that died is special or not
+	for (auto dGo : _damageableGameObjects)
+	{
+		if (dGo.second->IsDead())
+		{
+			dGo.first->SetActive(false);
+
+			if (dGo.first->GetTag() == "Player")
+			{
+				// PLAYER IS DEAD MAJOR PANIC @@@@@@@@@@@@@@@@@
+			}
+			else if (dGo.first->GetTag() == "Enemy")
+			{
+				// Increase score
+			}
+		}
+	}
 
 	// Update gameobjects
 	for (auto go : _gameObjects)

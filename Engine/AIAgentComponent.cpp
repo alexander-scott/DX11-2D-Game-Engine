@@ -35,12 +35,9 @@ void AIAgentComponent::Update(float deltaTime)
 	UpdateAnimation();
 }
 
-void AIAgentComponent::RecieveMessage(IMessage & message)
+void AIAgentComponent::ShootAtPlayer(float deltaTime)
 {
-}
 
-void AIAgentComponent::ShootAtPlayer()
-{
 }
 
 void AIAgentComponent::Patrol(float deltaTime)

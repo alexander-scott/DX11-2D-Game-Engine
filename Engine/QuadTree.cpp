@@ -135,6 +135,27 @@ bool QuadTree::Erase(int colliderIndex)
 	return false;
 }
 
+bool QuadTree::Erase(int colliderIndex, Rect rect)
+{
+	int index = GetIndex(rect);
+	if (index != -1 && _nodes[0] != nullptr)
+	{
+		if (_nodes[index]->Erase(colliderIndex, rect))
+			return true;
+	}
+
+	for (int i = 0; i < _objects.size(); i++)
+	{
+		if (_objects[i].colliderIndex == colliderIndex)
+		{
+			_objects.erase(_objects.begin() + i);
+			return true;
+		}
+	}
+
+	return false;
+}
+
 std::vector<int> QuadTree::Retrieve(std::vector<int> &objects, Rect rect)
 {
 	int index = GetIndex(rect);

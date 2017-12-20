@@ -2,7 +2,6 @@
 
 #include "IComponent.h"
 #include "IUpdateable.h"
-#include "IMessageable.h"
 
 #include "RigidBodyComponent.h"
 #include "SpriteAnimatorComponent.h"
@@ -11,19 +10,20 @@
 #include "ProjectileManager.h"
 #include "Audio.h"
 
-class AIAgentComponent : public IComponent, public IUpdateable, public IMessageable
+class AIAgentComponent : public IComponent, public IUpdateable
 {
 public:
 	AIAgentComponent(TransformComponent* trans, SpriteAnimatorComponent* anim,	RigidBodyComponent* rb, DamageableComponent* dmg, 
 		ProjectileManager* projectileMan, TransformComponent* cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime);
+
 	~AIAgentComponent();
 
 	virtual void Update(float deltaTime) override;
-	virtual void RecieveMessage(IMessage & message) override;
 
 private:
-	void ShootAtPlayer();
+	void ShootAtPlayer(float deltaTime);
 	void Patrol(float deltaTime);
+
 	bool CanSeePlayer();
 
 	void UpdateAnimation();
@@ -45,4 +45,6 @@ private:
 
 	float						_currentPatrolTime;
 	float						_currentIdleTime;
+
+	// SHOOTING STUFFF
 };
