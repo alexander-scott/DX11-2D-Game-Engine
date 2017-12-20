@@ -14,8 +14,8 @@
 class AIAgentComponent : public IComponent, public IUpdateable, public IMessageable
 {
 public:
-	AIAgentComponent(TransformComponent* trans, SpriteAnimatorComponent* anim,
-		RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* projectileMan, TransformComponent* cameraTransform);
+	AIAgentComponent(TransformComponent* trans, SpriteAnimatorComponent* anim,	RigidBodyComponent* rb, DamageableComponent* dmg, 
+		ProjectileManager* projectileMan, TransformComponent* cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime);
 	~AIAgentComponent();
 
 	virtual void Update(float deltaTime) override;
@@ -25,6 +25,8 @@ private:
 	void ShootAtPlayer();
 	void Patrol(float deltaTime);
 	bool CanSeePlayer();
+
+	void UpdateAnimation();
 
 	TransformComponent*			_agentTransform;
 	SpriteAnimatorComponent*	_agentAnimator;

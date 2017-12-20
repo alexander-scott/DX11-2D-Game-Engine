@@ -104,6 +104,50 @@ void Game::InitaliseObjects(LevelData & levelData)
 
 	PlayerComponent* playerComponent = ComponentFactory::MakePlayerComponent(playerTransform, playerAnimator, playerRigidBody, playerDamageable, playerProjectiles, _camera->GetComponent<TransformComponent>());
 	_player->AddComponent(playerComponent);
+
+
+
+	GameObject* aiAgent = new GameObject("Enemy");
+	TransformComponent* agentTransform = ComponentFactory::MakeTransform(Vec2(levelData.playerXPos + 400, levelData.playerYPos), 0, 1);
+
+	RigidBodyComponent* agentRigidBody = ComponentFactory::MakeRigidbody(0.5f, 0.3f, 0.5f);
+	agentRigidBody->LockRotation();
+	aiAgent->AddComponent(agentRigidBody);
+
+	BoxColliderComponent* agentCollider = ComponentFactory::MakeBoxCollider(64, 64, agentTransform, agentRigidBody);
+	aiAgent->AddComponent(agentCollider);
+
+	SpriteAnimatorComponent* agentAnimator = ComponentFactory::MakeSpriteAnimator("MageWalk", agentTransform, 64, 64, animDescs, (int)AnimationType::StandingDown);
+	aiAgent->AddComponent(agentAnimator);
+
+	DamageableComponent* agentDamageable = ComponentFactory::MakeDamageableComponent(100);
+	aiAgent->AddComponent(agentDamageable);
+
+	ProjectileManager* agentProjectiles = new ProjectileManager;
+	for (int i = 0; i < 100; i++)
+	{
+		GameObject* ball = new GameObject("Ball");
+		TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
+		ball->AddComponent(ballTrans);
+		RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f); // Cache the rigidbody
+		ball->AddComponent(ballRb);
+		CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
+		ball->AddComponent(ballCollider);
+		SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 128, 128, Vec2(0, 0));
+		ball->AddComponent(ballRenderer);
+		ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent("Enemy", 10, 10);
+		ball->AddComponent(ballProjectile);
+
+		_gameObjects.push_back(ball);
+
+		agentProjectiles->AddCreatedGameObject(ball);
+	}
+	aiAgent->AddComponent(agentProjectiles);
+
+	AIAgentComponent* agentAI = ComponentFactory::MakeAIAgentComponent(agentTransform, agentAnimator, agentRigidBody, agentDamageable, agentProjectiles, _camera->GetComponent<TransformComponent>(), 5, AIAgentPatrolDirection::ePatrollingRight, 1);
+	aiAgent->AddComponent(agentAI);
+
+	_gameObjects.push_back(aiAgent);
 }
 
 // Create objects that draw the background. Also create level limit colliders. Also create the camera and define it's bounds.

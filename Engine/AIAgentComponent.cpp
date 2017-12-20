@@ -2,12 +2,13 @@
 
 #include "AddForceMessage.h"
 
-AIAgentComponent::AIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg,	ProjectileManager * projectileMan, TransformComponent * cameraTransform)
-	: _agentTransform(trans), _agentAnimator(anim), _agentRigidBody(rb), _agentDamageable(dmg), _agentProjectiles(projectileMan), _cameraTransform(cameraTransform)
+AIAgentComponent::AIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg,	ProjectileManager * projectileMan, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime)
+	: _agentTransform(trans), _agentAnimator(anim), _agentRigidBody(rb), _agentDamageable(dmg), _agentProjectiles(projectileMan), _cameraTransform(cameraTransform), _patrolTime(patrolTime), _idleTime(idleTime)
 {
 	_currentPatrolTime = 0;
 	_currentIdleTime = 0;
-	_currentState = AIAgentState::eShooting;
+	_patrolDirection = startDir;
+	_currentState = AIAgentState::ePatrolling;
 }
 
 AIAgentComponent::~AIAgentComponent()
@@ -20,7 +21,7 @@ void AIAgentComponent::Update(float deltaTime)
 	{
 		case AIAgentState::ePatrolling:
 		{
-
+			Patrol(deltaTime);
 			break;
 		}
 
@@ -30,6 +31,8 @@ void AIAgentComponent::Update(float deltaTime)
 			break;
 		}
 	}
+
+	UpdateAnimation();
 }
 
 void AIAgentComponent::RecieveMessage(IMessage & message)
@@ -73,7 +76,7 @@ void AIAgentComponent::Patrol(float deltaTime)
 
 			case AIAgentPatrolDirection::ePatrollingRight:
 			{
-				if (_agentRigidBody->GetVelocity().x < PLAYER_LATERAL_MAX_SPEED)
+				if (_agentRigidBody->GetVelocity().x < AI_LATERAL_MAX_SPEED)
 				{
 					dir.x += 1;
 				}
@@ -97,4 +100,61 @@ void AIAgentComponent::Patrol(float deltaTime)
 bool AIAgentComponent::CanSeePlayer()
 {
 	return false;
+}
+
+void AIAgentComponent::UpdateAnimation()
+{
+	float downVal = (_agentRigidBody->GetVelocity().y > 0) ? _agentRigidBody->GetVelocity().y : 0;
+	float upVal = (_agentRigidBody->GetVelocity().y < 0) ? (_agentRigidBody->GetVelocity().y * -1) : 0;
+	float leftVal = (_agentRigidBody->GetVelocity().x < 0) ? (_agentRigidBody->GetVelocity().x * -1) : 0;
+	float rightVal = (_agentRigidBody->GetVelocity().x > 0) ? _agentRigidBody->GetVelocity().x : 0;
+
+	UpdateAnimationSequenceMessage updateSeqMsg;
+
+	if (downVal > upVal && downVal > leftVal && downVal > rightVal)
+	{
+		if (downVal < 5)
+		{
+			updateSeqMsg.SetSequence((int)AnimationType::StandingDown);
+		}
+		else
+		{
+			updateSeqMsg.SetSequence((int)AnimationType::WalkingDown);
+		}
+	}
+	else if (upVal > downVal && upVal > leftVal && upVal > rightVal)
+	{
+		if (upVal < 5)
+		{
+			updateSeqMsg.SetSequence((int)AnimationType::StandingUp);
+		}
+		else
+		{
+			updateSeqMsg.SetSequence((int)AnimationType::WalkingUp);
+		}
+	}
+	else if (leftVal > downVal && leftVal > upVal && leftVal > rightVal)
+	{
+		if (leftVal < 5)
+		{
+			updateSeqMsg.SetSequence((int)AnimationType::StandingLeft);
+		}
+		else
+		{
+			updateSeqMsg.SetSequence((int)AnimationType::WalkingLeft);
+		}
+	}
+	else if (rightVal > downVal && rightVal > upVal && rightVal > leftVal)
+	{
+		if (rightVal < 5)
+		{
+			updateSeqMsg.SetSequence((int)AnimationType::StandingRight);
+		}
+		else
+		{
+			updateSeqMsg.SetSequence((int)AnimationType::WalkingRight);
+		}
+	}
+
+	_agentAnimator->RecieveMessage(updateSeqMsg);
 }

@@ -68,7 +68,7 @@
     <Filter Include="Engine\GameObject\Components\Component Types\GamePlay">
       <UniqueIdentifier>{79328e8d-1c3e-4ddc-af06-e8fec9ff7352}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Components\Component Types\AI">
+    <Filter Include="Game\GameComponents\AI">
       <UniqueIdentifier>{e8da296a-0824-449e-a931-ec8c62ec73d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -233,7 +233,7 @@
       <Filter>Engine\Scene</Filter>
     </ClInclude>
     <ClInclude Include="AIAgentComponent.h">
-      <Filter>Engine\GameObject\Components\Component Types\AI</Filter>
+      <Filter>Game\GameComponents\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -340,7 +340,7 @@
       <Filter>Engine\Scene</Filter>
     </ClCompile>
     <ClCompile Include="AIAgentComponent.cpp">
-      <Filter>Engine\GameObject\Components\Component Types\AI</Filter>
+      <Filter>Game\GameComponents\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

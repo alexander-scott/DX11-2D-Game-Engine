@@ -15,7 +15,7 @@ static constexpr float PLAYER_LATERAL_MAX_SPEED = 400; // Default is 500
 // AI //
 static constexpr float AI_PROJECTILE_DAMAGE = 20; // Default 20
 static constexpr float AI_PROJECTILE_SPEED = 50; // Default 50
-static constexpr float AI_LATERAL_MAX_SPEED = 300; // Default is 300
+static constexpr float AI_LATERAL_MAX_SPEED = 100; // Default is 300
 
 #pragma endregion
 
