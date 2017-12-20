@@ -7,12 +7,19 @@
 
 #pragma region GamePlay Vals
 
+// PLAYER //
 static constexpr float PLAYER_PROJECTILE_DAMAGE = 20; // Default 20
 static constexpr float PLAYER_PROJECTILE_SPEED = 50; // Default 50
+static constexpr float PLAYER_LATERAL_MAX_SPEED = 400; // Default is 500
+
+// AI //
+static constexpr float AI_PROJECTILE_DAMAGE = 20; // Default 20
+static constexpr float AI_PROJECTILE_SPEED = 50; // Default 50
+static constexpr float AI_LATERAL_MAX_SPEED = 300; // Default is 300
 
 #pragma endregion
 
-#pragma region Values
+#pragma region Application Values
 
 static constexpr int SCREEN_WIDTH = 800;
 static constexpr int SCREEN_HEIGHT = 600;
@@ -69,6 +76,18 @@ enum TiledBGDirection
 	eHorizontal,
 	eVertical,
 	eHoriztonalAndVertical
+};
+
+enum AIAgentState 
+{
+	ePatrolling,
+	eShooting
+};
+
+enum AIAgentPatrolDirection
+{
+	ePatrollingLeft,
+	ePatrollingRight
 };
 
 #pragma endregion

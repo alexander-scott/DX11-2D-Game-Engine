@@ -138,6 +138,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AddForceMessage.h" />
+    <ClInclude Include="AIAgentComponent.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="CollisionMessage.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIAgentComponent.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="BoxColliderComponent.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />

@@ -18,7 +18,7 @@ void Game::InitaliseLevel()
 {
 	// Init LevelManager (xStep, yStep, xOrigin, yOrigin)
 	GameLevelManager levelManager(TILE_WIDTH, TILE_HEIGHT, 0, 0);
-	levelManager.LoadLevel("Levels\\level1.xml");
+	levelManager.LoadLevel("Levels\\Level1Map.xml");
 
 	// Build any objects that are dependecies to other objects (global vars). Such as player.
 	InitaliseImportantObjects(levelManager.GetLevelData());
