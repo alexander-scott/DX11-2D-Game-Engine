@@ -4,15 +4,17 @@ Keep width as max X plus 1. Keep height as max Y plus 1.
 X postive is right. Y postive is up.
 <!- -->
 
-<level name="1" width="51" height="8">
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="0" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="1" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="2" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="3" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="4" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="5" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="6" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="7" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="8" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="0" update="tilepos" val1="9" val2="0"></GameObject>
+<level name="1" leftBound="0" rightBound="50" bottomBound="0" topBound="100">
+  <GameObject instanceid="0" blueprintid="0" update="tilepos" val1="3" val2="3"></GameObject>
+  
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="0" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="1" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="2" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="3" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="4" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="5" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="6" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="7" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="8" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" val1="9" val2="0"></GameObject>
 </level>

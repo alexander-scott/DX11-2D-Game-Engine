@@ -1,16 +1,11 @@
 #include "GameLevel.h"
 
 
-
-GameLevel::GameLevel()
+void GameLevel::Initalise(GameCamera* cam)
 {
+	mCamera = cam;
 	mObjectManager.Initalise("Levels\\GameValues.xml");
-	mObjectManager.SetCamera(mCamera);
-}
-
-
-GameLevel::~GameLevel()
-{
+	mObjectManager.SetCamera(cam);
 }
 
 void GameLevel::BuildLevel(std::string fileName)
@@ -42,6 +37,10 @@ void GameLevel::BuildLevel(std::string fileName)
 
 	//Get the root node
 	xml_node<>* root = doc.first_node();
+	mLevelData.levelLeftBounds = atoi(root->first_attribute("leftBound")->value());
+	mLevelData.levelRightBounds = atoi(root->first_attribute("rightBound")->value());
+	mLevelData.levelBottomBounds = atoi(root->first_attribute("bottomBound")->value());
+	mLevelData.levelTopBounds = atoi(root->first_attribute("topBound")->value());
 
 	xml_node<>* gameObject = root->first_node("GameObject");
 	while (gameObject)
@@ -63,6 +62,15 @@ void GameLevel::BuildLevel(std::string fileName)
 
 		gameObject = gameObject->next_sibling("GameObject");
 	}
+
+	mCamera->SetFocusTrans(mObjectManager.GetCreatedObject(0)->GetComponent<TransformComponent>()); // HARDCODEDDDDDD
+
+	mCamera->SetLevelBounds((mLevelData.levelLeftBounds) * TILE_WIDTH,
+		(mLevelData.levelRightBounds) * TILE_WIDTH,
+		(mLevelData.levelBottomBounds) * TILE_HEIGHT,
+		(mLevelData.levelTopBounds) * TILE_HEIGHT);
+
+	CacheComponents(mCamera);
 }
 
 void GameLevel::CacheComponents(GameObject* gameObj)

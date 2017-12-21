@@ -5,6 +5,11 @@ void ObjectManager::Initalise(std::string fileName)
 
 }
 
+GameObject* ObjectManager::GetCreatedObject(int instanceID)
+{
+	return mGameObjects[instanceID];
+}
+
 GameObject* ObjectManager::CreateObject(int instanceID, int blueprintID)
 {
 	//Loads a level from xml file
@@ -140,7 +145,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 
 			animDescriptions.push_back(AnimationDesc(startingIndex, endingIndex, x, y, width, height, frameCount, holdTime));
 
-			animDescs->next_sibling("AnimDesc");
+			animDescs = animDescs->next_sibling("AnimDesc");
 		}
 
 		int currentAnim = atoi(node->first_attribute("currentAnim")->value());
