@@ -10,7 +10,9 @@ using namespace rapidxml;
 class GameLevel
 {
 public:
-	void Initalise(GameCamera* cam);
+	GameLevel(GameCamera* cam);
+	~GameLevel();
+
 	void BuildLevel(std::string fileName);
 
 	void CacheComponents(GameObject* gameObj, int renderLayer);
@@ -19,6 +21,10 @@ public:
 	void Draw();
 
 private:
+	void ExtractLevelData(xml_node<>* node);
+	void UpdateTilePos(xml_node<>* node, GameObject* obj);
+	void SetupCamera();
+
 	ObjectManager									mObjectManager;
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;
@@ -32,4 +38,3 @@ private:
 	std::vector<GameObject*>						mGameObjects;
 	std::map<GameObject*, DamageableComponent*>		mDamageableGameObjects;
 };
-

@@ -34,16 +34,17 @@ GameObject* ObjectManager::CreateObject(int instanceID, int blueprintID)
 	mXmlData.push_back('\0');
 
 	//Create a parsed document with &xmlData[0] which is the char*
-	mXmlDoc.parse<parse_no_data_nodes>(&mXmlData[0]);
+	xml_document<> doc;
+	doc.parse<parse_no_data_nodes>(&mXmlData[0]);
 
 	//Get the root node
-	xml_node<>* root = mXmlDoc.first_node();
+	xml_node<>* root = doc.first_node(); 
 
 	//Go through each tile
-	mGameObjectBluePrints = root->first_node("GameObjects");
-	while (mGameObjectBluePrints)
+	xml_node<>*	gameObjectList = root->first_node("GameObjects");
+	while (gameObjectList)
 	{
-		xml_node<>* gameObject = mGameObjectBluePrints->first_node("GameObject");
+		xml_node<>* gameObject = gameObjectList->first_node("GameObject");
 		while (gameObject)
 		{
 			int objBlueprintID = atoi(gameObject->first_attribute("blueprintid")->value());
@@ -91,10 +92,10 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 {
 	if (std::string(node->first_attribute("type")->value()) == "TransformComponent")
 	{
-		float xPos = atof(node->first_attribute("xpos")->value());
-		float yPos = atof(node->first_attribute("ypos")->value());
-		float rot = atof(node->first_attribute("rotation")->value());
-		float scale = atof(node->first_attribute("scale")->value());
+		float xPos = (float)atof(node->first_attribute("xpos")->value());
+		float yPos = (float)atof(node->first_attribute("ypos")->value());
+		float rot = (float)atof(node->first_attribute("rotation")->value());
+		float scale = (float)atof(node->first_attribute("scale")->value());
 
 		return ComponentFactory::MakeTransform(Vec2(xPos, yPos), rot, scale);
 	}
@@ -109,10 +110,10 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
 
-		float width = atof(node->first_attribute("width")->value());
-		float height = atof(node->first_attribute("height")->value());
-		float xOffset = atof(node->first_attribute("xoffset")->value());
-		float yOffset = atof(node->first_attribute("yoffset")->value());
+		float width = (float)atof(node->first_attribute("width")->value());
+		float height = (float)atof(node->first_attribute("height")->value());
+		float xOffset = (float)atof(node->first_attribute("xoffset")->value());
+		float yOffset = (float)atof(node->first_attribute("yoffset")->value());
 
 		return ComponentFactory::MakeSpriteRenderer(fileName, trans, width, height, Vec2(xOffset, yOffset));
 	}
@@ -127,8 +128,8 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
 
-		float width = atof(node->first_attribute("width")->value());
-		float height = atof(node->first_attribute("height")->value());
+		float width = (float)atof(node->first_attribute("width")->value());
+		float height = (float)atof(node->first_attribute("height")->value());
 
 		std::vector<AnimationDesc> animDescriptions;
 		xml_node<>* animDescs = node->first_node("AnimDesc");
@@ -141,7 +142,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 			int width = atoi(animDescs->first_attribute("width")->value());
 			int height = atoi(animDescs->first_attribute("height")->value());
 			int frameCount = atoi(animDescs->first_attribute("framecount")->value());
-			float holdTime = atof(animDescs->first_attribute("holdtime")->value());
+			float holdTime = (float)atof(animDescs->first_attribute("holdtime")->value());
 
 			animDescriptions.push_back(AnimationDesc(startingIndex, endingIndex, x, y, width, height, frameCount, holdTime));
 
@@ -154,9 +155,9 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "RigidBodyComponent")
 	{
-		float staticF = atof(node->first_attribute("staticfriction")->value());
-		float dynamicF = atof(node->first_attribute("dynamicfriction")->value());
-		float restitution = atof(node->first_attribute("restitution")->value());
+		float staticF = (float)atof(node->first_attribute("staticfriction")->value());
+		float dynamicF = (float)atof(node->first_attribute("dynamicfriction")->value());
+		float restitution = (float)atof(node->first_attribute("restitution")->value());
 
 		bool isStatic = false;
 		if (std::string(node->first_attribute("static")->value()) == "true")
@@ -183,7 +184,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "CircleColliderComponent")
 	{
-		float radius = atof(node->first_attribute("radius")->value());
+		float radius = (float)atof(node->first_attribute("radius")->value());
 
 		TransformComponent* trans;
 		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
@@ -207,8 +208,8 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "BoxColliderComponent")
 	{
-		float width = atof(node->first_attribute("width")->value());
-		float height = atof(node->first_attribute("height")->value());
+		float width = (float)atof(node->first_attribute("width")->value());
+		float height = (float)atof(node->first_attribute("height")->value());
 
 		TransformComponent* trans;
 		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
@@ -233,9 +234,9 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 	else if (std::string(node->first_attribute("type")->value()) == "TiledBGRenderer")
 	{
 		std::string spriteName = std::string(node->first_attribute("spritename")->value());
-		float width = atof(node->first_attribute("spritewidth")->value());
-		float height = atof(node->first_attribute("spriteheight")->value());
-		float moveRate = atof(node->first_attribute("moverate")->value());
+		float width = (float)atof(node->first_attribute("spritewidth")->value());
+		float height = (float)atof(node->first_attribute("spriteheight")->value());
+		float moveRate = (float)atof(node->first_attribute("moverate")->value());
 
 		TiledBGDirection dir;
 		if (std::string(node->first_attribute("direction")->value()) == "horizontal")
@@ -297,15 +298,15 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "DamageableComponent")
 	{
-		float startHealth = atoi(node->first_attribute("starthealth")->value());
+		float startHealth = (float)atof(node->first_attribute("starthealth")->value());
 
 		return ComponentFactory::MakeDamageableComponent(startHealth);
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "ProjectileComponent")
 	{
 		std::string affectedTag = std::string(node->first_attribute("affectedTag")->value());
-		float lifeSpan = atoi(node->first_attribute("lifespan")->value());
-		float damage = atoi(node->first_attribute("damage")->value());
+		float lifeSpan = (float)atof(node->first_attribute("lifespan")->value());
+		float damage = (float)atof(node->first_attribute("damage")->value());
 
 		return ComponentFactory::MakeProjectileComponent(affectedTag, lifeSpan, damage);
 	}
@@ -346,7 +347,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			projectileManager = mGameObjects[atoi(node->first_attribute("projectilemangercomponentid")->value())]->GetComponent<ProjectileManagerComponent>();
 
-		float patrolTime = atof(node->first_attribute("patrolTime")->value());
+		float patrolTime = (float)atof(node->first_attribute("patrolTime")->value());
 
 		AIAgentPatrolDirection dir;
 		if (std::string(node->first_attribute("startdirection")->value()) == "left")
@@ -354,7 +355,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else if (std::string(node->first_attribute("startdirection")->value()) == "right")
 			dir = AIAgentPatrolDirection::ePatrollingRight;
 
-		float idleTime = atof(node->first_attribute("idletime")->value());
+		float idleTime = (float)atof(node->first_attribute("idletime")->value());
 
 		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, mCamera->GetComponent<TransformComponent>(), patrolTime, dir, idleTime);
 	}

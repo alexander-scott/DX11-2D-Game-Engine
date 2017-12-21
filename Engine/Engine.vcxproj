@@ -146,13 +146,11 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="GameLevel.h" />
-    <ClInclude Include="GameLevelManager.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="ColliderRendererComponent.h" />
     <ClInclude Include="IGraphics.h" />
-    <ClInclude Include="ILevelManager.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -192,7 +190,6 @@
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="WorldTile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIAgentComponent.cpp" />
@@ -204,8 +201,6 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
     <ClCompile Include="GameLevel.cpp" />
-    <ClCompile Include="GameLevelManager.cpp" />
-    <ClCompile Include="ILevelManager.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
@@ -231,7 +226,6 @@
     <ClCompile Include="TextRendererComponent.cpp" />
     <ClCompile Include="TiledBGRenderer.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
-    <ClCompile Include="WorldTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

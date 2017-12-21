@@ -1,21 +1,28 @@
 #include "GameLevel.h"
 
-
-void GameLevel::Initalise(GameCamera* cam)
+GameLevel::GameLevel(GameCamera* cam)
 {
 	mCamera = cam;
+
 	mObjectManager.Initalise("Levels\\GameValues.xml");
 	mObjectManager.SetCamera(cam);
 }
 
+GameLevel::~GameLevel()
+{
+	for (auto go : mGameObjects)
+	{
+		delete go;
+	}
+}
+
 void GameLevel::BuildLevel(std::string fileName)
 {
-	//Loads a level from xml file
 	//Load the file
 	std::ifstream inFile(fileName);
 
 	if (!inFile)
-		throw "Could not load tileset: " + fileName;
+		throw "Could not load level: " + fileName;
 
 	//Dump contents of file into a string
 	std::string xmlContents;
@@ -37,32 +44,53 @@ void GameLevel::BuildLevel(std::string fileName)
 
 	//Get the root node
 	xml_node<>* root = doc.first_node();
-	mLevelData.levelLeftBounds = atoi(root->first_attribute("leftBound")->value());
-	mLevelData.levelRightBounds = atoi(root->first_attribute("rightBound")->value());
-	mLevelData.levelBottomBounds = -atoi(root->first_attribute("bottomBound")->value()); // Make negative
-	mLevelData.levelTopBounds = -atoi(root->first_attribute("topBound")->value());
 
-	xml_node<>* gameObject = root->first_node("GameObject");
-	while (gameObject)
+	ExtractLevelData(root);
+
+	xml_node<>* gameObjectNode = root->first_node("GameObject");
+
+	// Loop through every gameobject in the level
+	while (gameObjectNode)
 	{
-		GameObject* obj = mObjectManager.CreateObject(atoi(gameObject->first_attribute("instanceid")->value()), atoi(gameObject->first_attribute("blueprintid")->value()));
+		// Create an instance of the gameobject listed in the level xml
+		GameObject* obj = mObjectManager.CreateObject(atoi(gameObjectNode->first_attribute("instanceid")->value()), 
+			atoi(gameObjectNode->first_attribute("blueprintid")->value()));
 
 		// Update its position from the original blueprint
-		if (std::string(gameObject->first_attribute("update")->value()) == "tilepos")
+		if (std::string(gameObjectNode->first_attribute("update")->value()) == "tilepos")
 		{
-			float x = atof(gameObject->first_attribute("val1")->value());
-			float y = atof(gameObject->first_attribute("val2")->value());
-
-			Vec2 newPos = Vec2((float)X_ORIGIN + (x * TILE_WIDTH), (float)Y_ORIGIN + -(y * TILE_HEIGHT));
-
-			obj->GetComponent<TransformComponent>()->SetPosition(newPos);
+			UpdateTilePos(gameObjectNode, obj);
 		}
 
-		CacheComponents(obj, atoi(gameObject->first_attribute("renderLayer")->value()));
+		// Cache it's components so they can be used regularly without having to refetch them 
+		CacheComponents(obj, atoi(gameObjectNode->first_attribute("renderLayer")->value()));
 
-		gameObject = gameObject->next_sibling("GameObject");
+		gameObjectNode = gameObjectNode->next_sibling("GameObject");
 	}
 
+	SetupCamera();
+}
+
+void GameLevel::ExtractLevelData(xml_node<>* node)
+{
+	mLevelData.levelLeftBounds = atoi(node->first_attribute("leftBound")->value());
+	mLevelData.levelRightBounds = atoi(node->first_attribute("rightBound")->value());
+	mLevelData.levelBottomBounds = -atoi(node->first_attribute("bottomBound")->value()); // Make negative
+	mLevelData.levelTopBounds = -atoi(node->first_attribute("topBound")->value());
+}
+
+void GameLevel::UpdateTilePos(xml_node<>* node, GameObject* obj)
+{
+	float x = atof(node->first_attribute("val1")->value());
+	float y = atof(node->first_attribute("val2")->value());
+
+	Vec2 newPos = Vec2((float)X_ORIGIN + (x * TILE_WIDTH), (float)Y_ORIGIN + -(y * TILE_HEIGHT));
+
+	obj->GetComponent<TransformComponent>()->SetPosition(newPos);
+}
+
+void GameLevel::SetupCamera()
+{
 	mCamera->SetFocusTrans(mObjectManager.GetCreatedObject(0)->GetComponent<TransformComponent>()); // HARDCODEDDDDDD
 
 	mCamera->SetLevelBounds((mLevelData.levelLeftBounds) * TILE_WIDTH,
@@ -146,7 +174,7 @@ void GameLevel::Update(float deltaTime)
 
 void GameLevel::Draw()
 {
-	// Draw gameobjects
+	// Draw gameobjects in the render order
 	for (auto go : mRenderLayer0)
 	{
 		go->Draw(mCamera);

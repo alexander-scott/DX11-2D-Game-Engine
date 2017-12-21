@@ -6,7 +6,6 @@
 #include "DamageableComponent.h"
 #include "ProjectileComponent.h"
 #include "AIAgentComponent.h"
-
 #include "ProjectileManagerComponent.h"
 
 namespace ComponentFactory
