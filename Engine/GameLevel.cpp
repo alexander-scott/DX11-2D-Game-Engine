@@ -101,6 +101,15 @@ void GameLevel::CacheComponents(GameObject* gameObj, int renderLayer)
 	{
 		mDamageableGameObjects.insert(std::make_pair(gameObj, goDamagable));
 	}
+
+	ProjectileManagerComponent* goProjManager = gameObj->GetComponent<ProjectileManagerComponent>();
+	if (goProjManager != nullptr)
+	{
+		for (auto go : goProjManager->GetAllInactiveGameObjects())
+		{
+			mPhysicsManager.AddCollider(go, go->GetComponent<ColliderComponent>());
+		}
+	}
 }
 
 void GameLevel::Update(float deltaTime)

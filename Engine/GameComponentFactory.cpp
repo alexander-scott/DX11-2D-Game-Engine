@@ -46,6 +46,13 @@ ProjectileComponent * ComponentFactory::MakeProjectileComponent(std::string affe
 	return projectileComponent;
 }
 
+ProjectileManagerComponent * ComponentFactory::MakeProjectileManagerComponent(std::vector<GameObject*> projectiles)
+{
+	ProjectileManagerComponent* projComponent = new ProjectileManagerComponent;
+	projComponent->AddCreatedGameObjects(projectiles);
+	return projComponent;
+}
+
 AIAgentComponent * ComponentFactory::MakeAIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg, 
 	ProjectileManagerComponent * proj, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection patrolStartDir, float idleTime)
 {

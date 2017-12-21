@@ -286,27 +286,14 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			dmg = mGameObjects[atoi(node->first_attribute("damageablecomponentid")->value())]->GetComponent<DamageableComponent>();
 
-		ProjectileManagerComponent* projectiles = new ProjectileManagerComponent;
-		int projectileCount = atoi(node->first_attribute("projectilecount")->value());
-		std::string projectHitTag = std::string(node->first_attribute("projecthittag")->value());
-		for (int i = 0; i < projectileCount; i++)
-		{
-			GameObject* ball = new GameObject("Ball");
-			TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
-			ball->AddComponent(ballTrans);
-			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false, false); // Cache the rigidbody
-			ball->AddComponent(ballRb);
-			CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
-			ball->AddComponent(ballCollider);
-			SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 128, 128, Vec2(0, 0));
-			ball->AddComponent(ballRenderer);
-			ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent(projectHitTag, 10, 10);
-			ball->AddComponent(ballProjectile);
+		ProjectileManagerComponent* projectileManager;
+		int projmanagerID = atoi(node->first_attribute("projectilemangercomponentid")->value());
+		if (projmanagerID == -1)
+			projectileManager = go->GetComponent<ProjectileManagerComponent>();
+		else
+			projectileManager = mGameObjects[atoi(node->first_attribute("projectilemangercomponentid")->value())]->GetComponent<ProjectileManagerComponent>();
 
-			projectiles->AddCreatedGameObject(ball);
-		}
-
-		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectiles, mCamera->GetComponent<TransformComponent>());
+		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectileManager, mCamera->GetComponent<TransformComponent>());
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "DamageableComponent")
 	{
@@ -352,9 +339,30 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			dmg = mGameObjects[atoi(node->first_attribute("damageablecomponentid")->value())]->GetComponent<DamageableComponent>();
 
-		ProjectileManagerComponent* projectiles = new ProjectileManagerComponent;
+		ProjectileManagerComponent* projectileManager;
+		int projmanagerID = atoi(node->first_attribute("projectilemangercomponentid")->value());
+		if (projmanagerID == -1)
+			projectileManager = go->GetComponent<ProjectileManagerComponent>();
+		else
+			projectileManager = mGameObjects[atoi(node->first_attribute("projectilemangercomponentid")->value())]->GetComponent<ProjectileManagerComponent>();
+
+		float patrolTime = atof(node->first_attribute("patrolTime")->value());
+
+		AIAgentPatrolDirection dir;
+		if (std::string(node->first_attribute("startdirection")->value()) == "left")
+			dir = AIAgentPatrolDirection::ePatrollingLeft;
+		else if (std::string(node->first_attribute("startdirection")->value()) == "right")
+			dir = AIAgentPatrolDirection::ePatrollingRight;
+
+		float idleTime = atof(node->first_attribute("idletime")->value());
+
+		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, mCamera->GetComponent<TransformComponent>(), patrolTime, dir, idleTime);
+	}
+	else if (std::string(node->first_attribute("type")->value()) == "ProjectileManagerComponent")
+	{
 		int projectileCount = atoi(node->first_attribute("projectilecount")->value());
 		std::string projectHitTag = std::string(node->first_attribute("projecthittag")->value());
+		std::vector<GameObject*> projectiles;
 		for (int i = 0; i < projectileCount; i++)
 		{
 			GameObject* ball = new GameObject("Ball");
@@ -369,20 +377,10 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 			ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent(projectHitTag, 10, 10);
 			ball->AddComponent(ballProjectile);
 
-			projectiles->AddCreatedGameObject(ball);
+			projectiles.push_back(ball);
 		}
 
-		float patrolTime = atof(node->first_attribute("patrolTime")->value());
-
-		AIAgentPatrolDirection dir;
-		if (std::string(node->first_attribute("startdirection")->value()) == "left")
-			dir = AIAgentPatrolDirection::ePatrollingLeft;
-		else if (std::string(node->first_attribute("startdirection")->value()) == "right")
-			dir = AIAgentPatrolDirection::ePatrollingRight;
-
-		float idleTime = atof(node->first_attribute("idletime")->value());
-
-		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectiles, mCamera->GetComponent<TransformComponent>(), patrolTime, dir, idleTime);
+		return ComponentFactory::MakeProjectileManagerComponent(projectiles);
 	}
 
 	throw;

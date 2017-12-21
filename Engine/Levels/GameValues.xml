@@ -8,7 +8,7 @@ All the variables for the game
     <PlayerProjectileSpeed val="20"></PlayerProjectileSpeed>
   </values>
   <GameObjects>
-        <GameObject blueprintid="0" tag="Player">
+    <GameObject blueprintid="0" tag="Player">
       <Component type="TransformComponent" xpos="-1" ypos="-1" rotation="0" scale="1"></Component>
       <Component type="RigidBodyComponent" staticfriction="0.5" dynamicfriction="0.3" restitution="0.5" static="false" lockrotation="true"></Component>
       <Component type="BoxColliderComponent" width="64" height="64" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
@@ -17,7 +17,8 @@ All the variables for the game
         <AnimDesc startingindex="4" endingindex="8" x="0" y="64" width="64" height="64" framecount="1" holdtime="0.16"></AnimDesc>
       </Component>
       <Component type="DamageableComponent" starthealth="100"></Component>
-      <Component type="PlayerComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilecount="100" projecthittag="Enemy"></Component>
+      <Component type="ProjectileManagerComponent" projectilecount="100" projecthittag="Enemy"></Component>
+      <Component type="PlayerComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilemangercomponentid="-1"></Component>
     </GameObject>
     <GameObject blueprintid="1" tag="Tile">
       <Component type="TransformComponent" xpos="-1" ypos="-1" rotation="0" scale="1"></Component>
