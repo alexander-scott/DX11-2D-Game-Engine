@@ -2,7 +2,7 @@
 
 #include "AddForceMessage.h"
 
-AIAgentComponent::AIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg,	ProjectileManager * projectileMan, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime)
+AIAgentComponent::AIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg, ProjectileManagerComponent * projectileMan, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime)
 	: _agentTransform(trans), _agentAnimator(anim), _agentRigidBody(rb), _agentDamageable(dmg), _agentProjectiles(projectileMan), _cameraTransform(cameraTransform), _patrolTime(patrolTime), _idleTime(idleTime)
 {
 	_currentPatrolTime = 0;

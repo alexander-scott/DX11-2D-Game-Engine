@@ -5,7 +5,7 @@
 #include "CollisionMessage.h"
 
 PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, 
-	RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* projectileMan, TransformComponent* cameraTransform)
+	RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManagerComponent* projectileMan, TransformComponent* cameraTransform)
 	: _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb), _playerDamageable(dmg), _playerProjectiles(projectileMan), _cameraTransform(cameraTransform)
 {
 	_grounded = false;

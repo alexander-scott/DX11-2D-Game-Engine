@@ -8,14 +8,14 @@
 #include "SpriteAnimatorComponent.h"
 #include "DamageableComponent.h"
 
-#include "ProjectileManager.h"
+#include "ProjectileManagerComponent.h"
 #include "Audio.h"
 
 class PlayerComponent : public IComponent, public IUpdateable, public IMessageable
 {
 public:
 	PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, 
-		RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManager* projectileMan, TransformComponent* cameraTransform);
+		RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManagerComponent* projectileMan, TransformComponent* cameraTransform);
 	~PlayerComponent();
 
 	virtual void Update(float deltaTime) override;
@@ -32,7 +32,7 @@ private:
 	RigidBodyComponent*			_playerRigidBody;
 	DamageableComponent*		_playerDamageable;
 
-	ProjectileManager*			_playerProjectiles;
+	ProjectileManagerComponent*	_playerProjectiles;
 	TransformComponent*			_cameraTransform;
 
 	bool						_grounded;

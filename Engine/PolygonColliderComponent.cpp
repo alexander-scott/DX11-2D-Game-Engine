@@ -17,6 +17,9 @@ PolygonColliderComponent::~PolygonColliderComponent()
 
 void PolygonColliderComponent::ComputeMass(float density)
 {
+	if (_rigidyBodyComponent->GetInverseMass() == 0)
+		return;
+
 	// Calculate centroid and moment of interia
 	_centre = Vec2(0.0f, 0.0f); // centroid
 	float area = 0.0f;

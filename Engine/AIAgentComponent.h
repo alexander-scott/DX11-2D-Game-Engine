@@ -7,14 +7,14 @@
 #include "SpriteAnimatorComponent.h"
 #include "DamageableComponent.h"
 
-#include "ProjectileManager.h"
+#include "ProjectileManagerComponent.h"
 #include "Audio.h"
 
 class AIAgentComponent : public IComponent, public IUpdateable
 {
 public:
 	AIAgentComponent(TransformComponent* trans, SpriteAnimatorComponent* anim,	RigidBodyComponent* rb, DamageableComponent* dmg, 
-		ProjectileManager* projectileMan, TransformComponent* cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime);
+		ProjectileManagerComponent* projectileMan, TransformComponent* cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime);
 
 	~AIAgentComponent();
 
@@ -33,7 +33,7 @@ private:
 	RigidBodyComponent*			_agentRigidBody;
 	DamageableComponent*		_agentDamageable;
 
-	ProjectileManager*			_agentProjectiles;
+	ProjectileManagerComponent*			_agentProjectiles;
 	TransformComponent*			_cameraTransform;
 
 	AIAgentState				_currentState;

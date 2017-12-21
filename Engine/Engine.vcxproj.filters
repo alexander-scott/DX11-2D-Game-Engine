@@ -71,6 +71,9 @@
     <Filter Include="Game\GameComponents\AI">
       <UniqueIdentifier>{e8da296a-0824-449e-a931-ec8c62ec73d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameComponents\Player">
+      <UniqueIdentifier>{a78523be-8359-4ae6-9904-a96ef32304c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -175,9 +178,6 @@
     <ClInclude Include="rapidxml.hpp">
       <Filter>Engine\Level Loading\XML Reader</Filter>
     </ClInclude>
-    <ClInclude Include="WorldTile.h">
-      <Filter>Engine\Level Loading</Filter>
-    </ClInclude>
     <ClInclude Include="IGraphics.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
@@ -193,17 +193,8 @@
     <ClInclude Include="TiledBGRenderer.h">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="ILevelManager.h">
-      <Filter>Engine\Level Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLevelManager.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="BoxColliderComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerComponent.h">
-      <Filter>Game\GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="CollisionMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
@@ -229,11 +220,20 @@
     <ClInclude Include="ProjectileComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
-    <ClInclude Include="ProjectileManager.h">
-      <Filter>Engine\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="AIAgentComponent.h">
       <Filter>Game\GameComponents\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Engine\Level Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevel.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileManagerComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Game\GameComponents\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -294,9 +294,6 @@
     <ClCompile Include="ColliderRendererComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="WorldTile.cpp">
-      <Filter>Engine\Level Loading</Filter>
-    </ClCompile>
     <ClCompile Include="DX11Graphics.cpp">
       <Filter>Engine\Graphics\APIs</Filter>
     </ClCompile>
@@ -306,17 +303,8 @@
     <ClCompile Include="TiledBGRenderer.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="ILevelManager.cpp">
-      <Filter>Engine\Level Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="GameLevelManager.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="BoxColliderComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Game\GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Engine\Physics</Filter>
@@ -336,11 +324,20 @@
     <ClCompile Include="ProjectileComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectileManager.cpp">
-      <Filter>Engine\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="AIAgentComponent.cpp">
       <Filter>Game\GameComponents\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Engine\Level Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevel.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileManagerComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerComponent.cpp">
+      <Filter>Game\GameComponents\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

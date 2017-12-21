@@ -41,10 +41,14 @@ SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileN
 	return spriteAnimator;
 }
 
-RigidBodyComponent * ComponentFactory::MakeRigidbody(float staticF, float dynamicF, float rest)
+RigidBodyComponent * ComponentFactory::MakeRigidbody(float staticF, float dynamicF, float rest, bool isStatic, bool lockRotation)
 {
 	RigidBodyComponent * rigidBody = new RigidBodyComponent(staticF, dynamicF, rest);
-	
+	if (isStatic)
+		rigidBody->SetStatic();
+	if (lockRotation)
+		rigidBody->LockRotation();
+
 	return rigidBody;
 }
 

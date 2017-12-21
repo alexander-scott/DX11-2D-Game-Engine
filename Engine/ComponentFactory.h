@@ -16,7 +16,7 @@ namespace ComponentFactory
 {
 	TransformComponent * MakeTransform(Vec2 position, float rotation, float scale);
 	
-	RigidBodyComponent * MakeRigidbody(float staticF, float dynamicF, float rest);
+	RigidBodyComponent * MakeRigidbody(float staticF, float dynamicF, float rest, bool isStatic, bool lockRotation);
 
 	TextRendererComponent * MakeTextRenderer(std::string text, TransformComponent* transform);
 	SpriteRendererComponent * MakeSpriteRenderer(std::string fileName, TransformComponent* transform, float width, float height, Vec2 offset);
@@ -26,5 +26,5 @@ namespace ComponentFactory
 
 	CircleColliderComponent * MakeCircleCollider(float radius, TransformComponent* transform, RigidBodyComponent* rigidbody);
 	PolygonColliderComponent * MakePolygonCollider(Vec2* verticies, int vertexCount, TransformComponent* transform, RigidBodyComponent* rigidbody);
-	BoxColliderComponent * MakeBoxCollider(float halfWidth, float halfHeight, TransformComponent* transform, RigidBodyComponent* rigidBody);
+	BoxColliderComponent * MakeBoxCollider(float width, float height, TransformComponent* transform, RigidBodyComponent* rigidBody);
 };
