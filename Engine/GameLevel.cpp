@@ -39,8 +39,8 @@ void GameLevel::BuildLevel(std::string fileName)
 	xml_node<>* root = doc.first_node();
 	mLevelData.levelLeftBounds = atoi(root->first_attribute("leftBound")->value());
 	mLevelData.levelRightBounds = atoi(root->first_attribute("rightBound")->value());
-	mLevelData.levelBottomBounds = atoi(root->first_attribute("bottomBound")->value());
-	mLevelData.levelTopBounds = atoi(root->first_attribute("topBound")->value());
+	mLevelData.levelBottomBounds = -atoi(root->first_attribute("bottomBound")->value()); // Make negative
+	mLevelData.levelTopBounds = -atoi(root->first_attribute("topBound")->value());
 
 	xml_node<>* gameObject = root->first_node("GameObject");
 	while (gameObject)
@@ -58,7 +58,7 @@ void GameLevel::BuildLevel(std::string fileName)
 			obj->GetComponent<TransformComponent>()->SetPosition(newPos);
 		}
 
-		CacheComponents(obj);
+		CacheComponents(obj, atoi(gameObject->first_attribute("renderLayer")->value()));
 
 		gameObject = gameObject->next_sibling("GameObject");
 	}
@@ -70,12 +70,25 @@ void GameLevel::BuildLevel(std::string fileName)
 		(mLevelData.levelBottomBounds) * TILE_HEIGHT,
 		(mLevelData.levelTopBounds) * TILE_HEIGHT);
 
-	CacheComponents(mCamera);
+	CacheComponents(mCamera, -1);
 }
 
-void GameLevel::CacheComponents(GameObject* gameObj)
+void GameLevel::CacheComponents(GameObject* gameObj, int renderLayer)
 {
 	mGameObjects.push_back(gameObj);
+
+	switch (renderLayer)
+	{
+		case 0:
+			mRenderLayer0.push_back(gameObj);
+			break;
+		case 1:
+			mRenderLayer1.push_back(gameObj);
+			break;
+		case 2:
+			mRenderLayer2.push_back(gameObj);
+			break;
+	}
 
 	ColliderComponent* goCollider = gameObj->GetComponent<ColliderComponent>();
 	if (goCollider != nullptr)
@@ -104,8 +117,18 @@ void GameLevel::Update(float deltaTime)
 
 void GameLevel::Draw()
 {
-	// Update gameobjects
-	for (auto go : mGameObjects)
+	// Draw gameobjects
+	for (auto go : mRenderLayer0)
+	{
+		go->Draw(mCamera);
+	}
+
+	for (auto go : mRenderLayer1)
+	{
+		go->Draw(mCamera);
+	}
+
+	for (auto go : mRenderLayer2)
 	{
 		go->Draw(mCamera);
 	}

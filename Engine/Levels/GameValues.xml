@@ -25,5 +25,17 @@ All the variables for the game
       <Component type="RigidBodyComponent" staticfriction="1" dynamicfriction="1" restitution="1" static="true" lockrotation="true"></Component>
       <Component type="BoxColliderComponent" width="45" height="45" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
     </GameObject>
+    <GameObject blueprintid="2" tag="Background">
+      <Component type="TransformComponent" xpos="0" ypos="0" rotation="0" scale="1"></Component>
+      <Component type="TiledBGRenderer" spritename="BG_Sky" spritewidth="640" spriteheight="480" moverate="0.1" direction="horizontalandvertical" transformcomponentid="-1" focustransformcomponentid="0"></Component>
+    </GameObject>
+    <GameObject blueprintid="3" tag="Background">
+      <Component type="TransformComponent" xpos="0" ypos="-400" rotation="0" scale="1"></Component>
+      <Component type="TiledBGRenderer" spritename="BG_Vegetation" spritewidth="640" spriteheight="480" moverate="0.5" direction="horizontal" transformcomponentid="-1" focustransformcomponentid="0"></Component>
+    </GameObject>
+    <GameObject blueprintid="4" tag="Background">
+      <Component type="TransformComponent" xpos="0" ypos="-400" rotation="0" scale="1"></Component>
+      <Component type="TiledBGRenderer" spritename="BG_Ground" spritewidth="640" spriteheight="480" moverate="3" direction="horizontal" transformcomponentid="-1" focustransformcomponentid="0"></Component>
+    </GameObject>
   </GameObjects>
 </game>
