@@ -303,26 +303,6 @@ void Game::UpdateModel()
 	// Update object rigid bodies
 	_physicsManager.Update(deltaTime);
 
-	// Check all objects that can be damaged to see if they are dead or not. Do something additional if the object that died is special or not
-	for (auto dGo : _damageableGameObjects)
-	{
-		// First is GameObject* and second is DamagableComponent*
-		if (dGo.first->GetActive() && dGo.second->IsDead())
-		{
-			dGo.first->SetActive(false);
-
-			if (dGo.first->GetTag() == "Player")
-			{
-				// PLAYER IS DEAD MAJOR PANIC @@@@@@@@@@@@@@@@@
-			}
-			else if (dGo.first->GetTag() == "Enemy")
-			{
-				// Increase score
-				Audio::Instance().PlaySoundEffect("Death");
-			}
-		}
-	}
-
 	// Update gameobjects
 	for (auto go : _gameObjects)
 	{

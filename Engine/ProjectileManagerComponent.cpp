@@ -87,6 +87,10 @@ void ProjectileManagerComponent::Update(float deltaTime)
 			// SET INACTIVE
 			obj.gameObject->SetActive(false);
 		}
+		else
+		{
+			_activeGameObjects[i].projectileComponent->Update(deltaTime);
+		}
 	}
 }
 

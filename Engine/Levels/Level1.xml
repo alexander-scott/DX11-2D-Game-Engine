@@ -5,11 +5,26 @@ X postive is right. Y postive is up.
 <!- -->
 
 <level name="1" leftBound="0" rightBound="50" bottomBound="0" topBound="100">
+  <!-- - Player <!- -->
   <GameObject instanceid="0" blueprintid="0" update="tilepos" val1="3" val2="3" renderLayer="2"></GameObject>
+  
+  <!-- - AI <!- -->
+  <GameObject instanceid="1" blueprintid="7" update="tilepos" val1="10" val2="3" renderLayer="2"></GameObject>
+
+  <!-- - Background <!- -->
   
   <GameObject instanceid="-1" blueprintid="2" update="null" renderLayer="0"></GameObject>
   <GameObject instanceid="-1" blueprintid="3" update="null" renderLayer="0"></GameObject>
   <GameObject instanceid="-1" blueprintid="4" update="null" renderLayer="0"></GameObject>
+
+  <!-- - Level Colliders <!- -->
+
+  <GameObject instanceid="-1" blueprintid="5" update="tilepos" val1="0" val2="0" renderLayer="-1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="5" update="tilepos" val1="50" val2="0" renderLayer="-1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="6" update="tilepos" val1="0" val2="0" renderLayer="-1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="6" update="tilepos" val1="0" val2="50" renderLayer="-1"></GameObject>
+  
+  <!-- - TILES <!- -->
   
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="0" val2="0"></GameObject>
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="1" val2="0"></GameObject>
