@@ -24,7 +24,6 @@ private:
 private:
 	MainWindow& wnd;
 
-	GameCamera*									mCamera;
 	GameLevel*									mGameLevel;
 
 	FrameTimer									mFrameTimer;

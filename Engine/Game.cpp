@@ -4,23 +4,22 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd)
 {
-	mCamera = new GameCamera("Camera");
-	mCamera->Initalise(wnd);
+	GameCamera::Instance().Initalise(wnd);
 
 	//ObjectManager::InitaliseGameplayValues("Levels\\GameValues.xml"); //BROKEN
 
-	mGameLevel = new GameLevel(mCamera, "Levels\\Level1.xml");
+	mGameLevel = new GameLevel("Levels\\Level1.xml");
 	mGameLevel->BuildLevel();
 }
 
 void Game::Update()
 {
-	mCamera->BeginFrame();
+	GameCamera::Instance().BeginFrame();
 
 	UpdateLevel();
 	ComposeFrame();
 
-	mCamera->EndFrame();
+	GameCamera::Instance().EndFrame();
 
 	Audio::Instance().Update();
 }

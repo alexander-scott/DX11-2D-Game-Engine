@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "Consts.h"
+
 // -------------------------------------------------------------------------
 // Grid Interface
 // -------------------------------------------------------------------------
@@ -15,8 +17,6 @@ struct GridNode
 	// Stores the index to the element.
 	int element;
 };
-
-
 
 /// Partitions elements into grid cells to accelerate searches for nearby
 /// elements, collision detection, figuring out what element is under a

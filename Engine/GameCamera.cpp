@@ -2,17 +2,24 @@
 
 
 
-GameCamera::GameCamera(std::string tag) : GameObject(tag)
+GameCamera::GameCamera() : GameObject("GameCamera")
 {
-	gfx = new DX11Graphics(); // DECIDE ON GRAPHICS API HERE
 
-	trans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0);
-	AddComponent(trans);
 }
 
 
 GameCamera::~GameCamera()
 {
+}
+
+void GameCamera::Initalise(MainWindow & wnd)
+{
+	gfx = new DX11Graphics(); // DECIDE ON GRAPHICS API HERE
+
+	trans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0);
+	AddComponent(trans);
+
+	ICamera::Initalise(wnd);
 }
 
 void GameCamera::Update(float deltaTime)

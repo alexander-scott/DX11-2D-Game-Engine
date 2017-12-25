@@ -329,7 +329,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			projectileManager = mGameObjects[atoi(node->first_attribute("projectilemangercomponentid")->value())]->GetComponent<ProjectileManagerComponent>();
 
-		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectileManager, mCamera->GetComponent<TransformComponent>());
+		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectileManager, GameCamera::Instance().GetComponent<TransformComponent>());
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "DamageableComponent")
 	{
@@ -392,7 +392,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 
 		float idleTime = (float)atof(node->first_attribute("idletime")->value());
 
-		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, mCamera->GetComponent<TransformComponent>(), patrolTime, dir, idleTime);
+		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, GameCamera::Instance().GetComponent<TransformComponent>(), patrolTime, dir, idleTime);
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "ProjectileManagerComponent")
 	{

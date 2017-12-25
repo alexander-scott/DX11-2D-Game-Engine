@@ -10,7 +10,7 @@ using namespace rapidxml;
 class GameLevel
 {
 public:
-	GameLevel(GameCamera* cam, std::string fileName);
+	GameLevel(std::string fileName);
 	~GameLevel();
 
 	void BuildLevel();
@@ -28,8 +28,6 @@ private:
 	ObjectManager									mObjectManager;
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;
-
-	GameCamera*										mCamera;
 
 	std::vector<GameObject*>						mRenderLayer0;
 	std::vector<GameObject*>						mRenderLayer1;

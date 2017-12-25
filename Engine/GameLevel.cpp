@@ -1,17 +1,18 @@
 #include "GameLevel.h"
 
-GameLevel::GameLevel(GameCamera* cam, std::string fileName) : mfileName(fileName)
+GameLevel::GameLevel(std::string fileName) : mfileName(fileName)
 {
-	mCamera = cam;
 
-	mObjectManager.SetCamera(cam);
 }
 
 GameLevel::~GameLevel()
 {
 	for (auto go : mGameObjects)
 	{
-		delete go;
+		if (go)
+		{
+			delete go;
+		}
 	}
 }
 
@@ -90,14 +91,14 @@ void GameLevel::UpdateTilePos(xml_node<>* node, GameObject* obj)
 
 void GameLevel::SetupCamera()
 {
-	mCamera->SetFocusTrans(mObjectManager.GetCreatedObject(0)->GetComponent<TransformComponent>()); // HARDCODEDDDDDD
+	GameCamera::Instance().SetFocusTrans(mObjectManager.GetCreatedObject(0)->GetComponent<TransformComponent>()); // HARDCODEDDDDDD
 
-	mCamera->SetLevelBounds((mLevelData.levelLeftBounds) * TILE_WIDTH,
+	GameCamera::Instance().SetLevelBounds((mLevelData.levelLeftBounds) * TILE_WIDTH,
 		(mLevelData.levelRightBounds) * TILE_WIDTH,
 		(mLevelData.levelBottomBounds) * TILE_HEIGHT,
 		(mLevelData.levelTopBounds) * TILE_HEIGHT);
 
-	CacheComponents(mCamera, -1);
+	CacheComponents(&GameCamera::Instance(), -1);
 }
 
 void GameLevel::CacheComponents(GameObject* gameObj, int renderLayer)
@@ -176,16 +177,16 @@ void GameLevel::Draw()
 	// Draw gameobjects in the render order
 	for (auto go : mRenderLayer0)
 	{
-		go->Draw(mCamera);
+		go->Draw(&GameCamera::Instance());
 	}
 
 	for (auto go : mRenderLayer1)
 	{
-		go->Draw(mCamera);
+		go->Draw(&GameCamera::Instance());
 	}
 
 	for (auto go : mRenderLayer2)
 	{
-		go->Draw(mCamera);
+		go->Draw(&GameCamera::Instance());
 	}
 }

@@ -6,7 +6,7 @@
 #include "ColliderComponent.h"
 #include "GameObject.h"
 #include "Collision.h"
-#include "QuadTree.h"
+#include "ObjectGrid.h"
 
 class PhysicsManager
 {
@@ -22,7 +22,7 @@ private:
 	void IntegrateForces(ColliderComponent* collider, float deltaTime);
 	void IntegrateVelocity(ColliderComponent* collider, float deltaTime);
 
-	QuadTree*								_quadTree;
+	ObjectGrid*								_objectGrid;
 
 	std::vector<GameObject*>				_gameObjects;
 	std::vector<ColliderComponent*>			_colliders;

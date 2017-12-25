@@ -4,12 +4,12 @@
 
 PhysicsManager::PhysicsManager()
 {
-	_quadTree = new QuadTree(0, Bounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	_objectGrid = new ObjectGrid(SCREEN_WIDTH, SCREEN_HEIGHT, 50, 50);
 }
 
 PhysicsManager::~PhysicsManager()
 {
-	delete _quadTree;
+	delete _objectGrid;
 }
 
 void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * collider)
@@ -17,13 +17,14 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	_gameObjects.push_back(gameObject);
 	_colliders.push_back(collider);
 
-	Bounds r;
-	r.xPos = (int)collider->GetTransformComponent()->GetPosition().x;
-	r.yPos = (int)collider->GetTransformComponent()->GetPosition().y;
-	r.width = 100;
-	r.height = 100;
-	r.colliderIndex = (int)_colliders.size() - 1;
-	_quadTree->Insert(r);
+	// LEFT, TOP, RIGHT, BOTTOM
+	int ltrb[4];
+	ltrb[0] = (int)collider->GetTransformComponent()->GetPosition().x;
+	ltrb[1] = (int)collider->GetTransformComponent()->GetPosition().y;
+	ltrb[2] = (int)collider->GetTransformComponent()->GetPosition().x + 100;
+	ltrb[3] = (int)collider->GetTransformComponent()->GetPosition().y + 100;
+
+	//_objectGrid->insert(ltrb, _colliders.size() - 1);
 }
 
 void PhysicsManager::Update(float deltaTime)
@@ -35,67 +36,61 @@ void PhysicsManager::Update(float deltaTime)
 	r.width = 100;
 	r.height = 100;
 
-	std::vector<int> objs;
+	//for (int i = 0; i < _colliders.size(); i++)
+	//{
+	//	ColliderComponent *A = _colliders[i];
 
-	for (int i = 0; i < _colliders.size(); i++)
-	{
-		if (_colliders[i]->GetTransformComponent()->CheckedChanged())
-		{
-			_colliders[i]->GetTransformComponent()->SetChanged(false);
+	//	if (!A->GetActive())
+	//		continue;
 
-			r.xPos = (int)_colliders[i]->GetTransformComponent()->GetPosition().x;
-			r.yPos = (int)_colliders[i]->GetTransformComponent()->GetPosition().y;
-			r.colliderIndex = i;
+	//	// Find the cell_index of the centre point of 
+	//	_objectGrid->cell_index((int)A->GetTransformComponent()->GetPosition().x, (int)A->GetTransformComponent()->GetPosition().y);
+	//}
 
-			_quadTree->Erase(i);
-			_quadTree->Insert(r);
-		}
-	}
+	//// Loop through every collider
+	//for (int i = 0; i < _colliders.size(); i++)
+	//{
+	//	ColliderComponent *A = _colliders[i];
 
-	// Loop through every collider
-	for (int i = 0; i < _colliders.size(); i++)
-	{
-		ColliderComponent *A = _colliders[i];
+	//	if (!A->GetActive())
+	//		continue;
 
-		if (!A->GetActive())
-			continue;
+	//	r.xPos = (int)A->GetTransformComponent()->GetPosition().x;
+	//	r.yPos = (int)A->GetTransformComponent()->GetPosition().y;
 
-		r.xPos = (int)A->GetTransformComponent()->GetPosition().x;
-		r.yPos = (int)A->GetTransformComponent()->GetPosition().y;
+	//	objs.clear();
 
-		objs.clear();
+	//	// Retrieve any objects around the collider A
+	//	_quadTree->Retrieve(objs, r);
 
-		// Retrieve any objects around the collider A
-		_quadTree->Retrieve(objs, r);
+	//	// For all objects around the collider A, check if there's an actual intersection
+	//	for (int j = 0; j < objs.size(); j++)
+	//	{
+	//		ColliderComponent *B = _colliders[objs[j]];
 
-		// For all objects around the collider A, check if there's an actual intersection
-		for (int j = 0; j < objs.size(); j++)
-		{
-			ColliderComponent *B = _colliders[objs[j]];
+	//		if (!B->GetActive())
+	//			continue;
 
-			if (!B->GetActive())
-				continue;
+	//		if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
+	//			continue;
 
-			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
-				continue;
+	//		Collision collision(A, B);
+	//		collision.Solve();
 
-			Collision collision(A, B);
-			collision.Solve();
+	//		if (collision.GetContactCount())
+	//		{
+	//			_contacts.emplace_back(collision);
 
-			if (collision.GetContactCount())
-			{
-				_contacts.emplace_back(collision);
+	//			CollisionMessage colMsg(_gameObjects[i]);
+	//			_gameObjects[objs[j]]->SendMessageToComponents(colMsg);
 
-				CollisionMessage colMsg(_gameObjects[i]);
-				_gameObjects[objs[j]]->SendMessageToComponents(colMsg);
+	//			CollisionMessage colMsg2(_gameObjects[objs[j]]);
+	//			_gameObjects[i]->SendMessageToComponents(colMsg2);
+	//		}
+	//	}
+	//}
 
-				CollisionMessage colMsg2(_gameObjects[objs[j]]);
-				_gameObjects[i]->SendMessageToComponents(colMsg2);
-			}
-		}
-	}
-
-	/*for (int i = 0; i < _colliders.size(); ++i)
+	for (int i = 0; i < _colliders.size(); ++i)
 	{
 		ColliderComponent *A = _colliders[i];
 
@@ -125,7 +120,7 @@ void PhysicsManager::Update(float deltaTime)
 				_gameObjects[i]->SendMessageToComponents(colMsg2);
 			}
 		}
-	}*/
+	}
 
 	// Integrate forces
 	for (int i = 0; i < _colliders.size(); ++i)
