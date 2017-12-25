@@ -158,7 +158,7 @@ struct RigidBodyData
 	}
 };
 
-struct Rect
+struct Bounds
 {
 public:
 	int xPos;
@@ -168,8 +168,8 @@ public:
 
 	int colliderIndex;
 
-	Rect() { }
-	Rect(int x, int y, int wid, int hei, int colIndex = -1) : xPos(x), yPos(y), width(wid), height(hei), colliderIndex(colIndex) { }
+	Bounds() { }
+	Bounds(int x, int y, int wid, int hei, int colIndex = -1) : xPos(x), yPos(y), width(wid), height(hei), colliderIndex(colIndex) { }
 };
 
 struct ILevelData {};

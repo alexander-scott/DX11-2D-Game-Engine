@@ -2,7 +2,7 @@
 
 
 
-QuadTree::QuadTree(int level, Rect bounds)
+QuadTree::QuadTree(int level, Bounds bounds)
 {
 	_level = level;
 	_bounds = bounds;
@@ -35,22 +35,22 @@ void QuadTree::Split()
 	int x = _bounds.xPos;
 	int y = _bounds.yPos;
 
-	_nodes[0] = new QuadTree(_level + 1, Rect(x + subWidth, y, subWidth, subHeight));
-	_nodes[1] = new QuadTree(_level + 1, Rect(x, y, subWidth, subHeight));
-	_nodes[2] = new QuadTree(_level + 1, Rect(x, y + subHeight, subWidth, subHeight));
-	_nodes[3] = new QuadTree(_level + 1, Rect(x + subWidth, y + subHeight, subWidth, subHeight));
+	_nodes[0] = new QuadTree(_level + 1, Bounds(x + subWidth, y, subWidth, subHeight));
+	_nodes[1] = new QuadTree(_level + 1, Bounds(x, y, subWidth, subHeight));
+	_nodes[2] = new QuadTree(_level + 1, Bounds(x, y + subHeight, subWidth, subHeight));
+	_nodes[3] = new QuadTree(_level + 1, Bounds(x + subWidth, y + subHeight, subWidth, subHeight));
 }
 
-int QuadTree::GetIndex(Rect rect)
+int QuadTree::GetChildNodeIndex(Bounds bounds)
 {
 	int index = -1;
 	double verticalMidpoint = _bounds.xPos + (_bounds.width / 2);
 	double horizontalMidpoint = _bounds.yPos + (_bounds.height / 2);
 
-	bool topQuadrant = (rect.yPos < horizontalMidpoint && rect.yPos + rect.height < horizontalMidpoint);
-	bool bottomQuadrant = (rect.yPos > horizontalMidpoint);
+	bool topQuadrant = (bounds.yPos < horizontalMidpoint && bounds.yPos + bounds.height < horizontalMidpoint);
+	bool bottomQuadrant = (bounds.yPos > horizontalMidpoint);
 
-	if (rect.xPos < verticalMidpoint && rect.xPos + rect.width < verticalMidpoint)
+	if (bounds.xPos < verticalMidpoint && bounds.xPos + bounds.width < verticalMidpoint)
 	{
 		if (topQuadrant)
 		{
@@ -61,7 +61,7 @@ int QuadTree::GetIndex(Rect rect)
 			index = 2;
 		}
 	}
-	else if (rect.xPos > verticalMidpoint)
+	else if (bounds.xPos > verticalMidpoint)
 	{
 		if (topQuadrant)
 		{
@@ -76,20 +76,20 @@ int QuadTree::GetIndex(Rect rect)
 	return index;
 }
 
-void QuadTree::Insert(Rect rect)
+void QuadTree::Insert(Bounds bounds)
 {
 	if (_nodes[0] != nullptr)
 	{
-		int index = GetIndex(rect);
+		int index = GetChildNodeIndex(bounds);
 
 		if (index != -1)
 		{
-			_nodes[index]->Insert(rect);
+			_nodes[index]->Insert(bounds);
 			return;
 		}
 	}
 
-	_objects.push_back(rect);
+	_objects.push_back(bounds);
 
 	if (_objects.size() > MAX_QUADTREE_OBJECTS && _level < MAX_QUADTREE_LEVELS)
 	{
@@ -101,7 +101,7 @@ void QuadTree::Insert(Rect rect)
 		int i = 0;
 		while (i < _objects.size())
 		{
-			int index = GetIndex(_objects[i]);
+			int index = GetChildNodeIndex(_objects[i]);
 			if (index != -1)
 			{
 				_nodes[index]->Insert(_objects[i]);
@@ -135,12 +135,12 @@ bool QuadTree::Erase(int colliderIndex)
 	return false;
 }
 
-bool QuadTree::Erase(int colliderIndex, Rect rect)
+bool QuadTree::Erase(int colliderIndex, Bounds bounds)
 {
-	int index = GetIndex(rect);
+	int index = GetChildNodeIndex(bounds);
 	if (index != -1 && _nodes[0] != nullptr)
 	{
-		if (_nodes[index]->Erase(colliderIndex, rect))
+		if (_nodes[index]->Erase(colliderIndex, bounds))
 			return true;
 	}
 
@@ -156,12 +156,12 @@ bool QuadTree::Erase(int colliderIndex, Rect rect)
 	return false;
 }
 
-std::vector<int> QuadTree::Retrieve(std::vector<int> &objects, Rect rect)
+std::vector<int> QuadTree::Retrieve(std::vector<int> &objects, Bounds bounds)
 {
-	int index = GetIndex(rect);
+	int index = GetChildNodeIndex(bounds);
 	if (index != -1 && _nodes[0] != nullptr)
 	{
-		_nodes[index]->Retrieve(objects, rect);
+		_nodes[index]->Retrieve(objects, bounds);
 	}
 
 	for (int i = 0; i < _objects.size(); i++)

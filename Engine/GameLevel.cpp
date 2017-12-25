@@ -72,16 +72,16 @@ void GameLevel::BuildLevel()
 
 void GameLevel::ExtractLevelData(xml_node<>* node)
 {
-	mLevelData.levelLeftBounds = atoi(node->first_attribute("leftBound")->value());
-	mLevelData.levelRightBounds = atoi(node->first_attribute("rightBound")->value());
-	mLevelData.levelBottomBounds = -atoi(node->first_attribute("bottomBound")->value()); // Make negative
-	mLevelData.levelTopBounds = -atoi(node->first_attribute("topBound")->value());
+	mLevelData.levelLeftBounds = (float)atof(node->first_attribute("leftBound")->value());
+	mLevelData.levelRightBounds = (float)atof(node->first_attribute("rightBound")->value());
+	mLevelData.levelBottomBounds = -(float)atof(node->first_attribute("bottomBound")->value()); // Make negative
+	mLevelData.levelTopBounds = -(float)atof(node->first_attribute("topBound")->value());
 }
 
 void GameLevel::UpdateTilePos(xml_node<>* node, GameObject* obj)
 {
-	float x = atof(node->first_attribute("val1")->value());
-	float y = atof(node->first_attribute("val2")->value());
+	float x = (float)atof(node->first_attribute("val1")->value());
+	float y = (float)atof(node->first_attribute("val2")->value());
 
 	Vec2 newPos = Vec2((float)X_ORIGIN + (x * TILE_WIDTH), (float)Y_ORIGIN + -(y * TILE_HEIGHT));
 

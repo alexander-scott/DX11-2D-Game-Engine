@@ -8,6 +8,7 @@ TransformComponent::TransformComponent()
 	_pos = Vec2();
 	_rot = 0;
 	_scale = 1;
+	_hasChanged = false;
 }
 
 

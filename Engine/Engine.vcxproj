@@ -152,6 +152,7 @@
     <ClInclude Include="ColliderRendererComponent.h" />
     <ClInclude Include="IGraphics.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="ObjectGrid.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerComponent.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="GameComponentFactory.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="ObjectGrid.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />

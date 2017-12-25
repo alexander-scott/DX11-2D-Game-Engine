@@ -235,6 +235,9 @@
     <ClInclude Include="rapidxml_print.hpp">
       <Filter>Engine\Level Loading\XML Reader</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectGrid.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -338,6 +341,9 @@
     </ClCompile>
     <ClCompile Include="PlayerComponent.cpp">
       <Filter>Game\GameComponents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectGrid.cpp">
+      <Filter>Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
