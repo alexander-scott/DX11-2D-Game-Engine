@@ -7,8 +7,10 @@ Game::Game(MainWindow& wnd)
 	mCamera = new GameCamera("Camera");
 	mCamera->Initalise(wnd);
 
-	mGameLevel = new GameLevel(mCamera);
-	mGameLevel->BuildLevel("Levels\\Level1.xml");
+	//ObjectManager::InitaliseGameplayValues("Levels\\GameValues.xml"); //BROKEN
+
+	mGameLevel = new GameLevel(mCamera, "Levels\\Level1.xml");
+	mGameLevel->BuildLevel();
 }
 
 void Game::Update()

@@ -5,7 +5,13 @@ All the variables for the game
 
 <game>
   <values>
-    <PlayerProjectileSpeed val="20"></PlayerProjectileSpeed>
+    <PlayerProjectileDamage val="20"></PlayerProjectileDamage>
+    <PlayerProjectileSpeed val="50"></PlayerProjectileSpeed>
+    <PlayerLateralMaxSpeed val="400"></PlayerLateralMaxSpeed>
+
+    <AIProjectileDamage val="20"></AIProjectileDamage>
+    <AIProjectileSpeed val="50"></AIProjectileSpeed>
+    <AILateralMaxSpeed val="400"></AILateralMaxSpeed>
   </values>
   <GameObjects>
     <GameObject blueprintid="0" tag="Player">

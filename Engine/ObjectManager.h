@@ -16,7 +16,8 @@ using namespace rapidxml;
 class ObjectManager
 {
 public:
-	void Initalise(std::string fileName);
+	static void InitaliseGameplayValues(std::string fileName);
+
 	void SetCamera(GameCamera* cam)	{ mCamera = cam; }
 
 	GameObject* CreateObject(int instanceID, int blueprintID);

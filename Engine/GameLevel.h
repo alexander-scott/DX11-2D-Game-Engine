@@ -10,10 +10,10 @@ using namespace rapidxml;
 class GameLevel
 {
 public:
-	GameLevel(GameCamera* cam);
+	GameLevel(GameCamera* cam, std::string fileName);
 	~GameLevel();
 
-	void BuildLevel(std::string fileName);
+	void BuildLevel();
 
 	void CacheComponents(GameObject* gameObj, int renderLayer);
 
@@ -37,4 +37,6 @@ private:
 
 	std::vector<GameObject*>						mGameObjects;
 	std::map<GameObject*, DamageableComponent*>		mDamageableGameObjects;
+
+	std::string										mfileName;
 };

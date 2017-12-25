@@ -1,10 +1,9 @@
 #include "GameLevel.h"
 
-GameLevel::GameLevel(GameCamera* cam)
+GameLevel::GameLevel(GameCamera* cam, std::string fileName) : mfileName(fileName)
 {
 	mCamera = cam;
 
-	mObjectManager.Initalise("Levels\\GameValues.xml");
 	mObjectManager.SetCamera(cam);
 }
 
@@ -16,13 +15,13 @@ GameLevel::~GameLevel()
 	}
 }
 
-void GameLevel::BuildLevel(std::string fileName)
+void GameLevel::BuildLevel()
 {
 	//Load the file
-	std::ifstream inFile(fileName);
+	std::ifstream inFile(mfileName);
 
 	if (!inFile)
-		throw "Could not load level: " + fileName;
+		throw "Could not load level: " + mfileName;
 
 	//Dump contents of file into a string
 	std::string xmlContents;

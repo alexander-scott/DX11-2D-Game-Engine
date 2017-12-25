@@ -172,9 +172,6 @@
     <ClInclude Include="UpdateAnimationSequenceMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
-    <ClInclude Include="rapidxml_print.hpp">
-      <Filter>Engine\Level Loading\XML Reader</Filter>
-    </ClInclude>
     <ClInclude Include="rapidxml.hpp">
       <Filter>Engine\Level Loading\XML Reader</Filter>
     </ClInclude>
@@ -234,6 +231,9 @@
     </ClInclude>
     <ClInclude Include="PlayerComponent.h">
       <Filter>Game\GameComponents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="rapidxml_print.hpp">
+      <Filter>Engine\Level Loading\XML Reader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
