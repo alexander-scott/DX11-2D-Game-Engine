@@ -6,20 +6,20 @@
 class QuadTree
 {
 public:
-	QuadTree(int level, Rect bounds);
+	QuadTree(int level, Bounds bounds);
 	~QuadTree();
 
 	void Clear();
 	void Split();
-	int GetIndex(Rect rect);
-	void Insert(Rect rect);
+	int GetChildNodeIndex(Bounds bounds);
+	void Insert(Bounds bounds);
 	bool Erase(int colliderIndex);
-	bool Erase(int colliderIndex, Rect rect);
-	std::vector<int> Retrieve(std::vector<int> &objects, Rect rect);
+	bool Erase(int colliderIndex, Bounds bounds);
+	std::vector<int> Retrieve(std::vector<int> &objects, Bounds bounds);
 
 private:
-	int							 _level;
-	Rect						 _bounds;
-	std::vector<Rect>			 _objects;
-	std::vector<QuadTree*>		 _nodes;
+	int							 mLevel;
+	Bounds						 mBounds;
+	std::vector<Bounds>			 mObjects;
+	std::vector<QuadTree*>		 mNodes;
 };	

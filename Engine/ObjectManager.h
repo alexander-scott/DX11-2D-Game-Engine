@@ -16,17 +16,11 @@ using namespace rapidxml;
 class ObjectManager
 {
 public:
-	static void InitaliseGameplayValues(std::string fileName);
-
-	void SetCamera(GameCamera* cam)	{ mCamera = cam; }
-
 	GameObject* CreateObject(int instanceID, int blueprintID);
 	GameObject* GetCreatedObject(int instanceID);
 
 private:
 	IComponent* CreateComponent(GameObject* go, xml_node<>* node);
-
-	GameCamera*							mCamera;
 
 	std::map<int, GameObject*>			mGameObjects;
 	std::string							mfileName = "Levels\\GameValues.xml";

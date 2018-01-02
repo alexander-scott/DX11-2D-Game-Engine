@@ -9,9 +9,5 @@ public:
 	~BoxColliderComponent();
 
 	void SetBox(float hw, float hh);
-
-private:
-	float				_halfWidth;
-	float				_halfHeight;
 };
 

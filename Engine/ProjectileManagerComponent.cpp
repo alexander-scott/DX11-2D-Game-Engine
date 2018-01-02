@@ -2,12 +2,12 @@
 
 ProjectileManagerComponent::~ProjectileManagerComponent()
 {
-	for (auto g : _activeGameObjects)
+	for (auto& g : _activeGameObjects)
 	{
 		delete g.gameObject;
 	}
 
-	for (auto g : _inactiveGameObjects)
+	for (auto& g : _inactiveGameObjects)
 	{
 		delete g.gameObject;
 	}
@@ -20,9 +20,9 @@ void ProjectileManagerComponent::AddCreatedGameObject(GameObject * go)
 	_inactiveGameObjects.push_back(obj);
 }
 
-void ProjectileManagerComponent::AddCreatedGameObjects(std::vector<GameObject*> goameObjects)
+void ProjectileManagerComponent::AddCreatedGameObjects(std::vector<GameObject*> gameObjects)
 {
-	for (auto go : goameObjects)
+	for (auto& go : gameObjects)
 	{
 		ProjectilePoolObj obj(go, go->GetComponent<ProjectileComponent>());
 		obj.gameObject->SetActive(false);

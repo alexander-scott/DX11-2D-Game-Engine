@@ -27,9 +27,6 @@ static constexpr int SCREEN_HEIGHT = 600;
 static constexpr int TILE_WIDTH = 45;
 static constexpr int TILE_HEIGHT = 45;
 
-static constexpr int X_ORIGIN = 0;
-static constexpr int Y_ORIGIN = 0;
-
 static constexpr int MAX_QUADTREE_OBJECTS = 10;
 static constexpr int MAX_QUADTREE_LEVELS = 5;
 
@@ -158,7 +155,7 @@ struct RigidBodyData
 	}
 };
 
-struct Rect
+struct Bounds
 {
 public:
 	int xPos;
@@ -168,8 +165,18 @@ public:
 
 	int colliderIndex;
 
-	Rect() { }
-	Rect(int x, int y, int wid, int hei, int colIndex = -1) : xPos(x), yPos(y), width(wid), height(hei), colliderIndex(colIndex) { }
+	Bounds() { }
+	Bounds(int x, int y, int wid, int hei, int colIndex = -1) : xPos(x), yPos(y), width(wid), height(hei), colliderIndex(colIndex) { }
+};
+
+struct Rect
+{
+public:
+	int LeftX;
+	int RightX;
+	int TopY;
+	int BotY;
+	Vec2 Centre;
 };
 
 struct ILevelData {};

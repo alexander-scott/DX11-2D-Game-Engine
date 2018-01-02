@@ -3,8 +3,7 @@
 #include "FrameTimer.h"
 #include "MainWindow.h"
 
-#include "GameLevel.h"
-#include "GameCamera.h"
+#include "LevelBuilder.h"
 
 class Game
 {
@@ -24,7 +23,6 @@ private:
 private:
 	MainWindow& wnd;
 
-	GameCamera*									mCamera;
 	GameLevel*									mGameLevel;
 
 	FrameTimer									mFrameTimer;

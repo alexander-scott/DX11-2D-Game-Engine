@@ -7,12 +7,16 @@
 class GameCamera : public ICamera, public GameObject
 {
 public:
-	GameCamera(std::string tag);
+	GameCamera();
 	~GameCamera();
 
-	void SetFocusTrans(TransformComponent* fTrans) { focusTrans = fTrans; }
+	Vec2 GetPosition() { return mTransform->GetPosition(); }
+
+	void SetFocusTrans(TransformComponent* fTrans) { mFocusTrans = fTrans; }
 	void SetLevelBounds(float leftBound, float rightBound, float botBound, float topBound) 
-	{ _levelLeftBound = leftBound; _levelRightBound = rightBound; _levelBottomBound = botBound; _levelTopBound = topBound; }
+	{ mLevelLeftBound = leftBound; mLevelRightBound = rightBound; mLevelBottomBound = botBound; mLevelTopBound = topBound; }
+
+	virtual void Initalise(class MainWindow& wnd) override;
 
 	virtual void Update(float deltaTime) override;
 
@@ -22,14 +26,20 @@ public:
 	virtual void DrawText(std::string text, Vec2 pos) override;
 	virtual void DrawLine(Vec2 v1, Vec2 v2) override;
 
+	static GameCamera& Instance()
+	{
+		static GameCamera Instance;
+		return Instance;
+	}
+
 private:
-	TransformComponent* trans;
-	TransformComponent* focusTrans;
+	TransformComponent*		mTransform;
+	TransformComponent*		mFocusTrans;
 
-	float					_levelLeftBound;
-	float					_levelRightBound;
+	float					mLevelLeftBound;
+	float					mLevelRightBound;
 
-	float					_levelBottomBound;
-	float					_levelTopBound;
+	float					mLevelBottomBound;
+	float					mLevelTopBound;
 };
 

@@ -2,14 +2,14 @@
 
 #include "CollisionMessage.h"
 
-PhysicsManager::PhysicsManager()
+void PhysicsManager::BuildGrid(int levelWidth, int levelHeight)
 {
-	_quadTree = new QuadTree(0, Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
+	_objectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100);
 }
 
 PhysicsManager::~PhysicsManager()
 {
-	delete _quadTree;
+	delete _objectGrid;
 }
 
 void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * collider)
@@ -17,13 +17,18 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	_gameObjects.push_back(gameObject);
 	_colliders.push_back(collider);
 
-	Rect r;
-	r.xPos = (int)collider->GetTransformComponent()->GetPosition().x;
-	r.yPos = (int)collider->GetTransformComponent()->GetPosition().y;
-	r.width = 100;
-	r.height = 100;
-	r.colliderIndex = (int)_colliders.size() - 1;
-	_quadTree->Insert(r);
+	// LEFT, TOP, RIGHT, BOTTOM
+	Rect r = collider->GetRect();
+	int ltrb[4];
+	ltrb[0] = r.LeftX;
+	ltrb[1] = std::abs(r.TopY);
+	ltrb[2] = r.RightX;
+	ltrb[3] = std::abs(r.BotY);
+
+	_objectGrid->insert(ltrb, (int)_colliders.size() - 1);
+
+	Vec2 objectCentre = collider->GetCentre();
+	collider->GridSquare = _objectGrid->cell_index(objectCentre.x, std::abs(objectCentre.y));
 }
 
 void PhysicsManager::Update(float deltaTime)
@@ -31,28 +36,78 @@ void PhysicsManager::Update(float deltaTime)
 	// Generate new collision info
 	_contacts.clear();
 
-	Rect r;
-	r.width = 100;
-	r.height = 100;
+	//for (int i = 0; i < _colliders.size(); i++)
+	//{
+	//	if (_colliders[i]->GetTransformComponent()->CheckChanged())
+	//	{
+	//		Vec2 objectCentre = _colliders[i]->GetCentre();
+	//		int centreCell = _objectGrid->cell_index(objectCentre.x, std::abs(objectCentre.y));
 
-	std::vector<int> objs;
+	//		if (centreCell != _colliders[i]->GridSquare) // Centre cell has changed
+	//		{
+	//			Rect r = _colliders[i]->GetPreviousRect();
+	//			int ltrb[4];
+	//			ltrb[0] = r.LeftX;
+	//			ltrb[1] = std::abs(r.TopY);
+	//			ltrb[2] = r.RightX;
+	//			ltrb[3] = std::abs(r.BotY);
+	//			_objectGrid->erase(ltrb, i);
 
-	/*for (int i = 0; i < _colliders.size(); i++)
-	{
-		if (_colliders[i]->GetTransformComponent()->CheckedChanged())
-		{
-			_colliders[i]->GetTransformComponent()->SetChanged(false);
+	//			r = _colliders[i]->GetRect();
+	//			ltrb[0] = r.LeftX;
+	//			ltrb[1] = std::abs(r.TopY);
+	//			ltrb[2] = r.RightX;
+	//			ltrb[3] = std::abs(r.BotY);
+	//			_objectGrid->insert(ltrb, i);
 
-			r.xPos = (int)_colliders[i]->GetTransformComponent()->GetPosition().x;
-			r.yPos = (int)_colliders[i]->GetTransformComponent()->GetPosition().y;
-			r.colliderIndex = i;
+	//			_colliders[i]->GridSquare = centreCell;
+	//		}
 
-			_quadTree->Erase(i);
-			_quadTree->Insert(r);
-		}
-	}*/
+	//		_colliders[i]->GetTransformComponent()->SetChanged(false);
+	//	}
+	//}
 
-	// Loop through every collider
+	//for (int i = 0; i < _colliders.size(); i++)
+	//{
+	//	ColliderComponent *A = _colliders[i];
+
+	//	if (!A->GetActive())
+	//		continue;
+
+	//	// Find the cell_index of the centre point of 
+	//	Rect r = A->GetRect();
+	//	int cell = _objectGrid->cell_index(r.Centre.x, std::abs(r.Centre.y));
+
+	//	const GridNode* node = _objectGrid->first(cell);
+	//	while (node)
+	//	{
+	//		int element = node->element;
+	//		node = _objectGrid->next(node);
+
+	//		ColliderComponent *B = _colliders[element];
+	//		if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
+	//			continue;
+
+	//		if (!B->GetActive())
+	//			continue;
+
+	//		Collision collision(A, B);
+	//		collision.Solve();
+
+	//		if (collision.GetContactCount())
+	//		{
+	//			_contacts.emplace_back(collision);
+
+	//			CollisionMessage colMsg(_gameObjects[i]);
+	//			_gameObjects[element]->SendMessageToComponents(colMsg);
+
+	//			CollisionMessage colMsg2(_gameObjects[element]);
+	//			_gameObjects[i]->SendMessageToComponents(colMsg2);
+	//		}
+	//	}
+	//}
+
+	//// Loop through every collider
 	//for (int i = 0; i < _colliders.size(); i++)
 	//{
 	//	ColliderComponent *A = _colliders[i];
