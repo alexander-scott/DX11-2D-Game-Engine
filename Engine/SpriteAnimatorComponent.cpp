@@ -51,7 +51,7 @@ void SpriteAnimatorComponent::SetAnimations(int currentAnim, std::vector<Animati
 {
 	iCurSequence = currentAnim;
 
-	for (auto animDesc : animDescs)
+	for (auto& animDesc : animDescs)
 	{
 		for (int i = animDesc.StartingIndex; i < animDesc.EndingIndex; i++)
 		{

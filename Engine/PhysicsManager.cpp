@@ -24,7 +24,7 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	ltrb[2] = (int)collider->GetTransformComponent()->GetPosition().x + 100;
 	ltrb[3] = (int)collider->GetTransformComponent()->GetPosition().y + 100;
 
-	//_objectGrid->insert(ltrb, _colliders.size() - 1);
+	_objectGrid->insert(ltrb, _colliders.size() - 1);
 }
 
 void PhysicsManager::Update(float deltaTime)

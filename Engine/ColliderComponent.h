@@ -15,8 +15,6 @@ public:
 	virtual ColliderType GetType(void) const = 0;
 	virtual void ComputeMass(float density) = 0;
 
-	float radius;
-
 protected:
 	TransformComponent*				_transformComponent;
 	RigidBodyComponent*				_rigidyBodyComponent;

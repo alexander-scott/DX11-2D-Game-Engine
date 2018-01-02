@@ -3,28 +3,19 @@
 #include "ObjectManager.h"
 #include "PhysicsManager.h"
 
-#include "rapidxml.hpp"
-
-using namespace rapidxml;
-
 class GameLevel
 {
 public:
-	GameLevel(std::string fileName);
+	GameLevel();
 	~GameLevel();
 
-	void BuildLevel();
-
 	void CacheComponents(GameObject* gameObj, int renderLayer);
+	void SetLevelData(LevelData levelData) { mLevelData = levelData; }
 
 	void Update(float deltaTime);
 	void Draw();
 
 private:
-	void ExtractLevelData(xml_node<>* node);
-	void UpdateTilePos(xml_node<>* node, GameObject* obj);
-	void SetupCamera();
-
 	ObjectManager									mObjectManager;
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;
@@ -35,6 +26,4 @@ private:
 
 	std::vector<GameObject*>						mGameObjects;
 	std::map<GameObject*, DamageableComponent*>		mDamageableGameObjects;
-
-	std::string										mfileName;
 };

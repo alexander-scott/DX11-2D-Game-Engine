@@ -6,10 +6,9 @@ Game::Game(MainWindow& wnd)
 {
 	GameCamera::Instance().Initalise(wnd);
 
-	//ObjectManager::InitaliseGameplayValues("Levels\\GameValues.xml"); //BROKEN
+	LevelBuilder::InitaliseGameplayValues("Levels\\GameValues.xml"); //BROKEN
 
-	mGameLevel = new GameLevel("Levels\\Level1.xml");
-	mGameLevel->BuildLevel();
+	mGameLevel = LevelBuilder::BuildGameLevel("Levels\\Level1.xml");
 }
 
 void Game::Update()

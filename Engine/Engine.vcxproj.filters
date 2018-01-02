@@ -238,6 +238,9 @@
     <ClInclude Include="ObjectGrid.h">
       <Filter>Engine\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="LevelBuilder.h">
+      <Filter>Engine\Level Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -344,6 +347,9 @@
     </ClCompile>
     <ClCompile Include="ObjectGrid.cpp">
       <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelBuilder.cpp">
+      <Filter>Engine\Level Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

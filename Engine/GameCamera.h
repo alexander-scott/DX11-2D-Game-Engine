@@ -10,6 +10,8 @@ public:
 	GameCamera();
 	~GameCamera();
 
+	Vec2 GetPosition() { return trans->GetPosition(); }
+
 	void SetFocusTrans(TransformComponent* fTrans) { focusTrans = fTrans; }
 	void SetLevelBounds(float leftBound, float rightBound, float botBound, float topBound) 
 	{ _levelLeftBound = leftBound; _levelRightBound = rightBound; _levelBottomBound = botBound; _levelTopBound = topBound; }

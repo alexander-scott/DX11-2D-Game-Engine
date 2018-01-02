@@ -16,8 +16,6 @@ using namespace rapidxml;
 class ObjectManager
 {
 public:
-	static void InitaliseGameplayValues(std::string fileName);
-
 	GameObject* CreateObject(int instanceID, int blueprintID);
 	GameObject* GetCreatedObject(int instanceID);
 
