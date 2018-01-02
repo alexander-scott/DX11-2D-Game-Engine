@@ -183,7 +183,6 @@
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UpdateAnimationSequenceMessage.h" />
     <ClInclude Include="WinDefines.h" />
-    <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Game.h" />

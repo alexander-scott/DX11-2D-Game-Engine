@@ -88,9 +88,6 @@
     <ClInclude Include="IEMath.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Colors.h">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Keyboard.h">
       <Filter>Engine\I/O</Filter>
     </ClInclude>
