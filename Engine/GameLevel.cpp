@@ -7,12 +7,12 @@ GameLevel::GameLevel()
 
 GameLevel::~GameLevel()
 {
-	for (auto& go : mGameObjects)
+	for (auto go : mGameObjects)
 	{
-		if (go)
+		/*if (go) // TODO: UMCOMMENTING THIS OUT CREATES A DELETION BUG ON WINDOW CLOSE
 		{
 			delete go;
-		}
+		}*/
 	}
 }
 

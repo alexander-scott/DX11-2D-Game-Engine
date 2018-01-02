@@ -19,10 +19,10 @@ X postive is right. Y postive is up.
 
   <!-- - Level Colliders <!- -->
 
-  <GameObject instanceid="-1" blueprintid="5" update="tilepos" val1="0" val2="0" renderLayer="-1"></GameObject>
-  <GameObject instanceid="-1" blueprintid="5" update="tilepos" val1="50" val2="0" renderLayer="-1"></GameObject>
-  <GameObject instanceid="-1" blueprintid="6" update="tilepos" val1="0" val2="0" renderLayer="-1"></GameObject>
-  <GameObject instanceid="-1" blueprintid="6" update="tilepos" val1="0" val2="50" renderLayer="-1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="5" update="colliderbounds" val1="left" renderLayer="-1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="5" update="colliderbounds" val1="right" renderLayer="-1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="6" update="colliderbounds" val1="top" renderLayer="-1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="6" update="colliderbounds" val1="bottom" renderLayer="-1"></GameObject>
   
   <!-- - TILES <!- -->
   

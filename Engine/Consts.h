@@ -27,9 +27,6 @@ static constexpr int SCREEN_HEIGHT = 600;
 static constexpr int TILE_WIDTH = 45;
 static constexpr int TILE_HEIGHT = 45;
 
-static constexpr int X_ORIGIN = 0;
-static constexpr int Y_ORIGIN = 0;
-
 static constexpr int MAX_QUADTREE_OBJECTS = 10;
 static constexpr int MAX_QUADTREE_LEVELS = 5;
 
