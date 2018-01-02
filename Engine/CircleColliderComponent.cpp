@@ -25,3 +25,16 @@ void CircleColliderComponent::ComputeMass(float density)
 	_rigidyBodyComponent->SetIntertia(_rigidyBodyComponent->GetMass() * radius * radius);
 	_rigidyBodyComponent->SetInverseIntertia((_rigidyBodyComponent->GetIntertia()) ? 1.0f / _rigidyBodyComponent->GetIntertia() : 0.0f);
 }
+
+Rect CircleColliderComponent::GetRect()
+{
+	Vec2 pos = _transformComponent->GetPosition();
+	Rect r;
+	r.LeftX = pos.x;
+	r.TopY = pos.y;
+	r.RightX = pos.x + radius;
+	r.BotY = pos.y + radius;
+	r.Centre = Vec2(pos.x + (radius / 2), pos.y + (radius / 2));
+
+	return r;
+}

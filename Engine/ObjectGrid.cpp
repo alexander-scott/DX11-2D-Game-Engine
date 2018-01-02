@@ -88,7 +88,7 @@ void ObjectGrid::insert_node(int& cell, int element)
 	{
 		// If the free list was empty, add a new node.
 		nodes.push_back(GridNode());
-		node_index = nodes.size() - 1;
+		node_index = (int)nodes.size() - 1;
 	}
 
 	// Set the node element to the one specified.

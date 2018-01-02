@@ -59,10 +59,10 @@ void GameLevel::ConstructLevel(LevelData levelData)
 {
 	mLevelData = levelData;
 
-	int width = std::abs(mLevelData.levelLeftBounds - mLevelData.levelRightBounds);
+	int width = (int)std::abs(mLevelData.levelLeftBounds - mLevelData.levelRightBounds);
 	width *= TILE_WIDTH;
 
-	int height = std::abs(mLevelData.levelTopBounds - mLevelData.levelBottomBounds);
+	int height = (int)std::abs(mLevelData.levelTopBounds - mLevelData.levelBottomBounds);
 	height *= TILE_HEIGHT;
 
 	mPhysicsManager.BuildGrid(width, height);

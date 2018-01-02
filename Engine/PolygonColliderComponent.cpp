@@ -60,6 +60,25 @@ void PolygonColliderComponent::ComputeMass(float density)
 	_rigidyBodyComponent->SetInverseIntertia(_rigidyBodyComponent->GetIntertia() ? 1.0f / _rigidyBodyComponent->GetIntertia() : 0.0f);
 }
 
+Rect PolygonColliderComponent::GetRect()
+{
+	if (m_vertexCount == 4)
+	{
+		Vec2 pos = _transformComponent->GetPosition();
+		Rect r;
+		r.LeftX = pos.x;
+		r.TopY = pos.y;
+		r.RightX = pos.x + (_halfWidth * 2);
+		r.BotY = pos.y + (_halfHeight * 2);
+		r.Centre = Vec2(pos.x + _halfWidth, pos.y + _halfHeight);
+		return r;
+	}
+	else
+		throw;
+
+	return Rect();
+}
+
 void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 {
 	// No hulls with less than 3 vertices (ensure actual polygon)

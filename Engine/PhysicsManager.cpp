@@ -18,11 +18,12 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	_colliders.push_back(collider);
 
 	// LEFT, TOP, RIGHT, BOTTOM
+	Rect r = collider->GetRect();
 	int ltrb[4];
-	ltrb[0] = (int)collider->GetTransformComponent()->GetPosition().x;
-	ltrb[1] = -(int)collider->GetTransformComponent()->GetPosition().y;
-	ltrb[2] = (int)collider->GetTransformComponent()->GetPosition().x + 100;
-	ltrb[3] = -(int)collider->GetTransformComponent()->GetPosition().y + 100;
+	ltrb[0] = r.LeftX;;
+	ltrb[1] = std::abs(r.TopY);
+	ltrb[2] = r.RightX;
+	ltrb[3] = std::abs(r.BotY);
 
 	_objectGrid->insert(ltrb, (int)_colliders.size() - 1);
 }

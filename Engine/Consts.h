@@ -169,6 +169,16 @@ public:
 	Bounds(int x, int y, int wid, int hei, int colIndex = -1) : xPos(x), yPos(y), width(wid), height(hei), colliderIndex(colIndex) { }
 };
 
+struct Rect
+{
+public:
+	int LeftX;
+	int RightX;
+	int TopY;
+	int BotY;
+	Vec2 Centre;
+};
+
 struct ILevelData {};
 
 struct LevelData : public ILevelData
