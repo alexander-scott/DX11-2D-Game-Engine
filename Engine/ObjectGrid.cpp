@@ -64,7 +64,10 @@ void ObjectGrid::insert(const int ltrb[4], int element)
 	const int y2 = ltrb[3] / cell_h;
 
 	// Make sure the element rectangle is in bounds.
-	assert(x1 >= 0 && x2 < grid_w && y1 >= 0 && y2 <= grid_h &&	"Element is out of bounds!");
+	//assert(x1 >= 0 && x2 < grid_w && y1 >= 0 && y2 <= grid_h &&	"Element is out of bounds!");
+
+	if (!(x1 >= 0 && x2 < grid_w && y1 >= 0 && y2 <= grid_h))
+		return;
 
 	// For each grid cell that overlaps, insert the element.
 	for (int y = y1; y <= y2; ++y)
@@ -149,7 +152,9 @@ void ObjectGrid::erase_node(int& cell, int element)
 const GridNode* ObjectGrid::first(int cell) const
 {
 	// Make sure we're accessing the grid in bounds.
-	assert(cell >= 0 && cell < size() && "Out of bounds!");
+	//assert(cell >= 0 && cell < size() && "Out of bounds!");
+	if (!(cell >= 0 && cell < size()))
+		return nullptr;
 
 	// Return the first node in the cell of null if empty.
 	const int node_index = cells[cell];

@@ -22,6 +22,8 @@ public:
 	Vec2 m_vertices[MaxPolyVertexCount];
 	Vec2 m_normals[MaxPolyVertexCount];
 
+	virtual Vec2 GetCentre() override { return Vec2(_transformComponent->GetPosition().x + _halfWidth, _transformComponent->GetPosition().y + _halfHeight); }
+
 protected:	
 	float				_halfWidth;
 	float				_halfHeight;

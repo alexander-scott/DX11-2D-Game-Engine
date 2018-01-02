@@ -17,6 +17,10 @@ public:
 	virtual Rect GetRect() = 0;
 	virtual Rect GetPreviousRect() = 0;
 
+	virtual Vec2 GetCentre() = 0;
+
+	int								GridSquare;
+
 protected:
 	TransformComponent*				_transformComponent;
 	RigidBodyComponent*				_rigidyBodyComponent;

@@ -18,6 +18,8 @@ public:
 	virtual Rect GetRect() override;
 	virtual Rect GetPreviousRect() override;
 
+	virtual Vec2 GetCentre() override { return Vec2(_transformComponent->GetPosition().x + radius, _transformComponent->GetPosition().y + radius); }
+
 	float radius;
 };
 

@@ -4,7 +4,7 @@
 
 void PhysicsManager::BuildGrid(int levelWidth, int levelHeight)
 {
-	_objectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100);
+	_objectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 150, 150);
 }
 
 PhysicsManager::~PhysicsManager()
@@ -26,6 +26,9 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	ltrb[3] = std::abs(r.BotY);
 
 	_objectGrid->insert(ltrb, (int)_colliders.size() - 1);
+
+	Vec2 objectCentre = collider->GetCentre();
+	collider->GridSquare = _objectGrid->cell_index(objectCentre.x, objectCentre.y);
 }
 
 void PhysicsManager::Update(float deltaTime)
@@ -37,20 +40,28 @@ void PhysicsManager::Update(float deltaTime)
 	{
 		if (_colliders[i]->GetTransformComponent()->CheckChanged())
 		{
-			Rect r = _colliders[i]->GetPreviousRect();
-			int ltrb[4];
-			ltrb[0] = r.LeftX;
-			ltrb[1] = std::abs(r.TopY);
-			ltrb[2] = r.RightX;
-			ltrb[3] = std::abs(r.BotY);
-			_objectGrid->erase(ltrb, i);
+			Vec2 objectCentre = _colliders[i]->GetCentre();
+			int centreCell = _objectGrid->cell_index(objectCentre.x, objectCentre.y);
 
-			r = _colliders[i]->GetRect();
-			ltrb[0] = r.LeftX;
-			ltrb[1] = std::abs(r.TopY);
-			ltrb[2] = r.RightX;
-			ltrb[3] = std::abs(r.BotY);
-			_objectGrid->insert(ltrb, i);
+			if (centreCell != _colliders[i]->GridSquare) // Centre cell has changed
+			{
+				Rect r = _colliders[i]->GetPreviousRect();
+				int ltrb[4];
+				ltrb[0] = r.LeftX;
+				ltrb[1] = std::abs(r.TopY);
+				ltrb[2] = r.RightX;
+				ltrb[3] = std::abs(r.BotY);
+				_objectGrid->erase(ltrb, i);
+
+				r = _colliders[i]->GetRect();
+				ltrb[0] = r.LeftX;
+				ltrb[1] = std::abs(r.TopY);
+				ltrb[2] = r.RightX;
+				ltrb[3] = std::abs(r.BotY);
+				_objectGrid->insert(ltrb, i);
+
+				_colliders[i]->GridSquare = centreCell;
+			}
 
 			_colliders[i]->GetTransformComponent()->SetChanged(false);
 		}
