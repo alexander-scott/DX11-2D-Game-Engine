@@ -16,17 +16,17 @@ public:
 	virtual void RecieveMessage(IMessage &msg) override;
 	virtual void Update(float deltaTime) override;
 
-	bool IsDead() { return _isDead; }
+	bool IsDead() { return mIsDead; }
 	void Reset();
 	void Reset(float lifeSpan);
 	void Reset(std::string affectedTag, float damage);
 
 private:
-	std::string		_affectedTag;
-	float			_damage;
+	std::string		mAffectedTag;
+	float			mDamage;
 
-	float			_startingLife;
-	float			_lifeLeft;
-	bool			_isDead;
+	float			mStartingLife;
+	float			mLifeLeft;
+	bool			mIsDead;
 };
 

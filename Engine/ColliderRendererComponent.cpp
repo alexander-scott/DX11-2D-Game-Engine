@@ -4,7 +4,7 @@
 
 ColliderRendererComponent::ColliderRendererComponent()
 {
-	_type = "Collider Renderer";
+	mType = "Collider Renderer";
 }
 
 
@@ -24,9 +24,9 @@ void ColliderRendererComponent::Draw(ICamera* cam)
 	{
 		case ColliderType::ePolygon:
 			PolygonColliderComponent* col = reinterpret_cast<PolygonColliderComponent *>(_collider);
-			for (int i = 0; i < col->m_vertexCount - 1; i++)
+			for (int i = 0; i < col->VertexCount - 1; i++)
 			{
-				cam->DrawLine(GetTransform()->GetPosition() + col->m_vertices[i], GetTransform()->GetPosition() + col->m_vertices[i + 1]);
+				cam->DrawLine(GetTransform()->GetPosition() + col->Vertices[i], GetTransform()->GetPosition() + col->Vertices[i + 1]);
 			}
 			break;
 	}

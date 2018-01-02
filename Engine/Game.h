@@ -23,7 +23,7 @@ private:
 private:
 	MainWindow& wnd;
 
-	GameLevel*									mGameLevel;
+	GameLevel*					mGameLevel;
 
-	FrameTimer									mFrameTimer;
+	FrameTimer					mFrameTimer;
 };

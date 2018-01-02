@@ -9,17 +9,17 @@ public:
 	SpriteRendererComponent();
 	~SpriteRendererComponent();
 
-	void SetFilename(std::string fileName) { _fileName = fileName; }
-	void SetOffset(Vec2 offset) { _offset = offset; }
-	void SetWidthHeight(float wid, float hei) { _spriteWidth = wid; _spriteHeight = hei; }
+	void SetFilename(std::string fileName) { mSpriteFileName = fileName; }
+	void SetOffset(Vec2 offset) { mOffset = offset; }
+	void SetWidthHeight(float wid, float hei) { mSpriteWidth = wid; mSpriteHeight = hei; }
 
 	virtual void Draw(ICamera* cam) override;
 
 private:
-	std::string				 _fileName;
-	Vec2					 _offset;
+	std::string				 mSpriteFileName;
+	Vec2					 mOffset;
 
-	float					_spriteWidth;
-	float					_spriteHeight;
+	float					mSpriteWidth;
+	float					mSpriteHeight;
 };
 

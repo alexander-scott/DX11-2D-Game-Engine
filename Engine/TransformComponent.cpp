@@ -4,16 +4,16 @@
 
 TransformComponent::TransformComponent(Vec2 position, float rotation, float scale)
 {
-	_type = "Transform";
-	_pos = Vec2();
-	_rot = 0;
-	_scale = 1;
-	_hasChanged = false;
+	mType = "Transform";
+	mPosition = Vec2();
+	mRotation = 0;
+	mScale = 1;
+	mHasChanged = false;
 
-	_pos = position;
-	mPreviousPosition = _pos;
-	_scale = scale;
-	_rot = rotation;
+	mPosition = position;
+	mPreviousPosition = mPosition;
+	mScale = scale;
+	mRotation = rotation;
 }
 
 
@@ -23,11 +23,11 @@ TransformComponent::~TransformComponent()
 
 void TransformComponent::SetPosition(Vec2 position)
 {
-	if (position.x != _pos.x || position.y != _pos.y)
+	if (position.x != mPosition.x || position.y != mPosition.y)
 	{
-		_hasChanged = true;
+		mHasChanged = true;
 	}
 
-	mPreviousPosition = _pos;
-	_pos = position;
+	mPreviousPosition = mPosition;
+	mPosition = position;
 }

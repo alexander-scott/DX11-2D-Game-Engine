@@ -7,9 +7,9 @@ class RecieveDamageMessage : public IMessage
 public:
 	RecieveDamageMessage(float damage)
 	{
-		_type = MessageType::eRecieveDamage;
-		_damage = damage;
+		mMessageType = MessageType::eRecieveDamage;
+		Damage = damage;
 	}
 
-	float _damage;
+	float Damage;
 };

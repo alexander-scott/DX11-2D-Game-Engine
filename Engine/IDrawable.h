@@ -6,11 +6,12 @@
 class IDrawable
 {
 public:
+	// Draw function must be overriden
 	virtual void Draw(ICamera* cam) = 0;
-	void SetTransform(TransformComponent* transform) { _transform = transform; }
 
-	TransformComponent* GetTransform() { return _transform; }
+	void SetTransform(TransformComponent* transform) { mTransform = transform; }
+	TransformComponent* GetTransform() { return mTransform; }
 
 private:
-	TransformComponent * _transform;
+	TransformComponent * mTransform;
 };

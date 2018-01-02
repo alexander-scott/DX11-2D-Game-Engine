@@ -2,12 +2,12 @@
 
 ProjectileComponent::ProjectileComponent(std::string affectedTag, float lifeSpan, float dmg)
 {
-	_affectedTag = affectedTag;
-	_lifeLeft = lifeSpan;
-	_startingLife = lifeSpan;
-	_damage = dmg;
+	mAffectedTag = affectedTag;
+	mLifeLeft = lifeSpan;
+	mStartingLife = lifeSpan;
+	mDamage = dmg;
 
-	_isDead = false;
+	mIsDead = false;
 }
 
 ProjectileComponent::~ProjectileComponent()
@@ -21,11 +21,11 @@ void ProjectileComponent::RecieveMessage(IMessage & msg)
 		case MessageType::eCollision:
 		{
 			CollisionMessage& colMsg = static_cast<CollisionMessage &> (msg);
-			if (colMsg.collidedObject->GetTag() == _affectedTag)
+			if (colMsg.CollidedObject->GetTag() == mAffectedTag)
 			{
-				RecieveDamageMessage recieveDmg(_damage);
-				colMsg.collidedObject->SendMessageToComponents(recieveDmg);
-				_isDead = true;
+				RecieveDamageMessage recieveDmg(mDamage);
+				colMsg.CollidedObject->SendMessageToComponents(recieveDmg);
+				mIsDead = true;
 			}
 
 			break;
@@ -35,31 +35,31 @@ void ProjectileComponent::RecieveMessage(IMessage & msg)
 
 void ProjectileComponent::Update(float deltaTime)
 {
-	_lifeLeft -= deltaTime;
-	if (_lifeLeft < 0)
+	mLifeLeft -= deltaTime;
+	if (mLifeLeft < 0)
 	{
-		_isDead = true;
+		mIsDead = true;
 	}
 }
 
 void ProjectileComponent::Reset()
 {
-	_lifeLeft = _startingLife;
-	_isDead = false;
+	mLifeLeft = mStartingLife;
+	mIsDead = false;
 }
 
 void ProjectileComponent::Reset(float lifeSpan)
 {
-	_startingLife = lifeSpan;
-	_lifeLeft = lifeSpan;
-	_isDead = false;
+	mStartingLife = lifeSpan;
+	mLifeLeft = lifeSpan;
+	mIsDead = false;
 }
 
 void ProjectileComponent::Reset(std::string affectedTag, float damage)
 {
-	_lifeLeft = _startingLife;
-	_isDead = false;
+	mLifeLeft = mStartingLife;
+	mIsDead = false;
 
-	_affectedTag = affectedTag;
-	_damage = damage;
+	mAffectedTag = affectedTag;
+	mDamage = damage;
 }

@@ -4,10 +4,10 @@
 
 PolygonColliderComponent::PolygonColliderComponent(TransformComponent* trans, RigidBodyComponent* rb)
 {
-	_type = "Polygon Collider";
+	mType = "Polygon Collider";
 
-	_transformComponent = trans;
-	_rigidyBodyComponent = rb;
+	mTransformComponent = trans;
+	mRigidyBodyComponent = rb;
 }
 
 
@@ -17,21 +17,21 @@ PolygonColliderComponent::~PolygonColliderComponent()
 
 void PolygonColliderComponent::ComputeMass(float density)
 {
-	if (_rigidyBodyComponent->GetInverseMass() == 0)
+	if (mRigidyBodyComponent->GetInverseMass() == 0)
 		return;
 
 	// Calculate centroid and moment of interia
-	_centre = Vec2(0.0f, 0.0f); // centroid
+	mCentre = Vec2(0.0f, 0.0f); // centroid
 	float area = 0.0f;
 	float I = 0.0f;
 	const float k_inv3 = 1.0f / 3.0f;
 
-	for (int i1 = 0; i1 < m_vertexCount; ++i1)
+	for (int i1 = 0; i1 < VertexCount; ++i1)
 	{
 		// Triangle vertices, third vertex implied as (0, 0)
-		Vec2 p1(m_vertices[i1]);
-		int i2 = i1 + 1 < m_vertexCount ? i1 + 1 : 0;
-		Vec2 p2(m_vertices[i2]);
+		Vec2 p1(Vertices[i1]);
+		int i2 = i1 + 1 < VertexCount ? i1 + 1 : 0;
+		Vec2 p2(Vertices[i2]);
 
 		float D = Cross(p1, p2);
 		float triangleArea = 0.5f * D;
@@ -39,38 +39,38 @@ void PolygonColliderComponent::ComputeMass(float density)
 		area += triangleArea;
 
 		// Use area to weight the centroid average, not just vertex position
-		_centre += triangleArea * k_inv3 * (p1 + p2);
+		mCentre += triangleArea * k_inv3 * (p1 + p2);
 
 		float intx2 = p1.x * p1.x + p2.x * p1.x + p2.x * p2.x;
 		float inty2 = p1.y * p1.y + p2.y * p1.y + p2.y * p2.y;
 		I += (0.25f * k_inv3 * D) * (intx2 + inty2);
 	}
 
-	_centre *= 1.0f / area;
+	mCentre *= 1.0f / area;
 
 	// Translate vertices to centroid (make the centroid (0, 0)
 	// for the polygon in model space)
 	// Not really necessary, but I like doing this anyway
-	for (int i = 0; i < m_vertexCount; ++i)
-		m_vertices[i] -= _centre;
+	for (int i = 0; i < VertexCount; ++i)
+		Vertices[i] -= mCentre;
 
-	_rigidyBodyComponent->SetMass(density * area);
-	_rigidyBodyComponent->SetInverseMass(_rigidyBodyComponent->GetMass() ? 1.0f / _rigidyBodyComponent->GetMass() : 0.0f);
-	_rigidyBodyComponent->SetIntertia(I * density);
-	_rigidyBodyComponent->SetInverseIntertia(_rigidyBodyComponent->GetIntertia() ? 1.0f / _rigidyBodyComponent->GetIntertia() : 0.0f);
+	mRigidyBodyComponent->SetMass(density * area);
+	mRigidyBodyComponent->SetInverseMass(mRigidyBodyComponent->GetMass() ? 1.0f / mRigidyBodyComponent->GetMass() : 0.0f);
+	mRigidyBodyComponent->SetIntertia(I * density);
+	mRigidyBodyComponent->SetInverseIntertia(mRigidyBodyComponent->GetIntertia() ? 1.0f / mRigidyBodyComponent->GetIntertia() : 0.0f);
 }
 
 Rect PolygonColliderComponent::GetRect()
 {
-	if (m_vertexCount == 4)
+	if (VertexCount == 4)
 	{
-		Vec2 pos = _transformComponent->GetPosition();
+		Vec2 pos = mTransformComponent->GetPosition();
 		Rect r;
-		r.LeftX = pos.x;
-		r.BotY = pos.y + (_halfHeight * 2);
-		r.RightX = pos.x + (_halfWidth * 2);
-		r.TopY = pos.y;
-		r.Centre = Vec2(pos.x + _halfWidth, pos.y + _halfHeight);
+		r.LeftX = (int)pos.x;
+		r.BotY = (int)pos.y + (int)(mHalfHeight * 2);
+		r.RightX = (int)pos.x + (int)(mHalfWidth * 2);
+		r.TopY = (int)pos.y;
+		r.Centre = Vec2(pos.x + mHalfWidth, pos.y + mHalfHeight);
 		return r;
 	}
 	else
@@ -81,15 +81,15 @@ Rect PolygonColliderComponent::GetRect()
 
 Rect PolygonColliderComponent::GetPreviousRect()
 {
-	if (m_vertexCount == 4)
+	if (VertexCount == 4)
 	{
-		Vec2 pos = _transformComponent->GetPreviousPosition();
+		Vec2 pos = mTransformComponent->GetPreviousPosition();
 		Rect r;
-		r.LeftX = pos.x;
-		r.BotY = pos.y + (_halfHeight * 2);
-		r.RightX = pos.x + (_halfWidth * 2);
-		r.TopY = pos.y;
-		r.Centre = Vec2(pos.x + _halfWidth, pos.y + _halfHeight);
+		r.LeftX = (int)pos.x;
+		r.BotY = (int)pos.y + (int)(mHalfHeight * 2);
+		r.RightX = (int)pos.x + (int)(mHalfWidth * 2);
+		r.TopY = (int)pos.y;
+		r.Centre = Vec2(pos.x + mHalfWidth, pos.y + mHalfHeight);
 		return r;
 	}
 	else
@@ -101,8 +101,8 @@ Rect PolygonColliderComponent::GetPreviousRect()
 void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 {
 	// No hulls with less than 3 vertices (ensure actual polygon)
-	assert(count > 2 && count <= MaxPolyVertexCount);
-	count = std::min((int32)count, MaxPolyVertexCount);
+	assert(count > 2 && count <= MAX_POLY_VERTEX_COUNT);
+	count = std::min((int32)count, MAX_POLY_VERTEX_COUNT);
 
 	// Find the right most point on the hull
 	int32 rightMost = 0;
@@ -122,7 +122,7 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 				rightMost = i;
 	}
 
-	int32 hull[MaxPolyVertexCount];
+	int32 hull[MAX_POLY_VERTEX_COUNT];
 	int32 outCount = 0;
 	int32 indexHull = rightMost;
 
@@ -166,27 +166,27 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 		// Conclude algorithm upon wrap-around
 		if (nextHullIndex == rightMost)
 		{
-			m_vertexCount = outCount;
+			VertexCount = outCount;
 			break;
 		}
 	}
 
 	// Copy vertices into shape's vertices
-	for (int i = 0; i < m_vertexCount; ++i)
-		m_vertices[i] = vertices[hull[i]];
+	for (int i = 0; i < VertexCount; ++i)
+		Vertices[i] = vertices[hull[i]];
 
 	// Compute face normals
-	for (int i1 = 0; i1 < m_vertexCount; ++i1)
+	for (int i1 = 0; i1 < VertexCount; ++i1)
 	{
-		int i2 = i1 + 1 < m_vertexCount ? i1 + 1 : 0;
-		Vec2 face = m_vertices[i2] - m_vertices[i1];
+		int i2 = i1 + 1 < VertexCount ? i1 + 1 : 0;
+		Vec2 face = Vertices[i2] - Vertices[i1];
 
 		// Ensure no zero-length edges, because that's bad
 		assert(face.LenSqr() > EPSILON * EPSILON);
 
 		// Calculate normal with 2D cross product between vector and scalar
-		m_normals[i1] = Vec2(face.y, -face.x);
-		m_normals[i1].Normalize();
+		Normals[i1] = Vec2(face.y, -face.x);
+		Normals[i1].Normalize();
 	}
 }
 
@@ -196,9 +196,9 @@ Vec2 PolygonColliderComponent::GetSupport(const Vec2& dir)
 	float bestProjection = -FLT_MAX;
 	Vec2 bestVertex;
 
-	for (int i = 0; i < m_vertexCount; ++i)
+	for (int i = 0; i < VertexCount; ++i)
 	{
-		Vec2 v = m_vertices[i];
+		Vec2 v = Vertices[i];
 		float projection = Dot(v, dir);
 
 		if (projection > bestProjection)

@@ -7,12 +7,12 @@ Audio::Audio()
 	eflags = eflags | DirectX::AudioEngine_Debug;
 #endif
 
-	m_audEngine = std::make_unique<DirectX::AudioEngine>(eflags);
-	m_retryAudio = false;
+	mAudioEngine = std::make_unique<DirectX::AudioEngine>(eflags);
+	mRetryAudio = false;
 
 	CreateSoundEffects();
 
-	if (!m_audEngine->IsAudioDevicePresent())
+	if (!mAudioEngine->IsAudioDevicePresent())
 	{
 		// we are in 'silent mode'. 
 	}
@@ -20,45 +20,45 @@ Audio::Audio()
 
 Audio::~Audio()
 {
-	if (m_audEngine)
+	if (mAudioEngine)
 	{
-		m_audEngine->Suspend();
+		mAudioEngine->Suspend();
 	}
 }
 
 void Audio::Update()
 {
-	if (m_retryAudio)
+	if (mRetryAudio)
 	{
-		m_retryAudio = false;
-		if (m_audEngine->Reset())
+		mRetryAudio = false;
+		if (mAudioEngine->Reset())
 		{
 			// TODO: restart any looped sounds here
 		}
 	}
-	else if (!m_audEngine->Update())
+	else if (!mAudioEngine->Update())
 	{
-		if (m_audEngine->IsCriticalError())
+		if (mAudioEngine->IsCriticalError())
 		{
 			// We lost the audio device!
-			m_retryAudio = true;
+			mRetryAudio = true;
 		}
 	}
 }
 
 void Audio::Suspend()
 {
-	m_audEngine->Suspend();
+	mAudioEngine->Suspend();
 }
 
 void Audio::Resume()
 {
-	m_audEngine->Resume();
+	mAudioEngine->Resume();
 }
 
 void Audio::PlaySoundEffect(std::string name)
 {
-	m_audioFiles.at(name)->Play();
+	mAudioFiles.at(name)->Play();
 }
 
 void Audio::CreateSoundEffects()
@@ -68,6 +68,6 @@ void Audio::CreateSoundEffects()
 		std::wstring widestr = std::wstring(s.second.begin(), s.second.end());
 		const wchar_t* szName = widestr.c_str();
 
-		m_audioFiles.insert(std::make_pair(s.first, std::make_unique<DirectX::SoundEffect>(m_audEngine.get(), szName)));
+		mAudioFiles.insert(std::make_pair(s.first, std::make_unique<DirectX::SoundEffect>(mAudioEngine.get(), szName)));
 	}
 }

@@ -22,10 +22,10 @@ private:
 	void IntegrateForces(ColliderComponent* collider, float deltaTime);
 	void IntegrateVelocity(ColliderComponent* collider, float deltaTime);
 
-	ObjectGrid*								_objectGrid;
+	ObjectGrid*								mObjectGrid;
 
-	std::vector<GameObject*>				_gameObjects;
-	std::vector<ColliderComponent*>			_colliders;
-	std::vector<Collision>					_contacts;
+	std::vector<GameObject*>				mGameObjects;
+	std::vector<ColliderComponent*>			mColliders;
+	std::vector<Collision>					mContacts;
 };
 

@@ -13,10 +13,11 @@ public:
 	struct ProjectilePoolObj 
 	{
 	public:
-		ProjectilePoolObj(GameObject* obj, ProjectileComponent* proj) : gameObject(obj), projectileComponent(proj) { }
+		ProjectilePoolObj(GameObject* obj, ProjectileComponent* proj) : 
+			GameObject(obj), ProjectileComponent(proj) { }
 
-		GameObject* gameObject;
-		ProjectileComponent* projectileComponent;
+		GameObject* GameObject;
+		ProjectileComponent* ProjectileComponent;
 	};
 
 	~ProjectileManagerComponent();
@@ -24,16 +25,21 @@ public:
 	void AddCreatedGameObject(GameObject* go);
 	void AddCreatedGameObjects(std::vector<GameObject*> goameObjects);
 
+	// Get a gameobject from the pool
 	GameObject* GetGameObject();
 	GameObject* GetGameObject(std::string affectedTag, float damage);
 
+	// Get a vector of gameobjects from the pool
 	std::vector<GameObject*> GetAllInactiveGameObjects();
 	std::vector<GameObject*> GetAllActiveGameObjects();
 
+	// Update all active projectiles
 	virtual void Update(float deltaTime) override;
+
+	// Draw all active projectiles
 	virtual void Draw(ICamera* cam) override;
 
 private:
-	std::vector<ProjectilePoolObj>	_activeGameObjects;
-	std::vector<ProjectilePoolObj>	_inactiveGameObjects;
+	std::vector<ProjectilePoolObj>	mActiveGameObjects;
+	std::vector<ProjectilePoolObj>	mInactiveGameObjects;
 };

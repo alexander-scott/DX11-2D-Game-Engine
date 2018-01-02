@@ -9,8 +9,8 @@
 class ColliderComponent : public IComponent
 {
 public:
-	RigidBodyComponent* GetRigidbodyComponent() { return _rigidyBodyComponent; }
-	TransformComponent* GetTransformComponent() { return _transformComponent; }
+	RigidBodyComponent* GetRigidbodyComponent() { return mRigidyBodyComponent; }
+	TransformComponent* GetTransformComponent() { return mTransformComponent; }
 
 	virtual ColliderType GetType(void) const = 0;
 	virtual void ComputeMass(float density) = 0;
@@ -22,7 +22,7 @@ public:
 	int								GridSquare;
 
 protected:
-	TransformComponent*				_transformComponent;
-	RigidBodyComponent*				_rigidyBodyComponent;
+	TransformComponent*				mTransformComponent;
+	RigidBodyComponent*				mRigidyBodyComponent;
 };
 

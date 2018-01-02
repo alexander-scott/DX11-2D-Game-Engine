@@ -4,10 +4,10 @@
 
 CircleColliderComponent::CircleColliderComponent(TransformComponent* trans, RigidBodyComponent* rb)
 {
-	_type = "Circle Collider";
+	mType = "Circle Collider";
 
-	_transformComponent = trans;
-	_rigidyBodyComponent = rb;
+	mTransformComponent = trans;
+	mRigidyBodyComponent = rb;
 }
 
 
@@ -17,37 +17,37 @@ CircleColliderComponent::~CircleColliderComponent()
 
 void CircleColliderComponent::ComputeMass(float density)
 {
-	if (_rigidyBodyComponent->GetInverseMass() == 0)
+	if (mRigidyBodyComponent->GetInverseMass() == 0)
 		return;
 
-	_rigidyBodyComponent->SetMass(PI * radius * radius * density);
-	_rigidyBodyComponent->SetInverseMass((_rigidyBodyComponent->GetMass()) ? 1.0f / _rigidyBodyComponent->GetMass() : 0.0f);
-	_rigidyBodyComponent->SetIntertia(_rigidyBodyComponent->GetMass() * radius * radius);
-	_rigidyBodyComponent->SetInverseIntertia((_rigidyBodyComponent->GetIntertia()) ? 1.0f / _rigidyBodyComponent->GetIntertia() : 0.0f);
+	mRigidyBodyComponent->SetMass(PI * mRadius * mRadius * density);
+	mRigidyBodyComponent->SetInverseMass((mRigidyBodyComponent->GetMass()) ? 1.0f / mRigidyBodyComponent->GetMass() : 0.0f);
+	mRigidyBodyComponent->SetIntertia(mRigidyBodyComponent->GetMass() * mRadius * mRadius);
+	mRigidyBodyComponent->SetInverseIntertia((mRigidyBodyComponent->GetIntertia()) ? 1.0f / mRigidyBodyComponent->GetIntertia() : 0.0f);
 }
 
 Rect CircleColliderComponent::GetRect()
 {
-	Vec2 pos = _transformComponent->GetPosition();
+	Vec2 pos = mTransformComponent->GetPosition();
 	Rect r;
-	r.LeftX = pos.x;
-	r.TopY = pos.y;
-	r.RightX = pos.x + radius;
-	r.BotY = pos.y + radius;
-	r.Centre = Vec2(pos.x + (radius / 2), pos.y + (radius / 2));
+	r.LeftX = (int)pos.x;
+	r.TopY = (int)pos.y;
+	r.RightX = (int)pos.x + (int)mRadius;
+	r.BotY = (int)pos.y + (int)mRadius;
+	r.Centre = Vec2(pos.x + (mRadius / 2), pos.y + (mRadius / 2));
 
 	return r;
 }
 
 Rect CircleColliderComponent::GetPreviousRect()
 {
-	Vec2 pos = _transformComponent->GetPreviousPosition();
+	Vec2 pos = mTransformComponent->GetPreviousPosition();
 	Rect r;
-	r.LeftX = pos.x;
-	r.TopY = pos.y;
-	r.RightX = pos.x + radius;
-	r.BotY = pos.y + radius;
-	r.Centre = Vec2(pos.x + (radius / 2), pos.y + (radius / 2));
+	r.LeftX = (int)pos.x;
+	r.TopY = (int)pos.y;
+	r.RightX = (int)pos.x + (int)mRadius;
+	r.BotY = (int)pos.y + (int)mRadius;
+	r.Centre = Vec2(pos.x + (mRadius / 2), pos.y + (mRadius / 2));
 
 	return Rect();
 }

@@ -10,16 +10,17 @@ public:
 	CircleColliderComponent(TransformComponent* trans, RigidBodyComponent* rb);
 	~CircleColliderComponent();
 
-	void SetRadius(float rad) { radius = rad; }
-	float GetRadius() { return radius; }
+	void SetRadius(float rad) { mRadius = rad; }
+	float GetRadius() { return mRadius; }
 
 	virtual ColliderType GetType(void) const override { return ColliderType::eCircle; }
 	virtual void ComputeMass(float density) override;
 	virtual Rect GetRect() override;
 	virtual Rect GetPreviousRect() override;
 
-	virtual Vec2 GetCentre() override { return Vec2(_transformComponent->GetPosition().x + radius, _transformComponent->GetPosition().y + radius); }
+	virtual Vec2 GetCentre() override { return Vec2(mTransformComponent->GetPosition().x + mRadius, mTransformComponent->GetPosition().y + mRadius); }
 
-	float radius;
+private:
+	float mRadius;
 };
 

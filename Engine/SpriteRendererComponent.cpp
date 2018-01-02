@@ -4,7 +4,7 @@
 
 SpriteRendererComponent::SpriteRendererComponent()
 {
-	_type = "SpriteRenderer";
+	mType = "SpriteRenderer";
 }
 
 
@@ -16,8 +16,8 @@ void SpriteRendererComponent::Draw(ICamera* cam)
 {
 	TransformComponent* trans = GetTransform();
 
-	float halfSpriteWidth = (_spriteWidth / 2) * trans->GetScale();
-	float halfSpriteHeight = (_spriteHeight / 2) * trans->GetScale();
+	float halfSpriteWidth = (mSpriteWidth / 2) * trans->GetScale();
+	float halfSpriteHeight = (mSpriteHeight / 2) * trans->GetScale();
 
 	Vec2 pos = trans->GetPosition();
 	float newPosX = pos.x
@@ -28,5 +28,5 @@ void SpriteRendererComponent::Draw(ICamera* cam)
 		- halfSpriteHeight * cos(trans->GetRotation())
 		- halfSpriteWidth * sin(trans->GetRotation());
 
-	cam->DrawSprite(_fileName, Vec2(newPosX, newPosY), nullptr, trans->GetRotation(), trans->GetScale(), _offset);
+	cam->DrawSprite(mSpriteFileName, Vec2(newPosX, newPosY), nullptr, trans->GetRotation(), trans->GetScale(), mOffset);
 }

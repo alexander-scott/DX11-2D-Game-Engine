@@ -12,9 +12,8 @@ namespace LevelBuilder
 
 	GameLevel* BuildGameLevel(std::string fileName);
 
-	inline LevelData& ExtractLevelData(xml_node<>* node);
+	inline LevelData ExtractLevelData(xml_node<>* node);
 
 	inline void UpdateTilePos(xml_node<>* node, GameObject* obj, LevelData& levelData);
 	inline void UpdateColliderBounds(xml_node<>* node, GameObject* obj, LevelData& levelData);
 }
-

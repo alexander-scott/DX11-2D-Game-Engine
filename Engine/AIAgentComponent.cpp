@@ -3,12 +3,12 @@
 #include "AddForceMessage.h"
 
 AIAgentComponent::AIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg, ProjectileManagerComponent * projectileMan, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime)
-	: _agentTransform(trans), _agentAnimator(anim), _agentRigidBody(rb), _agentDamageable(dmg), _agentProjectiles(projectileMan), _cameraTransform(cameraTransform), _patrolTime(patrolTime), _idleTime(idleTime)
+	: mAgentTransform(trans), mAgentAnimator(anim), mAgentRigidBody(rb), mAgentDamageable(dmg), mAgentProjectiles(projectileMan), mCameraTransform(cameraTransform), mPatrolTime(patrolTime), mIdleTime(idleTime)
 {
-	_currentPatrolTime = 0;
-	_currentIdleTime = 0;
-	_patrolDirection = startDir;
-	_currentState = AIAgentState::ePatrolling;
+	mCurrentPatrolTime = 0;
+	mCurrentIdleTime = 0;
+	mPatrolDirection = startDir;
+	mCurrentState = AIAgentState::ePatrolling;
 }
 
 AIAgentComponent::~AIAgentComponent()
@@ -17,7 +17,7 @@ AIAgentComponent::~AIAgentComponent()
 
 void AIAgentComponent::Update(float deltaTime)
 {
-	switch (_currentState)
+	switch (mCurrentState)
 	{
 		case AIAgentState::ePatrolling:
 		{
@@ -43,28 +43,28 @@ void AIAgentComponent::ShootAtPlayer(float deltaTime)
 void AIAgentComponent::Patrol(float deltaTime)
 {
 	// If the agent has spent more time patrolling than initially specified, move to being idle
-	if (_currentPatrolTime > _patrolTime)
+	if (mCurrentPatrolTime > mPatrolTime)
 	{
 		// If the agent has spent more time being idle than initially specified, restart the patrol in the opposite direction
-		if (_currentIdleTime > _idleTime)
+		if (mCurrentIdleTime > mIdleTime)
 		{
-			_patrolDirection = (_patrolDirection == AIAgentPatrolDirection::ePatrollingLeft) ? AIAgentPatrolDirection::ePatrollingRight : AIAgentPatrolDirection::ePatrollingLeft;
-			_currentPatrolTime = 0;
-			_currentIdleTime = 0;
+			mPatrolDirection = (mPatrolDirection == AIAgentPatrolDirection::ePatrollingLeft) ? AIAgentPatrolDirection::ePatrollingRight : AIAgentPatrolDirection::ePatrollingLeft;
+			mCurrentPatrolTime = 0;
+			mCurrentIdleTime = 0;
 		}
 		else 
 		{
-			_currentIdleTime += deltaTime;
+			mCurrentIdleTime += deltaTime;
 		}
 	}
 	else
 	{
 		Vec2 dir = Vec2(0.0f, 0.0f);
-		switch (_patrolDirection)
+		switch (mPatrolDirection)
 		{
 			case AIAgentPatrolDirection::ePatrollingLeft:
 			{
-				if (_agentRigidBody->GetVelocity().x > -AI_LATERAL_MAX_SPEED)
+				if (mAgentRigidBody->GetVelocity().x > -AI_LATERAL_MAX_SPEED)
 				{
 					dir.x -= 1;
 				}
@@ -73,7 +73,7 @@ void AIAgentComponent::Patrol(float deltaTime)
 
 			case AIAgentPatrolDirection::ePatrollingRight:
 			{
-				if (_agentRigidBody->GetVelocity().x < AI_LATERAL_MAX_SPEED)
+				if (mAgentRigidBody->GetVelocity().x < AI_LATERAL_MAX_SPEED)
 				{
 					dir.x += 1;
 				}
@@ -81,16 +81,15 @@ void AIAgentComponent::Patrol(float deltaTime)
 			}
 		}
 
-		AddForceMessage addForceMsg;
-		addForceMsg.SetForce(dir);
-		_agentRigidBody->RecieveMessage(addForceMsg);
+		AddForceMessage addForceMsg(dir);
+		mAgentRigidBody->RecieveMessage(addForceMsg);
 
-		_currentPatrolTime += deltaTime;
+		mCurrentPatrolTime += deltaTime;
 	}
 
 	if (CanSeePlayer())
 	{
-		_currentState = AIAgentState::eShooting;
+		mCurrentState = AIAgentState::eShooting;
 	}
 }
 
@@ -101,10 +100,10 @@ bool AIAgentComponent::CanSeePlayer()
 
 void AIAgentComponent::UpdateAnimation()
 {
-	float downVal = (_agentRigidBody->GetVelocity().y > 0) ? _agentRigidBody->GetVelocity().y : 0;
-	float upVal = (_agentRigidBody->GetVelocity().y < 0) ? (_agentRigidBody->GetVelocity().y * -1) : 0;
-	float leftVal = (_agentRigidBody->GetVelocity().x < 0) ? (_agentRigidBody->GetVelocity().x * -1) : 0;
-	float rightVal = (_agentRigidBody->GetVelocity().x > 0) ? _agentRigidBody->GetVelocity().x : 0;
+	float downVal = (mAgentRigidBody->GetVelocity().y > 0) ? mAgentRigidBody->GetVelocity().y : 0;
+	float upVal = (mAgentRigidBody->GetVelocity().y < 0) ? (mAgentRigidBody->GetVelocity().y * -1) : 0;
+	float leftVal = (mAgentRigidBody->GetVelocity().x < 0) ? (mAgentRigidBody->GetVelocity().x * -1) : 0;
+	float rightVal = (mAgentRigidBody->GetVelocity().x > 0) ? mAgentRigidBody->GetVelocity().x : 0;
 
 	UpdateAnimationSequenceMessage updateSeqMsg;
 
@@ -153,5 +152,5 @@ void AIAgentComponent::UpdateAnimation()
 		}
 	}
 
-	_agentAnimator->RecieveMessage(updateSeqMsg);
+	mAgentAnimator->RecieveMessage(updateSeqMsg);
 }

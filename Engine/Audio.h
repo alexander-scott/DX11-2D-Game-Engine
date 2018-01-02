@@ -27,7 +27,7 @@ public:
 
 	void PlaySoundEffect(std::string name);
 
-	void OnNewAudioDevice() { m_retryAudio = true; }
+	void OnNewAudioDevice() { mRetryAudio = true; }
 	void CreateSoundEffects();
 
 	static Audio& Instance()
@@ -37,7 +37,7 @@ public:
 	}
 
 private:
-	std::unique_ptr<DirectX::AudioEngine> m_audEngine;
-	std::map<std::string, std::unique_ptr<DirectX::SoundEffect>> m_audioFiles;
-	bool m_retryAudio;
+	std::unique_ptr<DirectX::AudioEngine>							mAudioEngine;
+	std::map<std::string, std::unique_ptr<DirectX::SoundEffect>>	mAudioFiles;
+	bool															mRetryAudio;
 };

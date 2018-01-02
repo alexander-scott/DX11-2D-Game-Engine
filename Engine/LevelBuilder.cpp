@@ -112,7 +112,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName)
 	return gameLevel;
 }
 
-LevelData& LevelBuilder::ExtractLevelData(xml_node<>* node)
+LevelData LevelBuilder::ExtractLevelData(xml_node<>* node)
 {
 	LevelData levelData;
 	levelData.levelLeftBounds = (float)atof(node->first_attribute("leftBound")->value());

@@ -28,23 +28,23 @@ private:
 
 	void UpdateAnimation();
 
-	TransformComponent*			_agentTransform;
-	SpriteAnimatorComponent*	_agentAnimator;
-	RigidBodyComponent*			_agentRigidBody;
-	DamageableComponent*		_agentDamageable;
+	TransformComponent*			mAgentTransform;
+	SpriteAnimatorComponent*	mAgentAnimator;
+	RigidBodyComponent*			mAgentRigidBody;
+	DamageableComponent*		mAgentDamageable;
 
-	ProjectileManagerComponent*			_agentProjectiles;
-	TransformComponent*			_cameraTransform;
+	ProjectileManagerComponent*	mAgentProjectiles;
+	TransformComponent*			mCameraTransform;
 
-	AIAgentState				_currentState;
+	AIAgentState				mCurrentState;
 
 	// PATROLLING STUFFF
-	float						_patrolTime;
-	float						_idleTime;
-	AIAgentPatrolDirection		_patrolDirection;
+	float						mPatrolTime;
+	float						mIdleTime;
+	AIAgentPatrolDirection		mPatrolDirection;
 
-	float						_currentPatrolTime;
-	float						_currentIdleTime;
+	float						mCurrentPatrolTime;
+	float						mCurrentIdleTime;
 
 	// SHOOTING STUFFF
 };

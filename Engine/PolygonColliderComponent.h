@@ -2,8 +2,6 @@
 
 #include "ColliderComponent.h"
 
-#define MaxPolyVertexCount 64
-
 class PolygonColliderComponent : public ColliderComponent
 {
 public:
@@ -15,20 +13,20 @@ public:
 	virtual Rect GetRect() override;
 	virtual Rect GetPreviousRect() override;
 
+	virtual Vec2 GetCentre() override { return Vec2(mTransformComponent->GetPosition().x + mHalfWidth, mTransformComponent->GetPosition().y + mHalfHeight); }
+
 	void SetVerticies(Vec2 *vertices, int count);
 	Vec2 GetSupport(const Vec2& dir);
 
-	int m_vertexCount;
-	Vec2 m_vertices[MaxPolyVertexCount];
-	Vec2 m_normals[MaxPolyVertexCount];
-
-	virtual Vec2 GetCentre() override { return Vec2(_transformComponent->GetPosition().x + _halfWidth, _transformComponent->GetPosition().y + _halfHeight); }
+	int VertexCount;
+	Vec2 Vertices[MAX_POLY_VERTEX_COUNT];
+	Vec2 Normals[MAX_POLY_VERTEX_COUNT];
 
 protected:	
-	float				_halfWidth;
-	float				_halfHeight;
+	float				mHalfWidth;
+	float				mHalfHeight;
 
 private:
-	Vec2				_centre;
+	Vec2				mCentre;
 };
 

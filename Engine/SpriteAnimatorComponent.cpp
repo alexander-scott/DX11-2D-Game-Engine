@@ -3,7 +3,7 @@
 
 SpriteAnimatorComponent::SpriteAnimatorComponent()
 {
-	_type = "Sprite Animator";
+	mType = "Sprite Animator";
 }
 
 
@@ -16,8 +16,8 @@ void SpriteAnimatorComponent::Draw(ICamera* cam)
 {
 	TransformComponent* trans = GetTransform();
 
-	float halfSpriteWidth = (_spriteWidth / 2) * trans->GetScale();
-	float halfSpriteHeight = (_spriteHeight / 2) * trans->GetScale();
+	float halfSpriteWidth = (mSpriteWidth / 2) * trans->GetScale();
+	float halfSpriteHeight = (mSpriteHeight / 2) * trans->GetScale();
 
 	Vec2 pos = trans->GetPosition();
 	float newPosX = pos.x
@@ -28,12 +28,12 @@ void SpriteAnimatorComponent::Draw(ICamera* cam)
 		- halfSpriteHeight * cos(trans->GetRotation())
 		- halfSpriteWidth * sin(trans->GetRotation());
 
-	cam->DrawSprite(_fileName, Vec2(newPosX, newPosY), _animations[(int)iCurSequence]._animationFrames[_animations[(int)iCurSequence]._currentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale());
+	cam->DrawSprite(mSpriteFileName, Vec2(newPosX, newPosY), mAnimations[(int)mSequenceIndex].AnimationFrames[mAnimations[(int)mSequenceIndex].CurrentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale());
 }
 
 void SpriteAnimatorComponent::Update(float deltaTime)
 {
-	_animations[(int)iCurSequence].Advance(deltaTime);
+	mAnimations[(int)mSequenceIndex].Advance(deltaTime);
 }
 
 void SpriteAnimatorComponent::RecieveMessage(IMessage & message)
@@ -49,18 +49,18 @@ void SpriteAnimatorComponent::RecieveMessage(IMessage & message)
 
 void SpriteAnimatorComponent::SetAnimations(int currentAnim, std::vector<AnimationDesc> animDescs)
 {
-	iCurSequence = currentAnim;
+	mSequenceIndex = currentAnim;
 
 	for (auto& animDesc : animDescs)
 	{
 		for (int i = animDesc.StartingIndex; i < animDesc.EndingIndex; i++)
 		{
-			_animations.emplace_back(Anim(animDesc.X, animDesc.Y * (i - animDesc.StartingIndex), animDesc.Width, animDesc.Height, animDesc.FrameCount, animDesc.HoldTime));
+			mAnimations.emplace_back(Anim(animDesc.X, animDesc.Y * (i - animDesc.StartingIndex), animDesc.Width, animDesc.Height, animDesc.FrameCount, animDesc.HoldTime));
 		}
 	}
 }
 
 void SpriteAnimatorComponent::UpdateAnimationSequence(int sequence)
 {
-	iCurSequence = sequence;
+	mSequenceIndex = sequence;
 }

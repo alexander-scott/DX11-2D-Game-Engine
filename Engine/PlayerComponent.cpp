@@ -6,11 +6,11 @@
 
 PlayerComponent::PlayerComponent(TransformComponent* trans, SpriteAnimatorComponent* anim, 
 	RigidBodyComponent* rb, DamageableComponent* dmg, ProjectileManagerComponent* projectileMan, TransformComponent* cameraTransform)
-	: _playerTransform(trans), _playerAnimator(anim), _playerRigidBody(rb), _playerDamageable(dmg), _playerProjectiles(projectileMan), _cameraTransform(cameraTransform)
+	: mPlayerTransform(trans), mPlayerAnimator(anim), mPlayerRigidBody(rb), mPlayerDamageable(dmg), mPlayerProjectiles(projectileMan), mCameraTransform(cameraTransform)
 {
-	_grounded = false;
-	_canJump = true;
-	_isShooting = false;
+	mIsGrounded = false;
+	mCanJump = false;
+	mIsShooting = false;
 }
 
 
@@ -20,12 +20,12 @@ PlayerComponent::~PlayerComponent()
 
 void PlayerComponent::Update(float deltaTime)
 {
-	if (!_playerDamageable->IsDead())
+	if (!mPlayerDamageable->IsDead())
 	{
 		CheckInput();
 		UpdateAnimation();
 
-		_grounded = false;
+		mIsGrounded = false;
 	}
 	else 
 	{
@@ -39,17 +39,17 @@ void PlayerComponent::RecieveMessage(IMessage & message)
 	{
 		case MessageType::eCollision:
 			CollisionMessage& colMsg = static_cast<CollisionMessage &> (message);
-			if (colMsg.collidedObject->GetTag() == "Tile")
+			if (colMsg.CollidedObject->GetTag() == "Tile")
 			{
-				TransformComponent* tileTrans = colMsg.collidedObject->GetComponent<TransformComponent>();
+				TransformComponent* tileTrans = colMsg.CollidedObject->GetComponent<TransformComponent>();
 
 				// Check if the tile we have collided with is directly beneath us aka we're standing on it. And make sure it's not a tile that is touching our sides
-				if (tileTrans->GetPosition().y > _playerTransform->GetPosition().y &&
-					!(tileTrans->GetPosition().x <= _playerTransform->GetPosition().x - 32 || 
-						tileTrans->GetPosition().x >= _playerTransform->GetPosition().x + 32))
+				if (tileTrans->GetPosition().y > mPlayerTransform->GetPosition().y &&
+					!(tileTrans->GetPosition().x <= mPlayerTransform->GetPosition().x - 32 || 
+						tileTrans->GetPosition().x >= mPlayerTransform->GetPosition().x + 32))
 				{
 					// If it is then we are on the ground
-					_grounded = true;
+					mIsGrounded = true;
 				}
 			}
 
@@ -59,10 +59,10 @@ void PlayerComponent::RecieveMessage(IMessage & message)
 
 void PlayerComponent::UpdateAnimation()
 {
-	float downVal = (_playerRigidBody->GetVelocity().y > 0) ? _playerRigidBody->GetVelocity().y : 0;
-	float upVal = (_playerRigidBody->GetVelocity().y < 0) ? (_playerRigidBody->GetVelocity().y * -1) : 0;
-	float leftVal = (_playerRigidBody->GetVelocity().x < 0) ? (_playerRigidBody->GetVelocity().x * -1) : 0;
-	float rightVal = (_playerRigidBody->GetVelocity().x > 0) ? _playerRigidBody->GetVelocity().x : 0;
+	float downVal = (mPlayerRigidBody->GetVelocity().y > 0) ? mPlayerRigidBody->GetVelocity().y : 0;
+	float upVal = (mPlayerRigidBody->GetVelocity().y < 0) ? (mPlayerRigidBody->GetVelocity().y * -1) : 0;
+	float leftVal = (mPlayerRigidBody->GetVelocity().x < 0) ? (mPlayerRigidBody->GetVelocity().x * -1) : 0;
+	float rightVal = (mPlayerRigidBody->GetVelocity().x > 0) ? mPlayerRigidBody->GetVelocity().x : 0;
 
 	UpdateAnimationSequenceMessage updateSeqMsg;
 
@@ -111,7 +111,7 @@ void PlayerComponent::UpdateAnimation()
 		}
 	}
 
-	_playerAnimator->RecieveMessage(updateSeqMsg);
+	mPlayerAnimator->RecieveMessage(updateSeqMsg);
 }
 
 void PlayerComponent::CheckInput()
@@ -119,27 +119,27 @@ void PlayerComponent::CheckInput()
 	Vec2 dir = Vec2(0.0f, 0.0f);
 
 	// If the player is on the ground they are allowed to jump. The player cannot hold down jump however, they must release the space bar before jumping again
-	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && _grounded && _canJump)
+	if (Keyboard::Instance().KeyIsPressed(VK_SPACE) && mIsGrounded && mCanJump)
 	{
-		_canJump = false;
+		mCanJump = false;
 		dir.y -= 20;
 		Audio::Instance().PlaySoundEffect("Jump");
 	}
 	else if (!Keyboard::Instance().KeyIsPressed(VK_SPACE))
 	{
-		_canJump = true;
+		mCanJump = true;
 	}
 
 	if (Keyboard::Instance().KeyIsPressed(VK_LEFT))
 	{
-		if (_playerRigidBody->GetVelocity().x > -PLAYER_LATERAL_MAX_SPEED)
+		if (mPlayerRigidBody->GetVelocity().x > -PLAYER_LATERAL_MAX_SPEED)
 		{
 			dir.x -= 1;
 		}
 	}
 	if (Keyboard::Instance().KeyIsPressed(VK_RIGHT))
 	{
-		if (_playerRigidBody->GetVelocity().x < PLAYER_LATERAL_MAX_SPEED)
+		if (mPlayerRigidBody->GetVelocity().x < PLAYER_LATERAL_MAX_SPEED)
 		{
 			dir.x += 1;
 		}
@@ -148,33 +148,32 @@ void PlayerComponent::CheckInput()
 	// Move the player in the specified direction
 	if (dir.x != 0 || dir.y != 0)
 	{
-		AddForceMessage addForceMsg;
-		addForceMsg.SetForce(dir);
-		_playerRigidBody->RecieveMessage(addForceMsg);
+		AddForceMessage addForceMsg(dir);
+		mPlayerRigidBody->RecieveMessage(addForceMsg);
 	}
 
 	if (Mouse::Instance().LeftIsPressed())
 	{
-		if (!_isShooting)
+		if (!mIsShooting)
 		{
-			_isShooting = true;
+			mIsShooting = true;
 			ShootProjectile();
 		}
 	}
 	else
 	{
-		_isShooting = false;
+		mIsShooting = false;
 	}
 }
 
 void PlayerComponent::ShootProjectile()
 {
-	GameObject* go = _playerProjectiles->GetGameObject("Enemy", PLAYER_PROJECTILE_DAMAGE);
-	Vec2 spawnPos = Vec2(Mouse::Instance().GetPosX() + _cameraTransform->GetPosition().x, Mouse::Instance().GetPosY() + _cameraTransform->GetPosition().y);
-	Vec2 dir = spawnPos - _playerTransform->GetPosition();
+	GameObject* go = mPlayerProjectiles->GetGameObject("Enemy", PLAYER_PROJECTILE_DAMAGE);
+	Vec2 spawnPos = Vec2(Mouse::Instance().GetPosX() + mCameraTransform->GetPosition().x, Mouse::Instance().GetPosY() + mCameraTransform->GetPosition().y);
+	Vec2 dir = spawnPos - mPlayerTransform->GetPosition();
 	dir.Normalize();
 
-	go->GetComponent<TransformComponent>()->SetPosition(_playerTransform->GetPosition() + (dir * 10));
+	go->GetComponent<TransformComponent>()->SetPosition(mPlayerTransform->GetPosition() + (dir * 10));
 	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * PLAYER_PROJECTILE_SPEED);
 
 	Audio::Instance().PlaySoundEffect("GunShot");

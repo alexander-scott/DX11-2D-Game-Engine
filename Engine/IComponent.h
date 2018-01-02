@@ -6,13 +6,13 @@ using namespace std;
 
 class IComponent
 {
-protected:
-	string			_type;
-	bool			_active = true;
-
 public:
-	virtual string GetType() { return _type; }
+	virtual string GetType() { return mType; }
 
-	void SetActive(bool active) { _active = active; }
-	bool GetActive() { return _active; }
+	void SetActive(bool active) { mActive = active; }
+	bool GetActive() { return mActive; }
+
+protected:
+	string			mType;
+	bool			mActive = true;
 };

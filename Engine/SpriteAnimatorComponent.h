@@ -17,14 +17,9 @@ class SpriteAnimatorComponent : public IComponent, public IDrawable, public IUpd
 public:
 	struct Anim
 	{
-		std::vector<RECT*>				_animationFrames;
-		float							_holdTime;
-
-		int								_currentFrame = 0;
-		float							_currentFrameTime = 0.0f;
-
+	public:
 		Anim(int x, int y, int width, int height, int count, float holdTime) :
-			_holdTime(holdTime)
+			mHoldTime(holdTime)
 		{
 			for (int i = 0; i < count; i++)
 			{
@@ -34,23 +29,31 @@ public:
 				r->top = y;
 				r->bottom = y + height;
 
-				_animationFrames.emplace_back(r);
+				AnimationFrames.emplace_back(r);
 			}
 		}
 
 		void Advance(float dt)
 		{
-			_currentFrameTime += dt;
-			while (_currentFrameTime >= _holdTime)
+			mCurrentFrameTime += dt;
+			while (mCurrentFrameTime >= mHoldTime)
 			{
-				if (++_currentFrame >= _animationFrames.size())
+				if (++CurrentFrame >= AnimationFrames.size())
 				{
-					_currentFrame = 0;
+					CurrentFrame = 0;
 				}
 
-				_currentFrameTime -= _holdTime;
+				mCurrentFrameTime -= mHoldTime;
 			}
 		}
+
+		std::vector<RECT*>				AnimationFrames;
+		int								CurrentFrame = 0;
+
+	private:
+		float							mHoldTime;
+		float							mCurrentFrameTime = 0.0f;
+
 	};
 
 	SpriteAnimatorComponent();
@@ -60,18 +63,18 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void RecieveMessage(IMessage& message) override;
 
-	void SetFilename(std::string fileName) { _fileName = fileName; }
+	void SetFilename(std::string fileName) { mSpriteFileName = fileName; }
 	void SetAnimations(int currentAnim, std::vector<AnimationDesc> animDescs);
-	void SetWidthHeight(float wid, float hei) { _spriteWidth = wid; _spriteHeight = hei; }
+	void SetWidthHeight(float wid, float hei) { mSpriteWidth = wid; mSpriteHeight = hei; }
 
 private:
 	void UpdateAnimationSequence(int sequence);
 
-	int iCurSequence;
-	std::vector<Anim>				_animations;
-	std::string						_fileName;
+	int								mSequenceIndex;
+	std::vector<Anim>				mAnimations;
+	std::string						mSpriteFileName;
 
-	float							_spriteWidth;
-	float							_spriteHeight;
+	float							mSpriteWidth;
+	float							mSpriteHeight;
 };
 

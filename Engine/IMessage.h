@@ -4,9 +4,9 @@
 
 class IMessage
 {
-protected:
-	MessageType _type;
-
 public:
-	virtual MessageType GetType() const { return _type; }
+	virtual MessageType GetType() const { return mMessageType; }
+
+protected:
+	MessageType mMessageType;
 };

@@ -2,12 +2,12 @@
 
 GameObject::GameObject(std::string tag)
 {
-	_tag = tag;
+	mTag = tag;
 }
 
 GameObject::~GameObject()
 {
-	for (auto component : _components)
+	for (auto component : mComponents)
 	{
 		delete component;
 		component = nullptr;
@@ -18,13 +18,13 @@ void GameObject::AddComponent(IComponent * component)
 {
 	if (component != nullptr)
 	{
-		_components.push_back(component);
+		mComponents.push_back(component);
 	}
 }
 
 void GameObject::SendMessageToComponents(IMessage & message)
 {
-	for (auto component : _components)
+	for (auto component : mComponents)
 	{
 		if (component->GetActive())
 		{
@@ -42,7 +42,7 @@ void GameObject::SendMessageToComponents(IMessage & message)
 
 void GameObject::Draw(ICamera* cam) const
 {
-	for (auto component : _components)
+	for (auto component : mComponents)
 	{
 		if (component->GetActive())
 		{
@@ -61,7 +61,7 @@ void GameObject::Draw(ICamera* cam) const
 void GameObject::Update(float deltaTime)
 {
 	// Update all updateable components
-	for (auto component : _components)
+	for (auto component : mComponents)
 	{
 		if (component->GetActive())
 		{

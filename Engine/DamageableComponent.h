@@ -14,10 +14,9 @@ public:
 	void RecieveDamage(float dmg);
 	virtual void RecieveMessage(IMessage &msg) override;
 
-	bool IsDead() { return _isDead; }
+	bool IsDead() { return mIsDead; }
 
 private:
-	float				_health;
-	bool				_isDead;
+	float				mHealth;
+	bool				mIsDead;
 };
-

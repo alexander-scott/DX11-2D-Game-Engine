@@ -30,6 +30,8 @@ static constexpr int TILE_HEIGHT = 45;
 static constexpr int MAX_QUADTREE_OBJECTS = 10;
 static constexpr int MAX_QUADTREE_LEVELS = 5;
 
+static constexpr int MAX_POLY_VERTEX_COUNT = 64;
+
 #pragma endregion
 
 #pragma region Enums

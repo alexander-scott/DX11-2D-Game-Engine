@@ -2,9 +2,9 @@
 
 DamageableComponent::DamageableComponent(float startHealth)
 {
-	_type = "Damageable Component";
-	_health = startHealth;
-	_isDead = false;
+	mType = "Damageable Component";
+	mHealth = startHealth;
+	mIsDead = false;
 }
 
 DamageableComponent::~DamageableComponent()
@@ -13,12 +13,12 @@ DamageableComponent::~DamageableComponent()
 
 void DamageableComponent::RecieveDamage(float dmg)
 {
-	_health -= dmg;
+	mHealth -= dmg;
 
-	if (_health <= 0)
+	if (mHealth <= 0)
 	{
-		_health = 0;
-		_isDead = true;
+		mHealth = 0;
+		mIsDead = true;
 	}
 }
 
@@ -28,7 +28,7 @@ void DamageableComponent::RecieveMessage(IMessage & msg)
 	{
 		case MessageType::eRecieveDamage:
 			RecieveDamageMessage& recieveDmgMsg = static_cast<RecieveDamageMessage &> (msg);
-			RecieveDamage(recieveDmgMsg._damage);
+			RecieveDamage(recieveDmgMsg.Damage);
 			break;
 	}
 }

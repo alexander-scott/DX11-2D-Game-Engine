@@ -22,23 +22,23 @@ public:
 
 	void AddComponent(IComponent* component);
 
-	std::string GetTag() { return _tag; }
+	std::string GetTag() { return mTag; }
 
 	void SetActive(bool active) 
 	{
-		_active = active;
-		for (auto component : _components)
+		mActive = active;
+		for (auto component : mComponents)
 		{
 			component->SetActive(active);
 		}
 	}
 
-	bool GetActive() { return _active; }
+	bool GetActive() { return mActive; }
 
 	template<class T>
 	T * GetComponent()
 	{
-		for (auto component : _components)
+		for (auto component : mComponents)
 		{
 			T* tComponent = dynamic_cast<T *> (component);
 
@@ -55,7 +55,7 @@ public:
 	std::vector<T*> GetComponents()
 	{
 		std::vector<T*> components;
-		for (auto component : _components)
+		for (auto component : mComponents)
 		{
 			T* tComponent = dynamic_cast<T *> (component);
 
@@ -69,7 +69,7 @@ public:
 	}
 
 protected:
-	std::vector<IComponent*>	_components;
-	std::string					_tag;
-	bool						_active;
+	std::vector<IComponent*>	mComponents;
+	std::string					mTag;
+	bool						mActive;
 };

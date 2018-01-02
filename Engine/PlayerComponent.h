@@ -27,16 +27,16 @@ private:
 
 	void ShootProjectile();
 
-	TransformComponent*			_playerTransform;
-	SpriteAnimatorComponent*	_playerAnimator;
-	RigidBodyComponent*			_playerRigidBody;
-	DamageableComponent*		_playerDamageable;
+	TransformComponent*			mPlayerTransform;
+	SpriteAnimatorComponent*	mPlayerAnimator;
+	RigidBodyComponent*			mPlayerRigidBody;
+	DamageableComponent*		mPlayerDamageable;
 
-	ProjectileManagerComponent*	_playerProjectiles;
-	TransformComponent*			_cameraTransform;
+	ProjectileManagerComponent*	mPlayerProjectiles;
+	TransformComponent*			mCameraTransform;
 
-	bool						_grounded;
-	bool						_canJump;
-	bool						_isShooting;
+	bool						mIsGrounded;
+	bool						mCanJump;
+	bool						mIsShooting;
 };
 

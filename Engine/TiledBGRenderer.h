@@ -16,20 +16,20 @@ public:
 	virtual void Draw(ICamera* cam) override;
 	virtual void Update(float deltaTime) override;
 
-	void SetFocusTrans(TransformComponent* focTrans) { _focusTrans = focTrans; _prevFocusPos = _focusTrans->GetPosition(); }
-	void SetSprite(std::string sName, float sWidth, float sHeight) { _spriteName = sName; _spriteWidth = sWidth; _spriteHeight = sHeight; }
-	void SetScrollRate(float mRate) { _scrollRate = mRate; }
-	void SetDirection(TiledBGDirection dir) { _scrollDir = dir; }
+	void SetFocusTrans(TransformComponent* focTrans) { mFocusTrans = focTrans; mPrevFocusPos = mFocusTrans->GetPosition(); }
+	void SetSprite(std::string sName, float sWidth, float sHeight) { mSpriteFileName = sName; mSpriteWidth = sWidth; mSpriteHeight = sHeight; }
+	void SetScrollRate(float mRate) { mScrollRate = mRate; }
+	void SetDirection(TiledBGDirection dir) { mScrollDir = dir; }
 
 private:
-	TransformComponent*					_focusTrans;
+	TransformComponent*					mFocusTrans;
 
-	Vec2								_prevFocusPos;
-	float								_scrollRate;
+	Vec2								mPrevFocusPos;
+	float								mScrollRate;
 
-	TiledBGDirection					_scrollDir;
+	TiledBGDirection					mScrollDir;
 
-	std::string							_spriteName;
-	float								_spriteWidth;
-	float								_spriteHeight;
+	std::string							mSpriteFileName;
+	float								mSpriteWidth;
+	float								mSpriteHeight;
 };

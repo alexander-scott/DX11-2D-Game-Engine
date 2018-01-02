@@ -4,18 +4,18 @@
 
 void PhysicsManager::BuildGrid(int levelWidth, int levelHeight)
 {
-	_objectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100);
+	mObjectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100);
 }
 
 PhysicsManager::~PhysicsManager()
 {
-	delete _objectGrid;
+	delete mObjectGrid;
 }
 
 void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * collider)
 {
-	_gameObjects.push_back(gameObject);
-	_colliders.push_back(collider);
+	mGameObjects.push_back(gameObject);
+	mColliders.push_back(collider);
 
 	// LEFT, TOP, RIGHT, BOTTOM
 	Rect r = collider->GetRect();
@@ -25,16 +25,16 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	ltrb[2] = r.RightX;
 	ltrb[3] = std::abs(r.BotY);
 
-	_objectGrid->insert(ltrb, (int)_colliders.size() - 1);
+	mObjectGrid->insert(ltrb, (int)mColliders.size() - 1);
 
 	Vec2 objectCentre = collider->GetCentre();
-	collider->GridSquare = _objectGrid->cell_index(objectCentre.x, std::abs(objectCentre.y));
+	collider->GridSquare = mObjectGrid->cell_index((int)objectCentre.x, (int)std::abs(objectCentre.y));
 }
 
 void PhysicsManager::Update(float deltaTime)
 {
 	// Generate new collision info
-	_contacts.clear();
+	mContacts.clear();
 
 	//for (int i = 0; i < _colliders.size(); i++)
 	//{
@@ -150,16 +150,16 @@ void PhysicsManager::Update(float deltaTime)
 	//	}
 	//}
 
-	for (int i = 0; i < _colliders.size(); ++i)
+	for (int i = 0; i < mColliders.size(); ++i)
 	{
-		ColliderComponent *A = _colliders[i];
+		ColliderComponent *A = mColliders[i];
 
 		if (!A->GetActive())
 			continue;
 
-		for (int j = i + 1; j < _colliders.size(); ++j)
+		for (int j = i + 1; j < mColliders.size(); ++j)
 		{
-			ColliderComponent *B = _colliders[j];
+			ColliderComponent *B = mColliders[j];
 			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
 				continue;
 
@@ -171,41 +171,41 @@ void PhysicsManager::Update(float deltaTime)
 
 			if (collision.GetContactCount())
 			{
-				_contacts.emplace_back(collision);
+				mContacts.emplace_back(collision);
 
-				CollisionMessage colMsg(_gameObjects[i]);
-				_gameObjects[j]->SendMessageToComponents(colMsg);
+				CollisionMessage colMsg(mGameObjects[i]);
+				mGameObjects[j]->SendMessageToComponents(colMsg);
 
-				CollisionMessage colMsg2(_gameObjects[j]);
-				_gameObjects[i]->SendMessageToComponents(colMsg2);
+				CollisionMessage colMsg2(mGameObjects[j]);
+				mGameObjects[i]->SendMessageToComponents(colMsg2);
 			}
 		}
 	}
 
 	// Integrate forces
-	for (int i = 0; i < _colliders.size(); ++i)
-		IntegrateForces(_colliders[i], deltaTime);
+	for (int i = 0; i < mColliders.size(); ++i)
+		IntegrateForces(mColliders[i], deltaTime);
 
 	// Initialize collision
-	for (int i = 0; i < _contacts.size(); ++i)
-		_contacts[i].Initialize(deltaTime);
+	for (int i = 0; i < mContacts.size(); ++i)
+		mContacts[i].Initialize(deltaTime);
 		
 	// Solve collisions
-	for (int i = 0; i < _contacts.size(); ++i)
-		_contacts[i].ApplyImpulse();
+	for (int i = 0; i < mContacts.size(); ++i)
+		mContacts[i].ApplyImpulse();
 
 	// Integrate velocities
-	for (int i = 0; i < _colliders.size(); ++i)
-		IntegrateVelocity(_colliders[i], deltaTime);
+	for (int i = 0; i < mColliders.size(); ++i)
+		IntegrateVelocity(mColliders[i], deltaTime);
 
 	// Correct positions
-	for (int i = 0; i < _contacts.size(); ++i)
-		_contacts[i].PositionalCorrection();
+	for (int i = 0; i < mContacts.size(); ++i)
+		mContacts[i].PositionalCorrection();
 
 	// Clear all forces
-	for (int i = 0; i < _colliders.size(); ++i)
+	for (int i = 0; i < mColliders.size(); ++i)
 	{
-		ColliderComponent *b = _colliders[i];
+		ColliderComponent *b = mColliders[i];
 		b->GetRigidbodyComponent()->SetForce(Vec2(0, 0));
 		b->GetRigidbodyComponent()->SetTorque(0);
 	}

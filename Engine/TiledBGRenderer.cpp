@@ -27,18 +27,18 @@ void TiledBGRenderer::Draw(ICamera * cam)
 	// Find the closest X centre
 	while (true)
 	{
-		if (_focusTrans->GetPosition().x > 0)
-			centreTileXPos = GetTransform()->GetPosition().x + (_spriteWidth * count);
+		if (mFocusTrans->GetPosition().x > 0)
+			centreTileXPos = GetTransform()->GetPosition().x + (mSpriteWidth * count);
 		else
-			centreTileXPos = GetTransform()->GetPosition().x - (_spriteWidth * count);
-		xDiffNew = std::abs(centreTileXPos - _focusTrans->GetPosition().x);
+			centreTileXPos = GetTransform()->GetPosition().x - (mSpriteWidth * count);
+		xDiffNew = std::abs(centreTileXPos - mFocusTrans->GetPosition().x);
 
 		if (xDiffNew > xDiffOld)
 		{
-			if (_focusTrans->GetPosition().x > 0)
-				centreTileXPos -= _spriteWidth/2;
+			if (mFocusTrans->GetPosition().x > 0)
+				centreTileXPos -= mSpriteWidth/2;
 			else
-				centreTileXPos += _spriteWidth/2;
+				centreTileXPos += mSpriteWidth/2;
 			break;
 		}
 		else 
@@ -56,18 +56,18 @@ void TiledBGRenderer::Draw(ICamera * cam)
 	// Find the closest Y centre
 	while (true)
 	{
-		if (_focusTrans->GetPosition().y > 0)
-			centreTileYPos = GetTransform()->GetPosition().y + (_spriteHeight * count);
+		if (mFocusTrans->GetPosition().y > 0)
+			centreTileYPos = GetTransform()->GetPosition().y + (mSpriteHeight * count);
 		else
-			centreTileYPos = GetTransform()->GetPosition().y - (_spriteHeight * count);
-		yDiffNew = std::abs(centreTileYPos - _focusTrans->GetPosition().y);
+			centreTileYPos = GetTransform()->GetPosition().y - (mSpriteHeight * count);
+		yDiffNew = std::abs(centreTileYPos - mFocusTrans->GetPosition().y);
 
 		if (yDiffNew > yDiffOld)
 		{
-			if (_focusTrans->GetPosition().y > 0)
-				centreTileYPos -= _spriteHeight / 2;
+			if (mFocusTrans->GetPosition().y > 0)
+				centreTileYPos -= mSpriteHeight / 2;
 			else
-				centreTileYPos += _spriteHeight / 2;
+				centreTileYPos += mSpriteHeight / 2;
 			break;
 		}
 		else
@@ -77,19 +77,19 @@ void TiledBGRenderer::Draw(ICamera * cam)
 		}
 	}
 
-	switch (_scrollDir)
+	switch (mScrollDir)
 	{
 		case TiledBGDirection::eHorizontal:
 			for (int i = -2; i < 3; i++)
 			{
-				cam->DrawSprite(_spriteName, Vec2(centreTileXPos + (i * _spriteWidth), GetTransform()->GetPosition().y), nullptr, 0);
+				cam->DrawSprite(mSpriteFileName, Vec2(centreTileXPos + (i * mSpriteWidth), GetTransform()->GetPosition().y), nullptr, 0);
 			}
 			break;
 
 		case TiledBGDirection::eVertical:
 			for (int i = -2; i < 3; i++)
 			{
-				cam->DrawSprite(_spriteName, Vec2(GetTransform()->GetPosition().x, centreTileYPos + (i * _spriteHeight)), nullptr, 0);
+				cam->DrawSprite(mSpriteFileName, Vec2(GetTransform()->GetPosition().x, centreTileYPos + (i * mSpriteHeight)), nullptr, 0);
 			}
 			break;
 
@@ -99,7 +99,7 @@ void TiledBGRenderer::Draw(ICamera * cam)
 			{
 				for (int j = -2; j < 3; j++)
 				{
-					cam->DrawSprite(_spriteName, Vec2(centreTileXPos + (i * _spriteWidth), centreTileYPos + (j * _spriteHeight)), nullptr, 0);
+					cam->DrawSprite(mSpriteFileName, Vec2(centreTileXPos + (i * mSpriteWidth), centreTileYPos + (j * mSpriteHeight)), nullptr, 0);
 				}
 			}
 			break;
@@ -108,7 +108,7 @@ void TiledBGRenderer::Draw(ICamera * cam)
 
 void TiledBGRenderer::Update(float deltaTime)
 {
-	Vec2 dist = _focusTrans->GetPosition() - _prevFocusPos;
+	Vec2 dist = mFocusTrans->GetPosition() - mPrevFocusPos;
 	float length = dist.Len();
 	if (length < 1)
 	{
@@ -117,7 +117,7 @@ void TiledBGRenderer::Update(float deltaTime)
 
 	dist.Normalize();
 
-	switch (_scrollDir)
+	switch (mScrollDir)
 	{
 		case TiledBGDirection::eHorizontal:
 			dist.y = 0;
@@ -128,6 +128,6 @@ void TiledBGRenderer::Update(float deltaTime)
 			break;
 	}
 
-	GetTransform()->SetPosition(GetTransform()->GetPosition() - (dist * _scrollRate));
-	_prevFocusPos = _focusTrans->GetPosition();
+	GetTransform()->SetPosition(GetTransform()->GetPosition() - (dist * mScrollRate));
+	mPrevFocusPos = mFocusTrans->GetPosition();
 }

@@ -4,7 +4,7 @@
 
 RigidBodyComponent::RigidBodyComponent(float staticF, float dynamicF, float rest)
 {
-	_type = "Rigidbody";
+	mType = "Rigidbody";
 
 	rigidbodyData = RigidBodyData(Vec2(0,0), 0, 0, Vec2(0,0), 0, 0, 0);
 	
@@ -30,7 +30,7 @@ void RigidBodyComponent::RecieveMessage(IMessage & message)
 	{
 	case MessageType::eAddForce:
 		AddForceMessage& addForceMsg = static_cast<AddForceMessage &> (message);
-		ApplyForce(addForceMsg.GetForce());
+		ApplyForce(addForceMsg.Force);
 		break;
 	}
 }

@@ -5,14 +5,6 @@
 
 class TransformComponent : public IComponent
 {
-private:
-	Vec2					_pos;
-	float					_rot; // RADIANS
-	float					_scale;
-
-	bool					_hasChanged;
-	Vec2					mPreviousPosition;
-
 public:
 	TransformComponent(Vec2 position, float rotation, float scale);
 	~TransformComponent();
@@ -20,15 +12,23 @@ public:
 	void SetPosition(Vec2 position);
 	void SetPreviousPosition(Vec2 position) { mPreviousPosition = position; }
 
-	void SetScale(float scale) { _scale = scale; }
-	void SetRotation(float rot) { _rot = rot; }
+	void SetScale(float scale) { mScale = scale; }
+	void SetRotation(float rot) { mRotation = rot; }
 
-	float GetRotation() const { return _rot; }
-	float GetScale() const { return _scale; }
-	Vec2 GetPosition() const { return _pos; }
+	float GetRotation() const { return mRotation; }
+	float GetScale() const { return mScale; }
+	Vec2 GetPosition() const { return mPosition; }
 
 	Vec2 GetPreviousPosition() const { return mPreviousPosition; }
 
-	bool CheckChanged() { return _hasChanged; }
-	void SetChanged(bool changed) { _hasChanged = changed; }
+	bool CheckChanged() { return mHasChanged; }
+	void SetChanged(bool changed) { mHasChanged = changed; }
+
+private:
+	Vec2					mPosition;
+	float					mRotation; // RADIANS
+	float					mScale;
+
+	bool					mHasChanged;
+	Vec2					mPreviousPosition;
 };

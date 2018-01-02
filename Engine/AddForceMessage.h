@@ -6,15 +6,12 @@
 class AddForceMessage : public IMessage
 {
 public:
-	AddForceMessage()
+	AddForceMessage(Vec2 force)
 	{
-		_type = MessageType::eAddForce;
+		mMessageType = MessageType::eAddForce;
+		Force = force;
 	}
 
-	void SetForce(Vec2 force) { _force = force; }
-	Vec2 GetForce() { return _force; }
-
-private:
-	Vec2				_force;
+	Vec2				Force;
 };
 
