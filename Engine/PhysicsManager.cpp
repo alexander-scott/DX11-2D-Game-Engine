@@ -4,7 +4,7 @@
 
 void PhysicsManager::BuildGrid(int levelWidth, int levelHeight)
 {
-	_objectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 50, 50);
+	_objectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100);
 }
 
 PhysicsManager::~PhysicsManager()
@@ -68,7 +68,7 @@ void PhysicsManager::Update(float deltaTime)
 		int cell = _objectGrid->cell_index(r.Centre.x, std::abs(r.Centre.y));
 		auto item = _objectGrid->first(cell);
 
-		while (item != nullptr && item->element != 0)
+		while (item != nullptr && item->element != -1)
 		{
 			int element = item->element;
 			item = _objectGrid->next(item);
