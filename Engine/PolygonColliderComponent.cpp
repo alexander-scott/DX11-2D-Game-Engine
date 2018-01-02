@@ -67,9 +67,9 @@ Rect PolygonColliderComponent::GetRect()
 		Vec2 pos = _transformComponent->GetPosition();
 		Rect r;
 		r.LeftX = pos.x;
-		r.TopY = pos.y;
-		r.RightX = pos.x + (_halfWidth * 2);
 		r.BotY = pos.y + (_halfHeight * 2);
+		r.RightX = pos.x + (_halfWidth * 2);
+		r.TopY = pos.y;
 		r.Centre = Vec2(pos.x + _halfWidth, pos.y + _halfHeight);
 		return r;
 	}
