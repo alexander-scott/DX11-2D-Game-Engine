@@ -2,9 +2,9 @@
 
 #include "CollisionMessage.h"
 
-PhysicsManager::PhysicsManager()
+void PhysicsManager::BuildGrid(int levelWidth, int levelHeight)
 {
-	_objectGrid = new ObjectGrid(SCREEN_WIDTH, SCREEN_HEIGHT, 50, 50);
+	_objectGrid = new ObjectGrid(levelWidth, levelHeight , 100, 100);
 }
 
 PhysicsManager::~PhysicsManager()
@@ -20,11 +20,11 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	// LEFT, TOP, RIGHT, BOTTOM
 	int ltrb[4];
 	ltrb[0] = (int)collider->GetTransformComponent()->GetPosition().x;
-	ltrb[1] = (int)collider->GetTransformComponent()->GetPosition().y;
+	ltrb[1] = -(int)collider->GetTransformComponent()->GetPosition().y;
 	ltrb[2] = (int)collider->GetTransformComponent()->GetPosition().x + 100;
-	ltrb[3] = (int)collider->GetTransformComponent()->GetPosition().y + 100;
+	ltrb[3] = -(int)collider->GetTransformComponent()->GetPosition().y + 100;
 
-	_objectGrid->insert(ltrb, _colliders.size() - 1);
+	_objectGrid->insert(ltrb, (int)_colliders.size() - 1);
 }
 
 void PhysicsManager::Update(float deltaTime)
@@ -32,9 +32,26 @@ void PhysicsManager::Update(float deltaTime)
 	// Generate new collision info
 	_contacts.clear();
 
-	Bounds r;
-	r.width = 100;
-	r.height = 100;
+	//for (int i = 0; i < _colliders.size(); i++)
+	//{
+	//	if (_colliders[i]->GetTransformComponent()->CheckChanged())
+	//	{
+	//		int ltrb[4];
+	//		ltrb[0] = (int)_colliders[i]->GetTransformComponent()->GetPreviousPosition().x;
+	//		ltrb[1] = -(int)_colliders[i]->GetTransformComponent()->GetPreviousPosition().y;
+	//		ltrb[2] = (int)_colliders[i]->GetTransformComponent()->GetPreviousPosition().x + 100;
+	//		ltrb[3] = -(int)_colliders[i]->GetTransformComponent()->GetPreviousPosition().y + 100;
+	//		_objectGrid->erase(ltrb, i);
+
+	//		ltrb[0] = (int)_colliders[i]->GetTransformComponent()->GetPosition().x;
+	//		ltrb[1] = -(int)_colliders[i]->GetTransformComponent()->GetPosition().y;
+	//		ltrb[2] = (int)_colliders[i]->GetTransformComponent()->GetPosition().x + 100;
+	//		ltrb[3] = -(int)_colliders[i]->GetTransformComponent()->GetPosition().y + 100;
+	//		_objectGrid->insert(ltrb, i);
+
+	//		_colliders[i]->GetTransformComponent()->SetChanged(false);
+	//	}
+	//}
 
 	//for (int i = 0; i < _colliders.size(); i++)
 	//{
@@ -44,7 +61,35 @@ void PhysicsManager::Update(float deltaTime)
 	//		continue;
 
 	//	// Find the cell_index of the centre point of 
-	//	_objectGrid->cell_index((int)A->GetTransformComponent()->GetPosition().x, (int)A->GetTransformComponent()->GetPosition().y);
+	//	int cell = _objectGrid->cell_index((int)A->GetTransformComponent()->GetPosition().x + 50, -(int)A->GetTransformComponent()->GetPosition().y + 50);
+	//	auto item = _objectGrid->first(cell);
+
+	//	while (item != nullptr && item->element != 0)
+	//	{
+	//		int element = item->element;
+	//		item = _objectGrid->next(item);
+
+	//		ColliderComponent *B = _colliders[element];
+	//		if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
+	//			continue;
+
+	//		if (!B->GetActive())
+	//			continue;
+
+	//		Collision collision(A, B);
+	//		collision.Solve();
+
+	//		if (collision.GetContactCount())
+	//		{
+	//			_contacts.emplace_back(collision);
+
+	//			CollisionMessage colMsg(_gameObjects[i]);
+	//			_gameObjects[element]->SendMessageToComponents(colMsg);
+
+	//			CollisionMessage colMsg2(_gameObjects[element]);
+	//			_gameObjects[i]->SendMessageToComponents(colMsg2);
+	//		}
+	//	}
 	//}
 
 	//// Loop through every collider

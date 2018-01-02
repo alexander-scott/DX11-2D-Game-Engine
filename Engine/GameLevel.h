@@ -10,7 +10,7 @@ public:
 	~GameLevel();
 
 	void CacheComponents(GameObject* gameObj, int renderLayer);
-	void SetLevelData(LevelData levelData) { mLevelData = levelData; }
+	void ConstructLevel(LevelData levelData);
 
 	void Update(float deltaTime);
 	void Draw();

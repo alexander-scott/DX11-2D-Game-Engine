@@ -72,7 +72,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName)
 	ObjectManager objectManager;
 	LevelData levelData = ExtractLevelData(root);
 
-	gameLevel->SetLevelData(levelData);
+	gameLevel->ConstructLevel(levelData);
 
 	xml_node<>* gameObjectNode = root->first_node("GameObject");
 
@@ -108,7 +108,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName)
 	return gameLevel;
 }
 
-LevelData LevelBuilder::ExtractLevelData(xml_node<>* node)
+LevelData& LevelBuilder::ExtractLevelData(xml_node<>* node)
 {
 	LevelData levelData;
 	levelData.levelLeftBounds = (float)atof(node->first_attribute("leftBound")->value());
@@ -127,4 +127,5 @@ void LevelBuilder::UpdateTilePos(xml_node<>* node, GameObject * obj)
 	Vec2 newPos = Vec2((float)X_ORIGIN + (x * TILE_WIDTH), (float)Y_ORIGIN + -(y * TILE_HEIGHT));
 
 	obj->GetComponent<TransformComponent>()->SetPosition(newPos);
+	obj->GetComponent<TransformComponent>()->SetPreviousPosition(newPos);
 }

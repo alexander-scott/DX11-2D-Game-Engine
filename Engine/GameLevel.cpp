@@ -2,7 +2,7 @@
 
 GameLevel::GameLevel()
 {
-
+	
 }
 
 GameLevel::~GameLevel()
@@ -53,6 +53,19 @@ void GameLevel::CacheComponents(GameObject* gameObj, int renderLayer)
 			mPhysicsManager.AddCollider(go, go->GetComponent<ColliderComponent>());
 		}
 	}
+}
+
+void GameLevel::ConstructLevel(LevelData levelData)
+{
+	mLevelData = levelData;
+
+	int width = std::abs(mLevelData.levelLeftBounds - mLevelData.levelRightBounds);
+	width *= TILE_WIDTH;
+
+	int height = std::abs(mLevelData.levelTopBounds - mLevelData.levelBottomBounds);
+	height *= TILE_HEIGHT;
+
+	mPhysicsManager.BuildGrid(width, height);
 }
 
 void GameLevel::Update(float deltaTime)

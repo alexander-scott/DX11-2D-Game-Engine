@@ -10,11 +10,11 @@ public:
 	GameCamera();
 	~GameCamera();
 
-	Vec2 GetPosition() { return trans->GetPosition(); }
+	Vec2 GetPosition() { return mTransform->GetPosition(); }
 
-	void SetFocusTrans(TransformComponent* fTrans) { focusTrans = fTrans; }
+	void SetFocusTrans(TransformComponent* fTrans) { mFocusTrans = fTrans; }
 	void SetLevelBounds(float leftBound, float rightBound, float botBound, float topBound) 
-	{ _levelLeftBound = leftBound; _levelRightBound = rightBound; _levelBottomBound = botBound; _levelTopBound = topBound; }
+	{ mLevelLeftBound = leftBound; mLevelRightBound = rightBound; mLevelBottomBound = botBound; mLevelTopBound = topBound; }
 
 	virtual void Initalise(class MainWindow& wnd) override;
 
@@ -33,13 +33,13 @@ public:
 	}
 
 private:
-	TransformComponent* trans;
-	TransformComponent* focusTrans;
+	TransformComponent*		mTransform;
+	TransformComponent*		mFocusTrans;
 
-	float					_levelLeftBound;
-	float					_levelRightBound;
+	float					mLevelLeftBound;
+	float					mLevelRightBound;
 
-	float					_levelBottomBound;
-	float					_levelTopBound;
+	float					mLevelBottomBound;
+	float					mLevelTopBound;
 };
 

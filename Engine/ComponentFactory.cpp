@@ -3,10 +3,7 @@
 
 TransformComponent * ComponentFactory::MakeTransform(Vec2 position, float rotation, float scale)
 {
-	TransformComponent * transform = new TransformComponent();
-	transform->SetPosition(position);
-	transform->SetRotation(rotation);
-	transform->SetScale(scale);
+	TransformComponent * transform = new TransformComponent(position, rotation, scale);
 
 	return transform;
 }

@@ -11,9 +11,9 @@
 class PhysicsManager
 {
 public:
-	PhysicsManager();
 	~PhysicsManager();
 
+	void BuildGrid(int levelWidth, int levelHeight);
 	void AddCollider(GameObject* gameObject, ColliderComponent* collider);
 
 	void Update(float deltaTime);

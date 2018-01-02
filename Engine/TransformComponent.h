@@ -11,12 +11,14 @@ private:
 	float					_scale;
 
 	bool					_hasChanged;
+	Vec2					mPreviousPosition;
 
 public:
-	TransformComponent();
+	TransformComponent(Vec2 position, float rotation, float scale);
 	~TransformComponent();
 
 	void SetPosition(Vec2 position);
+	void SetPreviousPosition(Vec2 position) { mPreviousPosition = position; }
 
 	void SetScale(float scale) { _scale = scale; }
 	void SetRotation(float rot) { _rot = rot; }
@@ -25,6 +27,8 @@ public:
 	float GetScale() const { return _scale; }
 	Vec2 GetPosition() const { return _pos; }
 
-	bool CheckedChanged() { return _hasChanged; }
+	Vec2 GetPreviousPosition() const { return mPreviousPosition; }
+
+	bool CheckChanged() { return _hasChanged; }
 	void SetChanged(bool changed) { _hasChanged = changed; }
 };

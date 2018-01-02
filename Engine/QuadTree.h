@@ -18,8 +18,8 @@ public:
 	std::vector<int> Retrieve(std::vector<int> &objects, Bounds bounds);
 
 private:
-	int							 _level;
-	Bounds						 _bounds;
-	std::vector<Bounds>			 _objects;
-	std::vector<QuadTree*>		 _nodes;
+	int							 mLevel;
+	Bounds						 mBounds;
+	std::vector<Bounds>			 mObjects;
+	std::vector<QuadTree*>		 mNodes;
 };	
