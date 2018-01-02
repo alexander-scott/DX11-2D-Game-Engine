@@ -142,22 +142,34 @@ void LevelBuilder::UpdateColliderBounds(xml_node<>* node, GameObject* obj, Level
 	std::string side = std::string(node->first_attribute("val1")->value());
 	if (side == "left")
 	{
-		trans->SetPosition(Vec2(levelData.levelLeftBounds * TILE_WIDTH, 0));
+		Vec2 newPos = Vec2(levelData.levelLeftBounds * TILE_WIDTH, 0);
+		trans->SetPosition(newPos);
+		trans->SetPreviousPosition(newPos);
+
 		collider->SetBox(0.5f, (std::abs(levelData.levelTopBounds - levelData.levelBottomBounds) * TILE_HEIGHT) / 2);
 	}
 	else if (side == "right")
 	{
-		trans->SetPosition(Vec2(levelData.levelRightBounds * TILE_WIDTH, 0));
+		Vec2 newPos = Vec2(levelData.levelRightBounds * TILE_WIDTH, 0);
+		trans->SetPosition(newPos);
+		trans->SetPreviousPosition(newPos);
+
 		collider->SetBox(0.5f, (std::abs(levelData.levelTopBounds - levelData.levelBottomBounds) * TILE_HEIGHT) / 2);
 	}
 	else if (side == "top")
 	{
-		trans->SetPosition(Vec2(0, std::abs(levelData.levelTopBounds) * TILE_HEIGHT));
+		Vec2 newPos = Vec2(0, std::abs(levelData.levelTopBounds) * TILE_HEIGHT);
+		trans->SetPosition(newPos);
+		trans->SetPreviousPosition(newPos);
+
 		collider->SetBox(((levelData.levelRightBounds - levelData.levelLeftBounds) * TILE_WIDTH) / 2, 0.5f);
 	}
 	else if (side == "bottom")
 	{
-		trans->SetPosition(Vec2(0, std::abs(levelData.levelTopBounds) * TILE_HEIGHT));
+		Vec2 newPos = Vec2(0, std::abs(levelData.levelTopBounds) * TILE_HEIGHT);
+		trans->SetPosition(newPos);
+		trans->SetPreviousPosition(newPos);
+
 		collider->SetBox(((levelData.levelRightBounds - levelData.levelLeftBounds) * TILE_WIDTH) / 2, 0.5f);
 	}
 }

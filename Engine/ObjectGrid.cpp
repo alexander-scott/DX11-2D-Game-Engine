@@ -123,7 +123,8 @@ void ObjectGrid::erase_node(int& cell, int element)
 	while (nodes[*link_ptr].element != element)
 	{
 		link_ptr = &nodes[*link_ptr].next;
-		//assert(*link_ptr != -1 && "Error: element was not found!");
+
+		assert(*link_ptr != -1 && "Error: element was not found!");
 		if (*link_ptr != -1)
 			return;
 	}

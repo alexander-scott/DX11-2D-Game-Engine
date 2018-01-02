@@ -13,6 +13,7 @@ public:
 	virtual ColliderType GetType(void) const override { return ColliderType::ePolygon; }
 	virtual void ComputeMass(float density) override;
 	virtual Rect GetRect() override;
+	virtual Rect GetPreviousRect() override;
 
 	void SetVerticies(Vec2 *vertices, int count);
 	Vec2 GetSupport(const Vec2& dir);

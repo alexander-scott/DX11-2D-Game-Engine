@@ -15,6 +15,7 @@ public:
 	virtual ColliderType GetType(void) const = 0;
 	virtual void ComputeMass(float density) = 0;
 	virtual Rect GetRect() = 0;
+	virtual Rect GetPreviousRect() = 0;
 
 protected:
 	TransformComponent*				_transformComponent;

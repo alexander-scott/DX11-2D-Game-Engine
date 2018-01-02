@@ -20,7 +20,7 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	// LEFT, TOP, RIGHT, BOTTOM
 	Rect r = collider->GetRect();
 	int ltrb[4];
-	ltrb[0] = r.LeftX;;
+	ltrb[0] = r.LeftX;
 	ltrb[1] = std::abs(r.TopY);
 	ltrb[2] = r.RightX;
 	ltrb[3] = std::abs(r.BotY);
@@ -33,26 +33,28 @@ void PhysicsManager::Update(float deltaTime)
 	// Generate new collision info
 	_contacts.clear();
 
-	//for (int i = 0; i < _colliders.size(); i++)
-	//{
-	//	if (_colliders[i]->GetTransformComponent()->CheckChanged())
-	//	{
-	//		int ltrb[4];
-	//		ltrb[0] = (int)_colliders[i]->GetTransformComponent()->GetPreviousPosition().x;
-	//		ltrb[1] = -(int)_colliders[i]->GetTransformComponent()->GetPreviousPosition().y;
-	//		ltrb[2] = (int)_colliders[i]->GetTransformComponent()->GetPreviousPosition().x + 100;
-	//		ltrb[3] = -(int)_colliders[i]->GetTransformComponent()->GetPreviousPosition().y + 100;
-	//		_objectGrid->erase(ltrb, i);
+	for (int i = 0; i < _colliders.size(); i++)
+	{
+		if (_colliders[i]->GetTransformComponent()->CheckChanged())
+		{
+			Rect r = _colliders[i]->GetPreviousRect();
+			int ltrb[4];
+			ltrb[0] = r.LeftX;
+			ltrb[1] = std::abs(r.TopY);
+			ltrb[2] = r.RightX;
+			ltrb[3] = std::abs(r.BotY);
+			_objectGrid->erase(ltrb, i);
 
-	//		ltrb[0] = (int)_colliders[i]->GetTransformComponent()->GetPosition().x;
-	//		ltrb[1] = -(int)_colliders[i]->GetTransformComponent()->GetPosition().y;
-	//		ltrb[2] = (int)_colliders[i]->GetTransformComponent()->GetPosition().x + 100;
-	//		ltrb[3] = -(int)_colliders[i]->GetTransformComponent()->GetPosition().y + 100;
-	//		_objectGrid->insert(ltrb, i);
+			r = _colliders[i]->GetRect();
+			ltrb[0] = r.LeftX;
+			ltrb[1] = std::abs(r.TopY);
+			ltrb[2] = r.RightX;
+			ltrb[3] = std::abs(r.BotY);
+			_objectGrid->insert(ltrb, i);
 
-	//		_colliders[i]->GetTransformComponent()->SetChanged(false);
-	//	}
-	//}
+			_colliders[i]->GetTransformComponent()->SetChanged(false);
+		}
+	}
 
 	for (int i = 0; i < _colliders.size(); i++)
 	{
