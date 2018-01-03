@@ -87,3 +87,18 @@ AIAgentComponent * ComponentFactory::MakeAIAgentComponent(TransformComponent * t
 
 	return agentComponent;
 }
+
+GUITextValueComponent * ComponentFactory::MakeGUITextValueComponent(std::string text, XMVECTORF32 colour, TransformComponent * transform, float& watchedValue)
+{
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+
+	GUITextValueComponent* guiText = new GUITextValueComponent(watchedValue);
+	guiText->SetText(text);
+	guiText->SetTransform(transform);
+	guiText->SetTextColour(colour);
+
+	return guiText;
+}

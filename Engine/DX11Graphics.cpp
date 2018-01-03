@@ -237,7 +237,8 @@ void DX11Graphics::DrawText(std::string text, Vec2 pos, float rot, float* rgb, f
 	std::wstring widestr = std::wstring(text.begin(), text.end());
 	const wchar_t* convertedText = widestr.c_str();
 
-	g_Fonts->DrawString(g_Sprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), Colors::Yellow, rot, XMFLOAT2(0,0), scale);
+	XMVECTORF32 colour = { { { rgb[0], rgb[1], rgb[2], 1 } } };
+	g_Fonts->DrawString(g_Sprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), colour, rot, XMFLOAT2(0,0), scale);
 }
 
 void DX11Graphics::Destroy()

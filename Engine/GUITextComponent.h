@@ -14,7 +14,7 @@ public:
 
 	virtual void Draw(ICamera* cam) override;
 
-private:
+protected:
 	std::string mText;
 	XMVECTORF32 mTextColour;
 };

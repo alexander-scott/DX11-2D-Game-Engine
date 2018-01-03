@@ -77,6 +77,9 @@
     <Filter Include="Engine\GameObject\Components\Component Types\GUI">
       <UniqueIdentifier>{8164b0fb-d61a-4e3a-b1c9-d45047bb6ec6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameComponents\GUI">
+      <UniqueIdentifier>{f4e0a0a5-3fe3-4932-bf40-2a97f37b1f7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -244,6 +247,9 @@
     <ClInclude Include="GUITextComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="GUITextValueComponent.h">
+      <Filter>Game\GameComponents\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -356,6 +362,9 @@
     </ClCompile>
     <ClCompile Include="GUITextComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITextValueComponent.cpp">
+      <Filter>Game\GameComponents\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

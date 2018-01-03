@@ -2,10 +2,7 @@
 
 GameLevel::GameLevel()
 {
-	mText = new GameObject("Text");
-	TransformComponent* trans = ComponentFactory::MakeTransform(Vec2(10, 10), 0, 0.5f);
-	mText->AddComponent(ComponentFactory::MakeGUIText("Score", DirectX::Colors::Yellow, trans));
-	CacheComponents(mText, 2);
+
 }
 
 GameLevel::~GameLevel()
@@ -69,6 +66,21 @@ void GameLevel::ConstructLevel(LevelData levelData)
 	height *= TILE_HEIGHT;
 
 	mPhysicsManager.BuildGrid(width, height);
+}
+
+void GameLevel::BuildGUI()
+{
+	GameObject* scoreText = new GameObject("Text");
+	TransformComponent* scoreTransform = ComponentFactory::MakeTransform(Vec2(10, 10), 0, 0.5f);
+	scoreText->AddComponent(scoreTransform);
+	scoreText->AddComponent(ComponentFactory::MakeGUIText("Score:", DirectX::Colors::Yellow, scoreTransform));
+	CacheComponents(scoreText, 2);
+
+	GameObject* healthText = new GameObject("Text");
+	TransformComponent* healthTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH - 150, 10), 0, 0.5f);
+	healthText->AddComponent(healthTransform);
+	healthText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Health:", DirectX::Colors::Red, healthTransform, mGameObjects[0]->GetComponent<DamageableComponent>()->GetHealthAddress()));
+	CacheComponents(healthText, 2);
 }
 
 void GameLevel::Update(float deltaTime)

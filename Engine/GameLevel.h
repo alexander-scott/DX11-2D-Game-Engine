@@ -10,7 +10,9 @@ public:
 	~GameLevel();
 
 	void CacheComponents(GameObject* gameObj, int renderLayer);
+
 	void ConstructLevel(LevelData levelData);
+	void BuildGUI();
 
 	void Update(float deltaTime);
 	void Draw();
@@ -19,8 +21,6 @@ private:
 	ObjectManager									mObjectManager;
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;
-
-	GameObject*										mText;
 
 	std::vector<GameObject*>						mRenderLayer0;
 	std::vector<GameObject*>						mRenderLayer1;

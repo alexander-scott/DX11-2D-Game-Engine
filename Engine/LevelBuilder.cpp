@@ -108,6 +108,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName)
 		(levelData.levelTopBounds) * TILE_HEIGHT);
 
 	gameLevel->CacheComponents(&GameCamera::Instance(), -1);
+	gameLevel->BuildGUI();
 
 	return gameLevel;
 }
