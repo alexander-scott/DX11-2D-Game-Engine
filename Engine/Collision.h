@@ -7,13 +7,8 @@
 class Collision
 {
 public:
-	Collision(ColliderComponent* a, ColliderComponent* b) : colliderA(a), colliderB(b) { }
+	Collision(ColliderComponent* a, ColliderComponent* b) : mColliderA(a), mColliderB(b) { }
 	~Collision();
-
-	void CircletoCircle();
-	void CircleToPolygon();
-	void PolygonToCircle();
-	void PolygonToPolygon();
 
 	float FindAxisLeastPenetration(int *faceIndex, PolygonColliderComponent *A, PolygonColliderComponent *B);
 	void FindIncidentFace(Vec2 *v, PolygonColliderComponent *RefPoly, PolygonColliderComponent *IncPoly, int referenceIndex);
@@ -27,8 +22,13 @@ public:
 	void InfiniteMassCorrection();
 
 private:
-	ColliderComponent* colliderA;
-	ColliderComponent* colliderB;
+	void CircletoCircleCollision();
+	void CircleToPolygonCollision();
+	void PolygonToCircleCollision();
+	void PolygonToPolygonCollision();
+
+	ColliderComponent*		mColliderA;
+	ColliderComponent*		mColliderB;
 
 	float					mPenetration;			 // Depth of penetration from collision
 	Vec2					mNormal;				 // From A to B

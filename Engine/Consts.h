@@ -3,7 +3,7 @@
 #include <map>
 #include <vector>
 
-#include "IEMath.h"
+#include "Math.h"
 
 #pragma region GamePlay Vals
 
@@ -16,6 +16,9 @@ static float PLAYER_LATERAL_MAX_SPEED = 500; // Default is 500
 static float AI_PROJECTILE_DAMAGE = 20; // Default 20
 static float AI_PROJECTILE_SPEED = 50; // Default 50
 static float AI_LATERAL_MAX_SPEED = 300; // Default is 300
+
+static float GRAVITY_SCALE = 20.0f; // Default is 20
+static Vec2 GRAVITY_VECTOR(0, 9.81f * GRAVITY_SCALE); // Default is 9.81 * SCALE
 
 #pragma endregion
 
@@ -31,6 +34,8 @@ static constexpr int MAX_QUADTREE_OBJECTS = 10;
 static constexpr int MAX_QUADTREE_LEVELS = 5;
 
 static constexpr int MAX_POLY_VERTEX_COUNT = 64;
+
+static constexpr float PI = 3.141592741f;
 
 #pragma endregion
 

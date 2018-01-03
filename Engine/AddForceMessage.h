@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IMessage.h"
-#include "IEMath.h"
+#include "Consts.h"
 
 class AddForceMessage : public IMessage
 {

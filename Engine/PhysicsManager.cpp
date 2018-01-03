@@ -2,7 +2,7 @@
 
 #include "CollisionMessage.h"
 
-void PhysicsManager::BuildGrid(int levelWidth, int levelHeight)
+void PhysicsManager::BuildObjectGrid(int levelWidth, int levelHeight)
 {
 	mObjectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100);
 }
@@ -223,7 +223,7 @@ void PhysicsManager::IntegrateForces(ColliderComponent * collider, float deltaTi
 
 	collider->GetRigidbodyComponent()->SetVelocity(collider->GetRigidbodyComponent()->GetVelocity() + 
 		(collider->GetRigidbodyComponent()->GetForce() * collider->GetRigidbodyComponent()->GetInverseMass() + 
-		(gravity * (collider->GetRigidbodyComponent()->GetInverseMass() * 3000))) * (deltaTime / 2.0f));
+		(GRAVITY_VECTOR * (collider->GetRigidbodyComponent()->GetInverseMass() * 3000))) * (deltaTime / 2.0f));
 
 	collider->GetRigidbodyComponent()->SetAngularVelocity(collider->GetRigidbodyComponent()->GetAngularVelocity() +
 		collider->GetRigidbodyComponent()->GetTorque() * collider->GetRigidbodyComponent()->GetInverseIntertia() * (deltaTime / 2.0f));

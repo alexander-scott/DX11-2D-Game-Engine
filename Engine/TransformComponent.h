@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IComponent.h"
-#include "IEMath.h"
+#include "Consts.h"
 
 class TransformComponent : public IComponent
 {

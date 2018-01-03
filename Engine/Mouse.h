@@ -1,6 +1,6 @@
 #pragma once
 #include <queue>
-#include "IEMath.h"
+#include "Consts.h"
 
 class Mouse
 {

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "IEMath.h"
+#include "Consts.h"
 #include "ColliderComponent.h"
 #include "GameObject.h"
 #include "Collision.h"
@@ -13,7 +13,7 @@ class PhysicsManager
 public:
 	~PhysicsManager();
 
-	void BuildGrid(int levelWidth, int levelHeight);
+	void BuildObjectGrid(int levelWidth, int levelHeight);
 	void AddCollider(GameObject* gameObject, ColliderComponent* collider);
 
 	void Update(float deltaTime);

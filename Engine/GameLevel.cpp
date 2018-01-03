@@ -65,7 +65,7 @@ void GameLevel::ConstructLevel(LevelData levelData)
 	int height = (int)std::abs(mLevelData.levelTopBounds - mLevelData.levelBottomBounds);
 	height *= TILE_HEIGHT;
 
-	mPhysicsManager.BuildGrid(width, height);
+	mPhysicsManager.BuildObjectGrid(width, height);
 }
 
 void GameLevel::BuildGUI()

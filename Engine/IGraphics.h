@@ -2,7 +2,7 @@
 
 #include "CustomException.h"
 #include "WinDefines.h"
-#include "IEMath.h"
+#include "Consts.h"
 #include <wrl.h>
 
 class IGraphics

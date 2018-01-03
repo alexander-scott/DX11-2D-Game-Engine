@@ -175,7 +175,7 @@
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="IDrawable.h" />
-    <ClInclude Include="IEMath.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="IMessage.h" />
     <ClInclude Include="IMessageable.h" />
     <ClInclude Include="IUpdateable.h" />

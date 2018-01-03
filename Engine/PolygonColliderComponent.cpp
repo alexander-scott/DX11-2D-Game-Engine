@@ -83,10 +83,10 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 {
 	// No hulls with less than 3 vertices (ensure actual polygon)
 	assert(count > 2 && count <= MAX_POLY_VERTEX_COUNT);
-	count = std::min((int32)count, MAX_POLY_VERTEX_COUNT);
+	count = std::min((int)count, MAX_POLY_VERTEX_COUNT);
 
 	// Find the right most point on the hull
-	int32 rightMost = 0;
+	int rightMost = 0;
 	float highestXCoord = vertices[0].x;
 	for (int i = 1; i < count; ++i)
 	{
@@ -103,9 +103,9 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 				rightMost = i;
 	}
 
-	int32 hull[MAX_POLY_VERTEX_COUNT];
-	int32 outCount = 0;
-	int32 indexHull = rightMost;
+	int hull[MAX_POLY_VERTEX_COUNT];
+	int outCount = 0;
+	int indexHull = rightMost;
 
 	for (;;)
 	{
@@ -114,8 +114,8 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 		// Search for next index that wraps around the hull
 		// by computing cross products to find the most counter-clockwise
 		// vertex in the set, given the previos hull index
-		int32 nextHullIndex = 0;
-		for (int32 i = 1; i < (int32)count; ++i)
+		int nextHullIndex = 0;
+		for (int i = 1; i < (int)count; ++i)
 		{
 			// Skip if same coordinate as we need three unique
 			// points in the set to perform a cross product

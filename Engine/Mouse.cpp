@@ -3,7 +3,7 @@
 
 Vec2 Mouse::GetPos() const
 {
-	return Vec2(x,y);
+	return Vec2((float)x, (float)y);
 }
 
 int Mouse::GetPosX() const
