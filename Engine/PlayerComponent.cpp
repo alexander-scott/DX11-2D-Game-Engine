@@ -174,6 +174,7 @@ void PlayerComponent::ShootProjectile()
 	dir.Normalize();
 
 	go->GetComponent<TransformComponent>()->SetPosition(mPlayerTransform->GetPosition() + (dir * 10));
+	go->GetComponent<RigidBodyComponent>()->SetVelocity(Vec2(0, 0));
 	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * PLAYER_PROJECTILE_SPEED);
 
 	Audio::Instance().PlaySoundEffect("GunShot");

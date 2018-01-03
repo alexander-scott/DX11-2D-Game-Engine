@@ -4,7 +4,7 @@
 
 void PhysicsManager::BuildGrid(int levelWidth, int levelHeight)
 {
-	mObjectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 200, 200);
+	mObjectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100);
 }
 
 PhysicsManager::~PhysicsManager()
@@ -46,23 +46,23 @@ void PhysicsManager::Update(float deltaTime)
 
 			if (centreCell != mColliders[i]->GridSquare) // Centre cell has changed
 			{
-				Rect r = mColliders[i]->GetPreviousRect();
+				Rect prevRect = mColliders[i]->GetPreviousRect();
 				int ltrb[4];
-				ltrb[0] = r.LeftX;
-				ltrb[1] = std::abs(r.TopY);
-				ltrb[2] = r.RightX;
-				ltrb[3] = std::abs(r.BotY);
+				ltrb[0] = prevRect.LeftX;
+				ltrb[1] = std::abs(prevRect.TopY);
+				ltrb[2] = prevRect.RightX;
+				ltrb[3] = std::abs(prevRect.BotY);
 				mObjectGrid->erase(ltrb, i);
 
-				r = mColliders[i]->GetRect();
-				ltrb[0] = r.LeftX;
-				ltrb[1] = std::abs(r.TopY);
-				ltrb[2] = r.RightX;
-				ltrb[3] = std::abs(r.BotY);
+				Rect newRect = mColliders[i]->GetRect();
+				ltrb[0] = newRect.LeftX;
+				ltrb[1] = std::abs(newRect.TopY);
+				ltrb[2] = newRect.RightX;
+				ltrb[3] = std::abs(newRect.BotY);
 				mObjectGrid->insert(ltrb, i);
 
 				mColliders[i]->GridSquare = centreCell;
-				mColliders[i]->SetPreviousRect(r);
+				mColliders[i]->SetPreviousRect(newRect);
 			}
 
 			mColliders[i]->GetTransformComponent()->SetChanged(false);
@@ -76,15 +76,18 @@ void PhysicsManager::Update(float deltaTime)
 		if (!A->GetActive())
 			continue;
 
-		// Find the cell_index of the centre point of 
+		// Find the cell_index of the centre point of A
 		Rect r = A->GetRect();
 		int cell = mObjectGrid->cell_index(r.Centre.x, std::abs(r.Centre.y));
 
-		const GridNode* node = mObjectGrid->first(cell);
-		while (node)
+		const GridNode* node = mObjectGrid->first(cell); // Get the first grid node in this cell
+		while (node) // While node is not null go through every element
 		{
 			int element = node->element;
-			node = mObjectGrid->next(node);
+			node = mObjectGrid->next(node); // Load the next element for the next loop
+
+			if (element <= i) // If the element in this node has an ID less than 'i' that means that we will have already checked this potential collision earlier in the loop
+				continue;
 
 			ColliderComponent *B = mColliders[element];
 			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
@@ -96,7 +99,7 @@ void PhysicsManager::Update(float deltaTime)
 			Collision collision(A, B);
 			collision.Solve();
 
-			if (collision.GetContactCount())
+			if (collision.GetContactCount()) // If there is a collision the number of contacts will be greater than 0
 			{
 				mContacts.emplace_back(collision);
 
