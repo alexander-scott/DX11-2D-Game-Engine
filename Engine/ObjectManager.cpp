@@ -353,7 +353,17 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 
 		float idleTime = (float)atof(node->first_attribute("idletime")->value());
 
-		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, GameCamera::Instance().GetComponent<TransformComponent>(), patrolTime, dir, idleTime);
+		TransformComponent* targetTrans;
+		transformComponentID = atoi(node->first_attribute("targettransformcomponentid")->value());
+		if (transformComponentID == -1)
+			targetTrans = go->GetComponent<TransformComponent>();
+		else
+			targetTrans = mGameObjects[atoi(node->first_attribute("targettransformcomponentid")->value())]->GetComponent<TransformComponent>();
+
+		float viewRange = (float)atof(node->first_attribute("viewrange")->value());
+		float shotInterval = (float)atof(node->first_attribute("shotintervals")->value());
+
+		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, GameCamera::Instance().GetComponent<TransformComponent>(), patrolTime, dir, idleTime, targetTrans, viewRange, shotInterval);
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "ProjectileManagerComponent")
 	{

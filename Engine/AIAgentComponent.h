@@ -13,12 +13,14 @@
 class AIAgentComponent : public IComponent, public IUpdateable
 {
 public:
-	AIAgentComponent(TransformComponent* trans, SpriteAnimatorComponent* anim,	RigidBodyComponent* rb, DamageableComponent* dmg, 
-		ProjectileManagerComponent* projectileMan, TransformComponent* cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime);
+	AIAgentComponent(TransformComponent* trans, SpriteAnimatorComponent* anim,	RigidBodyComponent* rb, DamageableComponent* dmg, TransformComponent* cameraTransform);
 
 	~AIAgentComponent();
 
 	virtual void Update(float deltaTime) override;
+
+	void SetupPatrolling(float patrolTime, AIAgentPatrolDirection startDir, float idleTime);
+	void SetupShooting(ProjectileManagerComponent* projectileMan, TransformComponent* targetTransform, float range, float shotInterval);
 
 private:
 	void ShootAtPlayer(float deltaTime);
@@ -33,7 +35,6 @@ private:
 	RigidBodyComponent*			mAgentRigidBody;
 	DamageableComponent*		mAgentDamageable;
 
-	ProjectileManagerComponent*	mAgentProjectiles;
 	TransformComponent*			mCameraTransform;
 
 	AIAgentState				mCurrentState;
@@ -47,4 +48,9 @@ private:
 	float						mCurrentIdleTime;
 
 	// SHOOTING STUFFF
+	ProjectileManagerComponent*	mAgentProjectiles;
+	TransformComponent*			mTargetTransform;
+	float						mViewRange;
+	float						mShotIntervals;
+	float						mCurrentShotTimer;
 };

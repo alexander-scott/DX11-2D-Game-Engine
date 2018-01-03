@@ -54,7 +54,7 @@ ProjectileManagerComponent * ComponentFactory::MakeProjectileManagerComponent(st
 }
 
 AIAgentComponent * ComponentFactory::MakeAIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg, 
-	ProjectileManagerComponent * proj, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection patrolStartDir, float idleTime)
+	ProjectileManagerComponent * proj, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection patrolStartDir, float idleTime, TransformComponent* targetTransform, float viewRange, float shotInterval)
 {
 	if (trans == nullptr)
 	{
@@ -81,7 +81,9 @@ AIAgentComponent * ComponentFactory::MakeAIAgentComponent(TransformComponent * t
 		throw std::exception("This object requires a camera transform.");
 	}
 
-	AIAgentComponent* agentComponent = new AIAgentComponent(trans, anim, rb, dmg, proj, cameraTransform, patrolTime, patrolStartDir, idleTime);
+	AIAgentComponent* agentComponent = new AIAgentComponent(trans, anim, rb, dmg, cameraTransform);
+	agentComponent->SetupPatrolling(patrolTime, patrolStartDir, idleTime);
+	agentComponent->SetupShooting(proj, targetTransform, viewRange, shotInterval);
 
 	return agentComponent;
 }

@@ -2,12 +2,9 @@
 
 #include "AddForceMessage.h"
 
-AIAgentComponent::AIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg, ProjectileManagerComponent * projectileMan, TransformComponent * cameraTransform, float patrolTime, AIAgentPatrolDirection startDir, float idleTime)
-	: mAgentTransform(trans), mAgentAnimator(anim), mAgentRigidBody(rb), mAgentDamageable(dmg), mAgentProjectiles(projectileMan), mCameraTransform(cameraTransform), mPatrolTime(patrolTime), mIdleTime(idleTime)
+AIAgentComponent::AIAgentComponent(TransformComponent * trans, SpriteAnimatorComponent * anim, RigidBodyComponent * rb, DamageableComponent * dmg, TransformComponent * cameraTransform)
+	: mAgentTransform(trans), mAgentAnimator(anim), mAgentRigidBody(rb), mAgentDamageable(dmg), mCameraTransform(cameraTransform)
 {
-	mCurrentPatrolTime = 0;
-	mCurrentIdleTime = 0;
-	mPatrolDirection = startDir;
 	mCurrentState = AIAgentState::ePatrolling;
 }
 
@@ -22,22 +19,70 @@ void AIAgentComponent::Update(float deltaTime)
 		case AIAgentState::ePatrolling:
 		{
 			Patrol(deltaTime);
+			UpdateAnimation();
 			break;
 		}
 
 		case AIAgentState::eShooting:
 		{
-
+			ShootAtPlayer(deltaTime);
 			break;
 		}
 	}
+}
 
-	UpdateAnimation();
+void AIAgentComponent::SetupPatrolling(float patrolTime, AIAgentPatrolDirection startDir, float idleTime)
+{
+	mCurrentPatrolTime = 0;
+	mCurrentIdleTime = 0;
+
+	mPatrolTime = patrolTime;
+	mPatrolDirection = startDir;
+	mIdleTime = idleTime;
+}
+
+void AIAgentComponent::SetupShooting(ProjectileManagerComponent * projectileMan, TransformComponent * targetTransform, float range, float shotInterval)
+{
+	mCurrentShotTimer = 0;
+	mAgentProjectiles = projectileMan;
+	mTargetTransform = targetTransform;
+	mViewRange = range;
+	mShotIntervals = shotInterval;
 }
 
 void AIAgentComponent::ShootAtPlayer(float deltaTime)
 {
+	UpdateAnimationSequenceMessage updateSeqMsg;
+	if (mTargetTransform->GetPosition().x > mAgentTransform->GetPosition().x) // Face the player
+		updateSeqMsg.SetSequence((int)AnimationType::StandingRight);
+	else
+		updateSeqMsg.SetSequence((int)AnimationType::StandingLeft);
+	mAgentAnimator->RecieveMessage(updateSeqMsg);
+	 
+	if (mCurrentShotTimer > mShotIntervals)
+	{
+		mCurrentShotTimer = 0;
 
+		GameObject* go = mAgentProjectiles->GetGameObject("Player", AI_PROJECTILE_DAMAGE);
+		Vec2 dir = mTargetTransform->GetPosition() - mAgentTransform->GetPosition();
+		dir.Normalize();
+
+		go->GetComponent<TransformComponent>()->SetPosition(mAgentTransform->GetPosition() + (dir * 10));
+		go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * AI_PROJECTILE_SPEED);
+
+		Audio::Instance().PlaySoundEffect("GunShot");
+	}
+	else
+	{
+		mCurrentShotTimer += deltaTime;
+	}
+
+	Vec2 dir = Vec2(mTargetTransform->GetPosition().x - mAgentTransform->GetPosition().x, mTargetTransform->GetPosition().y - mAgentTransform->GetPosition().y);
+	float distance = dir.Len();
+	if (distance > mViewRange)
+	{
+		mCurrentState = AIAgentState::ePatrolling;
+	}
 }
 
 void AIAgentComponent::Patrol(float deltaTime)
@@ -95,6 +140,32 @@ void AIAgentComponent::Patrol(float deltaTime)
 
 bool AIAgentComponent::CanSeePlayer()
 {
+	if (mAgentRigidBody->GetVelocity().x > 0) // Moving right
+	{
+		if (mTargetTransform->GetPosition().x > mAgentTransform->GetPosition().x) // If the target is more right than the transform
+		{
+			// If the target is within view range
+			Vec2 dir = Vec2(mTargetTransform->GetPosition().x - mAgentTransform->GetPosition().x, mTargetTransform->GetPosition().y - mAgentTransform->GetPosition().y);
+			float distance = dir.Len();
+			if (distance < mViewRange)
+			{
+				return true;
+			}
+		}
+	}
+	else
+	{
+		if (mTargetTransform->GetPosition().x < mAgentTransform->GetPosition().x) // If the target is more left than the transform
+		{
+			Vec2 dir = Vec2(mTargetTransform->GetPosition().x - mAgentTransform->GetPosition().x, mTargetTransform->GetPosition().y - mAgentTransform->GetPosition().y);
+			float distance = dir.Len();
+			if (distance < mViewRange)
+			{
+				return true;
+			}
+		}
+	}
+
 	return false;
 }
 
