@@ -2,17 +2,20 @@
 
 GameLevel::GameLevel()
 {
-	
+	mText = new GameObject("Text");
+	TransformComponent* trans = ComponentFactory::MakeTransform(Vec2(10, 10), 0, 0.5f);
+	mText->AddComponent(ComponentFactory::MakeGUIText("Score", trans));
+	CacheComponents(mText, 2);
 }
 
 GameLevel::~GameLevel()
 {
 	for (auto go : mGameObjects)
 	{
-		/*if (go) // TODO: UMCOMMENTING THIS OUT CREATES A DELETION BUG ON WINDOW CLOSE
-		{
-			delete go;
-		}*/
+		//if (go) // TODO: UMCOMMENTING THIS OUT CREATES A DELETION BUG ON WINDOW CLOSE
+		//{
+		//	delete go;
+		//}
 	}
 }
 

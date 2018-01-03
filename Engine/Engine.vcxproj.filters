@@ -74,6 +74,9 @@
     <Filter Include="Game\GameComponents\Player">
       <UniqueIdentifier>{a78523be-8359-4ae6-9904-a96ef32304c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Components\Component Types\GUI">
+      <UniqueIdentifier>{8164b0fb-d61a-4e3a-b1c9-d45047bb6ec6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -238,6 +241,9 @@
     <ClInclude Include="LevelBuilder.h">
       <Filter>Engine\Level Loading</Filter>
     </ClInclude>
+    <ClInclude Include="GUITextComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -347,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="LevelBuilder.cpp">
       <Filter>Engine\Level Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITextComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

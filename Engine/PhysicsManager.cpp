@@ -42,7 +42,7 @@ void PhysicsManager::Update(float deltaTime)
 		if (mColliders[i]->GetTransformComponent()->CheckChanged())
 		{
 			Vec2 objectCentre = mColliders[i]->GetCentre();
-			int centreCell = mObjectGrid->cell_index(objectCentre.x, std::abs(objectCentre.y));
+			int centreCell = mObjectGrid->cell_index((int)objectCentre.x, (int)std::abs(objectCentre.y));
 
 			if (centreCell != mColliders[i]->GridSquare) // Centre cell has changed
 			{
@@ -78,7 +78,7 @@ void PhysicsManager::Update(float deltaTime)
 
 		// Find the cell_index of the centre point of A
 		Rect r = A->GetRect();
-		int cell = mObjectGrid->cell_index(r.Centre.x, std::abs(r.Centre.y));
+		int cell = mObjectGrid->cell_index((int)r.Centre.x, (int)std::abs(r.Centre.y));
 
 		const GridNode* node = mObjectGrid->first(cell); // Get the first grid node in this cell
 		while (node) // While node is not null go through every element

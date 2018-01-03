@@ -70,7 +70,12 @@ void GameCamera::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, 
 	gfx->DrawSprite(name, pos - mTransform->GetPosition(), rect, rot, scale, offset);
 }
 
-void GameCamera::DrawText(std::string text, Vec2 pos)
+void GameCamera::DrawTextScreenSpace(std::string text, Vec2 pos)
+{
+	gfx->DrawText(text, pos);
+}
+
+void GameCamera::DrawTextWorldSpace(std::string text, Vec2 pos)
 {
 	gfx->DrawText(text, pos - mTransform->GetPosition());
 }

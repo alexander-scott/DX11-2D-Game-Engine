@@ -20,6 +20,8 @@ private:
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;
 
+	GameObject*										mText;
+
 	std::vector<GameObject*>						mRenderLayer0;
 	std::vector<GameObject*>						mRenderLayer1;
 	std::vector<GameObject*>						mRenderLayer2;

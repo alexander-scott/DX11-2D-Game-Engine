@@ -11,6 +11,7 @@
 #include "BoxColliderComponent.h"
 #include "ColliderRendererComponent.h"
 #include "TiledBGRenderer.h"
+#include "GUITextComponent.h"
 
 namespace ComponentFactory
 {
@@ -27,4 +28,6 @@ namespace ComponentFactory
 	CircleColliderComponent * MakeCircleCollider(float radius, TransformComponent* transform, RigidBodyComponent* rigidbody);
 	PolygonColliderComponent * MakePolygonCollider(Vec2* verticies, int vertexCount, TransformComponent* transform, RigidBodyComponent* rigidbody);
 	BoxColliderComponent * MakeBoxCollider(float width, float height, TransformComponent* transform, RigidBodyComponent* rigidBody);
+
+	GUITextComponent * MakeGUIText(std::string text, TransformComponent* transform);
 };

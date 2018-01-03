@@ -118,6 +118,20 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float width, float heig
 	return boxCollider;
 }
 
+GUITextComponent * ComponentFactory::MakeGUIText(std::string text, TransformComponent * transform)
+{
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+
+	GUITextComponent* guiText = new GUITextComponent();
+	guiText->SetText(text);
+	guiText->SetTransform(transform);
+
+	return guiText;
+}
+
 ColliderRendererComponent * ComponentFactory::MakeColliderRenderer(TransformComponent* trans, ColliderComponent* collider)
 {
 	if (trans == nullptr)

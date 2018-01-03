@@ -3,11 +3,11 @@
 #include "IComponent.h"
 #include "IDrawable.h"
 
-class TextRendererComponent : public IComponent, public IDrawable
+class GUITextComponent : public IComponent, public IDrawable
 {
 public:
-	TextRendererComponent();
-	~TextRendererComponent();
+	GUITextComponent();
+	~GUITextComponent();
 
 	void SetText(std::string text) { mText = text; }
 

@@ -7,12 +7,11 @@ TextRendererComponent::TextRendererComponent()
 	mType = "TextRenderer";
 }
 
-
 TextRendererComponent::~TextRendererComponent()
 {
 }
 
 void TextRendererComponent::Draw(ICamera* cam)
 {
-	cam->DrawText(_text, GetTransform()->GetPosition());
+	cam->DrawTextWorldSpace(mText, GetTransform()->GetPosition());
 }
