@@ -10,6 +10,7 @@
 // PLAYER //
 static float PLAYER_PROJECTILE_DAMAGE = 20; // Default 20
 static float PLAYER_PROJECTILE_SPEED = 50; // Default 50
+static float PLAYER_SHOOT_KNOCKBACK = 5; // Default 5
 static float PLAYER_LATERAL_MAX_SPEED = 500; // Default is 500
 
 // AI //

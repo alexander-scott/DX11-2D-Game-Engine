@@ -173,9 +173,10 @@ void PlayerComponent::ShootProjectile()
 	Vec2 dir = spawnPos - mPlayerTransform->GetPosition();
 	dir.Normalize();
 
-	go->GetComponent<TransformComponent>()->SetPosition(mPlayerTransform->GetPosition() + (dir * 10));
+	go->GetComponent<TransformComponent>()->SetPosition(mPlayerTransform->GetPosition() + (dir * 5));
 	go->GetComponent<RigidBodyComponent>()->SetVelocity(Vec2(0, 0));
 	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * PLAYER_PROJECTILE_SPEED);
+	mPlayerRigidBody->ApplyForce(-dir * PLAYER_SHOOT_KNOCKBACK);
 
 	Audio::Instance().PlaySoundEffect("GunShot");
 }

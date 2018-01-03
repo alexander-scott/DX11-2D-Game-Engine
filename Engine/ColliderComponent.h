@@ -21,7 +21,11 @@ public:
 
 	virtual Vec2 GetCentre() = 0;
 
-	int								GridSquare;
+	int								CentreGridSquare;
+	int								LeftGridSquare;
+	int								RightGridSquare;
+	int								BottomGridSquare;
+	int								TopGridSquare;
 
 protected:
 	TransformComponent*				mTransformComponent;

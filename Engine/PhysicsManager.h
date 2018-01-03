@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <set>
 
 #include "Consts.h"
 #include "ColliderComponent.h"
@@ -21,6 +22,9 @@ public:
 private:
 	void IntegrateForces(ColliderComponent* collider, float deltaTime);
 	void IntegrateVelocity(ColliderComponent* collider, float deltaTime);
+
+	void UpdateObjectInGrid(ColliderComponent* collider, int colliderIndex);
+	void GetIntersectingCells(std::set<int>& intersectingCells, ColliderComponent* collider);
 
 	ObjectGrid*								mObjectGrid;
 
