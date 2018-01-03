@@ -10,22 +10,24 @@ public:
 	Collision(ColliderComponent* a, ColliderComponent* b) : mColliderA(a), mColliderB(b) { }
 	~Collision();
 
-	float FindAxisLeastPenetration(int *faceIndex, PolygonColliderComponent *A, PolygonColliderComponent *B);
-	void FindIncidentFace(Vec2 *v, PolygonColliderComponent *RefPoly, PolygonColliderComponent *IncPoly, int referenceIndex);
-	int Clip(Vec2 n, float c, Vec2 *face);
 	int GetContactCount() { return mContactCount; }
 
-	void Solve();						// Generate contact information
-	void Initialize(float deltaTime);   // Precalculations for impulse solving
-	void ApplyImpulse();				// Solve impulse and apply
-	void PositionalCorrection();		// Naive correction of positional penetration
-	void InfiniteMassCorrection();
+	void CheckForCollision();				// Determine if there was a collision and generate contact information
+	void PrepareToSolve(float deltaTime);   // Precalculations for impulse solving
+	void ResolveCollision();				// Resolve impulse and apply to rigidbody
+	void PenetrationCorrection();			// Correction of positional penetration
 
 private:
 	void CircletoCircleCollision();
 	void CircleToPolygonCollision();
 	void PolygonToCircleCollision();
 	void PolygonToPolygonCollision();
+
+	void NullVelocities();
+
+	float FindAxisLeastPenetration(int* faceIndex, PolygonColliderComponent* A, PolygonColliderComponent *B);
+	void FindIncidentFace(Vec2 *v, PolygonColliderComponent *RefPoly, PolygonColliderComponent *IncPoly, int referenceIndex);
+	int Clip(Vec2 n, float c, Vec2 *face);
 
 	ColliderComponent*		mColliderA;
 	ColliderComponent*		mColliderB;

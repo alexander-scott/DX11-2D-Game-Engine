@@ -97,7 +97,7 @@ void PhysicsManager::Update(float deltaTime)
 				continue;
 
 			Collision collision(A, B);
-			collision.Solve();
+			collision.CheckForCollision();
 
 			if (collision.GetContactCount()) // If there is a collision the number of contacts will be greater than 0
 			{
@@ -172,7 +172,7 @@ void PhysicsManager::Update(float deltaTime)
 				continue;
 
 			Collision collision(A, B);
-			collision.Solve();
+			collision.CheckCollision();
 
 			if (collision.GetContactCount())
 			{
@@ -193,11 +193,11 @@ void PhysicsManager::Update(float deltaTime)
 
 	// Initialize collision
 	for (int i = 0; i < mContacts.size(); ++i)
-		mContacts[i].Initialize(deltaTime);
+		mContacts[i].PrepareToSolve(deltaTime);
 		
-	// Solve collisions
+	// Resolve collisions
 	for (int i = 0; i < mContacts.size(); ++i)
-		mContacts[i].ApplyImpulse();
+		mContacts[i].ResolveCollision();
 
 	// Integrate velocities
 	for (int i = 0; i < mColliders.size(); ++i)
@@ -205,7 +205,7 @@ void PhysicsManager::Update(float deltaTime)
 
 	// Correct positions
 	for (int i = 0; i < mContacts.size(); ++i)
-		mContacts[i].PositionalCorrection();
+		mContacts[i].PenetrationCorrection();
 
 	// Clear all forces
 	for (int i = 0; i < mColliders.size(); ++i)

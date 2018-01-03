@@ -5,7 +5,7 @@ Collision::~Collision()
 {
 }
 
-void Collision::Solve()
+void Collision::CheckForCollision()
 {
 	if (mColliderA->GetType() == ColliderType::eCircle && mColliderB->GetType() == ColliderType::eCircle) // Circle to circle
 	{
@@ -25,7 +25,7 @@ void Collision::Solve()
 	}
 }
 
-void Collision::Initialize(float deltaTime)
+void Collision::PrepareToSolve(float deltaTime)
 {
 	// Calculate average restitution
 	mMixedRestitution = std::min(mColliderA->GetRigidbodyComponent()->GetRestitution(), mColliderB->GetRigidbodyComponent()->GetRestitution());
@@ -43,7 +43,6 @@ void Collision::Initialize(float deltaTime)
 		Vec2 rv = mColliderB->GetRigidbodyComponent()->GetVelocity() + Cross(mColliderB->GetRigidbodyComponent()->GetAngularVelocity(), rb) -
 			mColliderA->GetRigidbodyComponent()->GetVelocity() - Cross(mColliderA->GetRigidbodyComponent()->GetAngularVelocity(), ra);
 
-
 		// Determine if we should perform a resting collision or not
 		// The idea is if the only thing moving this object is gravity,
 		// then the collision should be performed without any restitution
@@ -52,86 +51,87 @@ void Collision::Initialize(float deltaTime)
 	}
 }
 
-void Collision::ApplyImpulse()
+void Collision::ResolveCollision()
 {
 	// Early out and positional correct if both objects have infinite mass
 	if (Equal(mColliderA->GetRigidbodyComponent()->GetInverseMass() + mColliderB->GetRigidbodyComponent()->GetInverseMass(), 0))
 	{
-		InfiniteMassCorrection();
+		NullVelocities();
 		return;
 	}
 
 	for (int i = 0; i < mContactCount; ++i)
 	{
-		// Calculate radii from COM to contact
-		Vec2 ra = mContacts[i] - mColliderA->GetTransformComponent()->GetPosition();
-		Vec2 rb = mContacts[i] - mColliderB->GetTransformComponent()->GetPosition();
+		// Calculate radii from positions to contact
+		Vec2 radiiA = mContacts[i] - mColliderA->GetTransformComponent()->GetPosition();
+		Vec2 radiiB = mContacts[i] - mColliderB->GetTransformComponent()->GetPosition();
 
-		// Relative velocity
-		Vec2 rv = mColliderB->GetRigidbodyComponent()->GetVelocity() + Cross(mColliderB->GetRigidbodyComponent()->GetAngularVelocity(), rb) -
-			mColliderA->GetRigidbodyComponent()->GetVelocity() - Cross(mColliderA->GetRigidbodyComponent()->GetAngularVelocity(), ra);
+		// Calculate relative velocity
+		Vec2 relativeVelocity = mColliderB->GetRigidbodyComponent()->GetVelocity() + Cross(mColliderB->GetRigidbodyComponent()->GetAngularVelocity(), radiiB) -
+			mColliderA->GetRigidbodyComponent()->GetVelocity() - Cross(mColliderA->GetRigidbodyComponent()->GetAngularVelocity(), radiiA);
 
 		// Relative velocity along the normal
-		float contactVel = Dot(rv, mNormal);
+		float contactVelocity = Dot(relativeVelocity, mNormal);
 
 		// Do not resolve if velocities are separating
-		if (contactVel > 0)
+		if (contactVelocity > 0)
 			return;
 
-		float raCrossN = Cross(ra, mNormal);
-		float rbCrossN = Cross(rb, mNormal);
-		float invMassSum = mColliderA->GetRigidbodyComponent()->GetInverseMass() + mColliderB->GetRigidbodyComponent()->GetInverseMass() + 
-			Sqr(raCrossN) * mColliderA->GetRigidbodyComponent()->GetInverseIntertia() + Sqr(rbCrossN) * mColliderB->GetRigidbodyComponent()->GetInverseIntertia();
+		float radiiACrossN = Cross(radiiA, mNormal);
+		float radiiBCrossN = Cross(radiiB, mNormal);
+		float inverseMassSum = mColliderA->GetRigidbodyComponent()->GetInverseMass() + mColliderB->GetRigidbodyComponent()->GetInverseMass() + 
+			Sqr(radiiACrossN) * mColliderA->GetRigidbodyComponent()->GetInverseIntertia() + Sqr(radiiBCrossN) * mColliderB->GetRigidbodyComponent()->GetInverseIntertia();
 
 		// Calculate impulse scalar
-		float j = -(1.0f + mMixedRestitution) * contactVel;
-		j /= invMassSum;
-		j /= (float)mContactCount;
+		float impulseScalar = -(1.0f + mMixedRestitution) * contactVelocity;
+		impulseScalar /= inverseMassSum;
+		impulseScalar /= (float)mContactCount;
 
 		// Apply impulse
-		Vec2 impulse = mNormal * j;
-		mColliderA->GetRigidbodyComponent()->ApplyImpulse(-impulse, ra);
-		mColliderB->GetRigidbodyComponent()->ApplyImpulse(impulse, rb);
+		Vec2 impulse = mNormal * impulseScalar;
+		mColliderA->GetRigidbodyComponent()->ApplyImpulse(-impulse, radiiA);
+		mColliderB->GetRigidbodyComponent()->ApplyImpulse(impulse, radiiB);
 
 		// Friction impulse
-		rv = mColliderB->GetRigidbodyComponent()->GetVelocity() + Cross(mColliderB->GetRigidbodyComponent()->GetAngularVelocity(), rb) -
-			mColliderA->GetRigidbodyComponent()->GetVelocity() - Cross(mColliderA->GetRigidbodyComponent()->GetAngularVelocity(), ra);
+		relativeVelocity = mColliderB->GetRigidbodyComponent()->GetVelocity() + Cross(mColliderB->GetRigidbodyComponent()->GetAngularVelocity(), radiiB) -
+			mColliderA->GetRigidbodyComponent()->GetVelocity() - Cross(mColliderA->GetRigidbodyComponent()->GetAngularVelocity(), radiiA);
 
-		Vec2 t = rv - (mNormal * Dot(rv, mNormal));
+		Vec2 t = relativeVelocity - (mNormal * Dot(relativeVelocity, mNormal));
 		t.Normalize();
 
-		// j tangent magnitude
-		float jt = -Dot(rv, t);
-		jt /= invMassSum;
-		jt /= (float)mContactCount;
+		// ImpulseScalar tangent magnitude
+		float impulseScalarTangentMagnitude = -Dot(relativeVelocity, t);
+		impulseScalarTangentMagnitude /= inverseMassSum;
+		impulseScalarTangentMagnitude /= (float)mContactCount;
 
 		// Don't apply tiny friction impulses
-		if (Equal(jt, 0.0f))
+		if (Equal(impulseScalarTangentMagnitude, 0.0f))
 			return;
 
-		// Coulumb's law
+		// Coulomb's law
 		Vec2 tangentImpulse;
-		if (std::abs(jt) < j * mMixedStaticFriction)
-			tangentImpulse = t * jt;
+		if (std::abs(impulseScalarTangentMagnitude) < impulseScalar * mMixedStaticFriction)
+			tangentImpulse = t * impulseScalarTangentMagnitude;
 		else
-			tangentImpulse = t * -j * mMixedDynamicFriction;
+			tangentImpulse = t * -impulseScalar * mMixedDynamicFriction;
 
 		// Apply friction impulse
-		mColliderA->GetRigidbodyComponent()->ApplyImpulse(-tangentImpulse, ra);
-		mColliderB->GetRigidbodyComponent()->ApplyImpulse(tangentImpulse, rb);
+		mColliderA->GetRigidbodyComponent()->ApplyImpulse(-tangentImpulse, radiiA);
+		mColliderB->GetRigidbodyComponent()->ApplyImpulse(tangentImpulse, radiiB);
 	}
 }
 
-void Collision::PositionalCorrection()
+void Collision::PenetrationCorrection()
 {
-	const float k_slop = 0.05f; // Penetration allowance
-	const float percent = 0.4f; // Penetration percentage to correct
-	Vec2 correction = (std::max(mPenetration - k_slop, 0.0f) / (mColliderA->GetRigidbodyComponent()->GetInverseMass() + mColliderB->GetRigidbodyComponent()->GetInverseMass())) * mNormal * percent;
+	float allowance = 0.05f; // Penetration allowance
+	float percent = 0.4f; // Penetration percentage to correct
+
+	Vec2 correction = (std::max(mPenetration - allowance, 0.0f) / (mColliderA->GetRigidbodyComponent()->GetInverseMass() + mColliderB->GetRigidbodyComponent()->GetInverseMass())) * mNormal * percent;
 	mColliderA->GetTransformComponent()->SetPosition(mColliderA->GetTransformComponent()->GetPosition() - correction * mColliderA->GetRigidbodyComponent()->GetInverseMass());
 	mColliderB->GetTransformComponent()->SetPosition(mColliderB->GetTransformComponent()->GetPosition() + correction * mColliderB->GetRigidbodyComponent()->GetInverseMass());
 }
 
-void Collision::InfiniteMassCorrection()
+void Collision::NullVelocities()
 {
 	mColliderA->GetRigidbodyComponent()->SetVelocity(Vec2(0, 0));
 	mColliderB->GetRigidbodyComponent()->SetVelocity(Vec2(0, 0));
@@ -145,17 +145,17 @@ void Collision::CircletoCircleCollision()
 	// Calculate translational vector, which is normal
 	mNormal = B->GetTransformComponent()->GetPosition() - A->GetTransformComponent()->GetPosition();
 
-	float dist_sqr = mNormal.LenSqr();
+	float distSquared = mNormal.LenSqr();
 	float radius = A->GetRadius() + B->GetRadius();
 
 	// Not in contact
-	if (dist_sqr >= radius * radius)
+	if (distSquared >= radius * radius)
 	{
 		mContactCount = 0;
 		return;
 	}
 
-	float distance = std::sqrt(dist_sqr);
+	float distance = std::sqrt(distSquared);
 
 	mContactCount = 1;
 
@@ -190,22 +190,22 @@ void Collision::CircleToPolygonCollision()
 	int faceNormal = 0;
 	for (int i = 0; i < B->VertexCount; ++i)
 	{
-		float s = Dot(B->Normals[i], center - B->Vertices[i]);
+		float sep = Dot(B->Normals[i], center - B->Vertices[i]);
 
-		if (s > A->GetRadius())
+		if (sep > A->GetRadius())
 			return;
 
-		if (s > separation)
+		if (sep > separation)
 		{
-			separation = s;
+			separation = sep;
 			faceNormal = i;
 		}
 	}
 
 	// Grab face's vertices
-	Vec2 v1 = B->Vertices[faceNormal];
-	int i2 = faceNormal + 1 < B->VertexCount ? faceNormal + 1 : 0;
-	Vec2 v2 = B->Vertices[i2];
+	Vec2 vertex1 = B->Vertices[faceNormal];
+	int index2 = faceNormal + 1 < B->VertexCount ? faceNormal + 1 : 0;
+	Vec2 vertex2 = B->Vertices[index2];
 
 	// Check to see if center is within polygon
 	if (separation < EPSILON)
@@ -218,45 +218,41 @@ void Collision::CircleToPolygonCollision()
 	}
 
 	// Determine which voronoi region of the edge center of circle lies within
-	float dot1 = Dot(center - v1, v2 - v1);
-	float dot2 = Dot(center - v2, v1 - v2);
+	float dot1 = Dot(center - vertex1, vertex2 - vertex1);
+	float dot2 = Dot(center - vertex2, vertex1 - vertex2);
 	mPenetration = A->GetRadius() - separation;
 
-	// Closest to v1
+	// Closest to vertex1
 	if (dot1 <= 0.0f)
 	{
-		if (DistSqr(center, v1) > A->GetRadius() * A->GetRadius())
+		if (DistSqr(center, vertex1) > A->GetRadius() * A->GetRadius())
 			return;
 
 		mContactCount = 1;
-		Vec2 n = v1 - center;
+		Vec2 n = vertex1 - center;
 		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 		n.Normalize();
 		mNormal = n;
-		v1 = B->GetRigidbodyComponent()->GetOrientationMatrix() * v1 + mColliderB->GetTransformComponent()->GetPosition();
-		mContacts[0] = v1;
+		vertex1 = B->GetRigidbodyComponent()->GetOrientationMatrix() * vertex1 + mColliderB->GetTransformComponent()->GetPosition();
+		mContacts[0] = vertex1;
 	}
-
-	// Closest to v2
-	else if (dot2 <= 0.0f)
+	else if (dot2 <= 0.0f) // Closest to vertex2
 	{
-		if (DistSqr(center, v2) > A->GetRadius() * A->GetRadius())
+		if (DistSqr(center, vertex2) > A->GetRadius() * A->GetRadius())
 			return;
 
 		mContactCount = 1;
-		Vec2 n = v2 - center;
-		v2 = B->GetRigidbodyComponent()->GetOrientationMatrix() * v2 + mColliderB->GetTransformComponent()->GetPosition();
-		mContacts[0] = v2;
+		Vec2 n = vertex2 - center;
+		vertex2 = B->GetRigidbodyComponent()->GetOrientationMatrix() * vertex2 + mColliderB->GetTransformComponent()->GetPosition();
+		mContacts[0] = vertex2;
 		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 		n.Normalize();
 		mNormal = n;
 	}
-
-	// Closest to face
-	else
+	else // Closest to face
 	{
 		Vec2 n = B->Normals[faceNormal];
-		if (Dot(center - v1, n) > A->GetRadius())
+		if (Dot(center - vertex1, n) > A->GetRadius())
 			return;
 
 		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
