@@ -49,7 +49,7 @@ RigidBodyComponent * ComponentFactory::MakeRigidbody(float staticF, float dynami
 	return rigidBody;
 }
 
-TextRendererComponent * ComponentFactory::MakeTextRenderer(std::string text, TransformComponent * transform)
+TextRendererComponent * ComponentFactory::MakeTextRenderer(std::string text, XMVECTORF32 colour, TransformComponent * transform)
 {
 	TextRendererComponent * textRenderer = new TextRendererComponent();
 	if (transform == nullptr)
@@ -58,6 +58,7 @@ TextRendererComponent * ComponentFactory::MakeTextRenderer(std::string text, Tra
 	}
 	textRenderer->SetTransform(transform);
 	textRenderer->SetText(text);
+	textRenderer->SetTextColour(colour);
 
 	return textRenderer;
 }
@@ -118,7 +119,7 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float width, float heig
 	return boxCollider;
 }
 
-GUITextComponent * ComponentFactory::MakeGUIText(std::string text, TransformComponent * transform)
+GUITextComponent * ComponentFactory::MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent * transform)
 {
 	if (transform == nullptr)
 	{
@@ -128,6 +129,7 @@ GUITextComponent * ComponentFactory::MakeGUIText(std::string text, TransformComp
 	GUITextComponent* guiText = new GUITextComponent();
 	guiText->SetText(text);
 	guiText->SetTransform(transform);
+	guiText->SetTextColour(colour);
 
 	return guiText;
 }

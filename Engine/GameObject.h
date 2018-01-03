@@ -17,22 +17,15 @@ public:
 	~GameObject();
 
 	void Draw(ICamera* cam) const;
-	virtual void Update(float deltaTime);
-	void SendMessageToComponents(IMessage& message);
 
+	virtual void Update(float deltaTime);
+
+	void SendMessageToComponents(IMessage& message);
 	void AddComponent(IComponent* component);
 
 	std::string GetTag() { return mTag; }
 
-	void SetActive(bool active) 
-	{
-		mActive = active;
-		for (auto component : mComponents)
-		{
-			component->SetActive(active);
-		}
-	}
-
+	void SetActive(bool active);
 	bool GetActive() { return mActive; }
 
 	template<class T>

@@ -232,7 +232,7 @@ void DX11Graphics::DrawLine(Vec2 v1, Vec2 v2)
 	g_primitiveBatch->DrawLine(vec1, vec2);
 }
 
-void DX11Graphics::DrawText(std::string text, Vec2 pos, float rot, float scale)
+void DX11Graphics::DrawText(std::string text, Vec2 pos, float rot, float* rgb, float scale)
 {
 	std::wstring widestr = std::wstring(text.begin(), text.end());
 	const wchar_t* convertedText = widestr.c_str();

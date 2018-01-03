@@ -60,14 +60,14 @@ void GameCamera::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, 
 	gfx->DrawSprite(name, pos - mTransform->GetPosition(), rect, rot, scale, offset);
 }
 
-void GameCamera::DrawTextScreenSpace(std::string text, Vec2 pos, float rot, float scale)
+void GameCamera::DrawTextScreenSpace(std::string text, Vec2 pos, float rot, float* rgb, float scale)
 {
-	gfx->DrawText(text, pos, rot, scale);
+	gfx->DrawText(text, pos, rot, rgb, scale);
 }
 
-void GameCamera::DrawTextWorldSpace(std::string text, Vec2 pos, float rot, float scale)
+void GameCamera::DrawTextWorldSpace(std::string text, Vec2 pos, float rot, float* rgb, float scale)
 {
-	gfx->DrawText(text, pos - mTransform->GetPosition(), rot, scale);
+	gfx->DrawText(text, pos - mTransform->GetPosition(), rot, rgb, scale);
 }
 
 void GameCamera::DrawLine(Vec2 v1, Vec2 v2)

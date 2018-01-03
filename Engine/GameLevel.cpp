@@ -4,7 +4,7 @@ GameLevel::GameLevel()
 {
 	mText = new GameObject("Text");
 	TransformComponent* trans = ComponentFactory::MakeTransform(Vec2(10, 10), 0, 0.5f);
-	mText->AddComponent(ComponentFactory::MakeGUIText("Score", trans));
+	mText->AddComponent(ComponentFactory::MakeGUIText("Score", DirectX::Colors::Yellow, trans));
 	CacheComponents(mText, 2);
 }
 
