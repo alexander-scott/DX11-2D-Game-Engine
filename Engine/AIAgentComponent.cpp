@@ -79,7 +79,7 @@ void AIAgentComponent::ShootAtPlayer(float deltaTime)
 
 	Vec2 dir = Vec2(mTargetTransform->GetPosition().x - mAgentTransform->GetPosition().x, mTargetTransform->GetPosition().y - mAgentTransform->GetPosition().y);
 	float distance = dir.Len();
-	if (distance > mViewRange)
+	if (distance > mViewRange) // If player is too far away
 	{
 		mCurrentState = AIAgentState::ePatrolling;
 	}

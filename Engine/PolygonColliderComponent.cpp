@@ -79,25 +79,6 @@ Rect PolygonColliderComponent::GetRect()
 	return Rect();
 }
 
-Rect PolygonColliderComponent::GetPreviousRect()
-{
-	if (VertexCount == 4)
-	{
-		Vec2 pos = mTransformComponent->GetPreviousPosition();
-		Rect r;
-		r.LeftX = (int)pos.x;
-		r.BotY = (int)pos.y + (int)(mHalfHeight * 2);
-		r.RightX = (int)pos.x + (int)(mHalfWidth * 2);
-		r.TopY = (int)pos.y;
-		r.Centre = Vec2(pos.x + mHalfWidth, pos.y + mHalfHeight);
-		return r;
-	}
-	else
-		throw;
-
-	return Rect();
-}
-
 void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 {
 	// No hulls with less than 3 vertices (ensure actual polygon)

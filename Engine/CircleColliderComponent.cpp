@@ -38,16 +38,3 @@ Rect CircleColliderComponent::GetRect()
 
 	return r;
 }
-
-Rect CircleColliderComponent::GetPreviousRect()
-{
-	Vec2 pos = mTransformComponent->GetPreviousPosition();
-	Rect r;
-	r.LeftX = (int)pos.x;
-	r.TopY = (int)pos.y;
-	r.RightX = (int)pos.x + (int)mRadius;
-	r.BotY = (int)pos.y + (int)mRadius;
-	r.Centre = Vec2(pos.x + (mRadius / 2), pos.y + (mRadius / 2));
-
-	return Rect();
-}

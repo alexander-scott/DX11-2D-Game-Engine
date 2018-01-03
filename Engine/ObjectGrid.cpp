@@ -107,7 +107,9 @@ void ObjectGrid::erase(const int ltrb[4], int element)
 	const int y2 = ltrb[3] / cell_h;
 
 	// Make sure the element rectangle is in bounds.
-	assert(x1 >= 0 && x2 < grid_w && y1 >= 0 && y2 <= grid_h && "Element is out of bounds!");
+	//assert(x1 >= 0 && x2 < grid_w && y1 >= 0 && y2 <= grid_h && "Element is out of bounds!");
+	if (!(x1 >= 0 && x2 < grid_w && y1 >= 0 && y2 <= grid_h))
+		return;
 
 	// For each grid cell that overlaps, remove the element.
 	for (int y = y1; y <= y2; ++y)
@@ -128,7 +130,8 @@ void ObjectGrid::erase_node(int& cell, int element)
 		link_ptr = &nodes[*link_ptr].next;
 
 		assert(*link_ptr != -1 && "Error: element was not found!");
-		if (*link_ptr != -1)
+
+		if (*link_ptr != -1) // Found element. Exit cell
 			return;
 	}
 

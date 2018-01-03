@@ -15,7 +15,9 @@ public:
 	virtual ColliderType GetType(void) const = 0;
 	virtual void ComputeMass(float density) = 0;
 	virtual Rect GetRect() = 0;
-	virtual Rect GetPreviousRect() = 0;
+
+	void SetPreviousRect(Rect r) { mPreviousRect = r; }
+	Rect GetPreviousRect() { return mPreviousRect; }
 
 	virtual Vec2 GetCentre() = 0;
 
@@ -24,5 +26,6 @@ public:
 protected:
 	TransformComponent*				mTransformComponent;
 	RigidBodyComponent*				mRigidyBodyComponent;
+	Rect							mPreviousRect;
 };
 
