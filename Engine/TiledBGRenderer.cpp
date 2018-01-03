@@ -82,14 +82,16 @@ void TiledBGRenderer::Draw(ICamera * cam)
 		case TiledBGDirection::eHorizontal:
 			for (int i = -2; i < 3; i++)
 			{
-				cam->DrawSprite(mSpriteFileName, Vec2(centreTileXPos + (i * mSpriteWidth), GetTransform()->GetPosition().y), nullptr, 0);
+				cam->DrawSprite(mSpriteFileName, Vec2(centreTileXPos + (i * mSpriteWidth), GetTransform()->GetPosition().y), 
+					nullptr, GetTransform()->GetRotation(), GetTransform()->GetScale(), Vec2(0,0));
 			}
 			break;
 
 		case TiledBGDirection::eVertical:
 			for (int i = -2; i < 3; i++)
 			{
-				cam->DrawSprite(mSpriteFileName, Vec2(GetTransform()->GetPosition().x, centreTileYPos + (i * mSpriteHeight)), nullptr, 0);
+				cam->DrawSprite(mSpriteFileName, Vec2(GetTransform()->GetPosition().x, centreTileYPos + (i * mSpriteHeight)), 
+					nullptr, GetTransform()->GetRotation(), GetTransform()->GetScale(), Vec2(0, 0));
 			}
 			break;
 
@@ -99,7 +101,8 @@ void TiledBGRenderer::Draw(ICamera * cam)
 			{
 				for (int j = -2; j < 3; j++)
 				{
-					cam->DrawSprite(mSpriteFileName, Vec2(centreTileXPos + (i * mSpriteWidth), centreTileYPos + (j * mSpriteHeight)), nullptr, 0);
+					cam->DrawSprite(mSpriteFileName, Vec2(centreTileXPos + (i * mSpriteWidth), centreTileYPos + (j * mSpriteHeight)), 
+						nullptr, GetTransform()->GetRotation(), GetTransform()->GetScale(), Vec2(0, 0));
 				}
 			}
 			break;

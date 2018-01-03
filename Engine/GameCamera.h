@@ -20,12 +20,10 @@ public:
 
 	virtual void Update(float deltaTime) override;
 
-	virtual void DrawSprite(std::string name, Vec2 pos, RECT* rect, float rot) override;
-	virtual void DrawSprite(std::string name, Vec2 pos, RECT* rect, float rot, float scale) override;
 	virtual void DrawSprite(std::string name, Vec2 pos, RECT* rect, float rot, float scale, Vec2 offset) override;
 
-	virtual void DrawTextScreenSpace(std::string text, Vec2 pos) override;
-	virtual void DrawTextWorldSpace(std::string text, Vec2 pos) override;
+	virtual void DrawTextScreenSpace(std::string text, Vec2 pos, float rot, float scale) override;
+	virtual void DrawTextWorldSpace(std::string text, Vec2 pos, float rot, float scale) override;
 
 	virtual void DrawLine(Vec2 v1, Vec2 v2) override;
 

@@ -55,29 +55,19 @@ void GameCamera::Update(float deltaTime)
 	mTransform->SetPosition(pos);
 }
 
-void GameCamera::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot)
-{
-	gfx->DrawSprite(name, pos - mTransform->GetPosition(), rect, rot);
-}
-
-void GameCamera::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale)
-{
-	gfx->DrawSprite(name, pos - mTransform->GetPosition(), rect, rot, scale);
-}
-
 void GameCamera::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale, Vec2 offset)
 {
 	gfx->DrawSprite(name, pos - mTransform->GetPosition(), rect, rot, scale, offset);
 }
 
-void GameCamera::DrawTextScreenSpace(std::string text, Vec2 pos)
+void GameCamera::DrawTextScreenSpace(std::string text, Vec2 pos, float rot, float scale)
 {
-	gfx->DrawText(text, pos);
+	gfx->DrawText(text, pos, rot, scale);
 }
 
-void GameCamera::DrawTextWorldSpace(std::string text, Vec2 pos)
+void GameCamera::DrawTextWorldSpace(std::string text, Vec2 pos, float rot, float scale)
 {
-	gfx->DrawText(text, pos - mTransform->GetPosition());
+	gfx->DrawText(text, pos - mTransform->GetPosition(), rot, scale);
 }
 
 void GameCamera::DrawLine(Vec2 v1, Vec2 v2)

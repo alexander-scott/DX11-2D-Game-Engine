@@ -12,5 +12,5 @@ GUITextComponent::~GUITextComponent()
 
 void GUITextComponent::Draw(ICamera* cam)
 {
-	cam->DrawTextScreenSpace(mText, GetTransform()->GetPosition());
+	cam->DrawTextScreenSpace(mText, GetTransform()->GetPosition(), GetTransform()->GetRotation(), GetTransform()->GetScale());
 }
