@@ -59,9 +59,6 @@
     <Filter Include="Game\GameComponents">
       <UniqueIdentifier>{8557f249-179d-44db-a7e4-ccddc55ff553}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Scene">
-      <UniqueIdentifier>{e2f2402f-bb60-4e14-bed7-9c3ffcc55102}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\I/O">
       <UniqueIdentifier>{76caa40f-803c-4ae9-ad3b-20ffe0354232}</UniqueIdentifier>
     </Filter>
@@ -199,9 +196,6 @@
     <ClInclude Include="Collision.h">
       <Filter>Engine\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="QuadTree.h">
-      <Filter>Engine\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>Engine\I/O</Filter>
     </ClInclude>
@@ -235,9 +229,6 @@
     <ClInclude Include="rapidxml_print.hpp">
       <Filter>Engine\Level Loading\XML Reader</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectGrid.h">
-      <Filter>Engine\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="LevelBuilder.h">
       <Filter>Engine\Level Loading</Filter>
     </ClInclude>
@@ -249,6 +240,9 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectGrid.h">
+      <Filter>Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -324,9 +318,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="QuadTree.cpp">
-      <Filter>Engine\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Audio.cpp">
       <Filter>Engine\I/O</Filter>
     </ClCompile>
@@ -354,9 +345,6 @@
     <ClCompile Include="PlayerComponent.cpp">
       <Filter>Game\GameComponents\Player</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectGrid.cpp">
-      <Filter>Engine\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="LevelBuilder.cpp">
       <Filter>Engine\Level Loading</Filter>
     </ClCompile>
@@ -365,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="GUITextValueComponent.cpp">
       <Filter>Game\GameComponents\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectGrid.cpp">
+      <Filter>Engine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

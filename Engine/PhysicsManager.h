@@ -30,6 +30,5 @@ private:
 
 	std::vector<GameObject*>				mGameObjects;
 	std::vector<ColliderComponent*>			mColliders;
-	std::vector<Collision>					mContacts;
 };
 

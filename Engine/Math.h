@@ -268,6 +268,13 @@ inline float Random(float l, float h)
 	return a;
 }
 
+// Returns the value divided by the divisor rounded up.
+inline int DivideCeil(int value, int divisor)
+{
+	const int result = value / divisor;
+	return (value % divisor != 0) ? (result + 1) : result;
+}
+
 inline bool BiasGreaterThan(float a, float b)
 {
 	const float k_biasRelative = 0.95f;

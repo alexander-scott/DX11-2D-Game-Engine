@@ -4,7 +4,7 @@
 
 void PhysicsManager::BuildObjectGrid(int levelWidth, int levelHeight)
 {
-	mObjectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100); // Initalise an object grid with cell size 100,100
+	mObjectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100); // Initalise an object grid with cell Size 100,100
 }
 
 PhysicsManager::~PhysicsManager()
@@ -25,19 +25,21 @@ void PhysicsManager::AddCollider(GameObject* gameObject, ColliderComponent * col
 	ltrb[2] = r.RightX;
 	ltrb[3] = std::abs(r.BotY);
 
-	mObjectGrid->insert(ltrb, (int)mColliders.size() - 1);
-	collider->CentreGridSquare = mObjectGrid->cell_index((int)r.Centre.x, (int)std::abs(r.Centre.y));
-	collider->LeftGridSquare = mObjectGrid->cell_index((int)r.LeftX, (int)std::abs(r.Centre.y));
-	collider->RightGridSquare = mObjectGrid->cell_index((int)r.RightX, (int)std::abs(r.Centre.y));
-	collider->BottomGridSquare = mObjectGrid->cell_index((int)r.Centre.x, (int)std::abs(r.BotY));
-	collider->TopGridSquare = mObjectGrid->cell_index((int)r.Centre.x, (int)std::abs(r.TopY));
+	mObjectGrid->Insert(ltrb, (int)mColliders.size() - 1);
+	collider->CentreGridSquare = mObjectGrid->GetCellIndex((int)r.Centre.x, (int)std::abs(r.Centre.y));
+	collider->LeftGridSquare = mObjectGrid->GetCellIndex((int)r.LeftX, (int)std::abs(r.Centre.y));
+	collider->RightGridSquare = mObjectGrid->GetCellIndex((int)r.RightX, (int)std::abs(r.Centre.y));
+	collider->BottomGridSquare = mObjectGrid->GetCellIndex((int)r.Centre.x, (int)std::abs(r.BotY));
+	collider->TopGridSquare = mObjectGrid->GetCellIndex((int)r.Centre.x, (int)std::abs(r.TopY));
 	collider->SetPreviousRect(r);
 }
 
 void PhysicsManager::Update(float deltaTime)
 {
-	// Generate new collision info
-	mContacts.clear();
+	// Holds a vector of collisions that occured between objects
+	std::vector<Collision> contacts;
+	// Holds a set of every cell index that the collider intersects with. Set is used instead of vector to prevent duplicate cells being inserted
+	std::set<int> intersectingCells;
 
 	for (int i = 0; i < mColliders.size(); i++)
 	{
@@ -48,26 +50,23 @@ void PhysicsManager::Update(float deltaTime)
 		}
 	}
 
-	// Holds a set of every cell index that the collider intersects with. Set is used instead of vector to prevent duplicate cells being inserted
-	std::set<int> intersectingCells; 
-
 	for (int i = 0; i < mColliders.size(); i++) // For every collider in the scene
 	{
 		ColliderComponent *A = mColliders[i];
 
-		if (!A->GetActive()) // Collider must be active
+		if (!A->GetActive())
 			continue;
 
 		GetIntersectingCells(intersectingCells, A);
 
 		for (auto& cell : intersectingCells) // For each cell that this collider intersects
 		{
-			const GridNode* node = mObjectGrid->first(cell); // Get the first grid node in this cell
+			const GridNode* node = mObjectGrid->GetFirstNode(cell); // Get the GetFirstNode grid node in this cell
 
 			while (node) // While node is not null go through every collider in the node
 			{
 				int element = node->element;
-				node = mObjectGrid->next(node); // Load the next element for the next loop
+				node = mObjectGrid->GetNextNode(node); // Load the GetNextNode element for the GetNextNode loop
 
 				if (element <= i) // If the element in this node has an ID less than 'i' that means that we will have already checked this potential collision earlier in the loop
 					continue;
@@ -84,7 +83,7 @@ void PhysicsManager::Update(float deltaTime)
 
 				if (collision.GetContactCount()) // If there is a collision the number of contacts will be greater than 0
 				{
-					mContacts.emplace_back(collision);
+					contacts.emplace_back(collision);
 
 					CollisionMessage colMsg(mGameObjects[i]);
 					mGameObjects[element]->SendMessageToComponents(colMsg);
@@ -96,14 +95,14 @@ void PhysicsManager::Update(float deltaTime)
 		}
 	}
 
-	/*for (int i = 0; i < mColliders.size(); ++i)
+	/*for (int i = 0; i < mColliders.Size(); ++i)
 	{
 		ColliderComponent *A = mColliders[i];
 
 		if (!A->GetActive())
 			continue;
 
-		for (int j = i + 1; j < mColliders.size(); ++j)
+		for (int j = i + 1; j < mColliders.Size(); ++j)
 		{
 			ColliderComponent *B = mColliders[j];
 			if (A->GetRigidbodyComponent()->GetInverseMass() == 0 && B->GetRigidbodyComponent()->GetInverseMass() == 0)
@@ -117,7 +116,7 @@ void PhysicsManager::Update(float deltaTime)
 
 			if (collision.GetContactCount())
 			{
-				mContacts.emplace_back(collision);
+				contacts.emplace_back(collision);
 
 				CollisionMessage colMsg(mGameObjects[i]);
 				mGameObjects[j]->SendMessageToComponents(colMsg);
@@ -133,20 +132,20 @@ void PhysicsManager::Update(float deltaTime)
 		IntegrateForces(mColliders[i], deltaTime);
 
 	// Initialize collision
-	for (int i = 0; i < mContacts.size(); ++i)
-		mContacts[i].PrepareToSolve(deltaTime);
+	for (int i = 0; i < contacts.size(); ++i)
+		contacts[i].PrepareToSolve(deltaTime);
 		
 	// Resolve collisions
-	for (int i = 0; i < mContacts.size(); ++i)
-		mContacts[i].ResolveCollision();
+	for (int i = 0; i < contacts.size(); ++i)
+		contacts[i].ResolveCollision();
 
 	// Integrate velocities
 	for (int i = 0; i < mColliders.size(); ++i)
 		IntegrateVelocity(mColliders[i], deltaTime);
 
 	// Correct positions
-	for (int i = 0; i < mContacts.size(); ++i)
-		mContacts[i].PenetrationCorrection();
+	for (int i = 0; i < contacts.size(); ++i)
+		contacts[i].PenetrationCorrection();
 
 	// Clear all forces
 	for (int i = 0; i < mColliders.size(); ++i)
@@ -194,17 +193,17 @@ void PhysicsManager::IntegrateVelocity(ColliderComponent * collider, float delta
 void PhysicsManager::UpdateObjectInGrid(ColliderComponent * collider, int colliderIndex)
 {
 	Rect newRect = collider->GetRect();
-	int centreCell = mObjectGrid->cell_index((int)newRect.Centre.x, (int)std::abs(newRect.Centre.y));
-	int leftCell = mObjectGrid->cell_index((int)newRect.LeftX, (int)std::abs(newRect.Centre.y));
-	int rightCell = mObjectGrid->cell_index((int)newRect.RightX, (int)std::abs(newRect.Centre.y));
-	int bottomCell = mObjectGrid->cell_index((int)newRect.Centre.x, (int)std::abs(newRect.BotY));
-	int topCell = mObjectGrid->cell_index((int)newRect.Centre.x, (int)std::abs(newRect.TopY));
+	int centreCell = mObjectGrid->GetCellIndex((int)newRect.Centre.x, (int)std::abs(newRect.Centre.y));
+	int leftCell = mObjectGrid->GetCellIndex((int)newRect.LeftX, (int)std::abs(newRect.Centre.y));
+	int rightCell = mObjectGrid->GetCellIndex((int)newRect.RightX, (int)std::abs(newRect.Centre.y));
+	int bottomCell = mObjectGrid->GetCellIndex((int)newRect.Centre.x, (int)std::abs(newRect.BotY));
+	int topCell = mObjectGrid->GetCellIndex((int)newRect.Centre.x, (int)std::abs(newRect.TopY));
 
 	if (centreCell != collider->CentreGridSquare ||
 		leftCell != collider->LeftGridSquare ||
 		rightCell != collider->RightGridSquare ||
 		bottomCell != collider->BottomGridSquare ||
-		topCell != collider->TopGridSquare) // Cell has changed
+		topCell != collider->TopGridSquare) // A cell has changed
 	{
 		Rect prevRect = collider->GetPreviousRect();
 		int ltrb[4];
@@ -212,13 +211,13 @@ void PhysicsManager::UpdateObjectInGrid(ColliderComponent * collider, int collid
 		ltrb[1] = std::abs(prevRect.TopY);
 		ltrb[2] = prevRect.RightX;
 		ltrb[3] = std::abs(prevRect.BotY);
-		mObjectGrid->erase(ltrb, colliderIndex);
+		mObjectGrid->Erase(ltrb, colliderIndex);
 
 		ltrb[0] = newRect.LeftX;
 		ltrb[1] = std::abs(newRect.TopY);
 		ltrb[2] = newRect.RightX;
 		ltrb[3] = std::abs(newRect.BotY);
-		mObjectGrid->insert(ltrb, colliderIndex);
+		mObjectGrid->Insert(ltrb, colliderIndex);
 
 		collider->CentreGridSquare = centreCell;
 		collider->LeftGridSquare = leftCell;
@@ -240,14 +239,14 @@ void PhysicsManager::GetIntersectingCells(std::set<int>& intersectingCells, Coll
 	for (int i = 0; i < 5; i++) // For every important point on the rect, get the cell that it is in
 	{
 		if (i == 0) // Centre
-			intersectingCells.insert(mObjectGrid->cell_index((int)r.Centre.x, (int)std::abs(r.Centre.y)));
+			intersectingCells.insert(mObjectGrid->GetCellIndex((int)r.Centre.x, (int)std::abs(r.Centre.y)));
 		else if (i == 1) // Left
-			intersectingCells.insert(mObjectGrid->cell_index((int)r.LeftX, (int)std::abs(r.Centre.y)));
+			intersectingCells.insert(mObjectGrid->GetCellIndex((int)r.LeftX, (int)std::abs(r.Centre.y)));
 		else if (i == 2) // Right
-			intersectingCells.insert(mObjectGrid->cell_index((int)r.RightX, (int)std::abs(r.Centre.y)));
+			intersectingCells.insert(mObjectGrid->GetCellIndex((int)r.RightX, (int)std::abs(r.Centre.y)));
 		else if (i == 3) // Top
-			intersectingCells.insert(mObjectGrid->cell_index((int)r.Centre.x, (int)std::abs(r.TopY)));
+			intersectingCells.insert(mObjectGrid->GetCellIndex((int)r.Centre.x, (int)std::abs(r.TopY)));
 		else if (i == 4) // Bottom
-			intersectingCells.insert(mObjectGrid->cell_index((int)r.Centre.x, (int)std::abs(r.BotY)));
+			intersectingCells.insert(mObjectGrid->GetCellIndex((int)r.Centre.x, (int)std::abs(r.BotY)));
 	}
 }
