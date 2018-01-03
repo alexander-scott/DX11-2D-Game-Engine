@@ -16,6 +16,11 @@ public:
 
 	bool IsDead() { return mIsDead; }
 
+	float& GetHealthAddress() 
+	{ 
+		return mHealth; 
+	}
+
 private:
 	float				mHealth;
 	bool				mIsDead;

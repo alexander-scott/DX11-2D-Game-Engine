@@ -22,6 +22,15 @@ void GameObject::AddComponent(IComponent * component)
 	}
 }
 
+void GameObject::SetActive(bool active)
+{
+	mActive = active;
+	for (auto component : mComponents)
+	{
+		component->SetActive(active);
+	}
+}
+
 void GameObject::SendMessageToComponents(IMessage & message)
 {
 	for (auto component : mComponents)

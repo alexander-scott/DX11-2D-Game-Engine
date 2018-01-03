@@ -176,7 +176,7 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		else
 			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
 
-		return ComponentFactory::MakeTextRenderer(text, trans);
+		return ComponentFactory::MakeTextRenderer(text, DirectX::Colors::Yellow, trans); // TODO: Remove default yellow colour
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "CircleColliderComponent")
 	{

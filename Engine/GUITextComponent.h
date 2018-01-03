@@ -3,18 +3,18 @@
 #include "IComponent.h"
 #include "IDrawable.h"
 
-class TextRendererComponent : public IComponent, public IDrawable
+class GUITextComponent : public IComponent, public IDrawable
 {
 public:
-	TextRendererComponent();
-	~TextRendererComponent();
+	GUITextComponent();
+	~GUITextComponent();
 
 	void SetText(std::string text) { mText = text; }
 	void SetTextColour(XMVECTORF32 colour) { mTextColour = colour; }
 
 	virtual void Draw(ICamera* cam) override;
 
-private:
+protected:
 	std::string mText;
 	XMVECTORF32 mTextColour;
 };

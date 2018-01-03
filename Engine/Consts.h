@@ -186,12 +186,6 @@ struct ILevelData {};
 struct LevelData : public ILevelData
 {
 public:
-	int levelWidth;
-	int levelHeight;
-
-	float playerXPos;
-	float playerYPos;
-
 	float levelLeftBounds;
 	float levelRightBounds;
 
