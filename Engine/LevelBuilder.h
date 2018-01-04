@@ -10,7 +10,7 @@ namespace LevelBuilder
 {
 	void InitaliseGameplayValues(std::string fileName);
 
-	GameLevel* BuildGameLevel(std::string fileName);
+	GameLevel* BuildGameLevel(std::string fileName, float startScore);
 
 	inline LevelData ExtractLevelData(xml_node<>* node);
 

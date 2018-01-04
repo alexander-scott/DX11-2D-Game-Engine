@@ -6,7 +6,7 @@
 class GameLevel
 {
 public:
-	GameLevel();
+	GameLevel(float startScore);
 	~GameLevel();
 
 	LevelState GetLevelState() { return mLevelState; }

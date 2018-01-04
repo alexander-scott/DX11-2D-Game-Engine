@@ -9,19 +9,35 @@ Game::Game(MainWindow& wnd)
 	LevelBuilder::InitaliseGameplayValues("Levels\\GameValues.xml"); //BROKEN
 
 	mCurrentLevel = 1;
-	mWaitingOnGUIInput = false;
+	mTotalScore = 0;
+	mGameState = GameState::eStartScreen;
 
-	mGameGUI = new GameGUI();
-
-	CreateLevel();
+	mGameStartScreen = new GameStartScreen();
 }
 
 void Game::Update()
 {
 	GameCamera::Instance().BeginFrame();
 
-	UpdateLevel();
-	DrawLevel();
+	if (mGameState != GameState::eStartScreen)
+	{
+		UpdateLevel();
+		DrawLevel();
+	}
+	else
+	{
+		mGameStartScreen->UpdateGUI(mFrameTimer.Mark());
+		mGameStartScreen->DrawGUI();
+
+		if (mGameStartScreen->GetCentreButtonClicked())
+		{
+			delete mGameStartScreen;
+
+			mGameState = GameState::ePlayingGame;
+			mGameGUI = new GameGUI();
+			CreateLevel();
+		}
+	}
 
 	GameCamera::Instance().EndFrame();
 
@@ -37,37 +53,40 @@ void Game::CreateLevel()
 {
 	// Delete old level
 	if (mCurrentLevel != 1) // HARDCODED 
+	{
+		mTotalScore += mGameLevel->Score;
 		delete mGameLevel;
-
+	}
+		
 	std::stringstream stream;
 	stream << "Levels\\Level" << mCurrentLevel << ".xml";
 	string levelPath = stream.str();
 
-	mGameLevel = LevelBuilder::BuildGameLevel(levelPath);
+	mGameLevel = LevelBuilder::BuildGameLevel(levelPath, mTotalScore);
 	mGameGUI->ResetGUI(mGameLevel, mCurrentLevel);
 }
 
 void Game::CheckLevelOver()
 {
-	if (!mWaitingOnGUIInput)
+	if (mGameState != GameState::eWaitingOnGUIInput)
 	{
 		if (mGameLevel->GetLevelState() == LevelState::eDead)
 		{
 			mGameGUI->EnableCentreButton("RESTART");
-			mWaitingOnGUIInput = true;
+			mGameState = GameState::eWaitingOnGUIInput;
 		}
 		else if (mGameLevel->GetLevelState() == LevelState::eWon)
 		{
 			mGameGUI->EnableCentreButton("LEVELUP");
 			mCurrentLevel++; // Increase level
-			mWaitingOnGUIInput = true;
+			mGameState = GameState::eWaitingOnGUIInput;
 		}
 	}
 	else
 	{
 		if (mGameGUI->GetCentreButtonClicked())
 		{
-			mWaitingOnGUIInput = false;
+			mGameState = GameState::ePlayingGame;
 			CreateLevel();
 		}
 	}
