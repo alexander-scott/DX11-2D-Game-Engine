@@ -7,6 +7,9 @@ X postive is right. Y postive is up.
 <level name="1" leftBound="0" rightBound="30" bottomBound="0" topBound="100">
   <!-- - Player <!- -->
   <GameObject instanceid="0" blueprintid="0" update="tilepos" val1="3" val2="8" renderLayer="2"></GameObject>
+
+  <!-- - Finish Flag <!- -->
+  <GameObject instanceid="1" blueprintid="8" update="tilepos" val1="25" val2="1" renderLayer="2"></GameObject>
   
   <!-- - Background <!- -->
   

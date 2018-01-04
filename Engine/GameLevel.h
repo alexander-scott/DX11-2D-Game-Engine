@@ -19,7 +19,6 @@ public:
 	void Draw();
 
 private:
-	void BuildCustomObjects();
 	GameObject* FindGameObject(std::string tag);
 
 	ObjectManager									mObjectManager;

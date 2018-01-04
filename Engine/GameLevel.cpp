@@ -3,8 +3,6 @@
 GameLevel::GameLevel()
 {
 	mScore = 0;
-
-
 }
 
 GameLevel::~GameLevel()
@@ -68,25 +66,6 @@ void GameLevel::ConstructLevel(LevelData levelData)
 	height *= TILE_HEIGHT;
 
 	mPhysicsManager.BuildObjectGrid(width, height);
-
-	BuildCustomObjects();
-}
-
-void GameLevel::BuildCustomObjects()
-{
-	GameObject* finishFlag = new GameObject("FinishFlag");
-	TransformComponent* flagTrans = ComponentFactory::MakeTransform(Vec2(150, -30), 0, 1);
-	finishFlag->AddComponent(flagTrans);
-	SpriteRendererComponent* flagRenderer = ComponentFactory::MakeSpriteRenderer("FinishFlag", flagTrans, 64, 64, Vec2(0, 0));
-	finishFlag->AddComponent(flagRenderer);
-	RigidBodyComponent* flagRB = ComponentFactory::MakeRigidbody(0, 0, 0, false, false);
-	flagRB->SetActive(false);
-	finishFlag->AddComponent(flagRB);
-	BoxColliderComponent* flagCollider = ComponentFactory::MakeBoxCollider(64, 64, flagTrans, flagRB);
-	finishFlag->AddComponent(flagCollider);
-	TriggerBoxComponent* flagTriggerBox = ComponentFactory::MakeTriggerBox("Player");
-	finishFlag->AddComponent(flagTriggerBox);
-	CacheComponents(finishFlag, 2);
 }
 
 void GameLevel::BuildGUI()
