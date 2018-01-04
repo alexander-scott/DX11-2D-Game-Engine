@@ -55,15 +55,6 @@ void GameGUI::BuildGUI()
 	mGameObjects.push_back(centreButtonText);
 }
 
-void GameGUI::DrawGUI()
-{
-	// Draw gameobjects
-	for (auto& go : mGameObjects)
-	{
-		go->Draw(&GameCamera::Instance());
-	}
-}
-
 void GameGUI::ResetGUI(GameLevel* gameLevel, int currentLevel)
 {
 	// Update score references
@@ -96,6 +87,15 @@ void GameGUI::EnableCentreButton(std::string buttonText)
 	textObj->GetComponent<GUITextComponent>()->SetText(buttonText);
 }
 
+void GameGUI::DrawGUI()
+{
+	// Draw gameobjects
+	for (auto& go : mGameObjects)
+	{
+		go->Draw(&GameCamera::Instance());
+	}
+}
+
 void GameGUI::UpdateGUI(float deltaTime)
 {
 	if (mCentreButtonClicked)
@@ -108,6 +108,7 @@ void GameGUI::UpdateGUI(float deltaTime)
 
 	if (mCentreButton->Clicked())
 	{
+		Audio::Instance().PlaySoundEffect("Tap");
 		mCentreButtonClicked = true;
 	}
 }

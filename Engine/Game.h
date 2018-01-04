@@ -21,6 +21,7 @@ public:
 
 private:
 	void CreateLevel();
+	void CheckLevelOver();
 
 	void DrawLevel();
 	void UpdateLevel();

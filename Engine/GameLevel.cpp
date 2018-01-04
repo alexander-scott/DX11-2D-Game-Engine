@@ -116,8 +116,9 @@ void GameLevel::Update(float deltaTime)
 
 			if (dGo.first->GetTag() == "Player")
 			{
-				// PLAYER IS DEAD MAJOR PANIC @@@@@@@@@@@@@@@@@
+				// Player died
 				mLevelState = LevelState::eDead;
+				Audio::Instance().PlaySoundEffect("Gameover");
 			}
 			else if (dGo.first->GetTag() == "Enemy")
 			{
@@ -138,6 +139,7 @@ void GameLevel::Update(float deltaTime)
 	if (mFinishFlagTrigger->GetTriggeredReference())
 	{
 		mLevelState = LevelState::eWon;
+		Audio::Instance().PlaySoundEffect("Win");
 	}
 }
 

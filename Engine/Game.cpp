@@ -47,15 +47,8 @@ void Game::CreateLevel()
 	mGameGUI->ResetGUI(mGameLevel, mCurrentLevel);
 }
 
-void Game::UpdateLevel()
+void Game::CheckLevelOver()
 {
-	float deltaTime = mFrameTimer.Mark();
-
-	GameCamera::Instance().Update(deltaTime);
-
-	mGameLevel->Update(deltaTime);
-	mGameGUI->UpdateGUI(deltaTime);
-
 	if (!mWaitingOnGUIInput)
 	{
 		if (mGameLevel->GetLevelState() == LevelState::eDead)
@@ -78,6 +71,18 @@ void Game::UpdateLevel()
 			CreateLevel();
 		}
 	}
+}
+
+void Game::UpdateLevel()
+{
+	float deltaTime = mFrameTimer.Mark();
+
+	GameCamera::Instance().Update(deltaTime);
+
+	mGameLevel->Update(deltaTime);
+	mGameGUI->UpdateGUI(deltaTime);
+
+	CheckLevelOver();
 }
 
 void Game::DrawLevel()
