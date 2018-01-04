@@ -9,10 +9,10 @@ X postive is right. Y postive is up.
   <GameObject instanceid="0" blueprintid="0" update="tilepos" val1="3" val2="8" renderLayer="2"></GameObject>
 
   <!-- - Finish Flag <!- -->
-  <GameObject instanceid="1" blueprintid="8" update="tilepos" val1="25" val2="1" renderLayer="2"></GameObject>
+  <GameObject instanceid="1" blueprintid="8" update="tilepos" val1="47" val2="1" renderLayer="2"></GameObject>
   
   <!-- - AI <!- -->
-  <GameObject instanceid="1" blueprintid="7" update="tilepos" val1="10" val2="3" renderLayer="2"></GameObject>
+  <GameObject instanceid="1" blueprintid="7" update="tilepos" val1="20" val2="3" renderLayer="2"></GameObject>
 
   <!-- - Background <!- -->
   
@@ -79,4 +79,5 @@ X postive is right. Y postive is up.
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="47" val2="0"></GameObject>
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="48" val2="0"></GameObject>
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="49" val2="0"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="50" val2="0"></GameObject>
 </level>

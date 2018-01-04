@@ -4,16 +4,13 @@ Keep width as max X plus 1. Keep height as max Y plus 1.
 X postive is right. Y postive is up.
 <!- -->
 
-<level name="1" leftBound="0" rightBound="50" bottomBound="0" topBound="100">
+<level name="1" leftBound="0" rightBound="40" bottomBound="0" topBound="100">
   <!-- - Player <!- -->
   <GameObject instanceid="0" blueprintid="0" update="tilepos" val1="3" val2="8" renderLayer="2"></GameObject>
 
   <!-- - Finish Flag <!- -->
-  <GameObject instanceid="1" blueprintid="8" update="tilepos" val1="25" val2="1" renderLayer="2"></GameObject>
+  <GameObject instanceid="1" blueprintid="8" update="tilepos" val1="35" val2="1" renderLayer="2"></GameObject>
   
-  <!-- - AI <!- -->
-  <GameObject instanceid="1" blueprintid="7" update="tilepos" val1="10" val2="3" renderLayer="2"></GameObject>
-
   <!-- - Background <!- -->
   
   <GameObject instanceid="-1" blueprintid="2" update="null" renderLayer="0"></GameObject>
@@ -27,7 +24,7 @@ X postive is right. Y postive is up.
   <GameObject instanceid="-1" blueprintid="6" update="colliderbounds" val1="top" renderLayer="-1"></GameObject>
   <GameObject instanceid="-1" blueprintid="6" update="colliderbounds" val1="bottom" renderLayer="-1"></GameObject>
   
-  <!-- - TILES <!- -->
+  <!-- - BOTTOM TILES <!- -->
   
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="0" val2="0"></GameObject>
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="1" val2="0"></GameObject>
@@ -70,13 +67,37 @@ X postive is right. Y postive is up.
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="38" val2="0"></GameObject>
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="39" val2="0"></GameObject>
   <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="40" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="41" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="42" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="43" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="44" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="45" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="46" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="47" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="48" val2="0"></GameObject>
-  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="49" val2="0"></GameObject>
+
+  <!-- - CLIMBING TILES <!- -->
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="6" val2="1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="6" val2="2"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="6" val2="3"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="6" val2="4"></GameObject>
+  
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="10" val2="1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="10" val2="2"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="10" val2="3"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="10" val2="4"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="10" val2="5"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="10" val2="6"></GameObject>
+
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="14" val2="1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="14" val2="2"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="14" val2="3"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="14" val2="4"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="14" val2="5"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="14" val2="6"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="14" val2="7"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="14" val2="8"></GameObject>
+
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="1"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="2"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="3"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="4"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="5"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="6"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="7"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="8"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="9"></GameObject>
+  <GameObject instanceid="-1" blueprintid="1" update="tilepos" renderLayer="1" val1="18" val2="10"></GameObject>
 </level>

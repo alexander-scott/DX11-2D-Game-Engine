@@ -65,51 +65,16 @@ void PlayerComponent::UpdateAnimation()
 	float rightVal = (mPlayerRigidBody->GetVelocity().x > 0) ? mPlayerRigidBody->GetVelocity().x : 0;
 
 	UpdateAnimationSequenceMessage updateSeqMsg;
-
-	if (downVal > upVal && downVal > leftVal && downVal > rightVal)
-	{
-		if (downVal < 5)
-		{
-			updateSeqMsg.SetSequence((int)AnimationType::StandingDown);
-		}
-		else
-		{
-			updateSeqMsg.SetSequence((int)AnimationType::WalkingDown);
-		}
-	}
+	if (downVal < 10 && upVal < 10 && leftVal < 10 && rightVal < 10)
+		updateSeqMsg.SetSequence((int)AnimationType::StandingDown);
+	else if (downVal > upVal && downVal > leftVal && downVal > rightVal)
+		updateSeqMsg.SetSequence((int)AnimationType::StandingDown);
 	else if (upVal > downVal && upVal > leftVal && upVal > rightVal)
-	{
-		if (upVal < 5)
-		{
-			updateSeqMsg.SetSequence((int)AnimationType::StandingUp);
-		}
-		else
-		{
-			updateSeqMsg.SetSequence((int)AnimationType::WalkingUp);
-		}
-	}
+		updateSeqMsg.SetSequence((int)AnimationType::WalkingUp);
 	else if (leftVal > downVal && leftVal > upVal && leftVal > rightVal)
-	{
-		if (leftVal < 5)
-		{
-			updateSeqMsg.SetSequence((int)AnimationType::StandingLeft);
-		}
-		else
-		{
-			updateSeqMsg.SetSequence((int)AnimationType::WalkingLeft);
-		}
-	}
+		updateSeqMsg.SetSequence((int)AnimationType::WalkingLeft);
 	else if (rightVal > downVal && rightVal > upVal && rightVal > leftVal)
-	{
-		if (rightVal < 5)
-		{
-			updateSeqMsg.SetSequence((int)AnimationType::StandingRight);
-		}
-		else
-		{
-			updateSeqMsg.SetSequence((int)AnimationType::WalkingRight);
-		}
-	}
+		updateSeqMsg.SetSequence((int)AnimationType::WalkingRight);
 
 	mPlayerAnimator->RecieveMessage(updateSeqMsg);
 }
