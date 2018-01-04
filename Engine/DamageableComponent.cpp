@@ -1,6 +1,6 @@
 #include "DamageableComponent.h"
 
-DamageableComponent::DamageableComponent(float startHealth)
+DamageableComponent::DamageableComponent(float startHealth, std::string hitNoise) : mHitNoise(hitNoise)
 {
 	mType = "Damageable Component";
 	mHealth = startHealth;
@@ -19,6 +19,13 @@ void DamageableComponent::RecieveDamage(float dmg)
 	{
 		mHealth = 0;
 		mIsDead = true;
+	}
+	else
+	{
+		if (mHitNoise != "")
+		{
+			Audio::Instance().PlaySoundEffect(mHitNoise);
+		}
 	}
 }
 

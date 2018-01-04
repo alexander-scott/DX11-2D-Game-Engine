@@ -5,10 +5,12 @@
 
 #include "RecieveDamageMessage.h"
 
+#include "Audio.h"
+
 class DamageableComponent : public IComponent, public IMessageable
 {
 public:
-	DamageableComponent(float startHealth);
+	DamageableComponent(float startHealth, std::string hitNoise);
 	~DamageableComponent();
 
 	void RecieveDamage(float dmg);
@@ -24,4 +26,5 @@ public:
 private:
 	float				mHealth;
 	bool				mIsDead;
+	std::string			mHitNoise;
 };

@@ -14,6 +14,7 @@ static std::map<std::string, std::string> AudioFilePaths =
 	{ "Win",			"Audio\\Win.wav"     },
 	{ "Gameover",		"Audio\\Gameover.wav"},
 	{ "Tap",			"Audio\\Tap.wav" },
+	{ "Grunt",			"Audio\\Grunt.wav" },
 };
 
 class Audio 

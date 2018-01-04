@@ -34,9 +34,9 @@ PlayerComponent * ComponentFactory::MakePlayerComponent(TransformComponent* tran
 	return playerComponent;
 }
 
-DamageableComponent * ComponentFactory::MakeDamageableComponent(float startHealth)
+DamageableComponent * ComponentFactory::MakeDamageableComponent(float startHealth, std::string hitNoise)
 {
-	DamageableComponent* damageComponent = new DamageableComponent(startHealth);
+	DamageableComponent* damageComponent = new DamageableComponent(startHealth, hitNoise);
 	return damageComponent;
 }
 

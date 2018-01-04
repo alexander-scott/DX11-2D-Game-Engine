@@ -112,6 +112,7 @@ enum AIAgentPatrolDirection
 static std::map<std::string, std::string> SpriteFilePaths = 
 {
 	{ "MageWalk",		"Images\\mage_walk.dds" },
+	{ "HumanWalk",		"Images\\human_walk.dds" },
 	{ "Ball",			"Images\\ColourBall.dds" },
 	{ "Pipe",			"Images\\NewPipe.dds" },
 	{ "FinishFlag",		"Images\\checkered_flag.dds" },

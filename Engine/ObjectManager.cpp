@@ -300,8 +300,9 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 	else if (std::string(node->first_attribute("type")->value()) == "DamageableComponent")
 	{
 		float startHealth = (float)atof(node->first_attribute("starthealth")->value());
+		std::string hitNoise = std::string(node->first_attribute("hitnoise")->value());
 
-		return ComponentFactory::MakeDamageableComponent(startHealth);
+		return ComponentFactory::MakeDamageableComponent(startHealth, hitNoise);
 	}
 	else if (std::string(node->first_attribute("type")->value()) == "ProjectileComponent")
 	{
