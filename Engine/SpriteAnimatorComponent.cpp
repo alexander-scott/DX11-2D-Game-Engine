@@ -28,7 +28,9 @@ void SpriteAnimatorComponent::Draw(ICamera* cam)
 		- halfSpriteHeight * cos(trans->GetRotation())
 		- halfSpriteWidth * sin(trans->GetRotation());
 
-	cam->DrawSpriteWorldSpace(mSpriteFileName, Vec2(newPosX, newPosY), mAnimations[(int)mSequenceIndex].AnimationFrames[mAnimations[(int)mSequenceIndex].CurrentFrame], GetTransform()->GetRotation(), GetTransform()->GetScale(), Vec2(0,0));
+	cam->DrawSpriteWorldSpace(mSpriteFileName, Vec2(newPosX, newPosY), 
+		mAnimations[(int)mSequenceIndex].AnimationFrames[mAnimations[(int)mSequenceIndex].CurrentFrame], 
+		GetTransform()->GetRotation(), GetTransform()->GetScale(), Vec2(0,0));
 }
 
 void SpriteAnimatorComponent::Update(float deltaTime)

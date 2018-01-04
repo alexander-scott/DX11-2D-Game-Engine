@@ -17,7 +17,6 @@ public:
 	~GameObject();
 
 	void Draw(ICamera* cam) const;
-
 	virtual void Update(float deltaTime);
 
 	void SendMessageToComponents(IMessage& message);

@@ -5,7 +5,7 @@ GameObject* ObjectManager::GetCreatedObject(int instanceID)
 	return mGameObjects[instanceID];
 }
 
-GameObject* ObjectManager::CreateObject(int instanceID, int blueprintID)
+GameObject* ObjectManager::CreateObject(int instanceID, int prefabID)
 {
 	//Loads a level from xml file
 	//Load the file
@@ -42,8 +42,8 @@ GameObject* ObjectManager::CreateObject(int instanceID, int blueprintID)
 		xml_node<>* gameObject = gameObjectList->first_node("GameObject");
 		while (gameObject)
 		{
-			int objBlueprintID = atoi(gameObject->first_attribute("blueprintid")->value());
-			if (blueprintID == objBlueprintID)
+			int objprefabID = atoi(gameObject->first_attribute("prefabid")->value());
+			if (prefabID == objprefabID)
 			{
 				// Create the gameobject
 				GameObject* go = new GameObject(gameObject->first_attribute("tag")->value());
@@ -84,7 +84,7 @@ GameObject* ObjectManager::CreateObject(int instanceID, int blueprintID)
 		}
 	}
 
-	throw std::exception("DID NOT FIND BLUEPRINT ID");
+	throw std::exception("DID NOT FIND prefab ID");
 
 	return nullptr;
 }

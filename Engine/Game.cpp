@@ -6,7 +6,7 @@ Game::Game(MainWindow& wnd)
 {
 	GameCamera::Instance().Initalise(wnd);
 
-	LevelBuilder::InitaliseGameplayValues("Levels\\GameValues.xml"); //BROKEN
+	LevelBuilder::InitaliseGameplayValues("Levels\\Prefabs.xml"); //BROKEN
 
 	mCurrentLevel = 1;
 	mTotalScore = 0;
@@ -54,7 +54,7 @@ void Game::CreateLevel()
 	// Delete old level
 	if (mCurrentLevel != 1) // HARDCODED 
 	{
-		mTotalScore += mGameLevel->Score;
+		mTotalScore += mGameLevel->GetScore();
 		delete mGameLevel;
 	}
 		

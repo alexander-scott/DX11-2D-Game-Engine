@@ -60,7 +60,7 @@ void GameGUI::ResetGUI(GameLevel* gameLevel, int currentLevel)
 	// Update score references
 	GameObject* scoreText = FindGameObject("ScoreText");
 	scoreText->RemoveComponent<GUITextValueComponent>();
-	scoreText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Score:", DirectX::Colors::Blue, scoreText->GetComponent<TransformComponent>(), gameLevel->Score));
+	scoreText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Score:", DirectX::Colors::Blue, scoreText->GetComponent<TransformComponent>(), gameLevel->GetScore()));
 
 	// Update level text
 	GameObject* levelText = FindGameObject("LevelText");

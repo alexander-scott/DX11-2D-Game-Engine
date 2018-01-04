@@ -6,8 +6,6 @@
 #include <string>
 #include <array>
 
-// Ignore the intellisense error "cannot open source file" for .shh files.
-// They will be created during the build sequence before the preprocessor runs.
 namespace FramebufferShaders
 {
 #include "FramebufferPS.shh"
@@ -24,8 +22,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 {
 	assert(key.hWnd != nullptr);
 
-	//////////////////////////////////////////////////////
-	// create device and swap chain/get render target view
+	// Create device and swap chain
 	DXGI_SWAP_CHAIN_DESC sd = {};
 	sd.BufferCount = 1;
 	sd.BufferDesc.Width = SCREEN_WIDTH;
@@ -47,7 +44,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 #endif
 #endif
 
-	// create device and front/back buffers
+	// Create device buffers
 	if (FAILED(hr = D3D11CreateDeviceAndSwapChain(
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
@@ -65,7 +62,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating device and swap chain");
 	}
 
-	// get handle to backbuffer
+	// Get handle to backbuffer
 	ComPtr<ID3D11Resource> pBackBuffer;
 	if (FAILED(hr = pSwapChain->GetBuffer(
 		0,
@@ -75,7 +72,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Getting back buffer");
 	}
 
-	// create a view on backbuffer that we can render to
+	// Create a view on backbuffer that we can render to
 	if (FAILED(hr = pDevice->CreateRenderTargetView(
 		pBackBuffer.Get(),
 		nullptr,
@@ -84,10 +81,8 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating render target view on backbuffer");
 	}
 
-
 	// set backbuffer as the render target using created view
 	pImmediateContext->OMSetRenderTargets(1, pRenderTargetView.GetAddressOf(), nullptr);
-
 
 	// set viewport dimensions
 	D3D11_VIEWPORT vp;
@@ -99,9 +94,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 	vp.TopLeftY = 0.0f;
 	pImmediateContext->RSSetViewports(1, &vp);
 
-
-	///////////////////////////////////////
-	// create texture for cpu render target
+	// Create texture for cpu render target
 	D3D11_TEXTURE2D_DESC sysTexDesc;
 	sysTexDesc.Width = SCREEN_WIDTH;
 	sysTexDesc.Height = SCREEN_HEIGHT;
@@ -114,6 +107,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 	sysTexDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 	sysTexDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	sysTexDesc.MiscFlags = 0;
+
 	// create the texture
 	if (FAILED(hr = pDevice->CreateTexture2D(&sysTexDesc, nullptr, &pSysBufferTexture)))
 	{
@@ -131,10 +125,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating view on sysBuffer texture");
 	}
 
-
-	////////////////////////////////////////////////
-	// create pixel shader for framebuffer
-	// Ignore the intellisense error "namespace has no member"
+	// Create pixel shader for framebuffer
 	if (FAILED(hr = pDevice->CreatePixelShader(
 		FramebufferShaders::FramebufferPSBytecode,
 		sizeof(FramebufferShaders::FramebufferPSBytecode),
@@ -145,9 +136,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 	}
 
 
-	/////////////////////////////////////////////////
-	// create vertex shader for framebuffer
-	// Ignore the intellisense error "namespace has no member"
+	// Create vertex shader for framebuffer
 	if (FAILED(hr = pDevice->CreateVertexShader(
 		FramebufferShaders::FramebufferVSBytecode,
 		sizeof(FramebufferShaders::FramebufferVSBytecode),
@@ -157,9 +146,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating vertex shader");
 	}
 
-
-	//////////////////////////////////////////////////////////////
-	// create and fill vertex buffer with quad for rendering frame
+	// Create and fill vertex buffer with quad for rendering frame
 	const FSQVertex vertices[] =
 	{
 		{ -1.0f,1.0f,0.5f,0.0f,0.0f },
@@ -181,16 +168,13 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating vertex buffer");
 	}
 
-
-	//////////////////////////////////////////
-	// create input layout for fullscreen quad
+	// Create input layout for fullscreen quad
 	const D3D11_INPUT_ELEMENT_DESC ied[] =
 	{
 		{ "POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
 		{ "TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,12,D3D11_INPUT_PER_VERTEX_DATA,0 }
 	};
 
-	// Ignore the intellisense error "namespace has no member"
 	if (FAILED(hr = pDevice->CreateInputLayout(ied, 2,
 		FramebufferShaders::FramebufferVSBytecode,
 		sizeof(FramebufferShaders::FramebufferVSBytecode),
@@ -199,8 +183,6 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating input layout");
 	}
 
-
-	////////////////////////////////////////////////////
 	// Create sampler state for fullscreen textured quad
 	D3D11_SAMPLER_DESC sampDesc = {};
 	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
@@ -215,21 +197,21 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating sampler state");
 	}
 
-	g_Fonts.reset(new SpriteFont(pDevice.Get(), L"fonts\\italic.spritefont"));
-	g_Sprites.reset(new SpriteBatch(pImmediateContext.Get()));
-	g_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
+	mFonts.reset(new SpriteFont(pDevice.Get(), L"fonts\\italic.spritefont"));
+	mSprites.reset(new SpriteBatch(pImmediateContext.Get()));
+	mPrimitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }
 
 void DX11Graphics::DrawSprite(std::string name, Vec2 pos, RECT * rect, float rot, float scale, Vec2 offset)
 {
-	g_Sprites->Draw(g_textures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot, XMFLOAT2(offset.x, offset.y), scale);
+	mSprites->Draw(mTextures.at(name), XMFLOAT2(pos.x, pos.y), rect, Colors::White, rot, XMFLOAT2(offset.x, offset.y), scale);
 }
 
 void DX11Graphics::DrawLine(Vec2 v1, Vec2 v2)
 {
 	VertexPositionColor vec1(XMFLOAT3(v1.x, v1.y,0), XMFLOAT4(1,0,0,0));
 	VertexPositionColor vec2(XMFLOAT3(v2.x, v2.y, 0), XMFLOAT4(1, 0, 0, 0));
-	g_primitiveBatch->DrawLine(vec1, vec2);
+	mPrimitiveBatch->DrawLine(vec1, vec2);
 }
 
 void DX11Graphics::DrawText(std::string text, Vec2 pos, float rot, float* rgb, float scale, Vec2 offset)
@@ -238,12 +220,12 @@ void DX11Graphics::DrawText(std::string text, Vec2 pos, float rot, float* rgb, f
 	const wchar_t* convertedText = widestr.c_str();
 
 	XMVECTORF32 colour = { { { rgb[0], rgb[1], rgb[2], 1 } } };
-	g_Fonts->DrawString(g_Sprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), colour, rot, XMFLOAT2(offset.x, offset.y), scale);
+	mFonts->DrawString(mSprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), colour, rot, XMFLOAT2(offset.x, offset.y), scale);
 }
 
 void DX11Graphics::Destroy()
 {
-	// clear the state of the device context before destruction
+	// Clear the state of the device context before destruction
 	if (pImmediateContext) pImmediateContext->ClearState();
 }
 
@@ -261,14 +243,14 @@ void DX11Graphics::CreateShaderResourceView(std::string name)
 	if (FAILED(hr))
 		throw GFX_EXCEPTION(hr, L"Creating DDS texture from file.");
 
-	g_textures.insert(std::make_pair(name, shaderRV));
+	mTextures.insert(std::make_pair(name, shaderRV));
 }
 
 void DX11Graphics::EndFrame()
 {
 	HRESULT hr;
 
-	// render offscreen scene texture to back buffer
+	// Render offscreen scene texture to back buffer
 	pImmediateContext->IASetInputLayout(pInputLayout.Get());
 	pImmediateContext->VSSetShader(pVertexShader.Get(), nullptr, 0u);
 	pImmediateContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
@@ -280,10 +262,10 @@ void DX11Graphics::EndFrame()
 	pImmediateContext->PSSetSamplers(0u, 1u, pSamplerState.GetAddressOf());
 	pImmediateContext->Draw(6u, 0u);
 
-	g_Sprites->End();
-	g_primitiveBatch->End();
+	mSprites->End();
+	mPrimitiveBatch->End();
 
-	// flip back/front buffers
+	// Flip back/front buffers
 	if (FAILED(hr = pSwapChain->Present(1u, 0u)))
 	{
 		if (hr == DXGI_ERROR_DEVICE_REMOVED)
@@ -301,19 +283,18 @@ void DX11Graphics::BeginFrame()
 {
 	// clear render target view
 	pImmediateContext->ClearRenderTargetView(pRenderTargetView.Get(), Colors::MidnightBlue);
-	g_Sprites->Begin(SpriteSortMode_Deferred);
-	g_primitiveBatch->Begin();
+	mSprites->Begin(SpriteSortMode_Deferred);
+	mPrimitiveBatch->Begin();
 }
 
 void DX11Graphics::PreloadTextures()
 {
-	for (auto s : SpriteFilePaths)
+	for (auto& s : SpriteFilePaths)
 	{
 		CreateShaderResourceView(s.first);
 	}
 }
 
-//////////////////////////////////////////////////
 //           DX11Graphics Exception
 DX11Graphics::Exception::Exception(HRESULT hr, const std::wstring& note, const wchar_t* file, unsigned int line)
 	:

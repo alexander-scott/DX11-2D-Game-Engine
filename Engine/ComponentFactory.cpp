@@ -76,7 +76,7 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 
 	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody);
 	circleCollider->SetRadius(radius * transform->GetScale());
-	circleCollider->ComputeMass(1);
+	circleCollider->ComputeMass(2);
 
 	return circleCollider;
 }

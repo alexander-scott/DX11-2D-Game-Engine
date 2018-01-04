@@ -81,9 +81,9 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName, float startScore)
 	{
 		// Create an instance of the gameobject listed in the level xml
 		GameObject* obj = objectManager.CreateObject(atoi(gameObjectNode->first_attribute("instanceid")->value()),
-			atoi(gameObjectNode->first_attribute("blueprintid")->value()));
+			atoi(gameObjectNode->first_attribute("prefabid")->value()));
 
-		// Update its position from the original blueprint
+		// Update its position from the original prefab
 		if (std::string(gameObjectNode->first_attribute("update")->value()) == "tilepos")
 		{
 			UpdateTilePos(gameObjectNode, obj, levelData);
@@ -99,7 +99,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName, float startScore)
 		gameObjectNode = gameObjectNode->next_sibling("GameObject");
 	}
 
-	gameLevel->PostBuildEvents();
+	gameLevel->ConstructionComplete();
 
 	return gameLevel;
 }

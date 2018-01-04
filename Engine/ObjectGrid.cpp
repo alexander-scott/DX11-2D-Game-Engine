@@ -32,31 +32,31 @@ void ObjectGrid::Insert(const int ltrb[4], int element)
 	// For each grid cell that overlaps, Insert the element.
 	for (int y = y1; y <= y2; ++y)
 	{
-		int* cell_row = &mCells[0] + y * mGridWidth;
+		int* cellRow = &mCells[0] + y * mGridWidth;
 		for (int x = x1; x <= x2; ++x)
-			InsertNode(cell_row[x], element);
+			InsertNode(cellRow[x], element);
 	}
 }
 
 void ObjectGrid::InsertNode(int& cell, int element)
 {
 	// See if we can pop a free node from the list.
-	int node_index = mFreeList;
-	if (node_index != -1)
+	int nodeIndex = mFreeList;
+	if (nodeIndex != -1)
 		mFreeList = mNodes[mFreeList].next;
 	else
 	{
 		// If the free list was empty, add a new node.
 		mNodes.push_back(GridNode());
-		node_index = (int)mNodes.size() - 1;
+		nodeIndex = (int)mNodes.size() - 1;
 	}
 
 	// Set the node element to the one specified.
-	mNodes[node_index].element = element;
+	mNodes[nodeIndex].element = element;
 
 	// Push the node to the cell list.
-	mNodes[node_index].next = cell;
-	cell = node_index;
+	mNodes[nodeIndex].next = cell;
+	cell = nodeIndex;
 }
 
 void ObjectGrid::Erase(const int ltrb[4], int element)
@@ -72,9 +72,9 @@ void ObjectGrid::Erase(const int ltrb[4], int element)
 	// For each grid cell that overlaps, remove the element.
 	for (int y = y1; y <= y2; ++y)
 	{
-		int* cell_row = &mCells[0] + y * mGridWidth;
+		int* cellRow = &mCells[0] + y * mGridWidth;
 		for (int x = x1; x <= x2; ++x)
-			EraseNode(cell_row[x], element);
+			EraseNode(cellRow[x], element);
 	}
 }
 
@@ -109,9 +109,9 @@ const GridNode* ObjectGrid::GetFirstNode(int cell) const
 	if (!(cell >= 0 && cell < GetSize()))
 		return nullptr;
 
-	// Return the GetFirstNode node in the cell of null if empty.
-	const int node_index = mCells[cell];
-	return node_index != -1 ? &mNodes[node_index] : 0;
+	// Return the first node in the cell of null if empty.
+	const int nodeIndex = mCells[cell];
+	return nodeIndex != -1 ? &mNodes[nodeIndex] : 0;
 }
 
 const GridNode* ObjectGrid::GetNextNode(const GridNode* node) const

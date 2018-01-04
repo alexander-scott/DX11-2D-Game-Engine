@@ -53,10 +53,10 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11InputLayout>				pInputLayout;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState>				pSamplerState;
 
-	std::unique_ptr<SpriteBatch>							g_Sprites;
-	std::unique_ptr<SpriteFont>								g_Fonts;
-	std::unique_ptr<PrimitiveBatch<VertexPositionColor>>	g_primitiveBatch;
-	std::map<std::string, ID3D11ShaderResourceView*>		g_textures;
+	std::unique_ptr<SpriteBatch>							mSprites;
+	std::unique_ptr<SpriteFont>								mFonts;
+	std::unique_ptr<PrimitiveBatch<VertexPositionColor>>	mPrimitiveBatch;
+	std::map<std::string, ID3D11ShaderResourceView*>		mTextures;
 
 	void CreateShaderResourceView(std::string name);
 };

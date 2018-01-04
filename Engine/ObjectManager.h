@@ -16,13 +16,13 @@ using namespace rapidxml;
 class ObjectManager
 {
 public:
-	GameObject* CreateObject(int instanceID, int blueprintID);
+	GameObject* CreateObject(int instanceID, int prefabID);
 	GameObject* GetCreatedObject(int instanceID);
 
 private:
 	IComponent* CreateComponent(GameObject* go, xml_node<>* node);
 
 	std::map<int, GameObject*>			mGameObjects;
-	std::string							mfileName = "Levels\\GameValues.xml";
+	std::string							mfileName = "Levels\\Prefabs.xml";
 };
 

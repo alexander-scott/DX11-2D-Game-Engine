@@ -1,6 +1,6 @@
 #include "GameLevel.h"
 
-GameLevel::GameLevel(float startScore) : Score(startScore)
+GameLevel::GameLevel(float startScore) : mScore(startScore)
 {
 	mLevelState = LevelState::ePlaying;
 }
@@ -68,7 +68,7 @@ void GameLevel::ConstructLevel(LevelData levelData)
 	mPhysicsManager.BuildObjectGrid(width, height);
 }
 
-void GameLevel::PostBuildEvents()
+void GameLevel::ConstructionComplete()
 {
 	SetupCamera();
 	RegisterFinishFlag();
@@ -123,7 +123,7 @@ void GameLevel::Update(float deltaTime)
 			{
 				// Increase score
 				Audio::Instance().PlaySoundEffect("Death");
-				Score++;
+				mScore++;
 			}
 		}
 	}
@@ -139,6 +139,7 @@ void GameLevel::Update(float deltaTime)
 	{
 		mLevelState = LevelState::eWon;
 		Audio::Instance().PlaySoundEffect("Win");
+		mScore += 10;
 	}
 }
 

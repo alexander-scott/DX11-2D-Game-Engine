@@ -9,26 +9,23 @@ public:
 	GameLevel(float startScore);
 	~GameLevel();
 
+	void Update(float deltaTime);
+	void Draw();
+
 	LevelState GetLevelState() { return mLevelState; }
+	float& GetScore() { return mScore; }
 
 	void CacheComponents(GameObject* gameObj, int renderLayer);
 
 	void ConstructLevel(LevelData levelData);
-
-	void PostBuildEvents();
-
-	void Update(float deltaTime);
-	void Draw();
+	void ConstructionComplete();
 
 	GameObject* FindGameObject(std::string tag);
-
-	float											Score;
 
 private:
 	void SetupCamera();
 	void RegisterFinishFlag();
 
-	ObjectManager									mObjectManager;
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;
 
@@ -41,4 +38,6 @@ private:
 
 	std::vector<GameObject*>						mGameObjects;
 	std::map<GameObject*, DamageableComponent*>		mDamageableGameObjects;
+
+	float											mScore;
 };

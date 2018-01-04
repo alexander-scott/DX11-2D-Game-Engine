@@ -14,7 +14,7 @@ All the variables for the game
     <AILateralMaxSpeed val="400"></AILateralMaxSpeed>
   </values>
   <GameObjects>
-    <GameObject blueprintid="0" tag="Player">
+    <GameObject prefabid="0" tag="Player">
       <Component type="TransformComponent" xpos="-1" ypos="-1" rotation="0" scale="1"></Component>
       <Component type="RigidBodyComponent" staticfriction="0.5" dynamicfriction="0.3" restitution="0.5" static="false" lockrotation="true"></Component>
       <Component type="BoxColliderComponent" width="64" height="64" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
@@ -26,35 +26,35 @@ All the variables for the game
       <Component type="ProjectileManagerComponent" projectilecount="100" projecthittag="Enemy"></Component>
       <Component type="PlayerComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilemangercomponentid="-1"></Component>
     </GameObject>
-    <GameObject blueprintid="1" tag="Tile">
+    <GameObject prefabid="1" tag="Tile">
       <Component type="TransformComponent" xpos="-1" ypos="-1" rotation="0" scale="1"></Component>
       <Component type="SpriteRendererComponent" filename="Pipe" transformcomponentid="-1" width="45" height="45" xoffset="0" yoffset="0"></Component>
       <Component type="RigidBodyComponent" staticfriction="1" dynamicfriction="1" restitution="1" static="true" lockrotation="true"></Component>
       <Component type="BoxColliderComponent" width="45" height="45" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
     </GameObject>
-    <GameObject blueprintid="2" tag="Background">
+    <GameObject prefabid="2" tag="Background">
       <Component type="TransformComponent" xpos="0" ypos="0" rotation="0" scale="1"></Component>
       <Component type="TiledBGRenderer" spritename="BG_Sky" spritewidth="640" spriteheight="480" moverate="0.1" direction="horizontalandvertical" transformcomponentid="-1" focustransformcomponentid="0"></Component>
     </GameObject>
-    <GameObject blueprintid="3" tag="Background">
+    <GameObject prefabid="3" tag="Background">
       <Component type="TransformComponent" xpos="0" ypos="-400" rotation="0" scale="1"></Component>
       <Component type="TiledBGRenderer" spritename="BG_Vegetation" spritewidth="640" spriteheight="480" moverate="0.5" direction="horizontal" transformcomponentid="-1" focustransformcomponentid="0"></Component>
     </GameObject>
-    <GameObject blueprintid="4" tag="Background">
+    <GameObject prefabid="4" tag="Background">
       <Component type="TransformComponent" xpos="0" ypos="-400" rotation="0" scale="1"></Component>
       <Component type="TiledBGRenderer" spritename="BG_Ground" spritewidth="640" spriteheight="480" moverate="3" direction="horizontal" transformcomponentid="-1" focustransformcomponentid="0"></Component>
     </GameObject>
-    <GameObject blueprintid="5" tag="LevelCollider">
+    <GameObject prefabid="5" tag="LevelCollider">
       <Component type="TransformComponent" xpos="0" ypos="-1" rotation="-1" scale="1"></Component>
       <Component type="RigidBodyComponent" staticfriction="1" dynamicfriction="1" restitution="1" static="true" lockrotation="false"></Component>
       <Component type="BoxColliderComponent" width="-1" height="-1" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
     </GameObject>
-    <GameObject blueprintid="6" tag="LevelCollider">
+    <GameObject prefabid="6" tag="LevelCollider">
       <Component type="TransformComponent" xpos="0" ypos="-1" rotation="-1" scale="1"></Component>
       <Component type="RigidBodyComponent" staticfriction="1" dynamicfriction="1" restitution="1" static="true" lockrotation="false"></Component>
       <Component type="BoxColliderComponent" width="-1" height="-1" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
     </GameObject>
-    <GameObject blueprintid="7" tag="Enemy">
+    <GameObject prefabid="7" tag="Enemy">
       <Component type="TransformComponent" xpos="-1" ypos="-1" rotation="0" scale="1"></Component>
       <Component type="RigidBodyComponent" staticfriction="0.5" dynamicfriction="0.3" restitution="0.5" static="false" lockrotation="true"></Component>
       <Component type="BoxColliderComponent" width="64" height="64" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
@@ -66,7 +66,7 @@ All the variables for the game
       <Component type="ProjectileManagerComponent" projectilecount="100" projecthittag="Player"></Component>
       <Component type="AIAgentComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilemangercomponentid="-1" patrolTime="2" startdirection="right" idletime="1" targettransformcomponentid="0" viewrange="400" shotintervals="2"></Component>
     </GameObject>
-    <GameObject blueprintid="8" tag="FinishFlag">
+    <GameObject prefabid="8" tag="FinishFlag">
       <Component type="TransformComponent" xpos="-1" ypos="-1" rotation="0" scale="1"></Component>
       <Component type="SpriteRendererComponent" filename="FinishFlag" transformcomponentid="-1" width="45" height="45" xoffset="0" yoffset="0"></Component>
       <Component type="RigidBodyComponent" staticfriction="0" dynamicfriction="0" restitution="0" static="false" lockrotation="false" componentinactive=""></Component>

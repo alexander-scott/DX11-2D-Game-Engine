@@ -13,11 +13,11 @@ public:
 	void UpdateGUI(float deltaTime);
 	void DrawGUI();
 
-	void BuildStartScreen();
-
 	bool GetCentreButtonClicked() { return mCentreButtonClicked; }
 
 private:
+	void BuildStartScreen();
+
 	std::vector<GameObject*>				mGameObjects;
 	GUIButtonComponent*						mCentreButton;
 	bool									mCentreButtonClicked;
