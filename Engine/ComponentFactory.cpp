@@ -134,6 +134,21 @@ GUITextComponent * ComponentFactory::MakeGUIText(std::string text, XMVECTORF32 c
 	return guiText;
 }
 
+GUISpriteRendererComponent * ComponentFactory::MakeGUISpriteRenderer(std::string fileName, TransformComponent * transform, float width, float height, Vec2 offset)
+{
+	GUISpriteRendererComponent * spriteRenderer = new GUISpriteRendererComponent();
+	spriteRenderer->SetFilename(fileName);
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	spriteRenderer->SetTransform(transform);
+	spriteRenderer->SetOffset(offset);
+	spriteRenderer->SetWidthHeight(width, height);
+
+	return spriteRenderer;
+}
+
 ColliderRendererComponent * ComponentFactory::MakeColliderRenderer(TransformComponent* trans, ColliderComponent* collider)
 {
 	if (trans == nullptr)

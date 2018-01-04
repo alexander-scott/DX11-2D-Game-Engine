@@ -12,6 +12,7 @@
 #include "ColliderRendererComponent.h"
 #include "TiledBGRenderer.h"
 #include "GUITextComponent.h"
+#include "GUISpriteRendererComponent.h"
 #include "TriggerBoxComponent.h"
 
 namespace ComponentFactory
@@ -33,4 +34,5 @@ namespace ComponentFactory
 	TriggerBoxComponent * MakeTriggerBox(std::string triggerTag);
 
 	GUITextComponent * MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent* transform);
+	GUISpriteRendererComponent * MakeGUISpriteRenderer(std::string fileName, TransformComponent* transform, float width, float height, Vec2 offset);
 };

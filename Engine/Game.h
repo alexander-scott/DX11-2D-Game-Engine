@@ -24,8 +24,10 @@ private:
 private:
 	MainWindow& wnd;
 
+	FrameTimer					mFrameTimer;
+
 	GameLevel*					mGameLevel;
 	GameGUI*					mGameGUI;
 
-	FrameTimer					mFrameTimer;
+	int							mCurrentLevel;
 };

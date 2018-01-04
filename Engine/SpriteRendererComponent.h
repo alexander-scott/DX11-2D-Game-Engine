@@ -15,11 +15,11 @@ public:
 
 	virtual void Draw(ICamera* cam) override;
 
-private:
-	std::string				 mSpriteFileName;
-	Vec2					 mOffset;
+protected:
+	std::string					mSpriteFileName;
+	Vec2						mOffset;
 
-	float					mSpriteWidth;
-	float					mSpriteHeight;
+	float						mSpriteWidth;
+	float						mSpriteHeight;
 };
 

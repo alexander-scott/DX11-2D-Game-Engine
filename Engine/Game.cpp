@@ -8,6 +8,7 @@ Game::Game(MainWindow& wnd)
 
 	LevelBuilder::InitaliseGameplayValues("Levels\\GameValues.xml"); //BROKEN
 
+	mCurrentLevel = 1;
 	mGameLevel = LevelBuilder::BuildGameLevel("Levels\\Level1.xml");
 	mGameGUI = new GameGUI(mGameLevel);
 }
@@ -34,6 +35,7 @@ void Game::UpdateLevel()
 	float deltaTime = mFrameTimer.Mark();
 
 	GameCamera::Instance().Update(deltaTime);
+
 	mGameLevel->Update(deltaTime);
 	mGameGUI->UpdateGUI(deltaTime);
 }

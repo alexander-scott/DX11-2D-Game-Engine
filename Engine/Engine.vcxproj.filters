@@ -247,7 +247,15 @@
     <ClInclude Include="TriggerBoxComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
-    <ClInclude Include="GameGUI.h" />
+    <ClInclude Include="GUIButtonComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGUI.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GUISpriteRendererComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -364,7 +372,15 @@
     <ClCompile Include="TriggerBoxComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
-    <ClCompile Include="GameGUI.cpp" />
+    <ClCompile Include="GUIButtonComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameGUI.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GUISpriteRendererComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

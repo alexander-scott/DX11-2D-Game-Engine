@@ -1,0 +1,24 @@
+#pragma once
+
+#include "IComponent.h"
+#include "IUpdateable.h"
+
+#include "PolygonColliderComponent.h"
+
+#include "Mouse.h"
+
+class GUIButtonComponent : public IComponent, public IUpdateable
+{
+public:
+	GUIButtonComponent(PolygonColliderComponent* collider);
+	~GUIButtonComponent();
+
+	virtual void Update(float deltaTime) override;
+
+private:
+	bool						mClicked;
+	bool						mIsPressed;
+
+	PolygonColliderComponent*	mCollider;
+};
+
