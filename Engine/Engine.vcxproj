@@ -145,6 +145,7 @@
     <ClInclude Include="DamageableComponent.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameComponentFactory.h" />
+    <ClInclude Include="GameGUI.h" />
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="GUITextComponent.h" />
     <ClInclude Include="GUITextValueComponent.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="DamageableComponent.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
+    <ClCompile Include="GameGUI.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GUITextComponent.cpp" />

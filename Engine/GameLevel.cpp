@@ -2,7 +2,7 @@
 
 GameLevel::GameLevel()
 {
-	mScore = 0;
+	Score = 0;
 	mLevelState = LevelState::ePlaying;
 }
 
@@ -71,24 +71,8 @@ void GameLevel::ConstructLevel(LevelData levelData)
 
 void GameLevel::PostBuildEvents()
 {
-	BuildGUI();
 	SetupCamera();
 	RegisterFinishFlag();
-}
-
-void GameLevel::BuildGUI()
-{
-	GameObject* scoreText = new GameObject("Text");
-	TransformComponent* scoreTransform = ComponentFactory::MakeTransform(Vec2(10, 10), 0, 0.5f);
-	scoreText->AddComponent(scoreTransform);
-	scoreText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Score:", DirectX::Colors::Yellow, scoreTransform, mScore));
-	CacheComponents(scoreText, 2);
-
-	GameObject* healthText = new GameObject("Text");
-	TransformComponent* healthTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH - 130, 10), 0, 0.5f);
-	healthText->AddComponent(healthTransform);
-	healthText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Health:", DirectX::Colors::Red, healthTransform, FindGameObject("Player")->GetComponent<DamageableComponent>()->GetHealthAddress()));
-	CacheComponents(healthText, 2);
 }
 
 void GameLevel::SetupCamera()
@@ -139,7 +123,7 @@ void GameLevel::Update(float deltaTime)
 			{
 				// Increase score
 				Audio::Instance().PlaySoundEffect("Death");
-				mScore++;
+				Score++;
 			}
 		}
 	}

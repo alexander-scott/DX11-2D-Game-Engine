@@ -20,10 +20,11 @@ public:
 	void Update(float deltaTime);
 	void Draw();
 
-private:
 	GameObject* FindGameObject(std::string tag);
 
-	void BuildGUI();
+	float											Score;
+
+private:
 	void SetupCamera();
 	void RegisterFinishFlag();
 
@@ -31,7 +32,6 @@ private:
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;
 
-	float											mScore;
 	LevelState										mLevelState;
 	TriggerBoxComponent*							mFinishFlagTrigger;
 

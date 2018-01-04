@@ -247,6 +247,7 @@
     <ClInclude Include="TriggerBoxComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
+    <ClInclude Include="GameGUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -363,6 +364,7 @@
     <ClCompile Include="TriggerBoxComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
+    <ClCompile Include="GameGUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

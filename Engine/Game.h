@@ -4,6 +4,7 @@
 #include "MainWindow.h"
 
 #include "LevelBuilder.h"
+#include "GameGUI.h"
 
 class Game
 {
@@ -24,6 +25,7 @@ private:
 	MainWindow& wnd;
 
 	GameLevel*					mGameLevel;
+	GameGUI*					mGameGUI;
 
 	FrameTimer					mFrameTimer;
 };
