@@ -199,14 +199,8 @@
     <ClInclude Include="Audio.h">
       <Filter>Engine\I/O</Filter>
     </ClInclude>
-    <ClInclude Include="DamageableComponent.h">
-      <Filter>Game\GameComponents</Filter>
-    </ClInclude>
     <ClInclude Include="RecieveDamageMessage.h">
       <Filter>Engine\GameObject\Components\Messages</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponentFactory.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="ProjectileComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
@@ -256,6 +250,13 @@
     <ClInclude Include="GUISpriteRendererComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="DamageableComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponentFactory.h">
+      <Filter>Game\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStartScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -333,12 +334,6 @@
     <ClCompile Include="Audio.cpp">
       <Filter>Engine\I/O</Filter>
     </ClCompile>
-    <ClCompile Include="DamageableComponent.cpp">
-      <Filter>Game\GameComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponentFactory.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="ProjectileComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
@@ -381,6 +376,13 @@
     <ClCompile Include="GUISpriteRendererComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="DamageableComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponentFactory.cpp">
+      <Filter>Game\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStartScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

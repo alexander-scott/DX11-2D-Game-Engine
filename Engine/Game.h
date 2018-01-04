@@ -5,6 +5,7 @@
 
 #include "LevelBuilder.h"
 #include "GameGUI.h"
+#include "GameStartScreen.h"
 
 #include <sstream>
 
@@ -30,9 +31,10 @@ private:
 
 	FrameTimer					mFrameTimer;
 
+	GameStartScreen*			mGameStartScreen;
 	GameLevel*					mGameLevel;
 	GameGUI*					mGameGUI;
 
 	int							mCurrentLevel;
-	bool						mWaitingOnGUIInput;
+	GameState					mGameState;
 };
