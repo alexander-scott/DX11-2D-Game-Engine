@@ -5,6 +5,7 @@
 TextRendererComponent::TextRendererComponent()
 {
 	mType = "TextRenderer";
+	mOffset = Vec2(0, 0);
 }
 
 TextRendererComponent::~TextRendererComponent()
@@ -18,5 +19,5 @@ void TextRendererComponent::Draw(ICamera* cam)
 	rgb[0] = colour.f[0];
 	rgb[1] = colour.f[1];
 	rgb[2] = colour.f[2];
-	cam->DrawTextWorldSpace(mText, GetTransform()->GetPosition(), GetTransform()->GetRotation(), rgb, GetTransform()->GetScale());
+	cam->DrawTextWorldSpace(mText, GetTransform()->GetPosition(), GetTransform()->GetRotation(), rgb, GetTransform()->GetScale(), mOffset);
 }

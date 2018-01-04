@@ -31,7 +31,7 @@ public:
 
 	virtual void DrawSprite(std::string name, Vec2 pos, RECT* rect, float rot, float scale, Vec2 offset) = 0;
 
-	virtual void DrawText(std::string text, Vec2 pos, float rot, float* rgb, float scale) = 0;
+	virtual void DrawText(std::string text, Vec2 pos, float rot, float* rgb, float scale, Vec2 offset) = 0;
 
 	// Optional overrides
 	virtual void DrawLine(Vec2 v1, Vec2 v2) { }

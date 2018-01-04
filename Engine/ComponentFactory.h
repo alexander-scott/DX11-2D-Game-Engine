@@ -34,7 +34,7 @@ namespace ComponentFactory
 
 	TriggerBoxComponent * MakeTriggerBox(std::string triggerTag);
 
-	GUITextComponent * MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent* transform);
+	GUITextComponent * MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent* transform, Vec2 offset);
 	GUISpriteRendererComponent * MakeGUISpriteRenderer(std::string fileName, TransformComponent* transform, float width, float height, Vec2 offset);
 	GUIButtonComponent * MakeGUIButton(TransformComponent* transform, float width, float height);
 };

@@ -24,7 +24,7 @@ GameGUI::GameGUI(GameLevel* gameLevel) : mGameLevel(gameLevel)
 	GameObject* restartText = new GameObject("RestartText");
 	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
 	restartText->AddComponent(restartTransform);
-	restartText->AddComponent(ComponentFactory::MakeGUIText("RESTART", DirectX::Colors::White, restartTransform));
+	restartText->AddComponent(ComponentFactory::MakeGUIText("RESTART", DirectX::Colors::White, restartTransform, Vec2(90, 30))); // HARDCODED POSTION
 	mGameObjects.push_back(restartText);
 }
 
