@@ -11,8 +11,9 @@ Game::Game(MainWindow& wnd)
 	mCurrentLevel = 1;
 	mWaitingOnGUIInput = false;
 
-	mGameLevel = LevelBuilder::BuildGameLevel("Levels\\Level1.xml");
-	mGameGUI = new GameGUI(mGameLevel);
+	mGameGUI = new GameGUI();
+
+	CreateLevel();
 }
 
 void Game::Update()
@@ -30,6 +31,20 @@ void Game::Update()
 Game::~Game()
 {
 	delete mGameLevel;
+}
+
+void Game::CreateLevel()
+{
+	// Delete old level
+	if (mCurrentLevel != 1) // HARDCODED 
+		delete mGameLevel;
+
+	std::stringstream stream;
+	stream << "Levels\\Level" << mCurrentLevel << ".xml";
+	string levelPath = stream.str();
+
+	mGameLevel = LevelBuilder::BuildGameLevel(levelPath);
+	mGameGUI->ResetGUI(mGameLevel, mCurrentLevel);
 }
 
 void Game::UpdateLevel()
@@ -51,6 +66,7 @@ void Game::UpdateLevel()
 		else if (mGameLevel->GetLevelState() == LevelState::eWon)
 		{
 			mGameGUI->EnableCentreButton("LEVELUP");
+			mCurrentLevel++; // Increase level
 			mWaitingOnGUIInput = true;
 		}
 	}
@@ -58,7 +74,7 @@ void Game::UpdateLevel()
 	{
 		if (mGameGUI->GetCentreButtonClicked())
 		{
-			throw;
+			CreateLevel();
 		}
 	}
 }

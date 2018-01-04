@@ -6,6 +6,8 @@
 #include "LevelBuilder.h"
 #include "GameGUI.h"
 
+#include <sstream>
+
 class Game
 {
 public:
@@ -18,10 +20,11 @@ public:
 	~Game();
 
 private:
+	void CreateLevel();
+
 	void DrawLevel();
 	void UpdateLevel();
 
-private:
 	MainWindow& wnd;
 
 	FrameTimer					mFrameTimer;

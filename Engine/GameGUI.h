@@ -5,11 +5,13 @@
 class GameGUI
 {
 public:
-	GameGUI(GameLevel* gameLevel);
+	GameGUI();
 	~GameGUI();
 
 	void UpdateGUI(float deltaTime);
 	void DrawGUI();
+
+	void ResetGUI(GameLevel* gameLevel, int currentLevel);
 
 	void EnableCentreButton(std::string buttonText);
 
@@ -17,13 +19,11 @@ public:
 
 private:
 	void BuildGUI();
+	GameObject* FindGameObject(std::string tag);
 
-	GameLevel*								mGameLevel;
 	std::vector<GameObject*>				mGameObjects;
 	float									mTotalScore;
 	
-	GameObject*								mCentreButtonSprite;
-	GameObject*								mCentreButtonText;
 	GUIButtonComponent*						mCentreButton;
 
 	bool									mCentreButtonClicked;

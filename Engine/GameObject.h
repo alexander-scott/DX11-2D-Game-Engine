@@ -61,6 +61,21 @@ public:
 		return components;
 	}
 
+	template<class T>
+	void RemoveComponent()
+	{
+		for (auto component : mComponents)
+		{
+			T* tComponent = dynamic_cast<T *> (component);
+
+			if (tComponent != nullptr)
+			{
+				delete tComponent;
+				return;
+			}
+		}
+	}
+
 protected:
 	std::vector<IComponent*>	mComponents;
 	std::string					mTag;
