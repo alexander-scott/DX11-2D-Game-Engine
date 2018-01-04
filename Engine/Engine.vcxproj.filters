@@ -256,7 +256,9 @@
     <ClInclude Include="GameComponentFactory.h">
       <Filter>Game\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="GameStartScreen.h" />
+    <ClInclude Include="GameStartScreen.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -382,7 +384,9 @@
     <ClCompile Include="GameComponentFactory.cpp">
       <Filter>Game\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="GameStartScreen.cpp" />
+    <ClCompile Include="GameStartScreen.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

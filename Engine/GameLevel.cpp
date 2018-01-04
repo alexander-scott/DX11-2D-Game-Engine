@@ -1,8 +1,7 @@
 #include "GameLevel.h"
 
-GameLevel::GameLevel()
+GameLevel::GameLevel(float startScore) : Score(startScore)
 {
-	Score = 0;
 	mLevelState = LevelState::ePlaying;
 }
 

@@ -36,5 +36,6 @@ private:
 	GameGUI*					mGameGUI;
 
 	int							mCurrentLevel;
+	float						mTotalScore;
 	GameState					mGameState;
 };

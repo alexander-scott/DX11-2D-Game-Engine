@@ -39,7 +39,7 @@ void LevelBuilder::InitaliseGameplayValues(std::string fileName)
 	AI_LATERAL_MAX_SPEED = (float)atof(valuesNode->first_node("AILateralMaxSpeed")->first_attribute("val")->value());
 }
 
-GameLevel * LevelBuilder::BuildGameLevel(std::string fileName)
+GameLevel * LevelBuilder::BuildGameLevel(std::string fileName, float startScore)
 {
 	//Load the file
 	std::ifstream inFile(fileName);
@@ -68,7 +68,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName)
 	//Get the root node
 	xml_node<>* root = doc.first_node();
 
-	GameLevel* gameLevel = new GameLevel();
+	GameLevel* gameLevel = new GameLevel(startScore);
 	ObjectManager objectManager;
 	LevelData levelData = ExtractLevelData(root);
 
