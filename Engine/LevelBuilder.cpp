@@ -99,15 +99,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName)
 		gameObjectNode = gameObjectNode->next_sibling("GameObject");
 	}
 
-	GameCamera::Instance().SetFocusTrans(objectManager.GetCreatedObject(0)->GetComponent<TransformComponent>()); // HARDCODEDDDDDD
-
-	GameCamera::Instance().SetLevelBounds(
-		(levelData.levelLeftBounds) * TILE_WIDTH,
-		(levelData.levelRightBounds) * TILE_WIDTH,
-		(levelData.levelBottomBounds) * TILE_HEIGHT,
-		(levelData.levelTopBounds) * TILE_HEIGHT);
-
-	gameLevel->CacheComponents(&GameCamera::Instance(), -1);
+	gameLevel->BuildCamera();
 	gameLevel->BuildGUI();
 
 	return gameLevel;

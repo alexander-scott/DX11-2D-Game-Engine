@@ -13,11 +13,15 @@ public:
 
 	void ConstructLevel(LevelData levelData);
 	void BuildGUI();
+	void BuildCamera();
 
 	void Update(float deltaTime);
 	void Draw();
 
 private:
+	void BuildCustomObjects();
+	GameObject* FindGameObject(std::string tag);
+
 	ObjectManager									mObjectManager;
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;

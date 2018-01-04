@@ -13,8 +13,7 @@ public:
 	Vec2 GetPosition() { return mTransform->GetPosition(); }
 
 	void SetFocusTrans(TransformComponent* fTrans) { mFocusTrans = fTrans; }
-	void SetLevelBounds(float leftBound, float rightBound, float botBound, float topBound) 
-	{ mLevelLeftBound = leftBound; mLevelRightBound = rightBound; mLevelBottomBound = botBound; mLevelTopBound = topBound; }
+	void SetLevelBounds(float leftBound, float rightBound, float botBound, float topBound) 	{ mLevelLeftBound = leftBound; mLevelRightBound = rightBound; mLevelBottomBound = botBound; mLevelTopBound = topBound; }
 
 	virtual void Initalise(class MainWindow& wnd) override;
 

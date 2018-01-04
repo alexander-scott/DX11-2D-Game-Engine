@@ -64,7 +64,7 @@ All the variables for the game
       </Component>
       <Component type="DamageableComponent" starthealth="100"></Component>
       <Component type="ProjectileManagerComponent" projectilecount="100" projecthittag="Player"></Component>
-      <Component type="AIAgentComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilemangercomponentid="-1" patrolTime="5" startdirection="right" idletime="2" targettransformcomponentid="0" viewrange="400" shotintervals="3"></Component>
+      <Component type="AIAgentComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilemangercomponentid="-1" patrolTime="5" startdirection="right" idletime="2" targettransformcomponentid="0" viewrange="400" shotintervals="2"></Component>
     </GameObject>
   </GameObjects>
 </game>

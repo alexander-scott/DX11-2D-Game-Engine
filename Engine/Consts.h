@@ -107,6 +107,7 @@ static std::map<std::string, std::string> SpriteFilePaths =
 	{ "MageWalk",		"Images\\mage_walk.dds" },
 	{ "Ball",			"Images\\ColourBall.dds" },
 	{ "Pipe",			"Images\\NewPipe.dds" },
+	{ "FinishFlag",		"Images\\checkered_flag.dds" },
 	{ "BG_Sky",			"Images\\Backgrounds\\Sky_back_layer.dds" },
 	{ "BG_Vegetation",	"Images\\Backgrounds\\Vegetation_layer.dds" },
 	{ "BG_Ground",		"Images\\Backgrounds\\Ground_(front_layer).dds" },

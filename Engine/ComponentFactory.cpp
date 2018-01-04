@@ -172,3 +172,9 @@ TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, 
 
 	return bgRenderer;
 }
+
+TriggerBoxComponent * ComponentFactory::MakeTriggerBox(std::string triggerTag)
+{
+	TriggerBoxComponent* triggerBox = new TriggerBoxComponent(triggerTag);
+	return triggerBox;
+}

@@ -244,6 +244,9 @@
     <ClInclude Include="ObjectGrid.h">
       <Filter>Engine\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="TriggerBoxComponent.h">
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -356,6 +359,9 @@
     </ClCompile>
     <ClCompile Include="ObjectGrid.cpp">
       <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="TriggerBoxComponent.cpp">
+      <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
