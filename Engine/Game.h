@@ -17,7 +17,7 @@ public:
 	~Game();
 
 private:
-	void ComposeFrame();
+	void DrawLevel();
 	void UpdateLevel();
 
 private:

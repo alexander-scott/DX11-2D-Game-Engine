@@ -99,8 +99,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName)
 		gameObjectNode = gameObjectNode->next_sibling("GameObject");
 	}
 
-	gameLevel->BuildCamera();
-	gameLevel->BuildGUI();
+	gameLevel->PostBuildEvents();
 
 	return gameLevel;
 }

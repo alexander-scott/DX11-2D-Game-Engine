@@ -3,13 +3,14 @@
 GameLevel::GameLevel()
 {
 	mScore = 0;
+	mLevelState = LevelState::ePlaying;
 }
 
 GameLevel::~GameLevel()
 {
 	for (auto go : mGameObjects)
 	{
-		if (go) // TODO: UMCOMMENTING THIS OUT CREATES A DELETION BUG ON WINDOW CLOSE
+		if (go)
 		{
 			delete go;
 		}
@@ -68,6 +69,13 @@ void GameLevel::ConstructLevel(LevelData levelData)
 	mPhysicsManager.BuildObjectGrid(width, height);
 }
 
+void GameLevel::PostBuildEvents()
+{
+	BuildGUI();
+	SetupCamera();
+	RegisterFinishFlag();
+}
+
 void GameLevel::BuildGUI()
 {
 	GameObject* scoreText = new GameObject("Text");
@@ -83,7 +91,7 @@ void GameLevel::BuildGUI()
 	CacheComponents(healthText, 2);
 }
 
-void GameLevel::BuildCamera()
+void GameLevel::SetupCamera()
 {
 	GameCamera::Instance().SetFocusTrans(FindGameObject("Player")->GetComponent<TransformComponent>());
 
@@ -92,14 +100,27 @@ void GameLevel::BuildCamera()
 		(mLevelData.levelRightBounds) * TILE_WIDTH,
 		(mLevelData.levelBottomBounds) * TILE_HEIGHT,
 		(mLevelData.levelTopBounds) * TILE_HEIGHT);
+}
 
-	CacheComponents(&GameCamera::Instance(), -1);
+void GameLevel::RegisterFinishFlag()
+{
+	GameObject* finishFlag = FindGameObject("FinishFlag");
+	if (finishFlag == nullptr)
+	{
+		throw std::exception("No finish flag created in XML level!!!");
+	}
+	mFinishFlagTrigger = finishFlag->GetComponent<TriggerBoxComponent>();
 }
 
 void GameLevel::Update(float deltaTime)
 {
 	// Update object rigid bodies
 	mPhysicsManager.Update(deltaTime);
+
+	if (mLevelState != LevelState::ePlaying)
+	{
+		return;
+	}
 
 	// Check all objects that can be damaged to see if they are dead or not. Do something additional if the object that died is special or not
 	for (auto& dGo : mDamageableGameObjects)
@@ -112,6 +133,7 @@ void GameLevel::Update(float deltaTime)
 			if (dGo.first->GetTag() == "Player")
 			{
 				// PLAYER IS DEAD MAJOR PANIC @@@@@@@@@@@@@@@@@
+				mLevelState = LevelState::eDead;
 			}
 			else if (dGo.first->GetTag() == "Enemy")
 			{
@@ -126,6 +148,12 @@ void GameLevel::Update(float deltaTime)
 	for (auto& go : mGameObjects)
 	{
 		go->Update(deltaTime);
+	}
+
+	// Check gameover
+	if (mFinishFlagTrigger->GetTriggeredReference())
+	{
+		mLevelState = LevelState::eWon;
 	}
 }
 

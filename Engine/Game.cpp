@@ -16,7 +16,7 @@ void Game::Update()
 	GameCamera::Instance().BeginFrame();
 
 	UpdateLevel();
-	ComposeFrame();
+	DrawLevel();
 
 	GameCamera::Instance().EndFrame();
 
@@ -32,10 +32,11 @@ void Game::UpdateLevel()
 {
 	float deltaTime = mFrameTimer.Mark();
 
+	GameCamera::Instance().Update(deltaTime);
 	mGameLevel->Update(deltaTime);
 }
 
-void Game::ComposeFrame()
+void Game::DrawLevel()
 {
 	mGameLevel->Draw();
 }
