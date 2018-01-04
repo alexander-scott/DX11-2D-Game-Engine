@@ -1,13 +1,10 @@
 #include "GUIButtonComponent.h"
 
-
-
-GUIButtonComponent::GUIButtonComponent(PolygonColliderComponent* collider) : mCollider(collider)
+GUIButtonComponent::GUIButtonComponent(TransformComponent* trans, float width, float height) : mTransform(trans), mWidth(width), mHeight(height)
 {
 	mClicked = false; 
 	mIsPressed = false;
 }
-
 
 GUIButtonComponent::~GUIButtonComponent()
 {
@@ -23,7 +20,11 @@ void GUIButtonComponent::Update(float deltaTime)
 		mIsPressed = true;
 
 		Vec2 mousePos = Mouse::Instance().GetPos();
-		Rect buttonRect = mCollider->GetRect();
+		Rect buttonRect;
+		buttonRect.LeftX = (int)(mTransform->GetPosition().x - (mWidth / 2));
+		buttonRect.RightX = (int)(mTransform->GetPosition().x + (mWidth / 2));
+		buttonRect.BotY = (int)(mTransform->GetPosition().y - (mHeight / 2));
+		buttonRect.TopY = (int)(mTransform->GetPosition().y + (mHeight / 2));
 
 		if (buttonRect.LeftX < mousePos.x && buttonRect.RightX > mousePos.x && buttonRect.BotY < mousePos.y && buttonRect.TopY > mousePos.y)
 		{

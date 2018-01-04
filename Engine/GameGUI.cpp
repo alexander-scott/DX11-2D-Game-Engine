@@ -17,9 +17,15 @@ GameGUI::GameGUI(GameLevel* gameLevel) : mGameLevel(gameLevel)
 	GameObject* centreButton = new GameObject("CentreButton");
 	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2 , SCREEN_HEIGHT / 2), 0, 1);
 	centreButton->AddComponent(buttonTransform);
-	GUISpriteRendererComponent* buttonRenderer = ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0));
-	centreButton->AddComponent(buttonRenderer);
+	centreButton->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
+	centreButton->AddComponent(ComponentFactory::MakeGUIButton(buttonTransform, 239, 131));
 	mGameObjects.push_back(centreButton);
+
+	GameObject* restartText = new GameObject("RestartText");
+	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
+	restartText->AddComponent(restartTransform);
+	restartText->AddComponent(ComponentFactory::MakeGUIText("RESTART", DirectX::Colors::White, restartTransform));
+	mGameObjects.push_back(restartText);
 }
 
 GameGUI::~GameGUI()

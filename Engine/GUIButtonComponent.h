@@ -10,7 +10,7 @@
 class GUIButtonComponent : public IComponent, public IUpdateable
 {
 public:
-	GUIButtonComponent(PolygonColliderComponent* collider);
+	GUIButtonComponent(TransformComponent* trans, float width, float height);
 	~GUIButtonComponent();
 
 	virtual void Update(float deltaTime) override;
@@ -19,6 +19,10 @@ private:
 	bool						mClicked;
 	bool						mIsPressed;
 
-	PolygonColliderComponent*	mCollider;
+	float						mWidth;
+	float						mHeight;
+
+	TransformComponent*			mTransform;
+
 };
 

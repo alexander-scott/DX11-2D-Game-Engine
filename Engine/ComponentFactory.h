@@ -13,6 +13,7 @@
 #include "TiledBGRenderer.h"
 #include "GUITextComponent.h"
 #include "GUISpriteRendererComponent.h"
+#include "GUIButtonComponent.h"
 #include "TriggerBoxComponent.h"
 
 namespace ComponentFactory
@@ -35,4 +36,5 @@ namespace ComponentFactory
 
 	GUITextComponent * MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent* transform);
 	GUISpriteRendererComponent * MakeGUISpriteRenderer(std::string fileName, TransformComponent* transform, float width, float height, Vec2 offset);
+	GUIButtonComponent * MakeGUIButton(TransformComponent* transform, float width, float height);
 };

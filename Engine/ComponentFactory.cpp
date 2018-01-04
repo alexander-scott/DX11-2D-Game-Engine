@@ -149,6 +149,16 @@ GUISpriteRendererComponent * ComponentFactory::MakeGUISpriteRenderer(std::string
 	return spriteRenderer;
 }
 
+GUIButtonComponent * ComponentFactory::MakeGUIButton(TransformComponent * transform, float width, float height)
+{
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	GUIButtonComponent * guiButton = new GUIButtonComponent(transform, width, height);
+	return guiButton;
+}
+
 ColliderRendererComponent * ComponentFactory::MakeColliderRenderer(TransformComponent* trans, ColliderComponent* collider)
 {
 	if (trans == nullptr)
