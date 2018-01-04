@@ -30,4 +30,5 @@ private:
 	GameGUI*					mGameGUI;
 
 	int							mCurrentLevel;
+	bool						mWaitingOnGUIInput;
 };

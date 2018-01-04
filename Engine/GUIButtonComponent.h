@@ -15,6 +15,8 @@ public:
 
 	virtual void Update(float deltaTime) override;
 
+	bool Clicked() { return mClicked; }
+
 private:
 	bool						mClicked;
 	bool						mIsPressed;
@@ -25,4 +27,3 @@ private:
 	TransformComponent*			mTransform;
 
 };
-

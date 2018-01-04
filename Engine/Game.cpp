@@ -9,6 +9,8 @@ Game::Game(MainWindow& wnd)
 	LevelBuilder::InitaliseGameplayValues("Levels\\GameValues.xml"); //BROKEN
 
 	mCurrentLevel = 1;
+	mWaitingOnGUIInput = false;
+
 	mGameLevel = LevelBuilder::BuildGameLevel("Levels\\Level1.xml");
 	mGameGUI = new GameGUI(mGameLevel);
 }
@@ -38,6 +40,27 @@ void Game::UpdateLevel()
 
 	mGameLevel->Update(deltaTime);
 	mGameGUI->UpdateGUI(deltaTime);
+
+	if (!mWaitingOnGUIInput)
+	{
+		if (mGameLevel->GetLevelState() == LevelState::eDead)
+		{
+			mGameGUI->EnableCentreButton("RESTART");
+			mWaitingOnGUIInput = true;
+		}
+		else if (mGameLevel->GetLevelState() == LevelState::eWon)
+		{
+			mGameGUI->EnableCentreButton("LEVELUP");
+			mWaitingOnGUIInput = true;
+		}
+	}
+	else
+	{
+		if (mGameGUI->GetCentreButtonClicked())
+		{
+			throw;
+		}
+	}
 }
 
 void Game::DrawLevel()

@@ -11,9 +11,21 @@ public:
 	void UpdateGUI(float deltaTime);
 	void DrawGUI();
 
+	void EnableCentreButton(std::string buttonText);
+
+	bool GetCentreButtonClicked() {	return mCentreButtonClicked; }
+
 private:
-	GameLevel*										mGameLevel;
-	std::vector<GameObject*>						mGameObjects;
-	float											mTotalScore;
+	void BuildGUI();
+
+	GameLevel*								mGameLevel;
+	std::vector<GameObject*>				mGameObjects;
+	float									mTotalScore;
+	
+	GameObject*								mCentreButtonSprite;
+	GameObject*								mCentreButtonText;
+	GUIButtonComponent*						mCentreButton;
+
+	bool									mCentreButtonClicked;
 };
 
