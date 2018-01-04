@@ -64,12 +64,13 @@ public:
 	template<class T>
 	void RemoveComponent()
 	{
-		for (auto component : mComponents)
+		for (int i = 0; i < mComponents.size(); i++)
 		{
-			T* tComponent = dynamic_cast<T *> (component);
+			T* tComponent = dynamic_cast<T *> (mComponents[i]);
 
 			if (tComponent != nullptr)
 			{
+				mComponents.erase(mComponents.begin() + i);
 				delete tComponent;
 				return;
 			}

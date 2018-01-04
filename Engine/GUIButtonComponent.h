@@ -16,6 +16,7 @@ public:
 	virtual void Update(float deltaTime) override;
 
 	bool Clicked() { return mClicked; }
+	void Reset() {	mClicked = false; mIsPressed = false; }
 
 private:
 	bool						mClicked;

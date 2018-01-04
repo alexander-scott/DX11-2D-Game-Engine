@@ -39,22 +39,20 @@ void GameGUI::BuildGUI()
 	mGameObjects.push_back(healthText);
 
 	// Centre Button sprite and button
-	GameObject* mCentreButtonSprite = new GameObject("CentreButton");
+	GameObject* centreButtonSprite = new GameObject("CentreButton");
 	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
-	mCentreButtonSprite->AddComponent(buttonTransform);
-	mCentreButtonSprite->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
+	centreButtonSprite->AddComponent(buttonTransform);
+	centreButtonSprite->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
 	mCentreButton = ComponentFactory::MakeGUIButton(buttonTransform, 239, 131);
-	mCentreButtonSprite->AddComponent(mCentreButton);
-	mCentreButtonSprite->SetActive(false); // Set inactive
-	mGameObjects.push_back(mCentreButtonSprite);
+	centreButtonSprite->AddComponent(mCentreButton);
+	mGameObjects.push_back(centreButtonSprite);
 
 	// Centre button text
-	GameObject* mCentreButtonText = new GameObject("CentreButtonText");
+	GameObject* centreButtonText = new GameObject("CentreButtonText");
 	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
-	mCentreButtonText->AddComponent(restartTransform);
-	mCentreButtonText->AddComponent(ComponentFactory::MakeGUIText("", DirectX::Colors::White, restartTransform, Vec2(90, 30))); // HARDCODED POSTION
-	mCentreButtonText->SetActive(false); // Set inactive
-	mGameObjects.push_back(mCentreButtonText);
+	centreButtonText->AddComponent(restartTransform);
+	centreButtonText->AddComponent(ComponentFactory::MakeGUIText("", DirectX::Colors::White, restartTransform, Vec2(90, 30))); // HARDCODED POSTION
+	mGameObjects.push_back(centreButtonText);
 }
 
 void GameGUI::DrawGUI()
@@ -81,6 +79,12 @@ void GameGUI::ResetGUI(GameLevel* gameLevel, int currentLevel)
 	GameObject* healthText = FindGameObject("HealthText");
 	healthText->RemoveComponent<GUITextValueComponent>();
 	healthText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Health:", DirectX::Colors::Red, healthText->GetComponent<TransformComponent>(), gameLevel->FindGameObject("Player")->GetComponent<DamageableComponent>()->GetHealthAddress()));
+
+	FindGameObject("CentreButton")->SetActive(false);
+	FindGameObject("CentreButtonText")->SetActive(false);
+
+	mCentreButton->Reset();
+	mCentreButtonClicked = false;
 }
 
 void GameGUI::EnableCentreButton(std::string buttonText)
@@ -90,7 +94,6 @@ void GameGUI::EnableCentreButton(std::string buttonText)
 	GameObject* textObj = FindGameObject("CentreButtonText");
 	textObj->SetActive(true);
 	textObj->GetComponent<GUITextComponent>()->SetText(buttonText);
-
 }
 
 void GameGUI::UpdateGUI(float deltaTime)

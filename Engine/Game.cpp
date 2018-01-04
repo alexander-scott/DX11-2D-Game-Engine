@@ -74,6 +74,7 @@ void Game::UpdateLevel()
 	{
 		if (mGameGUI->GetCentreButtonClicked())
 		{
+			mWaitingOnGUIInput = false;
 			CreateLevel();
 		}
 	}
