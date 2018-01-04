@@ -119,7 +119,7 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float width, float heig
 	return boxCollider;
 }
 
-GUITextComponent * ComponentFactory::MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent * transform)
+GUITextComponent * ComponentFactory::MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent * transform, Vec2 offset)
 {
 	if (transform == nullptr)
 	{
@@ -130,8 +130,34 @@ GUITextComponent * ComponentFactory::MakeGUIText(std::string text, XMVECTORF32 c
 	guiText->SetText(text);
 	guiText->SetTransform(transform);
 	guiText->SetTextColour(colour);
+	guiText->SetOffset(offset);
 
 	return guiText;
+}
+
+GUISpriteRendererComponent * ComponentFactory::MakeGUISpriteRenderer(std::string fileName, TransformComponent * transform, float width, float height, Vec2 offset)
+{
+	GUISpriteRendererComponent * spriteRenderer = new GUISpriteRendererComponent();
+	spriteRenderer->SetFilename(fileName);
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	spriteRenderer->SetTransform(transform);
+	spriteRenderer->SetOffset(offset);
+	spriteRenderer->SetWidthHeight(width, height);
+
+	return spriteRenderer;
+}
+
+GUIButtonComponent * ComponentFactory::MakeGUIButton(TransformComponent * transform, float width, float height)
+{
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+	GUIButtonComponent * guiButton = new GUIButtonComponent(transform, width, height);
+	return guiButton;
 }
 
 ColliderRendererComponent * ComponentFactory::MakeColliderRenderer(TransformComponent* trans, ColliderComponent* collider)
@@ -171,4 +197,10 @@ TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, 
 	bgRenderer->SetSprite(spriteName, spriteWidth, spriteHeight);
 
 	return bgRenderer;
+}
+
+TriggerBoxComponent * ComponentFactory::MakeTriggerBox(std::string triggerTag)
+{
+	TriggerBoxComponent* triggerBox = new TriggerBoxComponent(triggerTag);
+	return triggerBox;
 }

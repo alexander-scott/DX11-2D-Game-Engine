@@ -4,6 +4,9 @@
 #include "MainWindow.h"
 
 #include "LevelBuilder.h"
+#include "GameGUI.h"
+
+#include <sstream>
 
 class Game
 {
@@ -17,13 +20,18 @@ public:
 	~Game();
 
 private:
-	void ComposeFrame();
+	void CreateLevel();
+
+	void DrawLevel();
 	void UpdateLevel();
 
-private:
 	MainWindow& wnd;
 
-	GameLevel*					mGameLevel;
-
 	FrameTimer					mFrameTimer;
+
+	GameLevel*					mGameLevel;
+	GameGUI*					mGameGUI;
+
+	int							mCurrentLevel;
+	bool						mWaitingOnGUIInput;
 };

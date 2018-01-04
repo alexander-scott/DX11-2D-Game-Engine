@@ -83,7 +83,8 @@ void PhysicsManager::Update(float deltaTime)
 
 				if (collision.GetContactCount()) // If there is a collision the number of contacts will be greater than 0
 				{
-					contacts.emplace_back(collision);
+					if (A->GetRigidbodyComponent()->GetActive() && B->GetRigidbodyComponent()->GetActive())
+						contacts.emplace_back(collision);
 
 					CollisionMessage colMsg(mGameObjects[i]);
 					mGameObjects[element]->SendMessageToComponents(colMsg);
@@ -158,7 +159,7 @@ void PhysicsManager::Update(float deltaTime)
 
 void PhysicsManager::IntegrateForces(ColliderComponent * collider, float deltaTime)
 {
-	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f || !collider->GetActive())
+	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f || !collider->GetActive() || !collider->GetRigidbodyComponent()->GetActive())
 		return;
 
 	collider->GetRigidbodyComponent()->SetVelocity(collider->GetRigidbodyComponent()->GetVelocity() + 
@@ -171,7 +172,7 @@ void PhysicsManager::IntegrateForces(ColliderComponent * collider, float deltaTi
 
 void PhysicsManager::IntegrateVelocity(ColliderComponent * collider, float deltaTime)
 {
-	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f || !collider->GetActive())
+	if (collider->GetRigidbodyComponent()->GetInverseMass() == 0.0f || !collider->GetActive() || !collider->GetRigidbodyComponent()->GetActive())
 		return;
 
 	// Calculate position

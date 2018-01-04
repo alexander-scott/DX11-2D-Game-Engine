@@ -2,17 +2,18 @@
 
 GameLevel::GameLevel()
 {
-	mScore = 0;
+	Score = 0;
+	mLevelState = LevelState::ePlaying;
 }
 
 GameLevel::~GameLevel()
 {
 	for (auto go : mGameObjects)
 	{
-		//if (go) // TODO: UMCOMMENTING THIS OUT CREATES A DELETION BUG ON WINDOW CLOSE
-		//{
-		//	delete go;
-		//}
+		if (go)
+		{
+			delete go;
+		}
 	}
 }
 
@@ -68,25 +69,42 @@ void GameLevel::ConstructLevel(LevelData levelData)
 	mPhysicsManager.BuildObjectGrid(width, height);
 }
 
-void GameLevel::BuildGUI()
+void GameLevel::PostBuildEvents()
 {
-	GameObject* scoreText = new GameObject("Text");
-	TransformComponent* scoreTransform = ComponentFactory::MakeTransform(Vec2(10, 10), 0, 0.5f);
-	scoreText->AddComponent(scoreTransform);
-	scoreText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Score:", DirectX::Colors::Yellow, scoreTransform, mScore));
-	CacheComponents(scoreText, 2);
+	SetupCamera();
+	RegisterFinishFlag();
+}
 
-	GameObject* healthText = new GameObject("Text");
-	TransformComponent* healthTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH - 130, 10), 0, 0.5f);
-	healthText->AddComponent(healthTransform); // REMOVE HARDCODED: GameObject[0] is player
-	healthText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Health:", DirectX::Colors::Red, healthTransform, mGameObjects[0]->GetComponent<DamageableComponent>()->GetHealthAddress()));
-	CacheComponents(healthText, 2);
+void GameLevel::SetupCamera()
+{
+	GameCamera::Instance().SetFocusTrans(FindGameObject("Player")->GetComponent<TransformComponent>());
+
+	GameCamera::Instance().SetLevelBounds(
+		(mLevelData.levelLeftBounds) * TILE_WIDTH,
+		(mLevelData.levelRightBounds) * TILE_WIDTH,
+		(mLevelData.levelBottomBounds) * TILE_HEIGHT,
+		(mLevelData.levelTopBounds) * TILE_HEIGHT);
+}
+
+void GameLevel::RegisterFinishFlag()
+{
+	GameObject* finishFlag = FindGameObject("FinishFlag");
+	if (finishFlag == nullptr)
+	{
+		throw std::exception("No finish flag created in XML level!!!");
+	}
+	mFinishFlagTrigger = finishFlag->GetComponent<TriggerBoxComponent>();
 }
 
 void GameLevel::Update(float deltaTime)
 {
 	// Update object rigid bodies
 	mPhysicsManager.Update(deltaTime);
+
+	if (mLevelState != LevelState::ePlaying)
+	{
+		return;
+	}
 
 	// Check all objects that can be damaged to see if they are dead or not. Do something additional if the object that died is special or not
 	for (auto& dGo : mDamageableGameObjects)
@@ -99,12 +117,13 @@ void GameLevel::Update(float deltaTime)
 			if (dGo.first->GetTag() == "Player")
 			{
 				// PLAYER IS DEAD MAJOR PANIC @@@@@@@@@@@@@@@@@
+				mLevelState = LevelState::eDead;
 			}
 			else if (dGo.first->GetTag() == "Enemy")
 			{
 				// Increase score
 				Audio::Instance().PlaySoundEffect("Death");
-				mScore++;
+				Score++;
 			}
 		}
 	}
@@ -113,6 +132,12 @@ void GameLevel::Update(float deltaTime)
 	for (auto& go : mGameObjects)
 	{
 		go->Update(deltaTime);
+	}
+
+	// Check gameover
+	if (mFinishFlagTrigger->GetTriggeredReference())
+	{
+		mLevelState = LevelState::eWon;
 	}
 }
 
@@ -133,4 +158,15 @@ void GameLevel::Draw()
 	{
 		go->Draw(&GameCamera::Instance());
 	}
+}
+
+GameObject* GameLevel::FindGameObject(std::string tag)
+{
+	for (auto& go : mGameObjects)
+	{
+		if (go->GetTag() == tag)
+			return go;
+	}
+
+	return nullptr;
 }

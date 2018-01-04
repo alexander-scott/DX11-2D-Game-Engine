@@ -12,6 +12,9 @@
 #include "ColliderRendererComponent.h"
 #include "TiledBGRenderer.h"
 #include "GUITextComponent.h"
+#include "GUISpriteRendererComponent.h"
+#include "GUIButtonComponent.h"
+#include "TriggerBoxComponent.h"
 
 namespace ComponentFactory
 {
@@ -29,5 +32,9 @@ namespace ComponentFactory
 	PolygonColliderComponent * MakePolygonCollider(Vec2* verticies, int vertexCount, TransformComponent* transform, RigidBodyComponent* rigidbody);
 	BoxColliderComponent * MakeBoxCollider(float width, float height, TransformComponent* transform, RigidBodyComponent* rigidBody);
 
-	GUITextComponent * MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent* transform);
+	TriggerBoxComponent * MakeTriggerBox(std::string triggerTag);
+
+	GUITextComponent * MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent* transform, Vec2 offset);
+	GUISpriteRendererComponent * MakeGUISpriteRenderer(std::string fileName, TransformComponent* transform, float width, float height, Vec2 offset);
+	GUIButtonComponent * MakeGUIButton(TransformComponent* transform, float width, float height);
 };

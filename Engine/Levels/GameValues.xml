@@ -64,7 +64,14 @@ All the variables for the game
       </Component>
       <Component type="DamageableComponent" starthealth="100"></Component>
       <Component type="ProjectileManagerComponent" projectilecount="100" projecthittag="Player"></Component>
-      <Component type="AIAgentComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilemangercomponentid="-1" patrolTime="5" startdirection="right" idletime="2" targettransformcomponentid="0" viewrange="400" shotintervals="3"></Component>
+      <Component type="AIAgentComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilemangercomponentid="-1" patrolTime="5" startdirection="right" idletime="2" targettransformcomponentid="0" viewrange="400" shotintervals="2"></Component>
+    </GameObject>
+    <GameObject blueprintid="8" tag="FinishFlag">
+      <Component type="TransformComponent" xpos="-1" ypos="-1" rotation="0" scale="1"></Component>
+      <Component type="SpriteRendererComponent" filename="FinishFlag" transformcomponentid="-1" width="45" height="45" xoffset="0" yoffset="0"></Component>
+      <Component type="RigidBodyComponent" staticfriction="0" dynamicfriction="0" restitution="0" static="false" lockrotation="false" componentinactive=""></Component>
+      <Component type="BoxColliderComponent" width="45" height="45" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
+      <Component type="TriggerBoxComponent" triggertag="Player"></Component>
     </GameObject>
   </GameObjects>
 </game>

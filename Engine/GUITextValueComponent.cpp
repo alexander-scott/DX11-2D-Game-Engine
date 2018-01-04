@@ -4,7 +4,7 @@
 
 GUITextValueComponent::GUITextValueComponent(float& watchValue) : mWatchedValue(watchValue)
 {
-
+	mOffset = Vec2(0, 0);
 }
 
 
@@ -23,5 +23,5 @@ void GUITextValueComponent::Draw(ICamera * cam)
 	rgb[0] = mTextColour.f[0];
 	rgb[1] = mTextColour.f[1];
 	rgb[2] = mTextColour.f[2];
-	cam->DrawTextScreenSpace(s, GetTransform()->GetPosition(), GetTransform()->GetRotation(), rgb, GetTransform()->GetScale());
+	cam->DrawTextScreenSpace(s, GetTransform()->GetPosition(), GetTransform()->GetRotation(), rgb, GetTransform()->GetScale(), mOffset);
 }

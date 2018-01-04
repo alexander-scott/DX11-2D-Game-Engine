@@ -9,20 +9,31 @@ public:
 	GameLevel();
 	~GameLevel();
 
+	LevelState GetLevelState() { return mLevelState; }
+
 	void CacheComponents(GameObject* gameObj, int renderLayer);
 
 	void ConstructLevel(LevelData levelData);
-	void BuildGUI();
+
+	void PostBuildEvents();
 
 	void Update(float deltaTime);
 	void Draw();
 
+	GameObject* FindGameObject(std::string tag);
+
+	float											Score;
+
 private:
+	void SetupCamera();
+	void RegisterFinishFlag();
+
 	ObjectManager									mObjectManager;
 	PhysicsManager									mPhysicsManager;
 	LevelData										mLevelData;
 
-	float											mScore;
+	LevelState										mLevelState;
+	TriggerBoxComponent*							mFinishFlagTrigger;
 
 	std::vector<GameObject*>						mRenderLayer0;
 	std::vector<GameObject*>						mRenderLayer1;

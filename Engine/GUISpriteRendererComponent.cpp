@@ -1,18 +1,17 @@
-#include "SpriteRendererComponent.h"
+#include "GUISpriteRendererComponent.h"
 
 
 
-SpriteRendererComponent::SpriteRendererComponent()
-{
-	mType = "SpriteRenderer";
-}
-
-
-SpriteRendererComponent::~SpriteRendererComponent()
+GUISpriteRendererComponent::GUISpriteRendererComponent()
 {
 }
 
-void SpriteRendererComponent::Draw(ICamera* cam)
+
+GUISpriteRendererComponent::~GUISpriteRendererComponent()
+{
+}
+
+void GUISpriteRendererComponent::Draw(ICamera * cam)
 {
 	TransformComponent* trans = GetTransform();
 
@@ -28,5 +27,5 @@ void SpriteRendererComponent::Draw(ICamera* cam)
 		- halfSpriteHeight * cos(trans->GetRotation())
 		- halfSpriteWidth * sin(trans->GetRotation());
 
-	cam->DrawSpriteWorldSpace(mSpriteFileName, Vec2(newPosX, newPosY), nullptr, trans->GetRotation(), trans->GetScale(), mOffset);
+	cam->DrawSpriteScreenSpace(mSpriteFileName, Vec2(newPosX, newPosY), nullptr, trans->GetRotation(), trans->GetScale(), mOffset);
 }

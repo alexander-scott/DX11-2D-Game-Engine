@@ -61,6 +61,22 @@ public:
 		return components;
 	}
 
+	template<class T>
+	void RemoveComponent()
+	{
+		for (int i = 0; i < mComponents.size(); i++)
+		{
+			T* tComponent = dynamic_cast<T *> (mComponents[i]);
+
+			if (tComponent != nullptr)
+			{
+				mComponents.erase(mComponents.begin() + i);
+				delete tComponent;
+				return;
+			}
+		}
+	}
+
 protected:
 	std::vector<IComponent*>	mComponents;
 	std::string					mTag;

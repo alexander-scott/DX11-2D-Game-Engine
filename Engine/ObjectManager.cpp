@@ -68,7 +68,12 @@ GameObject* ObjectManager::CreateObject(int instanceID, int blueprintID)
 				xml_node<>* component = gameObject->first_node("Component");
 				while (component) // Create all this gameobject's components
 				{
-					go->AddComponent(CreateComponent(go, component));
+					IComponent* newComponent = CreateComponent(go, component);
+
+					if (component->first_attribute("componentinactive") != nullptr)
+						newComponent->SetActive(false);
+
+					go->AddComponent(newComponent);
 					component = component->next_sibling("Component");
 				}
 
@@ -388,6 +393,11 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 		}
 
 		return ComponentFactory::MakeProjectileManagerComponent(projectiles);
+	}
+	else if (std::string(node->first_attribute("type")->value()) == "TriggerBoxComponent")
+	{
+		std::string triggerTag = std::string(node->first_attribute("triggertag")->value());
+		return ComponentFactory::MakeTriggerBox(triggerTag);
 	}
 
 	throw;

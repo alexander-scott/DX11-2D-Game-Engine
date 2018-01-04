@@ -232,13 +232,13 @@ void DX11Graphics::DrawLine(Vec2 v1, Vec2 v2)
 	g_primitiveBatch->DrawLine(vec1, vec2);
 }
 
-void DX11Graphics::DrawText(std::string text, Vec2 pos, float rot, float* rgb, float scale)
+void DX11Graphics::DrawText(std::string text, Vec2 pos, float rot, float* rgb, float scale, Vec2 offset)
 {
 	std::wstring widestr = std::wstring(text.begin(), text.end());
 	const wchar_t* convertedText = widestr.c_str();
 
 	XMVECTORF32 colour = { { { rgb[0], rgb[1], rgb[2], 1 } } };
-	g_Fonts->DrawString(g_Sprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), colour, rot, XMFLOAT2(0,0), scale);
+	g_Fonts->DrawString(g_Sprites.get(), convertedText, XMFLOAT2(pos.x, pos.y), colour, rot, XMFLOAT2(offset.x, offset.y), scale);
 }
 
 void DX11Graphics::Destroy()
