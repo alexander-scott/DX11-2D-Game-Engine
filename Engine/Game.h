@@ -27,6 +27,8 @@ private:
 	void DrawLevel();
 	void UpdateLevel();
 
+	void UpdateStartScreen();
+
 	MainWindow& wnd;
 
 	FrameTimer					mFrameTimer;

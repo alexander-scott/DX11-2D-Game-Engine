@@ -25,7 +25,7 @@ private:
 
 	void NullVelocities();
 
-	float FindAxisLeastPenetration(int* faceIndex, PolygonColliderComponent* A, PolygonColliderComponent *B);
+	float GetFurthestPenetration(int* faceIndex, PolygonColliderComponent* A, PolygonColliderComponent *B);
 	void FindIncidentFace(Vec2 *v, PolygonColliderComponent *RefPoly, PolygonColliderComponent *IncPoly, int referenceIndex);
 	int Clip(Vec2 n, float c, Vec2 *face);
 

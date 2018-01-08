@@ -23,14 +23,14 @@ void PolygonColliderComponent::ComputeMass(float density)
 	// Calculate centroid and moment of interia
 	mCentre = Vec2(0.0f, 0.0f); // centroid
 	float area = 0.0f;
-	float I = 0.0f;
-	const float k_inv3 = 1.0f / 3.0f;
+	float intertia = 0.0f;
+	const float inv3 = 1.0f / 3.0f;
 
-	for (int i1 = 0; i1 < VertexCount; ++i1)
+	for (int i = 0; i < VertexCount; ++i)
 	{
 		// Triangle vertices, third vertex implied as (0, 0)
-		Vec2 p1(Vertices[i1]);
-		int i2 = i1 + 1 < VertexCount ? i1 + 1 : 0;
+		Vec2 p1(Vertices[i]);
+		int i2 = i + 1 < VertexCount ? i + 1 : 0;
 		Vec2 p2(Vertices[i2]);
 
 		float D = Cross(p1, p2);
@@ -39,24 +39,22 @@ void PolygonColliderComponent::ComputeMass(float density)
 		area += triangleArea;
 
 		// Use area to weight the centroid average, not just vertex position
-		mCentre += triangleArea * k_inv3 * (p1 + p2);
+		mCentre += triangleArea * inv3 * (p1 + p2);
 
 		float intx2 = p1.x * p1.x + p2.x * p1.x + p2.x * p2.x;
 		float inty2 = p1.y * p1.y + p2.y * p1.y + p2.y * p2.y;
-		I += (0.25f * k_inv3 * D) * (intx2 + inty2);
+		intertia += (0.25f * inv3 * D) * (intx2 + inty2);
 	}
 
 	mCentre *= 1.0f / area;
 
-	// Translate vertices to centroid (make the centroid (0, 0)
-	// for the polygon in model space)
-	// Not really necessary, but I like doing this anyway
+	// Translate vertices to centroid (make the centroid (0, 0) for the polygon in model space)
 	for (int i = 0; i < VertexCount; ++i)
 		Vertices[i] -= mCentre;
 
 	mRigidyBodyComponent->SetMass(density * area);
 	mRigidyBodyComponent->SetInverseMass(mRigidyBodyComponent->GetMass() ? 1.0f / mRigidyBodyComponent->GetMass() : 0.0f);
-	mRigidyBodyComponent->SetIntertia(I * density);
+	mRigidyBodyComponent->SetIntertia(intertia * density);
 	mRigidyBodyComponent->SetInverseIntertia(mRigidyBodyComponent->GetIntertia() ? 1.0f / mRigidyBodyComponent->GetIntertia() : 0.0f);
 }
 
@@ -96,11 +94,11 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 			highestXCoord = x;
 			rightMost = i;
 		}
-
-		// If matching x then take farthest negative y
-		else if (x == highestXCoord)
+		else if (x == highestXCoord) //  If matching x then take farthest negative y
+		{
 			if (vertices[i].y < vertices[rightMost].y)
 				rightMost = i;
+		}	
 	}
 
 	int hull[MAX_POLY_VERTEX_COUNT];
@@ -112,23 +110,16 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 		hull[outCount] = indexHull;
 
 		// Search for next index that wraps around the hull
-		// by computing cross products to find the most counter-clockwise
-		// vertex in the set, given the previos hull index
 		int nextHullIndex = 0;
 		for (int i = 1; i < (int)count; ++i)
 		{
-			// Skip if same coordinate as we need three unique
-			// points in the set to perform a cross product
+			// Skip if same coordinate
 			if (nextHullIndex == indexHull)
 			{
 				nextHullIndex = i;
 				continue;
 			}
 
-			// Cross every set of three unique vertices
-			// Record each counter clockwise third vertex and add
-			// to the output hull
-			// See : http://www.oocities.org/pcgpe/math2d.html
 			Vec2 e1 = vertices[nextHullIndex] - vertices[hull[outCount]];
 			Vec2 e2 = vertices[i] - vertices[hull[outCount]];
 			float c = Cross(e1, e2);
@@ -136,7 +127,6 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 				nextHullIndex = i;
 
 			// Cross product is zero then e vectors are on same line
-			// therefor want to record vertex farthest along that line
 			if (c == 0.0f && e2.LenSqr() > e1.LenSqr())
 				nextHullIndex = i;
 		}
@@ -144,7 +134,7 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 		++outCount;
 		indexHull = nextHullIndex;
 
-		// Conclude algorithm upon wrap-around
+		// Break out if we've wraped-around
 		if (nextHullIndex == rightMost)
 		{
 			VertexCount = outCount;
@@ -162,7 +152,7 @@ void PolygonColliderComponent::SetVerticies(Vec2 * vertices, int count)
 		int i2 = i1 + 1 < VertexCount ? i1 + 1 : 0;
 		Vec2 face = Vertices[i2] - Vertices[i1];
 
-		// Ensure no zero-length edges, because that's bad
+		// Ensure no zero-length edge
 		assert(face.LenSqr() > EPSILON * EPSILON);
 
 		// Calculate normal with 2D cross product between vector and scalar

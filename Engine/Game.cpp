@@ -19,24 +19,15 @@ void Game::Update()
 {
 	GameCamera::Instance().BeginFrame();
 
-	if (mGameState != GameState::eStartScreen)
+	// If game is playing
+	if (mGameState == GameState::ePlayingGame || mGameState == GameState::eWaitingOnGUIInput)
 	{
 		UpdateLevel();
 		DrawLevel();
 	}
 	else
 	{
-		mGameStartScreen->UpdateGUI(mFrameTimer.Mark());
-		mGameStartScreen->DrawGUI();
-
-		if (mGameStartScreen->GetCentreButtonClicked())
-		{
-			delete mGameStartScreen;
-
-			mGameState = GameState::ePlayingGame;
-			mGameGUI = new GameGUI();
-			CreateLevel();
-		}
+		UpdateStartScreen();
 	}
 
 	GameCamera::Instance().EndFrame();
@@ -108,4 +99,19 @@ void Game::DrawLevel()
 {
 	mGameLevel->Draw();
 	mGameGUI->DrawGUI();
+}
+
+void Game::UpdateStartScreen()
+{
+	mGameStartScreen->UpdateGUI(mFrameTimer.Mark());
+	mGameStartScreen->DrawGUI();
+
+	if (mGameStartScreen->GetCentreButtonClicked())
+	{
+		delete mGameStartScreen;
+
+		mGameState = GameState::ePlayingGame;
+		mGameGUI = new GameGUI();
+		CreateLevel();
+	}
 }

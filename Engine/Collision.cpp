@@ -280,13 +280,13 @@ void Collision::PolygonToPolygonCollision()
 
 	// Check for a separating axis with A's face planes
 	int faceA;
-	float penetrationA = FindAxisLeastPenetration(&faceA, A, B);
+	float penetrationA = GetFurthestPenetration(&faceA, A, B);
 	if (penetrationA >= 0.0f)
 		return;
 
 	// Check for a separating axis with B's face planes
 	int faceB;
-	float penetrationB = FindAxisLeastPenetration(&faceB, B, A);
+	float penetrationB = GetFurthestPenetration(&faceB, B, A);
 	if (penetrationB >= 0.0f)
 		return;
 
@@ -317,20 +317,7 @@ void Collision::PolygonToPolygonCollision()
 	Vec2 incidentFace[2];
 	FindIncidentFace(incidentFace, RefPoly, IncPoly, referenceIndex);
 
-	//        y
-	//        ^  ->n       ^
-	//      +---c ------posPlane--
-	//  x < | i |\
-	  //      +---+ c-----negPlane--
-//             \       v
-//              r
-//
-//  r : reference face
-//  i : incident poly
-//  c : clipped point
-//  n : incident normal
-
-// Setup reference face vertices
+	// Setup reference face vertices
 	Vec2 v1 = RefPoly->Vertices[referenceIndex];
 	referenceIndex = referenceIndex + 1 == RefPoly->VertexCount ? 0 : referenceIndex + 1;
 	Vec2 v2 = RefPoly->Vertices[referenceIndex];
@@ -346,24 +333,22 @@ void Collision::PolygonToPolygonCollision()
 	// Orthogonalize
 	Vec2 refFaceNormal(sidePlaneNormal.y, -sidePlaneNormal.x);
 
-	// ax + by = c
-	// c is distance from origin
 	float refC = Dot(refFaceNormal, v1);
 	float negSide = -Dot(sidePlaneNormal, v1);
 	float posSide = Dot(sidePlaneNormal, v2);
 
-	// Clip incident face to reference face side planes
+	// Clip incident face to reference face side planes. Due to floating point error, possible to not have required points
 	if (Clip(-sidePlaneNormal, negSide, incidentFace) < 2)
-		return; // Due to floating point error, possible to not have required points
+		return; 
 
 	if (Clip(sidePlaneNormal, posSide, incidentFace) < 2)
-		return; // Due to floating point error, possible to not have required points
+		return; 
 
 	// Flip
 	mNormal = flip ? -refFaceNormal : refFaceNormal;
 
 	// Keep points behind reference face
-	int cp = 0; // clipped points behind reference face
+	int cp = 0; // Clipped points behind reference face
 	float separation = Dot(refFaceNormal, incidentFace[0]) - refC;
 	if (separation <= 0.0f)
 	{
@@ -389,7 +374,7 @@ void Collision::PolygonToPolygonCollision()
 	mContactCount = cp;
 }
 
-float Collision::FindAxisLeastPenetration(int * faceIndex, PolygonColliderComponent * A, PolygonColliderComponent * B)
+float Collision::GetFurthestPenetration(int * faceIndex, PolygonColliderComponent * A, PolygonColliderComponent * B)
 {
 	float bestDistance = -100000;
 	int bestIndex;
@@ -407,8 +392,7 @@ float Collision::FindAxisLeastPenetration(int * faceIndex, PolygonColliderCompon
 		// Retrieve support point from B along -n
 		Vec2 s = B->GetSupport(-n);
 
-		// Retrieve vertex on face from A, transform into
-		// B's model space
+		// Retrieve vertex on face from A, transform into B's model space
 		Vec2 v = A->Vertices[i];
 		v = A->GetRigidbodyComponent()->GetOrientationMatrix() * v + A->GetTransformComponent()->GetPosition();
 		v -= B->GetTransformComponent()->GetPosition();
@@ -465,7 +449,6 @@ int Collision::Clip(Vec2 n, float c, Vec2 * face)
 	};
 
 	// Retrieve distances from each endpoint to the line
-	// d = ax + by - c
 	float d1 = Dot(n, face[0]) - c;
 	float d2 = Dot(n, face[1]) - c;
 
