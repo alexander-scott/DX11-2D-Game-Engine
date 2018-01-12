@@ -11,7 +11,7 @@ public:
 	void UpdateGUI(float deltaTime);
 	void DrawGUI();
 
-	void ResetGUI(GameLevel* gameLevel, int currentLevel);
+	void ResetGUI(std::shared_ptr<GameLevel> gameLevel, int currentLevel);
 
 	void EnableCentreButton(std::string buttonText);
 

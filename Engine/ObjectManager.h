@@ -12,6 +12,7 @@
 #include "rapidxml.hpp"
 
 using namespace rapidxml;
+using namespace std;
 
 class ObjectManager
 {
@@ -22,7 +23,7 @@ public:
 private:
 	IComponent* CreateComponent(GameObject* go, xml_node<>* node);
 
-	std::map<int, GameObject*>			mGameObjects;
-	std::string							mfileName = "Levels\\Prefabs.xml";
+	map<int, GameObject*>			mGameObjects;
+	string							mfileName = "Levels\\Prefabs.xml";
 };
 

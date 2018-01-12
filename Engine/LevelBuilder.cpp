@@ -1,26 +1,26 @@
 #include "LevelBuilder.h"
 
-void LevelBuilder::InitaliseGameplayValues(std::string fileName)
+void LevelBuilder::InitaliseGameplayValues(string fileName)
 {
 	//Loads a level from xml file
 	//Load the file
-	std::ifstream inFile(fileName);
+	ifstream inFile(fileName);
 
 	if (!inFile)
 		throw "Could not load tileset: " + fileName;
 
 	//Dump contents of file into a string
-	std::string xmlContents;
+	string xmlContents;
 
 	//Blocked out of preference
 	{
-		std::string line;
-		while (std::getline(inFile, line))
+		string line;
+		while (getline(inFile, line))
 			xmlContents += line;
 	}
 
 	//Convert string to rapidxml readable char*
-	std::vector<char> mXmlData = std::vector<char>(xmlContents.begin(), xmlContents.end());
+	vector<char> mXmlData = vector<char>(xmlContents.begin(), xmlContents.end());
 	mXmlData.push_back('\0');
 
 	//Create a parsed document with &xmlData[0] which is the char*
@@ -39,26 +39,26 @@ void LevelBuilder::InitaliseGameplayValues(std::string fileName)
 	AI_LATERAL_MAX_SPEED = (float)atof(valuesNode->first_node("AILateralMaxSpeed")->first_attribute("val")->value());
 }
 
-GameLevel * LevelBuilder::BuildGameLevel(std::string fileName, float startScore)
+std::shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startScore)
 {
 	//Load the file
-	std::ifstream inFile(fileName);
+	ifstream inFile(fileName);
 
 	if (!inFile)
 		throw "Could not load level: " + fileName;
 
 	//Dump contents of file into a string
-	std::string xmlContents;
+	string xmlContents;
 
 	//Blocked out of preference
 	{
-		std::string line;
-		while (std::getline(inFile, line))
+		string line;
+		while (getline(inFile, line))
 			xmlContents += line;
 	}
 
 	//Convert string to rapidxml readable char*
-	std::vector<char> xmlData = std::vector<char>(xmlContents.begin(), xmlContents.end());
+	vector<char> xmlData = vector<char>(xmlContents.begin(), xmlContents.end());
 	xmlData.push_back('\0');
 
 	//Create a parsed document with &xmlData[0] which is the char*
@@ -68,7 +68,7 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName, float startScore)
 	//Get the root node
 	xml_node<>* root = doc.first_node();
 
-	GameLevel* gameLevel = new GameLevel(startScore);
+	auto gameLevel = std::make_shared<GameLevel>(startScore);
 	ObjectManager objectManager;
 	LevelData levelData = ExtractLevelData(root);
 
@@ -84,11 +84,11 @@ GameLevel * LevelBuilder::BuildGameLevel(std::string fileName, float startScore)
 			atoi(gameObjectNode->first_attribute("prefabid")->value()));
 
 		// Update its position from the original prefab
-		if (std::string(gameObjectNode->first_attribute("update")->value()) == "tilepos")
+		if (string(gameObjectNode->first_attribute("update")->value()) == "tilepos")
 		{
 			UpdateTilePos(gameObjectNode, obj, levelData);
 		}
-		else if (std::string(gameObjectNode->first_attribute("update")->value()) == "colliderbounds")
+		else if (string(gameObjectNode->first_attribute("update")->value()) == "colliderbounds")
 		{
 			UpdateColliderBounds(gameObjectNode, obj, levelData);
 		}
@@ -120,7 +120,7 @@ void LevelBuilder::UpdateTilePos(xml_node<>* node, GameObject * obj, LevelData& 
 	float x = (float)atof(node->first_attribute("val1")->value());
 	float y = (float)atof(node->first_attribute("val2")->value());
 
-	Vec2 newPos = Vec2((float)levelData.levelLeftBounds + (x * TILE_WIDTH), (float)std::abs(levelData.levelBottomBounds) + -(y * TILE_HEIGHT));
+	Vec2 newPos = Vec2((float)levelData.levelLeftBounds + (x * TILE_WIDTH), (float)abs(levelData.levelBottomBounds) + -(y * TILE_HEIGHT));
 
 	obj->GetComponent<TransformComponent>()->SetPosition(newPos);
 	obj->GetComponent<TransformComponent>()->SetPreviousPosition(newPos);
@@ -131,14 +131,14 @@ void LevelBuilder::UpdateColliderBounds(xml_node<>* node, GameObject* obj, Level
 	BoxColliderComponent* collider = obj->GetComponent<BoxColliderComponent>();
 	TransformComponent* trans = collider->GetTransformComponent();
 
-	std::string side = std::string(node->first_attribute("val1")->value());
+	string side = string(node->first_attribute("val1")->value());
 	if (side == "left")
 	{
 		Vec2 newPos = Vec2(levelData.levelLeftBounds * TILE_WIDTH, 0);
 		trans->SetPosition(newPos);
 		trans->SetPreviousPosition(newPos);
 
-		collider->SetBox(0.5f, (std::abs(levelData.levelTopBounds - levelData.levelBottomBounds) * TILE_HEIGHT) / 2);
+		collider->SetBox(0.5f, (abs(levelData.levelTopBounds - levelData.levelBottomBounds) * TILE_HEIGHT) / 2);
 	}
 	else if (side == "right")
 	{
@@ -146,11 +146,11 @@ void LevelBuilder::UpdateColliderBounds(xml_node<>* node, GameObject* obj, Level
 		trans->SetPosition(newPos);
 		trans->SetPreviousPosition(newPos);
 
-		collider->SetBox(0.5f, (std::abs(levelData.levelTopBounds - levelData.levelBottomBounds) * TILE_HEIGHT) / 2);
+		collider->SetBox(0.5f, (abs(levelData.levelTopBounds - levelData.levelBottomBounds) * TILE_HEIGHT) / 2);
 	}
 	else if (side == "top")
 	{
-		Vec2 newPos = Vec2(0, std::abs(levelData.levelTopBounds) * TILE_HEIGHT);
+		Vec2 newPos = Vec2(0, abs(levelData.levelTopBounds) * TILE_HEIGHT);
 		trans->SetPosition(newPos);
 		trans->SetPreviousPosition(newPos);
 
@@ -158,7 +158,7 @@ void LevelBuilder::UpdateColliderBounds(xml_node<>* node, GameObject* obj, Level
 	}
 	else if (side == "bottom")
 	{
-		Vec2 newPos = Vec2(0, std::abs(levelData.levelTopBounds) * TILE_HEIGHT);
+		Vec2 newPos = Vec2(0, abs(levelData.levelTopBounds) * TILE_HEIGHT);
 		trans->SetPosition(newPos);
 		trans->SetPreviousPosition(newPos);
 

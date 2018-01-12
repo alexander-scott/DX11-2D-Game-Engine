@@ -1,7 +1,8 @@
 #pragma once
 
 #include "IMessage.h"
-#include "Consts.h"
+
+struct Vec2;
 
 class AddForceMessage : public IMessage
 {

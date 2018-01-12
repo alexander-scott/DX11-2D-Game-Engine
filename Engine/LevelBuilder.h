@@ -5,12 +5,13 @@
 #include "rapidxml.hpp"
 
 using namespace rapidxml;
+using namespace std;
 
 namespace LevelBuilder
 {
-	void InitaliseGameplayValues(std::string fileName);
+	void InitaliseGameplayValues(string fileName);
 
-	GameLevel* BuildGameLevel(std::string fileName, float startScore);
+	std::shared_ptr<GameLevel> BuildGameLevel(string fileName, float startScore);
 
 	inline LevelData ExtractLevelData(xml_node<>* node);
 

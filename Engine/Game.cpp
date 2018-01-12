@@ -12,7 +12,7 @@ Game::Game(MainWindow& wnd)
 	mTotalScore = 0;
 	mGameState = GameState::eStartScreen;
 
-	mGameStartScreen = new GameStartScreen();
+	mGameStartScreen = make_unique<GameStartScreen>();
 }
 
 void Game::Update()
@@ -37,7 +37,7 @@ void Game::Update()
 
 Game::~Game()
 {
-	delete mGameLevel;
+	mGameLevel = nullptr;
 }
 
 void Game::CreateLevel()
@@ -46,10 +46,10 @@ void Game::CreateLevel()
 	if (mCurrentLevel != 1) // HARDCODED 
 	{
 		mTotalScore += mGameLevel->GetScore();
-		delete mGameLevel;
+		mGameLevel = nullptr;
 	}
 		
-	std::stringstream stream;
+	stringstream stream;
 	stream << "Levels\\Level" << mCurrentLevel << ".xml";
 	string levelPath = stream.str();
 
@@ -108,10 +108,10 @@ void Game::UpdateStartScreen()
 
 	if (mGameStartScreen->GetCentreButtonClicked())
 	{
-		delete mGameStartScreen;
+		mGameStartScreen = nullptr;
 
 		mGameState = GameState::ePlayingGame;
-		mGameGUI = new GameGUI();
+		mGameGUI = make_unique<GameGUI>();
 		CreateLevel();
 	}
 }

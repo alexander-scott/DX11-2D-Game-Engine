@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-GameObject::GameObject(std::string tag)
+GameObject::GameObject(string tag)
 {
 	mTag = tag;
 }

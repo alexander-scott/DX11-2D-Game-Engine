@@ -1,6 +1,5 @@
 #pragma once
 
-#include "DX11Graphics.h"
 #include "Consts.h"
 
 #include "IComponent.h"
@@ -10,10 +9,12 @@
 
 #include "ICamera.h"
 
+using namespace std;
+
 class GameObject
 {
 public:
-	GameObject(std::string tag);
+	GameObject(string tag);
 	~GameObject();
 
 	void Draw(ICamera* cam) const;
@@ -22,7 +23,7 @@ public:
 	void SendMessageToComponents(IMessage& message);
 	void AddComponent(IComponent* component);
 
-	std::string GetTag() { return mTag; }
+	string GetTag() { return mTag; }
 
 	void SetActive(bool active);
 	bool GetActive() { return mActive; }
@@ -44,9 +45,9 @@ public:
 	}
 
 	template<class T>
-	std::vector<T*> GetComponents()
+	vector<T*> GetComponents()
 	{
-		std::vector<T*> components;
+		vector<T*> components;
 		for (auto component : mComponents)
 		{
 			T* tComponent = dynamic_cast<T *> (component);
@@ -77,7 +78,7 @@ public:
 	}
 
 protected:
-	std::vector<IComponent*>	mComponents;
-	std::string					mTag;
-	bool						mActive;
+	vector<IComponent*>		mComponents;
+	string					mTag;
+	bool					mActive;
 };

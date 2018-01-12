@@ -55,7 +55,7 @@ void GameGUI::BuildGUI()
 	mGameObjects.push_back(centreButtonText);
 }
 
-void GameGUI::ResetGUI(GameLevel* gameLevel, int currentLevel)
+void GameGUI::ResetGUI(std::shared_ptr<GameLevel> gameLevel, int currentLevel)
 {
 	// Update score references
 	GameObject* scoreText = FindGameObject("ScoreText");

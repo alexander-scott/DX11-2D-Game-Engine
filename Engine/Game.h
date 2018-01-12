@@ -7,7 +7,7 @@
 #include "GameGUI.h"
 #include "GameStartScreen.h"
 
-#include <sstream>
+using namespace std;
 
 class Game
 {
@@ -31,13 +31,14 @@ private:
 
 	MainWindow& wnd;
 
-	FrameTimer					mFrameTimer;
+	FrameTimer							mFrameTimer;
 
-	GameStartScreen*			mGameStartScreen;
-	GameLevel*					mGameLevel;
-	GameGUI*					mGameGUI;
+	shared_ptr<GameLevel>				mGameLevel;
 
-	int							mCurrentLevel;
-	float						mTotalScore;
-	GameState					mGameState;
+	unique_ptr<GameStartScreen>			mGameStartScreen;
+	unique_ptr<GameGUI>					mGameGUI;
+
+	int									mCurrentLevel;
+	float								mTotalScore;
+	GameState							mGameState;
 };
