@@ -19,9 +19,9 @@ public:
 
 private:
 	void BuildGUI();
-	GameObject* FindGameObject(std::string tag);
+	shared_ptr<GameObject> FindGameObject(std::string tag);
 
-	std::vector<GameObject*>				mGameObjects;
+	std::vector<shared_ptr<GameObject>>		mGameObjects;
 	float									mTotalScore;
 	
 	GUIButtonComponent*						mCentreButton;

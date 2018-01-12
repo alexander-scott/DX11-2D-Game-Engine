@@ -46,7 +46,7 @@ ProjectileComponent * ComponentFactory::MakeProjectileComponent(std::string affe
 	return projectileComponent;
 }
 
-ProjectileManagerComponent * ComponentFactory::MakeProjectileManagerComponent(std::vector<GameObject*> projectiles)
+ProjectileManagerComponent * ComponentFactory::MakeProjectileManagerComponent(std::vector<shared_ptr<GameObject>> projectiles)
 {
 	ProjectileManagerComponent* projComponent = new ProjectileManagerComponent;
 	projComponent->AddCreatedGameObjects(projectiles);

@@ -17,13 +17,13 @@ using namespace std;
 class ObjectManager
 {
 public:
-	GameObject* CreateObject(int instanceID, int prefabID);
-	GameObject* GetCreatedObject(int instanceID);
+	shared_ptr<GameObject> CreateObject(int instanceID, int prefabID);
+	shared_ptr<GameObject> GetCreatedObject(int instanceID);
 
 private:
-	IComponent* CreateComponent(GameObject* go, xml_node<>* node);
+	IComponent* CreateComponent(shared_ptr<GameObject> go, xml_node<>* node);
 
-	map<int, GameObject*>			mGameObjects;
-	string							mfileName = "Levels\\Prefabs.xml";
+	map<int, shared_ptr<GameObject>>		mGameObjects;
+	string									mfileName = "Levels\\Prefabs.xml";
 };
 

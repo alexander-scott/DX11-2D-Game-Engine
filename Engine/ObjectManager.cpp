@@ -1,11 +1,11 @@
 #include "ObjectManager.h"
 
-GameObject* ObjectManager::GetCreatedObject(int instanceID)
+shared_ptr<GameObject> ObjectManager::GetCreatedObject(int instanceID)
 {
 	return mGameObjects[instanceID];
 }
 
-GameObject* ObjectManager::CreateObject(int instanceID, int prefabID)
+shared_ptr<GameObject> ObjectManager::CreateObject(int instanceID, int prefabID)
 {
 	//Loads a level from xml file
 	//Load the file
@@ -46,12 +46,12 @@ GameObject* ObjectManager::CreateObject(int instanceID, int prefabID)
 			if (prefabID == objprefabID)
 			{
 				// Create the gameobject
-				GameObject* go = new GameObject(gameObject->first_attribute("tag")->value());
+				auto gameObj = GameObject::MakeGameObject(gameObject->first_attribute("tag")->value());
 
 				if (instanceID != -1)
 				{
 					// Push it to the map with it's ID
-					mGameObjects.insert(make_pair(instanceID, go));
+					mGameObjects.insert(make_pair(instanceID, gameObj));
 				}
 				else
 				{
@@ -62,22 +62,22 @@ GameObject* ObjectManager::CreateObject(int instanceID, int prefabID)
 						rand = std::rand();
 						it = mGameObjects.find(rand);
 					}
-					mGameObjects.insert(make_pair(rand, go));
+					mGameObjects.insert(make_pair(rand, gameObj));
 				}
 
 				xml_node<>* component = gameObject->first_node("Component");
 				while (component) // Create all this gameobject's components
 				{
-					IComponent* newComponent = CreateComponent(go, component);
+					IComponent* newComponent = CreateComponent(gameObj, component);
 
 					if (component->first_attribute("componentinactive") != nullptr)
 						newComponent->SetActive(false);
 
-					go->AddComponent(newComponent);
+					gameObj->AddComponent(newComponent);
 					component = component->next_sibling("Component");
 				}
 
-				return go;
+				return gameObj;
 			}
 
 			gameObject = gameObject->next_sibling("GameObject");
@@ -89,7 +89,7 @@ GameObject* ObjectManager::CreateObject(int instanceID, int prefabID)
 	return nullptr;
 }
 
-IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
+IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>* node)
 {
 	if (string(node->first_attribute("type")->value()) == "TransformComponent")
 	{
@@ -375,22 +375,22 @@ IComponent* ObjectManager::CreateComponent(GameObject* go, xml_node<>* node)
 	{
 		int projectileCount = atoi(node->first_attribute("projectilecount")->value());
 		string projectHitTag = string(node->first_attribute("projecthittag")->value());
-		vector<GameObject*> projectiles;
+		vector<shared_ptr<GameObject>> projectiles;
 		for (int i = 0; i < projectileCount; i++)
 		{
-			GameObject* ball = new GameObject("Ball");
+			auto ballGO = GameObject::MakeGameObject("Ball");
 			TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
-			ball->AddComponent(ballTrans);
+			ballGO->AddComponent(ballTrans);
 			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false, false); // Cache the rigidbody
-			ball->AddComponent(ballRb);
+			ballGO->AddComponent(ballRb);
 			CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
-			ball->AddComponent(ballCollider);
+			ballGO->AddComponent(ballCollider);
 			SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 128, 128, Vec2(0, 0));
-			ball->AddComponent(ballRenderer);
+			ballGO->AddComponent(ballRenderer);
 			ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent(projectHitTag, 10, 10);
-			ball->AddComponent(ballProjectile);
+			ballGO->AddComponent(ballProjectile);
 
-			projectiles.push_back(ball);
+			projectiles.push_back(ballGO);
 		}
 
 		return ComponentFactory::MakeProjectileManagerComponent(projectiles);

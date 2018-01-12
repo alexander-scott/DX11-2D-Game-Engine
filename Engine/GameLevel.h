@@ -3,6 +3,8 @@
 #include "ObjectManager.h"
 #include "PhysicsManager.h"
 
+using namespace std;
+
 class GameLevel
 {
 public:
@@ -15,29 +17,29 @@ public:
 	LevelState GetLevelState() { return mLevelState; }
 	float& GetScore() { return mScore; }
 
-	void CacheComponents(GameObject* gameObj, int renderLayer);
+	void CacheComponents(shared_ptr<GameObject> gameObj, int renderLayer);
 
 	void ConstructLevel(LevelData levelData);
 	void ConstructionComplete();
 
-	GameObject* FindGameObject(std::string tag);
+	shared_ptr<GameObject> FindGameObject(std::string tag);
 
 private:
 	void SetupCamera();
 	void RegisterFinishFlag();
 
-	PhysicsManager									mPhysicsManager;
-	LevelData										mLevelData;
+	PhysicsManager										mPhysicsManager;
+	LevelData											mLevelData;
 
-	LevelState										mLevelState;
-	TriggerBoxComponent*							mFinishFlagTrigger;
+	LevelState											mLevelState;
+	TriggerBoxComponent*								mFinishFlagTrigger;
 
-	std::vector<GameObject*>						mRenderLayer0;
-	std::vector<GameObject*>						mRenderLayer1;
-	std::vector<GameObject*>						mRenderLayer2;
+	vector<shared_ptr<GameObject>>						mRenderLayer0;
+	vector<shared_ptr<GameObject>>						mRenderLayer1;
+	vector<shared_ptr<GameObject>>						mRenderLayer2;
 
-	std::vector<GameObject*>						mGameObjects;
-	std::map<GameObject*, DamageableComponent*>		mDamageableGameObjects;
+	vector<shared_ptr<GameObject>>						mGameObjects;
+	map<shared_ptr<GameObject>, DamageableComponent*>	mDamageableGameObjects;
 
-	float											mScore;
+	float												mScore;
 };

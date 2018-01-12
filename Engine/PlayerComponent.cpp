@@ -133,14 +133,14 @@ void PlayerComponent::CheckInput()
 
 void PlayerComponent::ShootProjectile()
 {
-	GameObject* go = mPlayerProjectiles->GetGameObject("Enemy", PLAYER_PROJECTILE_DAMAGE);
+	auto gameObject = mPlayerProjectiles->GetGameObject("Enemy", PLAYER_PROJECTILE_DAMAGE);
 	Vec2 spawnPos = Vec2(Mouse::Instance().GetPosX() + mCameraTransform->GetPosition().x, Mouse::Instance().GetPosY() + mCameraTransform->GetPosition().y);
 	Vec2 dir = spawnPos - mPlayerTransform->GetPosition();
 	dir.Normalize();
 
-	go->GetComponent<TransformComponent>()->SetPosition(mPlayerTransform->GetPosition() + (dir * 5));
-	go->GetComponent<RigidBodyComponent>()->SetVelocity(Vec2(0, 0));
-	go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * PLAYER_PROJECTILE_SPEED);
+	gameObject->GetComponent<TransformComponent>()->SetPosition(mPlayerTransform->GetPosition() + (dir * 5));
+	gameObject->GetComponent<RigidBodyComponent>()->SetVelocity(Vec2(0, 0));
+	gameObject->GetComponent<RigidBodyComponent>()->ApplyForce(dir * PLAYER_PROJECTILE_SPEED);
 	mPlayerRigidBody->ApplyForce(-dir * PLAYER_SHOOT_KNOCKBACK);
 
 	Audio::Instance().PlaySoundEffect("GunShot");

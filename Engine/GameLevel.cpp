@@ -11,12 +11,12 @@ GameLevel::~GameLevel()
 	{
 		if (go)
 		{
-			delete go;
+			go = nullptr;
 		}
 	}
 }
 
-void GameLevel::CacheComponents(GameObject* gameObj, int renderLayer)
+void GameLevel::CacheComponents(shared_ptr<GameObject> gameObj, int renderLayer)
 {
 	mGameObjects.push_back(gameObj);
 
@@ -42,7 +42,7 @@ void GameLevel::CacheComponents(GameObject* gameObj, int renderLayer)
 	DamageableComponent* goDamagable = gameObj->GetComponent<DamageableComponent>();
 	if (goDamagable != nullptr)
 	{
-		mDamageableGameObjects.insert(std::make_pair(gameObj, goDamagable));
+		mDamageableGameObjects.insert(make_pair(gameObj, goDamagable));
 	}
 
 	ProjectileManagerComponent* goProjManager = gameObj->GetComponent<ProjectileManagerComponent>();
@@ -59,10 +59,10 @@ void GameLevel::ConstructLevel(LevelData levelData)
 {
 	mLevelData = levelData;
 
-	int width = (int)std::abs(mLevelData.levelLeftBounds - mLevelData.levelRightBounds);
+	int width = (int)abs(mLevelData.levelLeftBounds - mLevelData.levelRightBounds);
 	width *= TILE_WIDTH;
 
-	int height = (int)std::abs(mLevelData.levelTopBounds - mLevelData.levelBottomBounds);
+	int height = (int)abs(mLevelData.levelTopBounds - mLevelData.levelBottomBounds);
 	height *= TILE_HEIGHT;
 
 	mPhysicsManager.BuildObjectGrid(width, height);
@@ -87,12 +87,12 @@ void GameLevel::SetupCamera()
 
 void GameLevel::RegisterFinishFlag()
 {
-	GameObject* finishFlag = FindGameObject("FinishFlag");
-	if (finishFlag == nullptr)
+	auto finishFlagGO = FindGameObject("FinishFlag");
+	if (finishFlagGO == nullptr)
 	{
-		throw std::exception("No finish flag created in XML level!!!");
+		throw exception("No finish flag created in XML level!!!");
 	}
-	mFinishFlagTrigger = finishFlag->GetComponent<TriggerBoxComponent>();
+	mFinishFlagTrigger = finishFlagGO->GetComponent<TriggerBoxComponent>();
 }
 
 void GameLevel::Update(float deltaTime)
@@ -162,7 +162,7 @@ void GameLevel::Draw()
 	}
 }
 
-GameObject* GameLevel::FindGameObject(std::string tag)
+shared_ptr<GameObject> GameLevel::FindGameObject(string tag)
 {
 	for (auto& go : mGameObjects)
 	{

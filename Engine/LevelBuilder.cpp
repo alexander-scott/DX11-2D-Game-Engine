@@ -39,7 +39,7 @@ void LevelBuilder::InitaliseGameplayValues(string fileName)
 	AI_LATERAL_MAX_SPEED = (float)atof(valuesNode->first_node("AILateralMaxSpeed")->first_attribute("val")->value());
 }
 
-std::shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startScore)
+shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startScore)
 {
 	//Load the file
 	ifstream inFile(fileName);
@@ -68,7 +68,7 @@ std::shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float s
 	//Get the root node
 	xml_node<>* root = doc.first_node();
 
-	auto gameLevel = std::make_shared<GameLevel>(startScore);
+	auto gameLevel = make_shared<GameLevel>(startScore);
 	ObjectManager objectManager;
 	LevelData levelData = ExtractLevelData(root);
 
@@ -80,21 +80,21 @@ std::shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float s
 	while (gameObjectNode)
 	{
 		// Create an instance of the gameobject listed in the level xml
-		GameObject* obj = objectManager.CreateObject(atoi(gameObjectNode->first_attribute("instanceid")->value()),
+		auto gameObject = objectManager.CreateObject(atoi(gameObjectNode->first_attribute("instanceid")->value()),
 			atoi(gameObjectNode->first_attribute("prefabid")->value()));
 
 		// Update its position from the original prefab
 		if (string(gameObjectNode->first_attribute("update")->value()) == "tilepos")
 		{
-			UpdateTilePos(gameObjectNode, obj, levelData);
+			UpdateTilePos(gameObjectNode, gameObject, levelData);
 		}
 		else if (string(gameObjectNode->first_attribute("update")->value()) == "colliderbounds")
 		{
-			UpdateColliderBounds(gameObjectNode, obj, levelData);
+			UpdateColliderBounds(gameObjectNode, gameObject, levelData);
 		}
 
 		// Cache it's components so they can be used regularly without having to refetch them 
-		gameLevel->CacheComponents(obj, atoi(gameObjectNode->first_attribute("renderLayer")->value()));
+		gameLevel->CacheComponents(gameObject, atoi(gameObjectNode->first_attribute("renderLayer")->value()));
 
 		gameObjectNode = gameObjectNode->next_sibling("GameObject");
 	}
@@ -115,7 +115,7 @@ LevelData LevelBuilder::ExtractLevelData(xml_node<>* node)
 	return levelData;
 }
 
-void LevelBuilder::UpdateTilePos(xml_node<>* node, GameObject * obj, LevelData& levelData)
+void LevelBuilder::UpdateTilePos(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData)
 {
 	float x = (float)atof(node->first_attribute("val1")->value());
 	float y = (float)atof(node->first_attribute("val2")->value());
@@ -126,7 +126,7 @@ void LevelBuilder::UpdateTilePos(xml_node<>* node, GameObject * obj, LevelData& 
 	obj->GetComponent<TransformComponent>()->SetPreviousPosition(newPos);
 }
 
-void LevelBuilder::UpdateColliderBounds(xml_node<>* node, GameObject* obj, LevelData& levelData)
+void LevelBuilder::UpdateColliderBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData)
 {
 	BoxColliderComponent* collider = obj->GetComponent<BoxColliderComponent>();
 	TransformComponent* trans = collider->GetTransformComponent();

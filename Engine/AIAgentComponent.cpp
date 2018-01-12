@@ -63,7 +63,7 @@ void AIAgentComponent::ShootAtPlayer(float deltaTime)
 	{
 		mCurrentShotTimer = 0;
 
-		GameObject* go = mAgentProjectiles->GetGameObject("Player", AI_PROJECTILE_DAMAGE);
+		auto go = mAgentProjectiles->GetGameObject("Player", AI_PROJECTILE_DAMAGE);
 		Vec2 dir = mTargetTransform->GetPosition() - mAgentTransform->GetPosition();
 		dir.Normalize();
 

@@ -12,7 +12,7 @@ GameGUI::~GameGUI()
 	{
 		if (go)
 		{
-			delete go;
+			go = nullptr;
 		}
 	}
 }
@@ -20,26 +20,26 @@ GameGUI::~GameGUI()
 void GameGUI::BuildGUI()
 {
 	// Score Text
-	GameObject* scoreText = new GameObject("ScoreText");
+	auto scoreText = GameObject::MakeGameObject("ScoreText");
 	TransformComponent* scoreTransform = ComponentFactory::MakeTransform(Vec2(10, 10), 0, 0.5f);
 	scoreText->AddComponent(scoreTransform);
 	mGameObjects.push_back(scoreText);
 
 	// Level Text
-	GameObject* levelText = new GameObject("LevelText");
+	auto levelText = GameObject::MakeGameObject("LevelText");
 	TransformComponent* levelTransform = ComponentFactory::MakeTransform(Vec2(10, 35), 0, 0.5f);
 	levelText->AddComponent(ComponentFactory::MakeGUIText("", DirectX::Colors::Blue, levelTransform, Vec2(0, 0)));
 	levelText->AddComponent(levelTransform);
 	mGameObjects.push_back(levelText);
 
 	// Health Text
-	GameObject* healthText = new GameObject("HealthText");
+	auto healthText = GameObject::MakeGameObject("HealthText");
 	TransformComponent* healthTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH - 130, 10), 0, 0.5f);
 	healthText->AddComponent(healthTransform);
 	mGameObjects.push_back(healthText);
 
 	// Centre Button sprite and button
-	GameObject* centreButtonSprite = new GameObject("CentreButton");
+	auto centreButtonSprite = GameObject::MakeGameObject("CentreButton");
 	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
 	centreButtonSprite->AddComponent(buttonTransform);
 	centreButtonSprite->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
@@ -48,7 +48,7 @@ void GameGUI::BuildGUI()
 	mGameObjects.push_back(centreButtonSprite);
 
 	// Centre button text
-	GameObject* centreButtonText = new GameObject("CentreButtonText");
+	auto centreButtonText = GameObject::MakeGameObject("CentreButtonText");
 	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
 	centreButtonText->AddComponent(restartTransform);
 	centreButtonText->AddComponent(ComponentFactory::MakeGUIText("", DirectX::Colors::White, restartTransform, Vec2(90, 30))); // HARDCODED POSTION
@@ -58,18 +58,18 @@ void GameGUI::BuildGUI()
 void GameGUI::ResetGUI(std::shared_ptr<GameLevel> gameLevel, int currentLevel)
 {
 	// Update score references
-	GameObject* scoreText = FindGameObject("ScoreText");
-	scoreText->RemoveComponent<GUITextValueComponent>();
-	scoreText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Score:", DirectX::Colors::Blue, scoreText->GetComponent<TransformComponent>(), gameLevel->GetScore()));
+	auto scoreTextGO = FindGameObject("ScoreText");
+	scoreTextGO->RemoveComponent<GUITextValueComponent>();
+	scoreTextGO->AddComponent(ComponentFactory::MakeGUITextValueComponent("Score:", DirectX::Colors::Blue, scoreTextGO->GetComponent<TransformComponent>(), gameLevel->GetScore()));
 
 	// Update level text
-	GameObject* levelText = FindGameObject("LevelText");
-	levelText->GetComponent<GUITextComponent>()->SetText("Level:" + std::to_string(currentLevel));
+	auto levelTextGO = FindGameObject("LevelText");
+	levelTextGO->GetComponent<GUITextComponent>()->SetText("Level:" + std::to_string(currentLevel));
 
 	// Update health references
-	GameObject* healthText = FindGameObject("HealthText");
-	healthText->RemoveComponent<GUITextValueComponent>();
-	healthText->AddComponent(ComponentFactory::MakeGUITextValueComponent("Health:", DirectX::Colors::Red, healthText->GetComponent<TransformComponent>(), gameLevel->FindGameObject("Player")->GetComponent<DamageableComponent>()->GetHealthAddress()));
+	auto healthTextGO = FindGameObject("HealthText");
+	healthTextGO->RemoveComponent<GUITextValueComponent>();
+	healthTextGO->AddComponent(ComponentFactory::MakeGUITextValueComponent("Health:", DirectX::Colors::Red, healthTextGO->GetComponent<TransformComponent>(), gameLevel->FindGameObject("Player")->GetComponent<DamageableComponent>()->GetHealthAddress()));
 
 	FindGameObject("CentreButton")->SetActive(false);
 	FindGameObject("CentreButtonText")->SetActive(false);
@@ -82,9 +82,9 @@ void GameGUI::EnableCentreButton(std::string buttonText)
 {
 	FindGameObject("CentreButton")->SetActive(true);
 
-	GameObject* textObj = FindGameObject("CentreButtonText");
-	textObj->SetActive(true);
-	textObj->GetComponent<GUITextComponent>()->SetText(buttonText);
+	auto textGO = FindGameObject("CentreButtonText");
+	textGO->SetActive(true);
+	textGO->GetComponent<GUITextComponent>()->SetText(buttonText);
 }
 
 void GameGUI::DrawGUI()
@@ -113,7 +113,7 @@ void GameGUI::UpdateGUI(float deltaTime)
 	}
 }
 
-GameObject* GameGUI::FindGameObject(std::string tag)
+shared_ptr<GameObject> GameGUI::FindGameObject(std::string tag)
 {
 	for (auto& go : mGameObjects)
 	{

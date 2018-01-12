@@ -7,11 +7,11 @@
 class CollisionMessage : public IMessage
 {
 public:
-	CollisionMessage(GameObject* collidedObj)
+	CollisionMessage(shared_ptr<GameObject> collidedObj)
 	{
 		mMessageType = MessageType::eCollision;
 		CollidedObject = collidedObj;
 	}
 	
-	GameObject* CollidedObject;
+	shared_ptr<GameObject> CollidedObject;
 };

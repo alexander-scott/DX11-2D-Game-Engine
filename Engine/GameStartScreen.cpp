@@ -12,7 +12,7 @@ GameStartScreen::~GameStartScreen()
 	{
 		if (go)
 		{
-			delete go;
+			go = nullptr;
 		}
 	}
 }
@@ -46,26 +46,26 @@ void GameStartScreen::DrawGUI()
 void GameStartScreen::BuildStartScreen()
 {
 	// Centre Button sprite and button
-	GameObject* centreButtonSprite = new GameObject("CentreButton");
+	auto centreButtonSpriteGO = GameObject::MakeGameObject("CentreButton");
 	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
-	centreButtonSprite->AddComponent(buttonTransform);
-	centreButtonSprite->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
+	centreButtonSpriteGO->AddComponent(buttonTransform);
+	centreButtonSpriteGO->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
 	mCentreButton = ComponentFactory::MakeGUIButton(buttonTransform, 239, 131);
-	centreButtonSprite->AddComponent(mCentreButton);
+	centreButtonSpriteGO->AddComponent(mCentreButton);
 
 	// Centre button text
-	GameObject* centreButtonText = new GameObject("CentreButtonText");
+	auto centreButtonTextGO = GameObject::MakeGameObject("CentreButtonText");
 	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
-	centreButtonText->AddComponent(restartTransform);
-	centreButtonText->AddComponent(ComponentFactory::MakeGUIText("PLAY", DirectX::Colors::White, restartTransform, Vec2(60, 30))); // HARDCODED POSTION
+	centreButtonTextGO->AddComponent(restartTransform);
+	centreButtonTextGO->AddComponent(ComponentFactory::MakeGUIText("PLAY", DirectX::Colors::White, restartTransform, Vec2(60, 30))); // HARDCODED POSTION
 
-	GameObject* skyBackground = new GameObject("SkyBackground");
+	auto skyBackgroundGO = GameObject::MakeGameObject("SkyBackground");
 	TransformComponent* skyTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 1);
-	skyBackground->AddComponent(skyTrans);
+	skyBackgroundGO->AddComponent(skyTrans);
 	TiledBGRenderer* skyRenderer = ComponentFactory::MakeTiledBGRenderer("BG_Sky", 640, 480, 0.1f, TiledBGDirection::eHoriztonalAndVertical, skyTrans, buttonTransform);
-	skyBackground->AddComponent(skyRenderer);
-	mGameObjects.push_back(skyBackground);
+	skyBackgroundGO->AddComponent(skyRenderer);
 
-	mGameObjects.push_back(centreButtonSprite);
-	mGameObjects.push_back(centreButtonText);
+	mGameObjects.push_back(skyBackgroundGO);
+	mGameObjects.push_back(centreButtonSpriteGO);
+	mGameObjects.push_back(centreButtonTextGO);
 }

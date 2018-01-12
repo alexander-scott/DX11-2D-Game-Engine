@@ -77,6 +77,8 @@ public:
 		}
 	}
 
+	static shared_ptr<GameObject> MakeGameObject(string tag);
+
 protected:
 	vector<IComponent*>		mComponents;
 	string					mTag;

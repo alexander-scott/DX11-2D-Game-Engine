@@ -31,6 +31,12 @@ void GameObject::SetActive(bool active)
 	}
 }
 
+shared_ptr<GameObject> GameObject::MakeGameObject(string tag)
+{
+	auto gameObject = make_shared<GameObject>(tag);
+	return gameObject;
+}
+
 void GameObject::SendMessageToComponents(IMessage & message)
 {
 	for (auto component : mComponents)

@@ -4,23 +4,23 @@ ProjectileManagerComponent::~ProjectileManagerComponent()
 {
 	for (auto& g : mActiveGameObjects)
 	{
-		delete g.GameObject;
+		g.GameObject = nullptr;
 	}
 
 	for (auto& g : mInactiveGameObjects)
 	{
-		delete g.GameObject;
+		g.GameObject = nullptr;
 	}
 }
 
-void ProjectileManagerComponent::AddCreatedGameObject(GameObject * go)
+void ProjectileManagerComponent::AddCreatedGameObject(shared_ptr<GameObject> go)
 {
 	ProjectilePoolObj obj(go, go->GetComponent<ProjectileComponent>());
 	obj.GameObject->SetActive(false);
 	mInactiveGameObjects.push_back(obj);
 }
 
-void ProjectileManagerComponent::AddCreatedGameObjects(std::vector<GameObject*> gameObjects)
+void ProjectileManagerComponent::AddCreatedGameObjects(std::vector<shared_ptr<GameObject>> gameObjects)
 {
 	for (auto& go : gameObjects)
 	{
@@ -30,7 +30,7 @@ void ProjectileManagerComponent::AddCreatedGameObjects(std::vector<GameObject*> 
 	}
 }
 
-GameObject * ProjectileManagerComponent::GetGameObject()
+shared_ptr<GameObject> ProjectileManagerComponent::GetGameObject()
 {
 	if (mInactiveGameObjects.size() > 0)
 	{
@@ -52,7 +52,7 @@ GameObject * ProjectileManagerComponent::GetGameObject()
 	}
 }
 
-GameObject * ProjectileManagerComponent::GetGameObject(std::string affectedTag, float damage)
+shared_ptr<GameObject> ProjectileManagerComponent::GetGameObject(std::string affectedTag, float damage)
 {
 	if (mInactiveGameObjects.size() > 0)
 	{
@@ -102,9 +102,9 @@ void ProjectileManagerComponent::Draw(ICamera* cam)
 	}
 }
 
-std::vector<GameObject*> ProjectileManagerComponent::GetAllInactiveGameObjects()
+std::vector<shared_ptr<GameObject>> ProjectileManagerComponent::GetAllInactiveGameObjects()
 {
-	std::vector<GameObject*> objs;
+	std::vector<shared_ptr<GameObject>> objs;
 	for (auto go : mInactiveGameObjects)
 	{
 		objs.push_back(go.GameObject);
@@ -112,9 +112,9 @@ std::vector<GameObject*> ProjectileManagerComponent::GetAllInactiveGameObjects()
 	return objs;
 }
 
-std::vector<GameObject*> ProjectileManagerComponent::GetAllActiveGameObjects()
+std::vector<shared_ptr<GameObject>> ProjectileManagerComponent::GetAllActiveGameObjects()
 {
-	std::vector<GameObject*> objs;
+	std::vector<shared_ptr<GameObject>> objs;
 	for (auto go : mActiveGameObjects)
 	{
 		objs.push_back(go.GameObject);

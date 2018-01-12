@@ -11,10 +11,10 @@ namespace LevelBuilder
 {
 	void InitaliseGameplayValues(string fileName);
 
-	std::shared_ptr<GameLevel> BuildGameLevel(string fileName, float startScore);
+	shared_ptr<GameLevel> BuildGameLevel(string fileName, float startScore);
 
 	inline LevelData ExtractLevelData(xml_node<>* node);
 
-	inline void UpdateTilePos(xml_node<>* node, GameObject* obj, LevelData& levelData);
-	inline void UpdateColliderBounds(xml_node<>* node, GameObject* obj, LevelData& levelData);
+	inline void UpdateTilePos(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData);
+	inline void UpdateColliderBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData);
 }

@@ -9,13 +9,15 @@
 #include "Collision.h"
 #include "ObjectGrid.h"
 
+using namespace std;
+
 class PhysicsManager
 {
 public:
 	~PhysicsManager();
 
 	void BuildObjectGrid(int levelWidth, int levelHeight);
-	void AddCollider(GameObject* gameObject, ColliderComponent* collider);
+	void AddCollider(shared_ptr<GameObject> gameObject, ColliderComponent* collider);
 
 	void Update(float deltaTime);
 
@@ -28,7 +30,7 @@ private:
 
 	ObjectGrid*								mObjectGrid;
 
-	std::vector<GameObject*>				mGameObjects;
-	std::vector<ColliderComponent*>			mColliders;
+	vector<shared_ptr<GameObject>>		mGameObjects;
+	vector<ColliderComponent*>			mColliders;
 };
 

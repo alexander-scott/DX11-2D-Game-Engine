@@ -18,7 +18,7 @@ public:
 private:
 	void BuildStartScreen();
 
-	std::vector<GameObject*>				mGameObjects;
+	std::vector<shared_ptr<GameObject>>		mGameObjects;
 	GUIButtonComponent*						mCentreButton;
 	bool									mCentreButtonClicked;
 };
