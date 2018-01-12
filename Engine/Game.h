@@ -12,7 +12,7 @@ using namespace std;
 class Game
 {
 public:
-	Game(class MainWindow& wnd);
+	Game(class MainWindow& wnd, int width, int height, std::string resourcesPath);
 	Game(const Game&) = delete;
 	Game& operator=(const Game&) = delete;
 

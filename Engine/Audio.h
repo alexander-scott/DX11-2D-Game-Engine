@@ -7,14 +7,14 @@
 // WHY IS THIS HERE AND NOT IN CONSTS.H????
 static std::map<std::string, std::string> AudioFilePaths =
 {
-	{ "Whoosh",			"Audio\\Whoosh.wav"  },
-	{ "GunShot",		"Audio\\GunShot.wav" },	
-	{ "Jump",			"Audio\\Jump.wav"	 },
-	{ "Death",			"Audio\\Death.wav"   },
-	{ "Win",			"Audio\\Win.wav"     },
-	{ "Gameover",		"Audio\\Gameover.wav"},
-	{ "Tap",			"Audio\\Tap.wav" },
-	{ "Grunt",			"Audio\\Grunt.wav" },
+	{ "Whoosh",			"\\Audio\\Whoosh.wav"  },
+	{ "GunShot",		"\\Audio\\GunShot.wav" },	
+	{ "Jump",			"\\Audio\\Jump.wav"	 },
+	{ "Death",			"\\Audio\\Death.wav"   },
+	{ "Win",			"\\Audio\\Win.wav"     },
+	{ "Gameover",		"\\Audio\\Gameover.wav"},
+	{ "Tap",			"\\Audio\\Tap.wav" },
+	{ "Grunt",			"\\Audio\\Grunt.wav" },
 };
 
 class Audio 
@@ -32,7 +32,7 @@ public:
 	void PlaySoundEffect(std::string name);
 
 	void OnNewAudioDevice() { mRetryAudio = true; }
-	void CreateSoundEffects();
+	void CreateSoundEffects(std::string resourcesPath);
 
 	static Audio& Instance()
 	{

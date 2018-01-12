@@ -29,28 +29,28 @@ void GameCamera::Update(float deltaTime)
 	// Set the cameras central position to be on the focus position
 	Vec2 pos = mFocusTrans->GetPosition();
 
-	if (pos.x - ((SCREEN_WIDTH / 2) - 32) < mLevelLeftBound)
+	if (pos.x - ((ApplicationValues::Instance().ScreenWidth / 2) - 32) < mLevelLeftBound)
 	{
-		pos.x = mLevelLeftBound + ((SCREEN_WIDTH / 2) - 32);
+		pos.x = mLevelLeftBound + ((ApplicationValues::Instance().ScreenWidth / 2) - 32);
 	}
 
-	if (pos.x + ((SCREEN_WIDTH / 2) + 32) > mLevelRightBound)
+	if (pos.x + ((ApplicationValues::Instance().ScreenWidth / 2) + 32) > mLevelRightBound)
 	{
-		pos.x = mLevelRightBound - ((SCREEN_WIDTH / 2) + 32);
+		pos.x = mLevelRightBound - ((ApplicationValues::Instance().ScreenWidth / 2) + 32);
 	}
 
-	if (pos.y + ((SCREEN_HEIGHT / 2) + 32) > mLevelBottomBound)
+	if (pos.y + ((ApplicationValues::Instance().ScreenHeight / 2) + 32) > mLevelBottomBound)
 	{
-		pos.y = mLevelBottomBound - ((SCREEN_HEIGHT / 2) + 32);
+		pos.y = mLevelBottomBound - ((ApplicationValues::Instance().ScreenHeight / 2) + 32);
 	}
 
-	if (pos.y - ((SCREEN_HEIGHT / 2) - 32) < mLevelTopBound)
+	if (pos.y - ((ApplicationValues::Instance().ScreenHeight / 2) - 32) < mLevelTopBound)
 	{
-		pos.y = mLevelTopBound + ((SCREEN_HEIGHT / 2) - 32);
+		pos.y = mLevelTopBound + ((ApplicationValues::Instance().ScreenHeight / 2) - 32);
 	}
 
-	pos.x -= (SCREEN_WIDTH / 2) - 32; // -32 because that is the exact centre of the player sprite
-	pos.y -= (SCREEN_HEIGHT / 2) - 32;
+	pos.x -= (ApplicationValues::Instance().ScreenWidth / 2) - 32; // -32 because that is the exact centre of the player sprite
+	pos.y -= (ApplicationValues::Instance().ScreenHeight / 2) - 32;
 
 	mTransform->SetPosition(pos);
 }

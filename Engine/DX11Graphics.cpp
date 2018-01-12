@@ -25,8 +25,8 @@ void DX11Graphics::Initalise(HWNDKey& key)
 	// Create device and swap chain
 	DXGI_SWAP_CHAIN_DESC sd = {};
 	sd.BufferCount = 1;
-	sd.BufferDesc.Width = SCREEN_WIDTH;
-	sd.BufferDesc.Height = SCREEN_HEIGHT;
+	sd.BufferDesc.Width = ApplicationValues::Instance().ScreenWidth;
+	sd.BufferDesc.Height = ApplicationValues::Instance().ScreenHeight;
 	sd.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 1;
 	sd.BufferDesc.RefreshRate.Denominator = 60;
@@ -86,8 +86,8 @@ void DX11Graphics::Initalise(HWNDKey& key)
 
 	// set viewport dimensions
 	D3D11_VIEWPORT vp;
-	vp.Width = float(SCREEN_WIDTH);
-	vp.Height = float(SCREEN_HEIGHT);
+	vp.Width = float(ApplicationValues::Instance().ScreenWidth);
+	vp.Height = float(ApplicationValues::Instance().ScreenHeight);
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0.0f;
@@ -96,8 +96,8 @@ void DX11Graphics::Initalise(HWNDKey& key)
 
 	// Create texture for cpu render target
 	D3D11_TEXTURE2D_DESC sysTexDesc;
-	sysTexDesc.Width = SCREEN_WIDTH;
-	sysTexDesc.Height = SCREEN_HEIGHT;
+	sysTexDesc.Width = ApplicationValues::Instance().ScreenWidth;
+	sysTexDesc.Height = ApplicationValues::Instance().ScreenHeight;
 	sysTexDesc.MipLevels = 1;
 	sysTexDesc.ArraySize = 1;
 	sysTexDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -197,7 +197,12 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating sampler state");
 	}
 
-	mFonts.reset(new SpriteFont(pDevice.Get(), L"fonts\\italic.spritefont"));
+	std::string fontFile = "\\fonts\\italic.spritefont";
+	fontFile = ApplicationValues::Instance().ResourcesPath + fontFile;
+	std::wstring widestr = std::wstring(fontFile.begin(), fontFile.end());
+	const wchar_t* szFile = widestr.c_str();
+	mFonts.reset(new SpriteFont(pDevice.Get(), szFile));
+
 	mSprites.reset(new SpriteBatch(pImmediateContext.Get()));
 	mPrimitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }
@@ -233,7 +238,10 @@ void DX11Graphics::CreateShaderResourceView(std::string name)
 {
 	HRESULT hr;
 
-	std::wstring widestr = std::wstring(SpriteFilePaths[name].begin(), SpriteFilePaths[name].end());
+	std::string filePath = SpriteFilePaths[name];
+	filePath = ApplicationValues::Instance().ResourcesPath + filePath;
+
+	std::wstring widestr = std::wstring(filePath.begin(), filePath.end());
 	const wchar_t* szName = widestr.c_str();
 
 	ID3D11ShaderResourceView* shaderRV = nullptr;

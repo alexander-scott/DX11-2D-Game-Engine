@@ -5,6 +5,24 @@
 
 #include "Math.h"
 
+#pragma region Values
+
+class ApplicationValues
+{
+public:
+	int			ScreenWidth;
+	int			ScreenHeight;
+	std::string	ResourcesPath;
+
+	static ApplicationValues& Instance()
+	{
+		static ApplicationValues Instance;
+		return Instance;
+	}
+};
+
+#pragma endregion
+
 #pragma region GamePlay Vals
 
 // PLAYER //
@@ -24,9 +42,6 @@ static Vec2 GRAVITY_VECTOR(0, 9.81f * GRAVITY_SCALE); // Default is 9.81 * SCALE
 #pragma endregion
 
 #pragma region Application Values
-
-static constexpr int SCREEN_WIDTH = 800;
-static constexpr int SCREEN_HEIGHT = 600;
 
 static constexpr int TILE_WIDTH = 45;
 static constexpr int TILE_HEIGHT = 45;
@@ -117,15 +132,15 @@ enum AIAgentPatrolDirection
 
 static std::map<std::string, std::string> SpriteFilePaths = 
 {
-	{ "MageWalk",		"Images\\mage_walk.dds" },
-	{ "HumanWalk",		"Images\\human_walk.dds" },
-	{ "Ball",			"Images\\ColourBall.dds" },
-	{ "Pipe",			"Images\\NewPipe.dds" },
-	{ "FinishFlag",		"Images\\checkered_flag.dds" },
-	{ "GUIButton",		"Images\\GUI\\button.dds" },
-	{ "BG_Sky",			"Images\\Backgrounds\\Sky_back_layer.dds" },
-	{ "BG_Vegetation",	"Images\\Backgrounds\\Vegetation_layer.dds" },
-	{ "BG_Ground",		"Images\\Backgrounds\\Ground_(front_layer).dds" },
+	{ "MageWalk",		"\\Images\\mage_walk.dds" },
+	{ "HumanWalk",		"\\Images\\human_walk.dds" },
+	{ "Ball",			"\\Images\\ColourBall.dds" },
+	{ "Pipe",			"\\Images\\NewPipe.dds" },
+	{ "FinishFlag",		"\\Images\\checkered_flag.dds" },
+	{ "GUIButton",		"\\Images\\GUI\\button.dds" },
+	{ "BG_Sky",			"\\Images\\Backgrounds\\Sky_back_layer.dds" },
+	{ "BG_Vegetation",	"\\Images\\Backgrounds\\Vegetation_layer.dds" },
+	{ "BG_Ground",		"\\Images\\Backgrounds\\Ground_(front_layer).dds" },
 };
 
 #pragma endregion

@@ -22,14 +22,43 @@ MainWindow::MainWindow(HINSTANCE hInst, wchar_t * pArgs)
 	// create window & get hWnd
 	RECT wr;
 	wr.left = 350;
-	wr.right = SCREEN_WIDTH + wr.left;
+	wr.right = 800 + wr.left;
 	wr.top = 100;
-	wr.bottom = SCREEN_HEIGHT + wr.top;
+	wr.bottom = 600 + wr.top;
 	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
 	hWnd = CreateWindow(wndClassName, L"DirectXTK Simple Sample",
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		wr.left, wr.top, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, hInst, this);
+
+	// throw exception if something went terribly wrong
+	if (hWnd == nullptr)
+	{
+		throw Exception(_CRT_WIDE(__FILE__), __LINE__,
+			L"Failed to get valid window handle.");
+	}
+
+	HDEVNOTIFY hNewAudio = nullptr;
+	DEV_BROADCAST_DEVICEINTERFACE filter = { 0 };
+	filter.dbcc_size = sizeof(filter);
+	filter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
+	filter.dbcc_classguid = KSCATEGORY_AUDIO;
+
+	hNewAudio = RegisterDeviceNotification(hWnd, &filter,
+		DEVICE_NOTIFY_WINDOW_HANDLE);
+
+	if (hNewAudio)
+		UnregisterDeviceNotification(hNewAudio);
+
+	// show and update
+	ShowWindow(hWnd, SW_SHOWDEFAULT);
+	UpdateWindow(hWnd);
+}
+
+MainWindow::MainWindow(HWND hwnd, int width, int height)
+{
+	// create window & get hWnd
+	hWnd = hwnd;
 
 	// throw exception if something went terribly wrong
 	if (hWnd == nullptr)
@@ -150,7 +179,7 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_MOUSEMOVE:
 	{
 		POINTS pt = MAKEPOINTS(lParam);
-		if (pt.x > 0 && pt.x < SCREEN_WIDTH && pt.y > 0 && pt.y < SCREEN_HEIGHT)
+		if (pt.x > 0 && pt.x < ApplicationValues::Instance().ScreenWidth && pt.y > 0 && pt.y < ApplicationValues::Instance().ScreenHeight)
 		{
 			Mouse::Instance().OnMouseMove(pt.x, pt.y);
 			if (!Mouse::Instance().IsInWindow())
@@ -164,9 +193,9 @@ LRESULT MainWindow::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			if (wParam & (MK_LBUTTON | MK_RBUTTON))
 			{
 				pt.x = std::max(short(0), pt.x);
-				pt.x = std::min(short(SCREEN_HEIGHT - 1), pt.x);
+				pt.x = std::min(short(ApplicationValues::Instance().ScreenHeight - 1), pt.x);
 				pt.y = std::max(short(0), pt.y);
-				pt.y = std::min(short(SCREEN_HEIGHT - 1), pt.y);
+				pt.y = std::min(short(ApplicationValues::Instance().ScreenHeight - 1), pt.y);
 				Mouse::Instance().OnMouseMove(pt.x, pt.y);
 			}
 			else
