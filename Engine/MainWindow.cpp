@@ -55,6 +55,35 @@ MainWindow::MainWindow(HINSTANCE hInst, wchar_t * pArgs)
 	UpdateWindow(hWnd);
 }
 
+MainWindow::MainWindow(HWND hwnd, int width, int height)
+{
+	// create window & get hWnd
+	hWnd = hwnd;
+
+	// throw exception if something went terribly wrong
+	if (hWnd == nullptr)
+	{
+		throw Exception(_CRT_WIDE(__FILE__), __LINE__,
+			L"Failed to get valid window handle.");
+	}
+
+	HDEVNOTIFY hNewAudio = nullptr;
+	DEV_BROADCAST_DEVICEINTERFACE filter = { 0 };
+	filter.dbcc_size = sizeof(filter);
+	filter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
+	filter.dbcc_classguid = KSCATEGORY_AUDIO;
+
+	hNewAudio = RegisterDeviceNotification(hWnd, &filter,
+		DEVICE_NOTIFY_WINDOW_HANDLE);
+
+	if (hNewAudio)
+		UnregisterDeviceNotification(hNewAudio);
+
+	// show and update
+	ShowWindow(hWnd, SW_SHOWDEFAULT);
+	UpdateWindow(hWnd);
+}
+
 MainWindow::~MainWindow()
 {
 	// unregister window class

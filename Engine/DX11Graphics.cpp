@@ -197,7 +197,7 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating sampler state");
 	}
 
-	mFonts.reset(new SpriteFont(pDevice.Get(), L"fonts\\italic.spritefont"));
+	mFonts.reset(new SpriteFont(pDevice.Get(), L"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\fonts\\italic.spritefont"));
 	mSprites.reset(new SpriteBatch(pImmediateContext.Get()));
 	mPrimitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }

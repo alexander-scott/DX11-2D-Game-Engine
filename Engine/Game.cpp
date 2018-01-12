@@ -6,7 +6,7 @@ Game::Game(MainWindow& wnd)
 {
 	GameCamera::Instance().Initalise(wnd);
 
-	LevelBuilder::InitaliseGameplayValues("Levels\\Prefabs.xml"); //BROKEN
+	LevelBuilder::InitaliseGameplayValues("C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Levels\\Prefabs.xml"); //BROKEN
 
 	mCurrentLevel = 1;
 	mTotalScore = 0;
@@ -50,7 +50,7 @@ void Game::CreateLevel()
 	}
 		
 	stringstream stream;
-	stream << "Levels\\Level" << mCurrentLevel << ".xml";
+	stream << "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Levels\\Level" << mCurrentLevel << ".xml";
 	string levelPath = stream.str();
 
 	mGameLevel = LevelBuilder::BuildGameLevel(levelPath, mTotalScore);
