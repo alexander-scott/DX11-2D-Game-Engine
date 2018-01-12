@@ -32,7 +32,6 @@ public:
 	};
 
 public:
-	MainWindow(HINSTANCE hInst, wchar_t* pArgs);
 	MainWindow(HWND hWnd, int width, int height);
 	MainWindow(const MainWindow&) = delete;
 	MainWindow& operator=(const MainWindow&) = delete;

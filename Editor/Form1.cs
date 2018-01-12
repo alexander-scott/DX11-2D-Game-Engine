@@ -18,6 +18,35 @@ namespace SimpleSampleEditor
         public Form1()
         {
             InitializeComponent();
+            this.FormClosing += this.Form1_FormClosing;
+
+            panel1.Click += new System.EventHandler(PanelMouseClick);
+            panel1.MouseMove += new MouseEventHandler(PanelMouseMove);
+            this.Controls.Add(this.panel1);
+
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(KeyboardKeyDown);
+            this.KeyUp += new KeyEventHandler(KeyboardKeyUp);
+        }
+
+        private void KeyboardKeyUp(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void KeyboardKeyDown(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PanelMouseMove(object sender, MouseEventArgs e)
+        {
+            Point point = panel1.PointToClient(Cursor.Position);
+        }
+
+        private void PanelMouseClick(object sender, EventArgs e)
+        {
+            Point point = panel1.PointToClient(Cursor.Position);
         }
 
         private void button1_Click(object sender, EventArgs e)
