@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTK_Desktop_2013", "E
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTKAudio_Desktop_2013_Win8", "Engine\DirectXTK\Audio\DirectXTKAudio_Desktop_2013_Win8.vcxproj", "{4F150A30-CECB-49D1-8283-6A3F57438CF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSampleEditor", "Editor\SimpleSampleEditor.csproj", "{C9893F5F-BFC5-49BB-A9CD-0B769D398302}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,18 +50,6 @@ Global
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Release|x64.Build.0 = Release|x64
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Release|x86.ActiveCfg = Release|Win32
 		{4F150A30-CECB-49D1-8283-6A3F57438CF5}.Release|x86.Build.0 = Release|Win32
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Debug|Any CPU.Build.0 = Debug|x64
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Debug|x64.Build.0 = Debug|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Debug|x86.Build.0 = Debug|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Release|x64.ActiveCfg = Release|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Release|x64.Build.0 = Release|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Release|x86.ActiveCfg = Release|Any CPU
-		{C9893F5F-BFC5-49BB-A9CD-0B769D398302}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
