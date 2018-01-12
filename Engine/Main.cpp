@@ -7,14 +7,14 @@
 // include the Direct3D Library file
 #pragma comment (lib, "d3d11.lib")
 
-extern "C" __declspec(dllexport) int Add(int a, int b)
+extern "C"
 {
-	return(a + b);
+	DllExport void* InitD3D(HWND hWnd, int Width, int Height, const char* filePath);    // sets up and initializes Direct3D
 }
 
 extern "C"
 {
-	DllExport void InitD3D(HWND hWnd, int Width, int Height, const char* filePath);    // sets up and initializes Direct3D
+	DllExport void StartUpdateLoop(void* gamePtr);    // sets up and initializes Direct3D
 }
 
 extern "C"
@@ -22,18 +22,15 @@ extern "C"
 	DllExport void CleanD3D(void);        // closes Direct3D and releases memory
 }
 
-void InitD3D(HWND hWnd, int Width, int Height, const char* filePath)
+void* InitD3D(HWND hWnd, int Width, int Height, const char* filePath)
 {
 	try
 	{
 		MainWindow wnd(hWnd, Width, Height);
 		try
 		{
-			Game theGame(wnd, Width, Height, filePath);
-			while (wnd.ProcessMessage())
-			{
-				theGame.Update();
-			}
+			Game* theGame = new Game(wnd, Width, Height, filePath);
+			return theGame;
 		}
 		catch (const CustomException& e)
 		{
@@ -73,6 +70,17 @@ void InitD3D(HWND hWnd, int Width, int Height, const char* filePath)
 	{
 		MessageBox(nullptr, L"\n\nException caught at main window creation.",
 			L"Unhandled Non-STL Exception", MB_ICONERROR);
+	}
+
+	return nullptr;
+}
+
+void StartUpdateLoop(void * gamePtr)
+{
+	Game* thisGame = static_cast<Game*>(gamePtr);
+	while (thisGame->wnd.ProcessMessage())
+	{
+		thisGame->Update();
 	}
 }
 

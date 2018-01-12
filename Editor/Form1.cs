@@ -13,7 +13,8 @@ namespace SimpleSampleEditor
 {
     public partial class Form1 : Form
     {
-        public string ResoucesPath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Resources";
+        string ResoucesPath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Resources";
+        IntPtr GamePointer;
 
         public Form1()
         {
@@ -51,8 +52,8 @@ namespace SimpleSampleEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Engine.InitD3D(panel1.Handle, panel1.Width, panel1.Height, ResoucesPath);
-            Engine.RenderFrame();
+            GamePointer = Engine.InitD3D(panel1.Handle, panel1.Width, panel1.Height, ResoucesPath);
+            Engine.StartUpdateLoop(GamePointer);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -69,7 +70,10 @@ namespace SimpleSampleEditor
     public class Engine
     {
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void InitD3D(IntPtr window, int Width, int Height, string filePath);
+        public static extern IntPtr InitD3D(IntPtr window, int Width, int Height, string filePath);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr StartUpdateLoop(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void RenderFrame();
