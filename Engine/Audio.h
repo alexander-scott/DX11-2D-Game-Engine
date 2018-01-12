@@ -7,14 +7,14 @@
 // WHY IS THIS HERE AND NOT IN CONSTS.H????
 static std::map<std::string, std::string> AudioFilePaths =
 {
-	{ "Whoosh",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Audio\\Whoosh.wav"  },
-	{ "GunShot",		"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Audio\\GunShot.wav" },	
-	{ "Jump",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Audio\\Jump.wav"	 },
-	{ "Death",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Audio\\Death.wav"   },
-	{ "Win",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Audio\\Win.wav"     },
-	{ "Gameover",		"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Audio\\Gameover.wav"},
-	{ "Tap",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Audio\\Tap.wav" },
-	{ "Grunt",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Audio\\Grunt.wav" },
+	{ "Whoosh",			"\\Audio\\Whoosh.wav"  },
+	{ "GunShot",		"\\Audio\\GunShot.wav" },	
+	{ "Jump",			"\\Audio\\Jump.wav"	 },
+	{ "Death",			"\\Audio\\Death.wav"   },
+	{ "Win",			"\\Audio\\Win.wav"     },
+	{ "Gameover",		"\\Audio\\Gameover.wav"},
+	{ "Tap",			"\\Audio\\Tap.wav" },
+	{ "Grunt",			"\\Audio\\Grunt.wav" },
 };
 
 class Audio 
@@ -32,7 +32,7 @@ public:
 	void PlaySoundEffect(std::string name);
 
 	void OnNewAudioDevice() { mRetryAudio = true; }
-	void CreateSoundEffects();
+	void CreateSoundEffects(std::string resourcesPath);
 
 	static Audio& Instance()
 	{

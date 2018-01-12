@@ -16,7 +16,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 		MainWindow wnd(hInst, pArgs);
 		try
 		{
-			Game theGame(wnd);
+			Game theGame(wnd, 0, 0, "");
 			while (wnd.ProcessMessage())
 			{
 				theGame.Update();
@@ -72,7 +72,7 @@ extern "C" __declspec(dllexport) int Add(int a, int b)
 
 extern "C"
 {
-	DllExport void InitD3D(HWND hWnd, int Width, int Height);    // sets up and initializes Direct3D
+	DllExport void InitD3D(HWND hWnd, int Width, int Height, const char* filePath);    // sets up and initializes Direct3D
 }
 
 extern "C"
@@ -80,14 +80,14 @@ extern "C"
 	DllExport void CleanD3D(void);        // closes Direct3D and releases memory
 }
 
-void InitD3D(HWND hWnd, int Width, int Height)
+void InitD3D(HWND hWnd, int Width, int Height, const char* filePath)
 {
 	try
 	{
 		MainWindow wnd(hWnd, Width, Height);
 		try
 		{
-			Game theGame(wnd);
+			Game theGame(wnd, Width, Height, filePath);
 			while (wnd.ProcessMessage())
 			{
 				theGame.Update();

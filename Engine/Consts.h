@@ -5,6 +5,24 @@
 
 #include "Math.h"
 
+#pragma region Values
+
+class ApplicationValues
+{
+public:
+	int			ScreenWidth;
+	int			ScreenHeight;
+	std::string	ResourcesPath;
+
+	static ApplicationValues& Instance()
+	{
+		static ApplicationValues Instance;
+		return Instance;
+	}
+};
+
+#pragma endregion
+
 #pragma region GamePlay Vals
 
 // PLAYER //
@@ -117,15 +135,15 @@ enum AIAgentPatrolDirection
 
 static std::map<std::string, std::string> SpriteFilePaths = 
 {
-	{ "MageWalk",		"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\mage_walk.dds" },
-	{ "HumanWalk",		"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\human_walk.dds" },
-	{ "Ball",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\ColourBall.dds" },
-	{ "Pipe",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\NewPipe.dds" },
-	{ "FinishFlag",		"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\checkered_flag.dds" },
-	{ "GUIButton",		"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\GUI\\button.dds" },
-	{ "BG_Sky",			"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\Backgrounds\\Sky_back_layer.dds" },
-	{ "BG_Vegetation",	"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\Backgrounds\\Vegetation_layer.dds" },
-	{ "BG_Ground",		"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Images\\Backgrounds\\Ground_(front_layer).dds" },
+	{ "MageWalk",		"\\Images\\mage_walk.dds" },
+	{ "HumanWalk",		"\\Images\\human_walk.dds" },
+	{ "Ball",			"\\Images\\ColourBall.dds" },
+	{ "Pipe",			"\\Images\\NewPipe.dds" },
+	{ "FinishFlag",		"\\Images\\checkered_flag.dds" },
+	{ "GUIButton",		"\\Images\\GUI\\button.dds" },
+	{ "BG_Sky",			"\\Images\\Backgrounds\\Sky_back_layer.dds" },
+	{ "BG_Vegetation",	"\\Images\\Backgrounds\\Vegetation_layer.dds" },
+	{ "BG_Ground",		"\\Images\\Backgrounds\\Ground_(front_layer).dds" },
 };
 
 #pragma endregion

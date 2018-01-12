@@ -1,12 +1,17 @@
 #include "Game.h"
 
-Game::Game(MainWindow& wnd)
+Game::Game(MainWindow& wnd, int width, int height, std::string resourcesPath)
 	:
 	wnd(wnd)
 {
-	GameCamera::Instance().Initalise(wnd);
+	ApplicationValues::Instance().ScreenWidth = width;
+	ApplicationValues::Instance().ScreenHeight = height;
+	ApplicationValues::Instance().ResourcesPath = resourcesPath;
 
-	LevelBuilder::InitaliseGameplayValues("C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Levels\\Prefabs.xml"); //BROKEN
+	GameCamera::Instance().Initalise(wnd);
+	Audio::Instance().CreateSoundEffects(ApplicationValues::Instance().ResourcesPath);
+
+	LevelBuilder::InitaliseGameplayValues(ApplicationValues::Instance().ResourcesPath + "\\Levels\\Prefabs.xml"); //BROKEN
 
 	mCurrentLevel = 1;
 	mTotalScore = 0;
@@ -14,6 +19,7 @@ Game::Game(MainWindow& wnd)
 
 	mGameStartScreen = make_unique<GameStartScreen>();
 }
+
 
 void Game::Update()
 {
@@ -50,7 +56,7 @@ void Game::CreateLevel()
 	}
 		
 	stringstream stream;
-	stream << "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\Levels\\Level" << mCurrentLevel << ".xml";
+	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Level" << mCurrentLevel << ".xml";
 	string levelPath = stream.str();
 
 	mGameLevel = LevelBuilder::BuildGameLevel(levelPath, mTotalScore);

@@ -13,6 +13,8 @@ namespace SimpleSampleEditor
 {
     public partial class Form1 : Form
     {
+        public string ResoucesPath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Resources";
+
         public Form1()
         {
             InitializeComponent();
@@ -20,7 +22,7 @@ namespace SimpleSampleEditor
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Engine.InitD3D(panel1.Handle, panel1.Width, panel1.Height);
+            Engine.InitD3D(panel1.Handle, panel1.Width, panel1.Height, ResoucesPath);
             Engine.RenderFrame();
         }
 
@@ -38,7 +40,7 @@ namespace SimpleSampleEditor
     public class Engine
     {
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void InitD3D(IntPtr window, int Width, int Height);
+        public static extern void InitD3D(IntPtr window, int Width, int Height, string filePath);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void RenderFrame();

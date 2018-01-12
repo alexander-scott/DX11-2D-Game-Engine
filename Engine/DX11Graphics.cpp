@@ -197,7 +197,12 @@ void DX11Graphics::Initalise(HWNDKey& key)
 		throw GFX_EXCEPTION(hr, L"Creating sampler state");
 	}
 
-	mFonts.reset(new SpriteFont(pDevice.Get(), L"C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Engine\\fonts\\italic.spritefont"));
+	std::string fontFile = "\\fonts\\italic.spritefont";
+	fontFile = ApplicationValues::Instance().ResourcesPath + fontFile;
+	std::wstring widestr = std::wstring(fontFile.begin(), fontFile.end());
+	const wchar_t* szFile = widestr.c_str();
+	mFonts.reset(new SpriteFont(pDevice.Get(), szFile));
+
 	mSprites.reset(new SpriteBatch(pImmediateContext.Get()));
 	mPrimitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(pImmediateContext.Get());
 }
@@ -233,7 +238,10 @@ void DX11Graphics::CreateShaderResourceView(std::string name)
 {
 	HRESULT hr;
 
-	std::wstring widestr = std::wstring(SpriteFilePaths[name].begin(), SpriteFilePaths[name].end());
+	std::string filePath = SpriteFilePaths[name];
+	filePath = ApplicationValues::Instance().ResourcesPath + filePath;
+
+	std::wstring widestr = std::wstring(filePath.begin(), filePath.end());
 	const wchar_t* szName = widestr.c_str();
 
 	ID3D11ShaderResourceView* shaderRV = nullptr;

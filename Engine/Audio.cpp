@@ -10,8 +10,6 @@ Audio::Audio()
 	mAudioEngine = std::make_unique<DirectX::AudioEngine>(eflags);
 	mRetryAudio = false;
 
-	CreateSoundEffects();
-
 	if (!mAudioEngine->IsAudioDevicePresent())
 	{
 		// we are in 'silent mode'. 
@@ -61,11 +59,14 @@ void Audio::PlaySoundEffect(std::string name)
 	mAudioFiles.at(name)->Play();
 }
 
-void Audio::CreateSoundEffects()
+void Audio::CreateSoundEffects(std::string resourcesPath)
 {
 	for (auto s : AudioFilePaths)
 	{
-		std::wstring widestr = std::wstring(s.second.begin(), s.second.end());
+		std::string filePath = s.second;
+		filePath = resourcesPath + filePath;
+
+		std::wstring widestr = std::wstring(filePath.begin(), filePath.end());
 		const wchar_t* szName = widestr.c_str();
 
 		mAudioFiles.insert(std::make_pair(s.first, std::make_unique<DirectX::SoundEffect>(mAudioEngine.get(), szName)));
