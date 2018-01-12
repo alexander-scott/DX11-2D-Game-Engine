@@ -43,9 +43,6 @@ static Vec2 GRAVITY_VECTOR(0, 9.81f * GRAVITY_SCALE); // Default is 9.81 * SCALE
 
 #pragma region Application Values
 
-static constexpr int SCREEN_WIDTH = 800;
-static constexpr int SCREEN_HEIGHT = 600;
-
 static constexpr int TILE_WIDTH = 45;
 static constexpr int TILE_HEIGHT = 45;
 

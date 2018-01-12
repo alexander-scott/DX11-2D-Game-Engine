@@ -25,8 +25,8 @@ void DX11Graphics::Initalise(HWNDKey& key)
 	// Create device and swap chain
 	DXGI_SWAP_CHAIN_DESC sd = {};
 	sd.BufferCount = 1;
-	sd.BufferDesc.Width = SCREEN_WIDTH;
-	sd.BufferDesc.Height = SCREEN_HEIGHT;
+	sd.BufferDesc.Width = ApplicationValues::Instance().ScreenWidth;
+	sd.BufferDesc.Height = ApplicationValues::Instance().ScreenHeight;
 	sd.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 1;
 	sd.BufferDesc.RefreshRate.Denominator = 60;
@@ -86,8 +86,8 @@ void DX11Graphics::Initalise(HWNDKey& key)
 
 	// set viewport dimensions
 	D3D11_VIEWPORT vp;
-	vp.Width = float(SCREEN_WIDTH);
-	vp.Height = float(SCREEN_HEIGHT);
+	vp.Width = float(ApplicationValues::Instance().ScreenWidth);
+	vp.Height = float(ApplicationValues::Instance().ScreenHeight);
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0.0f;
@@ -96,8 +96,8 @@ void DX11Graphics::Initalise(HWNDKey& key)
 
 	// Create texture for cpu render target
 	D3D11_TEXTURE2D_DESC sysTexDesc;
-	sysTexDesc.Width = SCREEN_WIDTH;
-	sysTexDesc.Height = SCREEN_HEIGHT;
+	sysTexDesc.Width = ApplicationValues::Instance().ScreenWidth;
+	sysTexDesc.Height = ApplicationValues::Instance().ScreenHeight;
 	sysTexDesc.MipLevels = 1;
 	sysTexDesc.ArraySize = 1;
 	sysTexDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;

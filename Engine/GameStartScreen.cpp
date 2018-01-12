@@ -47,7 +47,7 @@ void GameStartScreen::BuildStartScreen()
 {
 	// Centre Button sprite and button
 	auto centreButtonSpriteGO = GameObject::MakeGameObject("CentreButton");
-	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
+	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2(ApplicationValues::Instance().ScreenWidth / 2, ApplicationValues::Instance().ScreenHeight / 2), 0, 1);
 	centreButtonSpriteGO->AddComponent(buttonTransform);
 	centreButtonSpriteGO->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
 	mCentreButton = ComponentFactory::MakeGUIButton(buttonTransform, 239, 131);
@@ -55,7 +55,7 @@ void GameStartScreen::BuildStartScreen()
 
 	// Centre button text
 	auto centreButtonTextGO = GameObject::MakeGameObject("CentreButtonText");
-	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0, 1);
+	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2(ApplicationValues::Instance().ScreenWidth / 2, ApplicationValues::Instance().ScreenHeight / 2), 0, 1);
 	centreButtonTextGO->AddComponent(restartTransform);
 	centreButtonTextGO->AddComponent(ComponentFactory::MakeGUIText("PLAY", DirectX::Colors::White, restartTransform, Vec2(60, 30))); // HARDCODED POSTION
 
