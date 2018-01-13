@@ -7,20 +7,15 @@
 // include the Direct3D Library file
 #pragma comment (lib, "d3d11.lib")
 
-extern "C"
-{
-	DllExport void* InitD3D(HWND hWnd, int Width, int Height, const char* filePath);    // sets up and initializes Direct3D
-}
+extern "C" { DllExport void* InitD3D(HWND hWnd, int Width, int Height, const char* filePath); }
 
-extern "C"
-{
-	DllExport void StartUpdateLoop(void* gamePtr);    // sets up and initializes Direct3D
-}
+extern "C" { DllExport void StartUpdateLoop(void* gamePtr); }
 
-extern "C"
-{
-	DllExport void CleanD3D(void);        // closes Direct3D and releases memory
-}
+extern "C" { DllExport void CleanD3D(void* gamePtr); }
+
+extern "C" { DllExport void MouseMove(void* gamePtr, int xPos, int yPos); }
+extern "C" { DllExport void MouseClick(void* gamePtr, int xPos, int yPos); }
+extern "C" { DllExport void MouseRelease(void* gamePtr, int xPos, int yPos); }
 
 void* InitD3D(HWND hWnd, int Width, int Height, const char* filePath)
 {
@@ -84,7 +79,25 @@ void StartUpdateLoop(void * gamePtr)
 	}
 }
 
-void CleanD3D(void)
+void CleanD3D(void * gamePtr)
 {
+	delete gamePtr;
+}
 
+void MouseMove(void * gamePtr, int xPos, int yPos)
+{
+	Game* thisGame = static_cast<Game*>(gamePtr);
+	thisGame->wnd.ProcessMouseMove(xPos, yPos);
+}
+
+void MouseClick(void * gamePtr, int xPos, int yPos)
+{
+	Game* thisGame = static_cast<Game*>(gamePtr);
+	thisGame->wnd.ProcessMouseClick(xPos, yPos);
+}
+
+void MouseRelease(void * gamePtr, int xPos, int yPos)
+{
+	Game* thisGame = static_cast<Game*>(gamePtr);
+	thisGame->wnd.ProcessMouseRelease(xPos, yPos);
 }

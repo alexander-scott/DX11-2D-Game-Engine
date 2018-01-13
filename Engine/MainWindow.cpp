@@ -70,6 +70,28 @@ bool MainWindow::ProcessMessage()
 	return true;
 }
 
+void MainWindow::ProcessMouseMove(int xPos, int yPos)
+{
+	if (xPos> 0 && xPos < ApplicationValues::Instance().ScreenWidth && yPos > 0 && yPos < ApplicationValues::Instance().ScreenHeight)
+	{
+		Mouse::Instance().OnMouseMove(xPos, yPos);
+		if (!Mouse::Instance().IsInWindow())
+		{
+			Mouse::Instance().OnMouseEnter();
+		}
+	}
+}
+
+void MainWindow::ProcessMouseClick(int xPos, int yPos)
+{
+	Mouse::Instance().OnLeftPressed(xPos, yPos);
+}
+
+void MainWindow::ProcessMouseRelease(int xPos, int yPos)
+{
+	Mouse::Instance().OnLeftReleased(xPos, yPos);
+}
+
 LRESULT WINAPI MainWindow::_HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	// use create parameter passed in from CreateWindow() to store window class pointer at WinAPI side

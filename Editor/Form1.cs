@@ -13,7 +13,10 @@ namespace SimpleSampleEditor
 {
     public partial class Form1 : Form
     {
+        // HARDCODED IS BAD
         string ResoucesPath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Resources";
+
+        // Pointer to the instance of the Game. Used to make sure all calls to the engine use the same instance of the Game
         IntPtr GamePointer;
 
         public Form1()
@@ -21,13 +24,32 @@ namespace SimpleSampleEditor
             InitializeComponent();
             this.FormClosing += this.Form1_FormClosing;
 
-            panel1.Click += new System.EventHandler(PanelMouseClick);
+            panel1.MouseDown += new MouseEventHandler(PanelMouseDown);
+            panel1.MouseUp += new MouseEventHandler(PanelMouseRelease);
             panel1.MouseMove += new MouseEventHandler(PanelMouseMove);
             this.Controls.Add(this.panel1);
 
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(KeyboardKeyDown);
             this.KeyUp += new KeyEventHandler(KeyboardKeyUp);
+        }
+
+        private void PanelMouseDown(object sender, MouseEventArgs e)
+        {
+            Point point = panel1.PointToClient(Cursor.Position);
+            Engine.MouseClick(GamePointer, point.X, point.Y);
+        }
+
+        private void PanelMouseRelease(object sender, MouseEventArgs e)
+        {
+            Point point = panel1.PointToClient(Cursor.Position);
+            Engine.MouseRelease(GamePointer, point.X, point.Y);
+        }
+
+        private void PanelMouseMove(object sender, MouseEventArgs e)
+        {
+            Point point = panel1.PointToClient(Cursor.Position);
+            Engine.MouseMove(GamePointer, point.X, point.Y);
         }
 
         private void KeyboardKeyUp(object sender, KeyEventArgs e)
@@ -40,17 +62,7 @@ namespace SimpleSampleEditor
             throw new NotImplementedException();
         }
 
-        private void PanelMouseMove(object sender, MouseEventArgs e)
-        {
-            Point point = panel1.PointToClient(Cursor.Position);
-        }
-
-        private void PanelMouseClick(object sender, EventArgs e)
-        {
-            Point point = panel1.PointToClient(Cursor.Position);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             GamePointer = Engine.InitD3D(panel1.Handle, panel1.Width, panel1.Height, ResoucesPath);
             Engine.StartUpdateLoop(GamePointer);
@@ -58,12 +70,12 @@ namespace SimpleSampleEditor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Engine.CleanD3D();
+            Engine.CleanD3D(GamePointer);
         }
     }
 
@@ -76,12 +88,15 @@ namespace SimpleSampleEditor
         public static extern IntPtr StartUpdateLoop(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void RenderFrame();
+        public static extern void CleanD3D(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void CleanD3D();
+        public static extern void MouseClick(IntPtr gamePtr, int xPos, int yPos);
 
-        [DllImport("SimpleSample.dll")]
-        public static extern int Add(int a, int b);
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MouseRelease(IntPtr gamePtr, int xPos, int yPos);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MouseMove(IntPtr gamePtr, int xPos, int yPos);
     }
 }

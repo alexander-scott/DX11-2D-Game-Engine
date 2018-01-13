@@ -48,6 +48,10 @@ public:
 	// returns false if quitting
 	bool ProcessMessage();
 
+	void ProcessMouseMove(int xPos, int yPos);
+	void ProcessMouseClick(int xPos, int yPos);
+	void ProcessMouseRelease(int xPos, int yPos);
+
 	const std::wstring& GetArgs() const
 	{
 		return args;
