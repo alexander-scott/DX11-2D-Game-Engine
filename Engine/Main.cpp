@@ -17,6 +17,9 @@ extern "C" { DllExport void MouseMove(void* gamePtr, int xPos, int yPos); }
 extern "C" { DllExport void MouseClick(void* gamePtr, int xPos, int yPos); }
 extern "C" { DllExport void MouseRelease(void* gamePtr, int xPos, int yPos); }
 
+extern "C" { DllExport void KeyDown(void* gamePtr, int keyCode); }
+extern "C" { DllExport void KeyUp(void* gamePtr, int keyCode); }
+
 void* InitD3D(HWND hWnd, int Width, int Height, const char* filePath)
 {
 	try
@@ -100,4 +103,16 @@ void MouseRelease(void * gamePtr, int xPos, int yPos)
 {
 	Game* thisGame = static_cast<Game*>(gamePtr);
 	thisGame->wnd.ProcessMouseRelease(xPos, yPos);
+}
+
+void KeyDown(void * gamePtr, int keyCode)
+{
+	Game* thisGame = static_cast<Game*>(gamePtr);
+	thisGame->wnd.ProcessKeyPressed(keyCode);
+}
+
+void KeyUp(void * gamePtr, int keyCode)
+{
+	Game* thisGame = static_cast<Game*>(gamePtr);
+	thisGame->wnd.ProcessKeyReleased(keyCode);
 }

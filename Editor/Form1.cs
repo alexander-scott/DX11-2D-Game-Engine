@@ -54,12 +54,12 @@ namespace SimpleSampleEditor
 
         private void KeyboardKeyUp(object sender, KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            Engine.KeyUp(GamePointer, e.KeyValue);
         }
 
         private void KeyboardKeyDown(object sender, KeyEventArgs e)
         {
-            throw new NotImplementedException();
+            Engine.KeyDown(GamePointer, e.KeyValue);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -98,5 +98,11 @@ namespace SimpleSampleEditor
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void MouseMove(IntPtr gamePtr, int xPos, int yPos);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void KeyDown(IntPtr gamePtr, int keyCode);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void KeyUp(IntPtr gamePtr, int keyCode);
     }
 }

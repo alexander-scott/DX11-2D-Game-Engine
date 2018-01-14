@@ -92,6 +92,16 @@ void MainWindow::ProcessMouseRelease(int xPos, int yPos)
 	Mouse::Instance().OnLeftReleased(xPos, yPos);
 }
 
+void MainWindow::ProcessKeyPressed(int keyCode)
+{
+	Keyboard::Instance().OnKeyPressed(keyCode);
+}
+
+void MainWindow::ProcessKeyReleased(int keyCode)
+{
+	Keyboard::Instance().OnKeyReleased(keyCode);
+}
+
 LRESULT WINAPI MainWindow::_HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	// use create parameter passed in from CreateWindow() to store window class pointer at WinAPI side

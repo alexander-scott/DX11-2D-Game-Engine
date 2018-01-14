@@ -52,6 +52,9 @@ public:
 	void ProcessMouseClick(int xPos, int yPos);
 	void ProcessMouseRelease(int xPos, int yPos);
 
+	void ProcessKeyPressed(int keyCode);
+	void ProcessKeyReleased(int keyCode);
+
 	const std::wstring& GetArgs() const
 	{
 		return args;
