@@ -17,6 +17,8 @@ using namespace std;
 class ObjectManager
 {
 public:
+	ObjectManager();
+
 	shared_ptr<GameObject> CreateObject(int instanceID, int prefabID);
 	shared_ptr<GameObject> GetCreatedObject(int instanceID);
 
@@ -24,6 +26,6 @@ private:
 	IComponent* CreateComponent(shared_ptr<GameObject> go, xml_node<>* node);
 
 	map<int, shared_ptr<GameObject>>		mGameObjects;
-	string									mfileName = "Levels\\Prefabs.xml";
+	string									mfileName = "\\Levels\\Prefabs.xml";
 };
 

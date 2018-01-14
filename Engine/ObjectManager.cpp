@@ -1,5 +1,10 @@
 #include "ObjectManager.h"
 
+ObjectManager::ObjectManager()
+{
+	mfileName = ApplicationValues::Instance().ResourcesPath + mfileName;
+}
+
 shared_ptr<GameObject> ObjectManager::GetCreatedObject(int instanceID)
 {
 	return mGameObjects[instanceID];

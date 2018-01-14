@@ -69,7 +69,7 @@ shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startS
 	xml_node<>* root = doc.first_node();
 
 	auto gameLevel = make_shared<GameLevel>(startScore);
-	ObjectManager objectManager;
+	ObjectManager objectManager = ObjectManager();
 	LevelData levelData = ExtractLevelData(root);
 
 	gameLevel->ConstructLevel(levelData);
