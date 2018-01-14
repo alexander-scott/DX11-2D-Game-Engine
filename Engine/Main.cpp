@@ -84,7 +84,8 @@ void StartUpdateLoop(void * gamePtr)
 
 void CleanD3D(void * gamePtr)
 {
-	delete gamePtr;
+	Game* thisGame = static_cast<Game*>(gamePtr);
+	delete thisGame;
 }
 
 void MouseMove(void * gamePtr, int xPos, int yPos)
