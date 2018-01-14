@@ -20,6 +20,8 @@ public:
 
 	~Game();
 
+	MainWindow& wnd;
+
 private:
 	void CreateLevel();
 	void CheckLevelOver();
@@ -28,8 +30,6 @@ private:
 	void UpdateLevel();
 
 	void UpdateStartScreen();
-
-	MainWindow& wnd;
 
 	FrameTimer							mFrameTimer;
 

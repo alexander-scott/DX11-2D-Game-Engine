@@ -32,7 +32,6 @@ public:
 	};
 
 public:
-	MainWindow(HINSTANCE hInst, wchar_t* pArgs);
 	MainWindow(HWND hWnd, int width, int height);
 	MainWindow(const MainWindow&) = delete;
 	MainWindow& operator=(const MainWindow&) = delete;
@@ -48,6 +47,13 @@ public:
 
 	// returns false if quitting
 	bool ProcessMessage();
+
+	void ProcessMouseMove(int xPos, int yPos);
+	void ProcessMouseClick(int xPos, int yPos);
+	void ProcessMouseRelease(int xPos, int yPos);
+
+	void ProcessKeyPressed(int keyCode);
+	void ProcessKeyReleased(int keyCode);
 
 	const std::wstring& GetArgs() const
 	{

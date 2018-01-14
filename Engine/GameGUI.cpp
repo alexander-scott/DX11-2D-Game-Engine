@@ -34,13 +34,13 @@ void GameGUI::BuildGUI()
 
 	// Health Text
 	auto healthText = GameObject::MakeGameObject("HealthText");
-	TransformComponent* healthTransform = ComponentFactory::MakeTransform(Vec2(ApplicationValues::Instance().ScreenWidth - 130, 10), 0, 0.5f);
+	TransformComponent* healthTransform = ComponentFactory::MakeTransform(Vec2((float)ApplicationValues::Instance().ScreenWidth - 130, 10), 0, 0.5f);
 	healthText->AddComponent(healthTransform);
 	mGameObjects.push_back(healthText);
 
 	// Centre Button sprite and button
 	auto centreButtonSprite = GameObject::MakeGameObject("CentreButton");
-	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2(ApplicationValues::Instance().ScreenWidth / 2, ApplicationValues::Instance().ScreenHeight / 2), 0, 1);
+	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2((float)ApplicationValues::Instance().ScreenWidth / 2, (float)ApplicationValues::Instance().ScreenHeight / 2), 0, 1);
 	centreButtonSprite->AddComponent(buttonTransform);
 	centreButtonSprite->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
 	mCentreButton = ComponentFactory::MakeGUIButton(buttonTransform, 239, 131);
@@ -49,7 +49,7 @@ void GameGUI::BuildGUI()
 
 	// Centre button text
 	auto centreButtonText = GameObject::MakeGameObject("CentreButtonText");
-	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2(ApplicationValues::Instance().ScreenWidth / 2, ApplicationValues::Instance().ScreenHeight / 2), 0, 1);
+	TransformComponent* restartTransform = ComponentFactory::MakeTransform(Vec2((float)ApplicationValues::Instance().ScreenWidth / 2, (float)ApplicationValues::Instance().ScreenHeight / 2), 0, 1);
 	centreButtonText->AddComponent(restartTransform);
 	centreButtonText->AddComponent(ComponentFactory::MakeGUIText("", DirectX::Colors::White, restartTransform, Vec2(90, 30))); // HARDCODED POSTION
 	mGameObjects.push_back(centreButtonText);
