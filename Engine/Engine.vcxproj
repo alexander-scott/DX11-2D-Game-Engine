@@ -278,6 +278,7 @@
     <ClInclude Include="ColliderRendererComponent.h" />
     <ClInclude Include="IGraphics.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="EditorInterface.h" />
     <ClInclude Include="LevelBuilder.h" />
     <ClInclude Include="ObjectGrid.h" />
     <ClInclude Include="ObjectManager.h" />
@@ -335,6 +336,7 @@
     <ClCompile Include="GUISpriteRendererComponent.cpp" />
     <ClCompile Include="GUITextComponent.cpp" />
     <ClCompile Include="GUITextValueComponent.cpp" />
+    <ClCompile Include="EditorInterface.cpp" />
     <ClCompile Include="LevelBuilder.cpp" />
     <ClCompile Include="ObjectGrid.cpp" />
     <ClCompile Include="ObjectManager.cpp" />

@@ -77,6 +77,9 @@
     <Filter Include="Game\GameComponents\GUI">
       <UniqueIdentifier>{f4e0a0a5-3fe3-4932-bf40-2a97f37b1f7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\EditorInterface">
+      <UniqueIdentifier>{e7a41ae5-6826-4a64-8335-3c7dea325ddb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -259,6 +262,9 @@
     <ClInclude Include="GameStartScreen.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="EditorInterface.h">
+      <Filter>Engine\EditorInterface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -386,6 +392,9 @@
     </ClCompile>
     <ClCompile Include="GameStartScreen.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorInterface.cpp">
+      <Filter>Engine\EditorInterface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
