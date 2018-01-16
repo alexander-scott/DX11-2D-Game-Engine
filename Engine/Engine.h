@@ -5,20 +5,20 @@
 
 #include "LevelBuilder.h"
 #include "GameGUI.h"
-#include "GameStartScreen.h"
+#include "ScenePersistentValues.h"
 
 using namespace std;
 
-class Game
+class Engine
 {
 public:
-	Game(class MainWindow& wnd, int width, int height, std::string resourcesPath);
-	Game(const Game&) = delete;
-	Game& operator=(const Game&) = delete;
+	Engine(class MainWindow& wnd, int width, int height, std::string resourcesPath);
+	Engine(const Engine&) = delete;
+	Engine& operator=(const Engine&) = delete;
 
 	void Update();
 
-	~Game();
+	~Engine();
 
 	MainWindow& wnd;
 
@@ -29,16 +29,11 @@ private:
 	void DrawLevel();
 	void UpdateLevel();
 
-	void UpdateStartScreen();
-
 	FrameTimer							mFrameTimer;
 
 	shared_ptr<GameLevel>				mGameLevel;
 
-	unique_ptr<GameStartScreen>			mGameStartScreen;
 	unique_ptr<GameGUI>					mGameGUI;
 
-	int									mCurrentLevel;
-	float								mTotalScore;
 	GameState							mGameState;
 };

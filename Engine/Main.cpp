@@ -1,5 +1,5 @@
 #include "MainWindow.h"
-#include "Game.h"
+#include "Engine.h"
 #include "CustomException.h"
 
 int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
@@ -12,7 +12,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 		MainWindow wnd(hInst, pArgs, screenWidth, screenHeight);
 		try
 		{
-			Game theGame(wnd, screenWidth, screenHeight, filePath);
+			Engine theGame(wnd, screenWidth, screenHeight, filePath);
 			while (wnd.ProcessMessage())
 			{
 				theGame.Update();

@@ -106,9 +106,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="COMInitializer.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
@@ -259,11 +256,17 @@
     <ClInclude Include="GameComponentFactory.h">
       <Filter>Game\GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="GameStartScreen.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="EditorInterface.h">
       <Filter>Engine\EditorInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Engine\Level Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePersistentValues.h">
+      <Filter>Engine\Level Loading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -281,9 +284,6 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="COMInitializer.cpp">
       <Filter>Engine\Core</Filter>
@@ -390,11 +390,14 @@
     <ClCompile Include="GameComponentFactory.cpp">
       <Filter>Game\GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="GameStartScreen.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="EditorInterface.cpp">
       <Filter>Engine\EditorInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Engine\Level Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

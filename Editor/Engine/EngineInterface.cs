@@ -6,7 +6,7 @@ namespace SimpleSampleEditor.Engine
     class EngineInterface
     {
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr InitD3D(IntPtr window, int Width, int Height, string filePath);
+        public static extern IntPtr InitaliseEngine(IntPtr window, int Width, int Height, string filePath);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void StartUpdateLoop(IntPtr gamePtr);

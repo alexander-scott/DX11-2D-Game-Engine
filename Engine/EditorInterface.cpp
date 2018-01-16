@@ -2,14 +2,14 @@
 
 namespace EditorInterface
 {
-	void* InitD3D(HWND hWnd, int Width, int Height, const char* filePath)
+	void* InitaliseEngine(HWND hWnd, int Width, int Height, const char* filePath)
 	{
 		try
 		{
 			MainWindow wnd(hWnd, Width, Height);
 			try
 			{
-				Game* theGame = new Game(wnd, Width, Height, filePath);
+				Engine* theGame = new Engine(wnd, Width, Height, filePath);
 				return theGame;
 			}
 			catch (const CustomException& e)
@@ -57,7 +57,7 @@ namespace EditorInterface
 
 	void StartUpdateLoop(void * gamePtr)
 	{
-		Game* thisGame = static_cast<Game*>(gamePtr);
+		Engine* thisGame = static_cast<Engine*>(gamePtr);
 		while (thisGame->wnd.ProcessMessage())
 		{
 			thisGame->Update();
@@ -66,37 +66,37 @@ namespace EditorInterface
 
 	void CleanD3D(void * gamePtr)
 	{
-		Game* thisGame = static_cast<Game*>(gamePtr);
+		Engine* thisGame = static_cast<Engine*>(gamePtr);
 		delete thisGame;
 	}
 
 	void MouseMove(void * gamePtr, int xPos, int yPos)
 	{
-		Game* thisGame = static_cast<Game*>(gamePtr);
+		Engine* thisGame = static_cast<Engine*>(gamePtr);
 		thisGame->wnd.ProcessMouseMove(xPos, yPos);
 	}
 
 	void MouseClick(void * gamePtr, int xPos, int yPos)
 	{
-		Game* thisGame = static_cast<Game*>(gamePtr);
+		Engine* thisGame = static_cast<Engine*>(gamePtr);
 		thisGame->wnd.ProcessMouseClick(xPos, yPos);
 	}
 
 	void MouseRelease(void * gamePtr, int xPos, int yPos)
 	{
-		Game* thisGame = static_cast<Game*>(gamePtr);
+		Engine* thisGame = static_cast<Engine*>(gamePtr);
 		thisGame->wnd.ProcessMouseRelease(xPos, yPos);
 	}
 
 	void KeyDown(void * gamePtr, int keyCode)
 	{
-		Game* thisGame = static_cast<Game*>(gamePtr);
+		Engine* thisGame = static_cast<Engine*>(gamePtr);
 		thisGame->wnd.ProcessKeyPressed(keyCode);
 	}
 
 	void KeyUp(void * gamePtr, int keyCode)
 	{
-		Game* thisGame = static_cast<Game*>(gamePtr);
+		Engine* thisGame = static_cast<Engine*>(gamePtr);
 		thisGame->wnd.ProcessKeyReleased(keyCode);
 	}
 }

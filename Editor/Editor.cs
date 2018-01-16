@@ -12,7 +12,7 @@ namespace SimpleSampleEditor
         /// <summary>
         /// Pointer to the instance of the Game. Used to make sure all calls to the engine use the same instance of the Game
         /// </summary>
-        private IntPtr mGame;
+        private IntPtr mEngine;
 
         private bool mGameStarted = false;
 
@@ -37,7 +37,7 @@ namespace SimpleSampleEditor
                 return;
 
             Point point = panel1.PointToClient(Cursor.Position);
-            EngineInterface.MouseClick(mGame, point.X, point.Y);
+            EngineInterface.MouseClick(mEngine, point.X, point.Y);
         }
 
         private void PanelMouseRelease(object sender, MouseEventArgs e)
@@ -46,7 +46,7 @@ namespace SimpleSampleEditor
                 return;
 
             Point point = panel1.PointToClient(Cursor.Position);
-            EngineInterface.MouseRelease(mGame, point.X, point.Y);
+            EngineInterface.MouseRelease(mEngine, point.X, point.Y);
         }
 
         private void PanelMouseMove(object sender, MouseEventArgs e)
@@ -55,7 +55,7 @@ namespace SimpleSampleEditor
                 return;
 
             Point point = panel1.PointToClient(Cursor.Position);
-            EngineInterface.MouseMove(mGame, point.X, point.Y);
+            EngineInterface.MouseMove(mEngine, point.X, point.Y);
         }
 
         private void KeyboardKeyUp(object sender, KeyEventArgs e)
@@ -63,7 +63,7 @@ namespace SimpleSampleEditor
             if (!mGameStarted)
                 return;
 
-            EngineInterface.KeyUp(mGame, e.KeyValue);
+            EngineInterface.KeyUp(mEngine, e.KeyValue);
         }
 
         private void KeyboardKeyDown(object sender, KeyEventArgs e)
@@ -71,7 +71,7 @@ namespace SimpleSampleEditor
             if (!mGameStarted)
                 return;
 
-            EngineInterface.KeyDown(mGame, e.KeyValue);
+            EngineInterface.KeyDown(mEngine, e.KeyValue);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -81,10 +81,10 @@ namespace SimpleSampleEditor
 
             mGameStarted = true;
 
-            mGame = EngineInterface.InitD3D(panel1.Handle, panel1.Width, panel1.Height, mResoucesPath);
+            mEngine = EngineInterface.InitaliseEngine(panel1.Handle, panel1.Width, panel1.Height, mResoucesPath);
             panel1.Focus();
 
-            EngineInterface.StartUpdateLoop(mGame);
+            EngineInterface.StartUpdateLoop(mEngine);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -97,7 +97,7 @@ namespace SimpleSampleEditor
             if (!mGameStarted)
                 return;
 
-            EngineInterface.CleanD3D(mGame);
+            EngineInterface.CleanD3D(mEngine);
         }
     }
 }

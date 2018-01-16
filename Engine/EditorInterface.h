@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MainWindow.h"
-#include "Game.h"
+#include "Engine.h"
 
 #define DllExport __declspec(dllexport)
 
@@ -10,7 +10,7 @@
 
 namespace EditorInterface
 {
-	extern "C" { DllExport void* InitD3D(HWND hWnd, int Width, int Height, const char* filePath); }
+	extern "C" { DllExport void* InitaliseEngine(HWND hWnd, int Width, int Height, const char* filePath); }
 
 	extern "C" { DllExport void StartUpdateLoop(void* gamePtr); }
 

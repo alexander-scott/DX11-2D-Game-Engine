@@ -267,7 +267,6 @@
     <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="GameGUI.h" />
     <ClInclude Include="GameLevel.h" />
-    <ClInclude Include="GameStartScreen.h" />
     <ClInclude Include="GUIButtonComponent.h" />
     <ClInclude Include="GUISpriteRendererComponent.h" />
     <ClInclude Include="GUITextComponent.h" />
@@ -291,6 +290,8 @@
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="RecieveDamageMessage.h" />
     <ClInclude Include="RigidBodyComponent.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="ScenePersistentValues.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="GameObject.h" />
@@ -312,7 +313,7 @@
     <ClInclude Include="WinDefines.h" />
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="DXErr.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="DX11Graphics.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
@@ -331,7 +332,6 @@
     <ClCompile Include="GameGUI.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="GameStartScreen.cpp" />
     <ClCompile Include="GUIButtonComponent.cpp" />
     <ClCompile Include="GUISpriteRendererComponent.cpp" />
     <ClCompile Include="GUITextComponent.cpp" />
@@ -346,9 +346,10 @@
     <ClCompile Include="ProjectileComponent.cpp" />
     <ClCompile Include="ProjectileManagerComponent.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpriteAnimatorComponent.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="DXErr.cpp" />
