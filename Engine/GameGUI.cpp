@@ -92,7 +92,7 @@ void GameGUI::DrawGUI()
 	// Draw gameobjects
 	for (auto& go : mGameObjects)
 	{
-		go->Draw(&GameCamera::Instance());
+		go->Draw(&Camera::Instance());
 	}
 }
 

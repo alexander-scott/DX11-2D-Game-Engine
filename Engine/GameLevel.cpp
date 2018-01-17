@@ -70,19 +70,7 @@ void GameLevel::ConstructLevel(LevelData levelData)
 
 void GameLevel::ConstructionComplete()
 {
-	SetupCamera();
 	RegisterFinishFlag();
-}
-
-void GameLevel::SetupCamera()
-{
-	GameCamera::Instance().SetFocusTrans(FindGameObject("Player")->GetComponent<TransformComponent>());
-
-	GameCamera::Instance().SetLevelBounds(
-		(mLevelData.levelLeftBounds) * TILE_WIDTH,
-		(mLevelData.levelRightBounds) * TILE_WIDTH,
-		(mLevelData.levelBottomBounds) * TILE_HEIGHT,
-		(mLevelData.levelTopBounds) * TILE_HEIGHT);
 }
 
 void GameLevel::RegisterFinishFlag()
@@ -148,17 +136,17 @@ void GameLevel::Draw()
 	// Draw gameobjects in the render order
 	for (auto& go : mRenderLayer0)
 	{
-		go->Draw(&GameCamera::Instance());
+		go->Draw(&Camera::Instance());
 	}
 
 	for (auto& go : mRenderLayer1)
 	{
-		go->Draw(&GameCamera::Instance());
+		go->Draw(&Camera::Instance());
 	}
 
 	for (auto& go : mRenderLayer2)
 	{
-		go->Draw(&GameCamera::Instance());
+		go->Draw(&Camera::Instance());
 	}
 }
 

@@ -92,6 +92,10 @@ shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startS
 		{
 			UpdateColliderBounds(gameObjectNode, gameObject, levelData);
 		}
+		else if (string(gameObjectNode->first_attribute("update")->value()) == "camerabounds")
+		{
+			UpdateCameraBounds(gameObjectNode, gameObject, levelData);
+		}
 
 		// Cache it's components so they can be used regularly without having to refetch them 
 		gameLevel->CacheComponents(gameObject, atoi(gameObjectNode->first_attribute("renderLayer")->value()));
@@ -164,4 +168,10 @@ void LevelBuilder::UpdateColliderBounds(xml_node<>* node, shared_ptr<GameObject>
 
 		collider->SetBox(((levelData.levelRightBounds - levelData.levelLeftBounds) * TILE_WIDTH) / 2, 0.5f);
 	}
+}
+
+void LevelBuilder::UpdateCameraBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData)
+{
+	obj->GetComponent<GameCameraComponent>()->SetLevelBounds(levelData.levelLeftBounds* TILE_WIDTH, levelData.levelRightBounds* TILE_WIDTH, 
+		levelData.levelBottomBounds* TILE_HEIGHT, levelData.levelTopBounds* TILE_HEIGHT);
 }

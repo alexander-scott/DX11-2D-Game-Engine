@@ -300,7 +300,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		else
 			projectileManager = mGameObjects[atoi(node->first_attribute("projectilemangercomponentid")->value())]->GetComponent<ProjectileManagerComponent>();
 
-		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectileManager, GameCamera::Instance().GetComponent<TransformComponent>());
+		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectileManager, Camera::Instance().GetComponent<TransformComponent>());
 	}
 	else if (string(node->first_attribute("type")->value()) == "DamageableComponent")
 	{
@@ -374,7 +374,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		float viewRange = (float)atof(node->first_attribute("viewrange")->value());
 		float shotInterval = (float)atof(node->first_attribute("shotintervals")->value());
 
-		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, GameCamera::Instance().GetComponent<TransformComponent>(), patrolTime, dir, idleTime, targetTrans, viewRange, shotInterval);
+		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, Camera::Instance().GetComponent<TransformComponent>(), patrolTime, dir, idleTime, targetTrans, viewRange, shotInterval);
 	}
 	else if (string(node->first_attribute("type")->value()) == "ProjectileManagerComponent")
 	{
@@ -404,6 +404,22 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 	{
 		string triggerTag = string(node->first_attribute("triggertag")->value());
 		return ComponentFactory::MakeTriggerBox(triggerTag);
+	}
+	else if (string(node->first_attribute("type")->value()) == "GameCameraComponent")
+	{
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("focusTransID")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[transformComponentID]->GetComponent<TransformComponent>();
+
+		float leftBound = (float)atof(node->first_attribute("leftBound")->value());
+		float rightBound = (float)atof(node->first_attribute("rightBound")->value());
+		float bottomBound = (float)atof(node->first_attribute("bottomBound")->value());
+		float topBound = (float)atof(node->first_attribute("topBound")->value());
+
+		return ComponentFactory::MakeGameCameraComponent(Camera::Instance().GetComponent<TransformComponent>(), trans, leftBound, rightBound, topBound, bottomBound);
 	}
 
 	throw;

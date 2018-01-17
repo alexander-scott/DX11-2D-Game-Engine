@@ -263,7 +263,8 @@
     <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="CollisionMessage.h" />
     <ClInclude Include="DamageableComponent.h" />
-    <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="GameCameraComponent.h" />
     <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="GameGUI.h" />
     <ClInclude Include="GameLevel.h" />
@@ -327,7 +328,8 @@
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
     <ClCompile Include="DamageableComponent.cpp" />
-    <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="GameCameraComponent.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
     <ClCompile Include="GameGUI.cpp" />
     <ClCompile Include="GameLevel.cpp" />

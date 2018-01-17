@@ -8,7 +8,7 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	ApplicationValues::Instance().ScreenHeight = height;
 	ApplicationValues::Instance().ResourcesPath = resourcesPath;
 
-	GameCamera::Instance().Initalise(wnd);
+	Camera::Instance().Initalise(wnd, new DX11Graphics());
 	Audio::Instance().CreateSoundEffects(ApplicationValues::Instance().ResourcesPath);
 
 	LevelBuilder::InitaliseGameplayValues(ApplicationValues::Instance().ResourcesPath + "\\Levels\\Prefabs.xml"); //BROKEN
@@ -24,13 +24,13 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 
 void Engine::Update()
 {
-	GameCamera::Instance().BeginFrame();
+	Camera::Instance().BeginFrame();
 
 	// If game is playing
 	UpdateLevel();
 	DrawLevel();
 
-	GameCamera::Instance().EndFrame();
+	Camera::Instance().EndFrame();
 
 	Audio::Instance().Update();
 }
@@ -94,7 +94,7 @@ void Engine::UpdateLevel()
 {
 	float deltaTime = mFrameTimer.Mark();
 
-	GameCamera::Instance().Update(deltaTime);
+	Camera::Instance().Update(deltaTime);
 
 	mGameLevel->Update(deltaTime);
 	mGameGUI->UpdateGUI(deltaTime);

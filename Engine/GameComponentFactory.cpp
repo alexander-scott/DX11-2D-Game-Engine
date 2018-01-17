@@ -102,3 +102,16 @@ GUITextValueComponent * ComponentFactory::MakeGUITextValueComponent(std::string 
 
 	return guiText;
 }
+
+GameCameraComponent * ComponentFactory::MakeGameCameraComponent(TransformComponent* trans, TransformComponent* focusTrans, 
+	float leftBound, float rightBound, float topBound, float bottomBound)
+{
+	if (focusTrans == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+
+	GameCameraComponent* camera = new GameCameraComponent(trans, focusTrans);
+	camera->SetLevelBounds(leftBound, rightBound, bottomBound, topBound);
+	return camera;
+}

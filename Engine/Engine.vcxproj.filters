@@ -80,6 +80,9 @@
     <Filter Include="Engine\EditorInterface">
       <UniqueIdentifier>{e7a41ae5-6826-4a64-8335-3c7dea325ddb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameComponents\Camera">
+      <UniqueIdentifier>{d3b15e8e-7926-4f9b-ac6b-cdcd9eae93c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -181,9 +184,6 @@
     <ClInclude Include="ICamera.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GameCamera.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="TiledBGRenderer.h">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClInclude>
@@ -268,6 +268,12 @@
     <ClInclude Include="ScenePersistentValues.h">
       <Filter>Engine\Level Loading</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCameraComponent.h">
+      <Filter>Game\GameComponents\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -326,9 +332,6 @@
     </ClCompile>
     <ClCompile Include="DX11Graphics.cpp">
       <Filter>Engine\Graphics\APIs</Filter>
-    </ClCompile>
-    <ClCompile Include="GameCamera.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="TiledBGRenderer.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
@@ -398,6 +401,12 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCameraComponent.cpp">
+      <Filter>Game\GameComponents\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

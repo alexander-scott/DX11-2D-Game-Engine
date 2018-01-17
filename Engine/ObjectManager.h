@@ -5,7 +5,7 @@
 
 #include "GameObject.h"
 #include "GameComponentFactory.h"
-#include "GameCamera.h"
+#include "Camera.h"
 
 #include "Consts.h"
 

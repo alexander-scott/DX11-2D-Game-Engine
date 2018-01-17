@@ -25,7 +25,6 @@ public:
 	shared_ptr<GameObject> FindGameObject(std::string tag);
 
 private:
-	void SetupCamera();
 	void RegisterFinishFlag();
 
 	PhysicsManager										mPhysicsManager;

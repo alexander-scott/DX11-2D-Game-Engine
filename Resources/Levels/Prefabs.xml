@@ -73,5 +73,8 @@ All the variables for the game
       <Component type="BoxColliderComponent" width="45" height="45" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
       <Component type="TriggerBoxComponent" triggertag="Player"></Component>
     </GameObject>
+    <GameObject prefabid="9" tag="MainCamera">
+      <Component type="GameCameraComponent" focusTransID="0" leftBound="-1" rightBound="-1" bottomBound="-1" topBound="-1"></Component>
+    </GameObject>
   </GameObjects>
 </game>

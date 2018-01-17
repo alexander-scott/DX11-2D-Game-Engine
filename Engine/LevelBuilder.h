@@ -17,4 +17,5 @@ namespace LevelBuilder
 
 	inline void UpdateTilePos(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData);
 	inline void UpdateColliderBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData);
+	inline void UpdateCameraBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData);
 }
