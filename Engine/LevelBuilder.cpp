@@ -80,25 +80,10 @@ shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startS
 	while (gameObjectNode)
 	{
 		// Create an instance of the gameobject listed in the level xml
-		auto gameObject = objectManager.CreateObject(atoi(gameObjectNode->first_attribute("instanceid")->value()),
-			atoi(gameObjectNode->first_attribute("prefabid")->value()));
-
-		// Update its position from the original prefab
-		if (string(gameObjectNode->first_attribute("update")->value()) == "tilepos")
-		{
-			UpdateTilePos(gameObjectNode, gameObject, levelData);
-		}
-		else if (string(gameObjectNode->first_attribute("update")->value()) == "colliderbounds")
-		{
-			UpdateColliderBounds(gameObjectNode, gameObject, levelData);
-		}
-		else if (string(gameObjectNode->first_attribute("update")->value()) == "camerabounds")
-		{
-			UpdateCameraBounds(gameObjectNode, gameObject, levelData);
-		}
+		auto gameObject = objectManager.CreateObject(gameObjectNode);
 
 		// Cache it's components so they can be used regularly without having to refetch them 
-		gameLevel->CacheComponents(gameObject, atoi(gameObjectNode->first_attribute("renderLayer")->value()));
+		gameLevel->CacheComponents(gameObject);
 
 		gameObjectNode = gameObjectNode->next_sibling("GameObject");
 	}
@@ -113,65 +98,8 @@ LevelData LevelBuilder::ExtractLevelData(xml_node<>* node)
 	LevelData levelData;
 	levelData.levelLeftBounds = (float)atof(node->first_attribute("leftBound")->value());
 	levelData.levelRightBounds = (float)atof(node->first_attribute("rightBound")->value());
-	levelData.levelBottomBounds = -(float)atof(node->first_attribute("bottomBound")->value()); // Make negative
-	levelData.levelTopBounds = -(float)atof(node->first_attribute("topBound")->value());
+	levelData.levelBottomBounds = abs((float)atof(node->first_attribute("bottomBound")->value())); // Make negative
+	levelData.levelTopBounds = abs((float)atof(node->first_attribute("topBound")->value()));
 
 	return levelData;
-}
-
-void LevelBuilder::UpdateTilePos(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData)
-{
-	float x = (float)atof(node->first_attribute("val1")->value());
-	float y = (float)atof(node->first_attribute("val2")->value());
-
-	Vec2 newPos = Vec2((float)levelData.levelLeftBounds + (x * TILE_WIDTH), (float)abs(levelData.levelBottomBounds) + -(y * TILE_HEIGHT));
-
-	obj->GetComponent<TransformComponent>()->SetPosition(newPos);
-	obj->GetComponent<TransformComponent>()->SetPreviousPosition(newPos);
-}
-
-void LevelBuilder::UpdateColliderBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData)
-{
-	BoxColliderComponent* collider = obj->GetComponent<BoxColliderComponent>();
-	TransformComponent* trans = collider->GetTransformComponent();
-
-	string side = string(node->first_attribute("val1")->value());
-	if (side == "left")
-	{
-		Vec2 newPos = Vec2(levelData.levelLeftBounds * TILE_WIDTH, 0);
-		trans->SetPosition(newPos);
-		trans->SetPreviousPosition(newPos);
-
-		collider->SetBox(0.5f, (abs(levelData.levelTopBounds - levelData.levelBottomBounds) * TILE_HEIGHT) / 2);
-	}
-	else if (side == "right")
-	{
-		Vec2 newPos = Vec2(levelData.levelRightBounds * TILE_WIDTH, 0);
-		trans->SetPosition(newPos);
-		trans->SetPreviousPosition(newPos);
-
-		collider->SetBox(0.5f, (abs(levelData.levelTopBounds - levelData.levelBottomBounds) * TILE_HEIGHT) / 2);
-	}
-	else if (side == "top")
-	{
-		Vec2 newPos = Vec2(0, abs(levelData.levelTopBounds) * TILE_HEIGHT);
-		trans->SetPosition(newPos);
-		trans->SetPreviousPosition(newPos);
-
-		collider->SetBox(((levelData.levelRightBounds - levelData.levelLeftBounds) * TILE_WIDTH) / 2, 0.5f);
-	}
-	else if (side == "bottom")
-	{
-		Vec2 newPos = Vec2(0, abs(levelData.levelTopBounds) * TILE_HEIGHT);
-		trans->SetPosition(newPos);
-		trans->SetPreviousPosition(newPos);
-
-		collider->SetBox(((levelData.levelRightBounds - levelData.levelLeftBounds) * TILE_WIDTH) / 2, 0.5f);
-	}
-}
-
-void LevelBuilder::UpdateCameraBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData)
-{
-	obj->GetComponent<GameCameraComponent>()->SetLevelBounds(levelData.levelLeftBounds* TILE_WIDTH, levelData.levelRightBounds* TILE_WIDTH, 
-		levelData.levelBottomBounds* TILE_HEIGHT, levelData.levelTopBounds* TILE_HEIGHT);
 }

@@ -17,7 +17,7 @@ public:
 	LevelState GetLevelState() { return mLevelState; }
 	float& GetScore() { return mScore; }
 
-	void CacheComponents(shared_ptr<GameObject> gameObj, int renderLayer);
+	void CacheComponents(shared_ptr<GameObject> gameObj);
 
 	void ConstructLevel(LevelData levelData);
 	void ConstructionComplete();

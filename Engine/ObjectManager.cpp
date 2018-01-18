@@ -10,88 +10,43 @@ shared_ptr<GameObject> ObjectManager::GetCreatedObject(int instanceID)
 	return mGameObjects[instanceID];
 }
 
-shared_ptr<GameObject> ObjectManager::CreateObject(int instanceID, int prefabID)
+shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node)
 {
-	//Loads a level from xml file
-	//Load the file
-	ifstream inFile(mfileName);
+	int instanceID = atoi(node->first_attribute("instanceid")->value());
 
-	if (!inFile)
-		throw "Could not load tileset: " + mfileName;
-
-	//Dump contents of file into a string
-	string xmlContents;
-
-	//Blocked out of preference
+	// Create the GameObject
+	auto gameObj = GameObject::MakeGameObject(node->first_attribute("tag")->value());
+	if (instanceID != -1)
 	{
-		string line;
-		while (getline(inFile, line))
-			xmlContents += line;
+		// Push it to the map with it's ID
+		mGameObjects.insert(make_pair(instanceID, gameObj));
 	}
-
-	//Convert string to rapidxml readable char*
-	vector<char> mXmlData = vector<char>(xmlContents.begin(), xmlContents.end());
-	mXmlData.push_back('\0');
-
-	//Create a parsed document with &xmlData[0] which is the char*
-	xml_document<> doc;
-	doc.parse<parse_no_data_nodes>(&mXmlData[0]);
-
-	//Get the root node
-	xml_node<>* root = doc.first_node(); 
-
-	//Go through each tile
-	xml_node<>*	gameObjectList = root->first_node("GameObjects");
-	while (gameObjectList)
+	else
 	{
-		xml_node<>* gameObject = gameObjectList->first_node("GameObject");
-		while (gameObject)
+		int rand = std::rand();
+		auto it = mGameObjects.find(rand);
+		while (it != mGameObjects.end()) // Make sure it doesn't already exist in the map
 		{
-			int objprefabID = atoi(gameObject->first_attribute("prefabid")->value());
-			if (prefabID == objprefabID)
-			{
-				// Create the gameobject
-				auto gameObj = GameObject::MakeGameObject(gameObject->first_attribute("tag")->value());
-
-				if (instanceID != -1)
-				{
-					// Push it to the map with it's ID
-					mGameObjects.insert(make_pair(instanceID, gameObj));
-				}
-				else
-				{
-					int rand = std::rand();
-					auto it = mGameObjects.find(rand);
-					while (it != mGameObjects.end()) // Make sure it doesn't already exist in the map
-					{
-						rand = std::rand();
-						it = mGameObjects.find(rand);
-					}
-					mGameObjects.insert(make_pair(rand, gameObj));
-				}
-
-				xml_node<>* component = gameObject->first_node("Component");
-				while (component) // Create all this gameobject's components
-				{
-					IComponent* newComponent = CreateComponent(gameObj, component);
-
-					if (component->first_attribute("componentinactive") != nullptr)
-						newComponent->SetActive(false);
-
-					gameObj->AddComponent(newComponent);
-					component = component->next_sibling("Component");
-				}
-
-				return gameObj;
-			}
-
-			gameObject = gameObject->next_sibling("GameObject");
+			rand = std::rand();
+			it = mGameObjects.find(rand);
 		}
+		mGameObjects.insert(make_pair(rand, gameObj));
 	}
 
-	throw exception("DID NOT FIND prefab ID");
+	// Create this gameobjects components
+	xml_node<>* component = node->first_node("Component");
+	while (component)
+	{
+		IComponent* newComponent = CreateComponent(gameObj, component);
 
-	return nullptr;
+		if (component->first_attribute("componentinactive") != nullptr)
+			newComponent->SetActive(false);
+
+		gameObj->AddComponent(newComponent);
+		component = component->next_sibling("Component");
+	}
+
+	return gameObj;
 }
 
 IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>* node)
@@ -121,7 +76,9 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		float xOffset = (float)atof(node->first_attribute("xoffset")->value());
 		float yOffset = (float)atof(node->first_attribute("yoffset")->value());
 
-		return ComponentFactory::MakeSpriteRenderer(fileName, trans, width, height, Vec2(xOffset, yOffset));
+		int renderLayer = atoi(node->first_attribute("renderLayer")->value());
+
+		return ComponentFactory::MakeSpriteRenderer(fileName, renderLayer, trans, width, height, Vec2(xOffset, yOffset));
 	}
 	else if (string(node->first_attribute("type")->value()) == "SpriteAnimatorComponent")
 	{
@@ -156,8 +113,9 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		}
 
 		int currentAnim = atoi(node->first_attribute("currentAnim")->value());
+		int renderLayer = atoi(node->first_attribute("renderLayer")->value());
 
-		return ComponentFactory::MakeSpriteAnimator(fileName, trans, width, height, animDescriptions, currentAnim);
+		return ComponentFactory::MakeSpriteAnimator(fileName, renderLayer, trans, width, height, animDescriptions, currentAnim);
 	}
 	else if (string(node->first_attribute("type")->value()) == "RigidBodyComponent")
 	{
@@ -261,7 +219,9 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 
 		TransformComponent* focusTrans = mGameObjects[atoi(node->first_attribute("focustransformcomponentid")->value())]->GetComponent<TransformComponent>();
 
-		return ComponentFactory::MakeTiledBGRenderer(spriteName, width, height, moveRate, dir, trans, focusTrans);
+		int renderLayer = atoi(node->first_attribute("renderLayer")->value());
+
+		return ComponentFactory::MakeTiledBGRenderer(spriteName, renderLayer, width, height, moveRate, dir, trans, focusTrans);
 	}
 	else if (string(node->first_attribute("type")->value()) == "PlayerComponent")
 	{
@@ -390,7 +350,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 			ballGO->AddComponent(ballRb);
 			CircleColliderComponent* ballCollider = ComponentFactory::MakeCircleCollider(64, ballTrans, ballRb);
 			ballGO->AddComponent(ballCollider);
-			SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", ballTrans, 128, 128, Vec2(0, 0));
+			SpriteRendererComponent* ballRenderer = ComponentFactory::MakeSpriteRenderer("Ball", 1, ballTrans, 128, 128, Vec2(0, 0));
 			ballGO->AddComponent(ballRenderer);
 			ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent(projectHitTag, 10, 10);
 			ballGO->AddComponent(ballProjectile);

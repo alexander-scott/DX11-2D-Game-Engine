@@ -53,7 +53,8 @@ void Engine::CreateLevel()
 	}
 		
 	stringstream stream;
-	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Level" << ScenePersistentValues::Instance().GetValue<int>("CurrentLevel") << ".xml";
+	//stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Level" << ScenePersistentValues::Instance().GetValue<int>("CurrentLevel") << ".xml";
+	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Scene.xml";
 	string levelPath = stream.str();
 
 	mGameLevel = LevelBuilder::BuildGameLevel(levelPath, ScenePersistentValues::Instance().GetValue<float>("TotalScore"));

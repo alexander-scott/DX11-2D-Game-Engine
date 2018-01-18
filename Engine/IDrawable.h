@@ -12,6 +12,8 @@ public:
 	void SetTransform(TransformComponent* transform) { mTransform = transform; }
 	TransformComponent* GetTransform() { return mTransform; }
 
+	int						RenderLayer;
+
 private:
-	TransformComponent * mTransform;
+	TransformComponent *	mTransform;
 };

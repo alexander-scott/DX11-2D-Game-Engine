@@ -16,21 +16,31 @@ GameLevel::~GameLevel()
 	}
 }
 
-void GameLevel::CacheComponents(shared_ptr<GameObject> gameObj, int renderLayer)
+void GameLevel::CacheComponents(shared_ptr<GameObject> gameObj)
 {
 	mGameObjects.push_back(gameObj);
 
-	switch (renderLayer)
+	for (auto component : gameObj->GetAllComponents())
 	{
-		case 0:
-			mRenderLayer0.push_back(gameObj);
+		IDrawable * drawableComponent = dynamic_cast<IDrawable *> (component);
+
+		if (drawableComponent != nullptr)
+		{
+			switch (drawableComponent->RenderLayer)
+			{
+				case 0:
+					mRenderLayer0.push_back(gameObj);
+					break;
+				case 1:
+					mRenderLayer1.push_back(gameObj);
+					break;
+				case 2:
+					mRenderLayer2.push_back(gameObj);
+					break;
+			}
+
 			break;
-		case 1:
-			mRenderLayer1.push_back(gameObj);
-			break;
-		case 2:
-			mRenderLayer2.push_back(gameObj);
-			break;
+		}
 	}
 
 	ColliderComponent* goCollider = gameObj->GetComponent<ColliderComponent>();

@@ -56,7 +56,7 @@ public:
 
 	};
 
-	SpriteAnimatorComponent();
+	SpriteAnimatorComponent(int renderLayer);
 	~SpriteAnimatorComponent();
 
 	virtual void Draw(ICamera* cam) override;

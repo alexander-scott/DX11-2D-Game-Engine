@@ -14,8 +14,4 @@ namespace LevelBuilder
 	shared_ptr<GameLevel> BuildGameLevel(string fileName, float startScore);
 
 	inline LevelData ExtractLevelData(xml_node<>* node);
-
-	inline void UpdateTilePos(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData);
-	inline void UpdateColliderBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData);
-	inline void UpdateCameraBounds(xml_node<>* node, shared_ptr<GameObject> obj, LevelData& levelData);
 }

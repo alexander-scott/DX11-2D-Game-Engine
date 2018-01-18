@@ -42,7 +42,7 @@ void GameGUI::BuildGUI()
 	auto centreButtonSprite = GameObject::MakeGameObject("CentreButton");
 	TransformComponent* buttonTransform = ComponentFactory::MakeTransform(Vec2((float)ApplicationValues::Instance().ScreenWidth / 2, (float)ApplicationValues::Instance().ScreenHeight / 2), 0, 1);
 	centreButtonSprite->AddComponent(buttonTransform);
-	centreButtonSprite->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", buttonTransform, 239, 131, Vec2(0, 0)));
+	centreButtonSprite->AddComponent(ComponentFactory::MakeGUISpriteRenderer("GUIButton", 3, buttonTransform, 239, 131, Vec2(0, 0)));
 	mCentreButton = ComponentFactory::MakeGUIButton(buttonTransform, 239, 131);
 	centreButtonSprite->AddComponent(mCentreButton);
 	mGameObjects.push_back(centreButtonSprite);

@@ -24,6 +24,7 @@ public:
 	void AddComponent(IComponent* component);
 
 	string GetTag() { return mTag; }
+	vector<IComponent*> GetAllComponents() { return mComponents; }
 
 	void SetActive(bool active);
 	bool GetActive() { return mActive; }

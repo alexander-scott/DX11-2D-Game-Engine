@@ -19,7 +19,7 @@ class ObjectManager
 public:
 	ObjectManager();
 
-	shared_ptr<GameObject> CreateObject(int instanceID, int prefabID);
+	shared_ptr<GameObject> CreateObject(xml_node<>* node);
 	shared_ptr<GameObject> GetCreatedObject(int instanceID);
 
 private:

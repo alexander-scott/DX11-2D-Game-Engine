@@ -2,8 +2,9 @@
 
 
 
-GUISpriteRendererComponent::GUISpriteRendererComponent()
+GUISpriteRendererComponent::GUISpriteRendererComponent(int renderLayer) : SpriteRendererComponent(renderLayer)
 {
+	mType = "GUI Sprite Renderer";
 }
 
 
