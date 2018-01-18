@@ -119,7 +119,7 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float width, float heig
 	return boxCollider;
 }
 
-GUITextComponent * ComponentFactory::MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent * transform, Vec2 offset)
+GUITextComponent * ComponentFactory::MakeGUIText(std::string text, float r, float g, float b, TransformComponent* transform, Vec2 offset)
 {
 	if (transform == nullptr)
 	{
@@ -129,7 +129,7 @@ GUITextComponent * ComponentFactory::MakeGUIText(std::string text, XMVECTORF32 c
 	GUITextComponent* guiText = new GUITextComponent();
 	guiText->SetText(text);
 	guiText->SetTransform(transform);
-	guiText->SetTextColour(colour);
+	guiText->SetTextColour(r, g, b);
 	guiText->SetOffset(offset);
 
 	return guiText;

@@ -1,17 +1,19 @@
 #pragma once
 
 #include "GUITextComponent.h"
+#include "ScenePersistentValues.h"
 
 #include <sstream> // stringstream
 
 class GUITextValueComponent : public GUITextComponent
 {
 public:
-	GUITextValueComponent(float& watchValue);
+	GUITextValueComponent(std::string mValueName);
 	~GUITextValueComponent();
 
 	virtual void Draw(ICamera* cam) override;
 
 private:
-	float&		mWatchedValue;
+	float*			mWatchedValue;
+	std::string		mValueName;
 };

@@ -26,6 +26,5 @@ private:
 	IComponent* CreateComponent(shared_ptr<GameObject> go, xml_node<>* node);
 
 	map<int, shared_ptr<GameObject>>		mGameObjects;
-	string									mfileName = "\\Levels\\Prefabs.xml";
 };
 

@@ -68,6 +68,22 @@ X postive is right. Y postive is up.
     <Component type="RigidBodyComponent" staticfriction="1" dynamicfriction="1" restitution="1" static="true" lockrotation="false"></Component>
     <Component type="BoxColliderComponent" width="1800" height="1" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
   </GameObject>
+
+  <!-- - GUI <!- -->
+  <GameObject instanceid="10" tag="ScoreText">
+    <Component type="TransformComponent" xpos="10" ypos="10" rotation="0" scale="0.5"></Component>
+    <Component type="GUITextValueComponent" text="Score: " valueName="CurrentScore" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
+  </GameObject>
+
+  <GameObject instanceid="11" tag="LevelText">
+    <Component type="TransformComponent" xpos="10" ypos="35" rotation="0" scale="0.5"></Component>
+    <Component type="GUITextValueComponent" text="Level: " valueName="CurrentLevel" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
+  </GameObject>
+
+  <GameObject instanceid="12" tag="HealthText">
+    <Component type="TransformComponent" xpos="10" ypos="35" rotation="0" scale="0.5"></Component>
+    <Component type="GUITextValueComponent" text="Health: " valueName="Health" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
+  </GameObject>
   
   <!-- - BOTTOM TILES <!- -->
   <GameObject instanceid="-1" tag="Tile">

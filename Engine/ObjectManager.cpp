@@ -2,7 +2,7 @@
 
 ObjectManager::ObjectManager()
 {
-	mfileName = ApplicationValues::Instance().ResourcesPath + mfileName;
+
 }
 
 shared_ptr<GameObject> ObjectManager::GetCreatedObject(int instanceID)
@@ -384,6 +384,61 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 
 		return ComponentFactory::MakeGameCameraComponent(Camera::Instance().GetComponent<TransformComponent>(), trans,
 			focusWidth, focusHeight, leftBound, rightBound, topBound, bottomBound);
+	}
+	else if (string(node->first_attribute("type")->value()) == "GUITextComponent")
+	{
+		string text = string(node->first_attribute("text")->value());
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[transformComponentID]->GetComponent<TransformComponent>();
+
+		float r = (float)atof(node->first_attribute("r")->value());
+		float g = (float)atof(node->first_attribute("g")->value());
+		float b = (float)atof(node->first_attribute("r")->value());
+
+		float xOffSet = (float)atof(node->first_attribute("xoffset")->value());
+		float yOffSet = (float)atof(node->first_attribute("yoffset")->value());
+
+		return ComponentFactory::MakeGUIText(text, r, g, b, trans, Vec2(xOffSet, yOffSet));
+	}
+	else if (string(node->first_attribute("type")->value()) == "GUITextValueComponent")
+	{
+		string text = string(node->first_attribute("text")->value());
+		string valueName = string(node->first_attribute("valueName")->value());
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[transformComponentID]->GetComponent<TransformComponent>();
+
+		float r = (float)atof(node->first_attribute("r")->value());
+		float g = (float)atof(node->first_attribute("g")->value());
+		float b = (float)atof(node->first_attribute("r")->value());
+
+		float xOffSet = (float)atof(node->first_attribute("xoffset")->value());
+		float yOffSet = (float)atof(node->first_attribute("yoffset")->value());
+
+		return ComponentFactory::MakeGUITextValueComponent(valueName, text, r, g, b, trans, Vec2(xOffSet, yOffSet));
+	}
+	else if (string(node->first_attribute("type")->value()) == "GUIButtonComponent")
+	{
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[transformComponentID]->GetComponent<TransformComponent>();
+
+		float width = (float)atof(node->first_attribute("width")->value());
+		float height = (float)atof(node->first_attribute("height")->value());
+
+		return ComponentFactory::MakeGUIButton(trans, width, height);
 	}
 
 	throw;
