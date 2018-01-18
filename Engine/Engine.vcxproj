@@ -292,7 +292,7 @@
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="RecieveDamageMessage.h" />
     <ClInclude Include="RigidBodyComponent.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ScenePersistentValues.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
@@ -350,7 +350,7 @@
     <ClCompile Include="ProjectileComponent.cpp" />
     <ClCompile Include="ProjectileManagerComponent.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpriteAnimatorComponent.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Engine.cpp" />

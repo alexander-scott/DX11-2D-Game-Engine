@@ -16,7 +16,7 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(1));
 	ScenePersistentValues::Instance().Values["TotalScore"].reset(new PersistentValue<float>(0));
 
-	CreateLevel();
+	SceneManager::Instance().LoadScene("fakepath");
 }
 
 
@@ -25,8 +25,8 @@ void Engine::Update()
 	Camera::Instance().BeginFrame();
 
 	// If game is playing
-	UpdateLevel();
-	DrawLevel();
+	UpdateScene();
+	DrawScene();
 
 	Camera::Instance().EndFrame();
 
@@ -35,31 +35,18 @@ void Engine::Update()
 
 Engine::~Engine()
 {
-	mGameLevel = nullptr;
+	
 }
-
-void Engine::CreateLevel()
-{
-	mGameLevel = nullptr;
-		
-	stringstream stream;
-	//stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Level" << ScenePersistentValues::Instance().GetValue<float>("CurrentLevel") << ".xml";
-	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Scene.xml";
-	string levelPath = stream.str();
-
-	mGameLevel = LevelBuilder::BuildGameLevel(levelPath, ScenePersistentValues::Instance().GetValue<float>("TotalScore"));
-}
-
-void Engine::UpdateLevel()
+void Engine::UpdateScene()
 {
 	float deltaTime = mFrameTimer.Mark();
 
 	Camera::Instance().Update(deltaTime);
 
-	mGameLevel->Update(deltaTime);
+	SceneManager::Instance().Update(deltaTime);
 }
 
-void Engine::DrawLevel()
+void Engine::DrawScene()
 {
-	mGameLevel->Draw();
+	SceneManager::Instance().Draw();
 }

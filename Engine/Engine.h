@@ -4,6 +4,7 @@
 #include "MainWindow.h"
 
 #include "LevelBuilder.h"
+#include "SceneManager.h"
 #include "ScenePersistentValues.h"
 
 using namespace std;
@@ -22,12 +23,8 @@ public:
 	MainWindow& wnd;
 
 private:
-	void CreateLevel();
-
-	void DrawLevel();
-	void UpdateLevel();
+	void DrawScene();
+	void UpdateScene();
 
 	FrameTimer							mFrameTimer;
-
-	shared_ptr<GameLevel>				mGameLevel;
 };

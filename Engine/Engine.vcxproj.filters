@@ -259,9 +259,6 @@
     <ClInclude Include="EditorInterface.h">
       <Filter>Engine\EditorInterface</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Engine\Level Loading</Filter>
-    </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
@@ -280,6 +277,7 @@
     <ClInclude Include="GameManagerComponent.h">
       <Filter>Game\GameComponents\GameManager</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -399,9 +397,6 @@
     <ClCompile Include="EditorInterface.cpp">
       <Filter>Engine\EditorInterface</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Engine\Level Loading</Filter>
-    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
@@ -417,6 +412,7 @@
     <ClCompile Include="GameManagerComponent.cpp">
       <Filter>Game\GameComponents\GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
