@@ -119,14 +119,14 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float width, float heig
 	return boxCollider;
 }
 
-GUITextComponent * ComponentFactory::MakeGUIText(std::string text, float r, float g, float b, TransformComponent* transform, Vec2 offset)
+GUITextComponent * ComponentFactory::MakeGUIText(std::string text, int renderLayer, float r, float g, float b, TransformComponent* transform, Vec2 offset)
 {
 	if (transform == nullptr)
 	{
 		throw std::exception("This object requires a transform component.");
 	}
 
-	GUITextComponent* guiText = new GUITextComponent();
+	GUITextComponent* guiText = new GUITextComponent(renderLayer);
 	guiText->SetText(text);
 	guiText->SetTransform(transform);
 	guiText->SetTextColour(r, g, b);

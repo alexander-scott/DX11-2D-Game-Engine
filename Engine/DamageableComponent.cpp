@@ -3,7 +3,7 @@
 DamageableComponent::DamageableComponent(float startHealth, std::string hitNoise) : mHitNoise(hitNoise)
 {
 	mType = "Damageable Component";
-	mHealth = startHealth;
+	Health = startHealth;
 	mIsDead = false;
 }
 
@@ -13,11 +13,11 @@ DamageableComponent::~DamageableComponent()
 
 void DamageableComponent::RecieveDamage(float dmg)
 {
-	mHealth -= dmg;
+	Health -= dmg;
 
-	if (mHealth <= 0)
+	if (Health <= 0)
 	{
-		mHealth = 0;
+		Health = 0;
 		mIsDead = true;
 	}
 	else

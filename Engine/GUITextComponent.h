@@ -6,7 +6,7 @@
 class GUITextComponent : public IComponent, public IDrawable
 {
 public:
-	GUITextComponent();
+	GUITextComponent(int renderLayer);
 	~GUITextComponent();
 
 	void SetText(std::string text) { mText = text; }

@@ -18,13 +18,9 @@ public:
 
 	bool IsDead() { return mIsDead; }
 
-	float& GetHealthAddress() 
-	{ 
-		return mHealth; 
-	}
+	float				Health;
 
 private:
-	float				mHealth;
 	bool				mIsDead;
 	std::string			mHitNoise;
 };

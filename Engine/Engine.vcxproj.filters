@@ -274,6 +274,9 @@
     <ClInclude Include="GameCameraComponent.h">
       <Filter>Game\GameComponents\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="GUITextDamageComponent.h">
+      <Filter>Game\GameComponents\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -407,6 +410,9 @@
     </ClCompile>
     <ClCompile Include="GameCameraComponent.cpp">
       <Filter>Game\GameComponents\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITextDamageComponent.cpp">
+      <Filter>Game\GameComponents\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

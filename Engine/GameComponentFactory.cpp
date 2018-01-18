@@ -88,14 +88,31 @@ AIAgentComponent * ComponentFactory::MakeAIAgentComponent(TransformComponent * t
 	return agentComponent;
 }
 
-GUITextValueComponent * ComponentFactory::MakeGUITextValueComponent(std::string valueName, std::string text, float r, float g, float b, TransformComponent* transform, Vec2 offset)
+GUITextValueComponent * ComponentFactory::MakeGUITextValueComponent(std::string valueName, int renderLayer, std::string text, 
+	float r, float g, float b, TransformComponent* transform, Vec2 offset)
 {
 	if (transform == nullptr)
 	{
 		throw std::exception("This object requires a transform component.");
 	}
 
-	GUITextValueComponent* guiText = new GUITextValueComponent(valueName);
+	GUITextValueComponent* guiText = new GUITextValueComponent(valueName, renderLayer);
+	guiText->SetText(text);
+	guiText->SetTransform(transform);
+	guiText->SetTextColour(r, g, b);
+	guiText->SetOffset(offset);
+
+	return guiText;
+}
+
+GUITextDamageComponent * ComponentFactory::MakeGUITextDamageComponent(DamageableComponent* dmg, int renderLayer, std::string text, float r, float g, float b, TransformComponent* transform, Vec2 offset)
+{
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+
+	GUITextDamageComponent* guiText = new GUITextDamageComponent(dmg, renderLayer);
 	guiText->SetText(text);
 	guiText->SetTransform(transform);
 	guiText->SetTextColour(r, g, b);

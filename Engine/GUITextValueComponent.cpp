@@ -2,11 +2,10 @@
 
 
 
-GUITextValueComponent::GUITextValueComponent(std::string mValueName)
+GUITextValueComponent::GUITextValueComponent(std::string mValueName, int renderLayer) 
+	: mWatchedValue(ScenePersistentValues::Instance().GetRef<float>(mValueName)), GUITextComponent(renderLayer)
 {
 	mOffset = Vec2(0, 0);
-
-	mWatchedValue = ScenePersistentValues::Instance().GetPointer<float>(mValueName);
 }
 
 
@@ -18,7 +17,7 @@ void GUITextValueComponent::Draw(ICamera * cam)
 {
 	std::string outputstring = mText;
 	std::stringstream stream;
-	stream << mText << &mWatchedValue;
+	stream << mText << mWatchedValue;
 	string s = stream.str();
 
 	float rgb[3];

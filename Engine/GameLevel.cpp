@@ -37,6 +37,9 @@ void GameLevel::CacheComponents(shared_ptr<GameObject> gameObj)
 				case 2:
 					mRenderLayer2.push_back(gameObj);
 					break;
+				case 3:
+					mRenderLayer3.push_back(gameObj);
+					break;
 			}
 
 			break;
@@ -155,6 +158,11 @@ void GameLevel::Draw()
 	}
 
 	for (auto& go : mRenderLayer2)
+	{
+		go->Draw(&Camera::Instance());
+	}
+
+	for (auto& go : mRenderLayer3)
 	{
 		go->Draw(&Camera::Instance());
 	}

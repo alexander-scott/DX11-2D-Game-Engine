@@ -30,12 +30,6 @@ public:
 	}
 
 	template<class T>
-	T* GetPointer(std::string s)
-	{
-		return dynamic_cast<PersistentValue<T>*>(*Instance().Values[s]);
-	}
-
-	template<class T>
 	T& GetRef(std::string s)
 	{
 		return dynamic_cast<PersistentValue<T>&>(*Instance().Values[s]).data;

@@ -13,11 +13,10 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 
 	LevelBuilder::InitaliseGameplayValues(ApplicationValues::Instance().ResourcesPath + "\\Levels\\Prefabs.xml"); //BROKEN
 
-	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<int>(1));
+	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(1));
 	ScenePersistentValues::Instance().Values["TotalScore"].reset(new PersistentValue<float>(0));
 
 	mGameState = GameState::ePlayingGame;
-	mGameGUI = make_unique<GameGUI>();
 	CreateLevel();
 }
 
@@ -43,7 +42,7 @@ Engine::~Engine()
 void Engine::CreateLevel()
 {
 	// Delete old level
-	if (ScenePersistentValues::Instance().GetValue<int>("CurrentLevel") != 1) // HARDCODED 
+	if (ScenePersistentValues::Instance().GetValue<float>("CurrentLevel") != 1) // HARDCODED 
 	{
 		float totalScore = ScenePersistentValues::Instance().GetValue<float>("TotalScore");
 		totalScore += mGameLevel->GetScore();
@@ -53,12 +52,11 @@ void Engine::CreateLevel()
 	}
 		
 	stringstream stream;
-	//stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Level" << ScenePersistentValues::Instance().GetValue<int>("CurrentLevel") << ".xml";
+	//stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Level" << ScenePersistentValues::Instance().GetValue<float>("CurrentLevel") << ".xml";
 	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Scene.xml";
 	string levelPath = stream.str();
 
 	mGameLevel = LevelBuilder::BuildGameLevel(levelPath, ScenePersistentValues::Instance().GetValue<float>("TotalScore"));
-	mGameGUI->ResetGUI(mGameLevel, ScenePersistentValues::Instance().GetValue<int>("CurrentLevel"));
 }
 
 void Engine::CheckLevelOver()
@@ -67,23 +65,24 @@ void Engine::CheckLevelOver()
 	{
 		if (mGameLevel->GetLevelState() == LevelState::eDead)
 		{
-			mGameGUI->EnableCentreButton("RESTART");
+			//mGameGUI->EnableCentreButton("RESTART");
 			mGameState = GameState::eWaitingOnGUIInput;
 		}
 		else if (mGameLevel->GetLevelState() == LevelState::eWon)
 		{
-			mGameGUI->EnableCentreButton("LEVELUP");
+			//mGameGUI->EnableCentreButton("LEVELUP");
 
-			int currentLevel = ScenePersistentValues::Instance().GetValue<int>("CurrentLevel");
+			float currentLevel = ScenePersistentValues::Instance().GetValue<float>("CurrentLevel");
 			currentLevel++; // Increase level
-			ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<int>(currentLevel));
+			ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(currentLevel));
 
 			mGameState = GameState::eWaitingOnGUIInput;
 		}
 	}
 	else
 	{
-		if (mGameGUI->GetCentreButtonClicked())
+		//if (mGameGUI->GetCentreButtonClicked())
+		if (false)
 		{
 			mGameState = GameState::ePlayingGame;
 			CreateLevel();
@@ -98,7 +97,6 @@ void Engine::UpdateLevel()
 	Camera::Instance().Update(deltaTime);
 
 	mGameLevel->Update(deltaTime);
-	mGameGUI->UpdateGUI(deltaTime);
 
 	CheckLevelOver();
 }
@@ -106,5 +104,4 @@ void Engine::UpdateLevel()
 void Engine::DrawLevel()
 {
 	mGameLevel->Draw();
-	mGameGUI->DrawGUI();
 }

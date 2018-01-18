@@ -11,14 +11,11 @@ public:
 	void UpdateGUI(float deltaTime);
 	void DrawGUI();
 
-	void ResetGUI(std::shared_ptr<GameLevel> gameLevel, int currentLevel);
-
 	void EnableCentreButton(std::string buttonText);
 
 	bool GetCentreButtonClicked() {	return mCentreButtonClicked; }
 
 private:
-	void BuildGUI();
 	shared_ptr<GameObject> FindGameObject(std::string tag);
 
 	std::vector<shared_ptr<GameObject>>		mGameObjects;

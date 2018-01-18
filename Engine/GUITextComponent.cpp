@@ -1,9 +1,10 @@
 #include "GUITextComponent.h"
 
 
-GUITextComponent::GUITextComponent()
+GUITextComponent::GUITextComponent(int renderLayer)
 {
 	mType = "GUITextComponent";
+	RenderLayer = renderLayer;
 }
 
 GUITextComponent::~GUITextComponent()

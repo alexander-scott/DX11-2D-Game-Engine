@@ -8,12 +8,12 @@
 class GUITextValueComponent : public GUITextComponent
 {
 public:
-	GUITextValueComponent(std::string mValueName);
+	GUITextValueComponent(std::string mValueName, int renderLayer);
 	~GUITextValueComponent();
 
 	virtual void Draw(ICamera* cam) override;
 
 private:
-	float*			mWatchedValue;
+	float&			mWatchedValue;
 	std::string		mValueName;
 };

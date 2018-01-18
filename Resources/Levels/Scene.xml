@@ -71,18 +71,29 @@ X postive is right. Y postive is up.
 
   <!-- - GUI <!- -->
   <GameObject instanceid="10" tag="ScoreText">
-    <Component type="TransformComponent" xpos="10" ypos="10" rotation="0" scale="0.5"></Component>
-    <Component type="GUITextValueComponent" text="Score: " valueName="CurrentScore" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
+    <Component type="TransformComponent" xpos="10" ypos="-10" rotation="0" scale="0.5"></Component>
+    <Component type="GUITextValueComponent" text="Score: " renderLayer="3" valueName="TotalScore" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
   </GameObject>
 
   <GameObject instanceid="11" tag="LevelText">
-    <Component type="TransformComponent" xpos="10" ypos="35" rotation="0" scale="0.5"></Component>
-    <Component type="GUITextValueComponent" text="Level: " valueName="CurrentLevel" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
+    <Component type="TransformComponent" xpos="10" ypos="-35" rotation="0" scale="0.5"></Component>
+    <Component type="GUITextValueComponent" text="Level: " renderLayer="3" valueName="CurrentLevel" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
   </GameObject>
 
   <GameObject instanceid="12" tag="HealthText">
-    <Component type="TransformComponent" xpos="10" ypos="35" rotation="0" scale="0.5"></Component>
-    <Component type="GUITextValueComponent" text="Health: " valueName="Health" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
+    <Component type="TransformComponent" xpos="670" ypos="-10" rotation="0" scale="0.5"></Component>
+    <Component type="GUITextDamageComponent" text="Health: " renderLayer="3" damagecomponentid="0" transformcomponentid="-1" r="0" g="0" b="255" xoffset="0" yoffset="0"></Component>
+  </GameObject>
+
+  <GameObject instanceid="13" tag="CentreButton">
+    <Component type="TransformComponent" xpos="400" ypos="300" rotation="0" scale="1"></Component>
+    <Component type="SpriteRendererComponent" filename="GUIButton" renderLayer="3" transformcomponentid="-1" width="239" height="131" xoffset="0" yoffset="0" componentinactive="true"></Component>
+    <Component type="GUIButtonComponent" transformcomponentid="-1" width="239" height="131" componentinactive="true"></Component>
+  </GameObject>
+
+  <GameObject instanceid="14" tag="CentreButtonText">
+    <Component type="TransformComponent" xpos="400" ypos="300" rotation="0" scale="1"></Component>
+    <Component type="GUITextComponent" text="RESTART" transformcomponentid="-1" renderLayer="3" r="0" g="0" b="0" xoffset="0" yoffset="0" componentinactive="true"></Component>
   </GameObject>
   
   <!-- - BOTTOM TILES <!- -->

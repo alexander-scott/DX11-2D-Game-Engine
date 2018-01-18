@@ -4,7 +4,6 @@
 #include "MainWindow.h"
 
 #include "LevelBuilder.h"
-#include "GameGUI.h"
 #include "ScenePersistentValues.h"
 
 using namespace std;
@@ -32,8 +31,6 @@ private:
 	FrameTimer							mFrameTimer;
 
 	shared_ptr<GameLevel>				mGameLevel;
-
-	unique_ptr<GameGUI>					mGameGUI;
 
 	GameState							mGameState;
 };

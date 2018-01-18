@@ -398,12 +398,14 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 
 		float r = (float)atof(node->first_attribute("r")->value());
 		float g = (float)atof(node->first_attribute("g")->value());
-		float b = (float)atof(node->first_attribute("r")->value());
+		float b = (float)atof(node->first_attribute("b")->value());
 
 		float xOffSet = (float)atof(node->first_attribute("xoffset")->value());
 		float yOffSet = (float)atof(node->first_attribute("yoffset")->value());
 
-		return ComponentFactory::MakeGUIText(text, r, g, b, trans, Vec2(xOffSet, yOffSet));
+		int renderLayer = atoi(node->first_attribute("renderLayer")->value());
+
+		return ComponentFactory::MakeGUIText(text, renderLayer, r, g, b, trans, Vec2(xOffSet, yOffSet));
 	}
 	else if (string(node->first_attribute("type")->value()) == "GUITextValueComponent")
 	{
@@ -419,12 +421,43 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 
 		float r = (float)atof(node->first_attribute("r")->value());
 		float g = (float)atof(node->first_attribute("g")->value());
-		float b = (float)atof(node->first_attribute("r")->value());
+		float b = (float)atof(node->first_attribute("b")->value());
 
 		float xOffSet = (float)atof(node->first_attribute("xoffset")->value());
 		float yOffSet = (float)atof(node->first_attribute("yoffset")->value());
 
-		return ComponentFactory::MakeGUITextValueComponent(valueName, text, r, g, b, trans, Vec2(xOffSet, yOffSet));
+		int renderLayer = atoi(node->first_attribute("renderLayer")->value());
+
+		return ComponentFactory::MakeGUITextValueComponent(valueName, renderLayer, text, r, g, b, trans, Vec2(xOffSet, yOffSet));
+	}
+	else if (string(node->first_attribute("type")->value()) == "GUITextDamageComponent")
+	{
+		string text = string(node->first_attribute("text")->value());
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[transformComponentID]->GetComponent<TransformComponent>();
+
+		DamageableComponent* dmg;
+		int damageComponentID = atoi(node->first_attribute("damagecomponentid")->value());
+		if (damageComponentID == -1)
+			dmg = go->GetComponent<DamageableComponent>();
+		else
+			dmg = mGameObjects[damageComponentID]->GetComponent<DamageableComponent>();
+
+		float r = (float)atof(node->first_attribute("r")->value());
+		float g = (float)atof(node->first_attribute("g")->value());
+		float b = (float)atof(node->first_attribute("b")->value());
+
+		float xOffSet = (float)atof(node->first_attribute("xoffset")->value());
+		float yOffSet = (float)atof(node->first_attribute("yoffset")->value());
+
+		int renderLayer = atoi(node->first_attribute("renderLayer")->value());
+
+		return ComponentFactory::MakeGUITextDamageComponent(dmg, renderLayer, text, r, g, b, trans, Vec2(xOffSet, yOffSet));
 	}
 	else if (string(node->first_attribute("type")->value()) == "GUIButtonComponent")
 	{
