@@ -10,6 +10,7 @@
 #include "GUITextValueComponent.h"
 #include "GUITextDamageComponent.h"
 #include "GameCameraComponent.h"
+#include "GameManagerComponent.h"
 
 namespace ComponentFactory
 {
@@ -26,4 +27,5 @@ namespace ComponentFactory
 	GUITextDamageComponent * MakeGUITextDamageComponent(DamageableComponent* dmg, int renderLayer, std::string text, float r, float g, float b, TransformComponent* transform, Vec2 offset);
 
 	GameCameraComponent * MakeGameCameraComponent(TransformComponent* trans, TransformComponent* focusTrans, float focusWidth, float focusHeight, float leftBound, float rightBound, float topBound, float bottomBound);
+	GameManagerComponent * MakeGameManagerComponent(GUIButtonComponent* centreButton, GUITextComponent* centreButtonText, GUISpriteRendererComponent* centreButtonSprite, TriggerBoxComponent* finishTriggerBox, DamageableComponent* playerDamage);
 }

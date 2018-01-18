@@ -83,6 +83,9 @@
     <Filter Include="Game\GameComponents\Camera">
       <UniqueIdentifier>{d3b15e8e-7926-4f9b-ac6b-cdcd9eae93c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameComponents\GameManager">
+      <UniqueIdentifier>{8d6891b5-e972-4903-b291-321e241e705b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -277,6 +280,9 @@
     <ClInclude Include="GUITextDamageComponent.h">
       <Filter>Game\GameComponents\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="GameManagerComponent.h">
+      <Filter>Game\GameComponents\GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -413,6 +419,9 @@
     </ClCompile>
     <ClCompile Include="GUITextDamageComponent.cpp">
       <Filter>Game\GameComponents\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManagerComponent.cpp">
+      <Filter>Game\GameComponents\GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -107,27 +107,27 @@ void GameLevel::Update(float deltaTime)
 	}
 
 	// Check all objects that can be damaged to see if they are dead or not. Do something additional if the object that died is special or not
-	for (auto& dGo : mDamageableGameObjects)
-	{
-		// First is GameObject* and second is DamagableComponent*
-		if (dGo.first->GetActive() && dGo.second->IsDead())
-		{
-			dGo.first->SetActive(false);
+	//for (auto& dGo : mDamageableGameObjects)
+	//{
+	//	// First is GameObject* and second is DamagableComponent*
+	//	if (dGo.first->GetActive() && dGo.second->IsDead())
+	//	{
+	//		dGo.first->SetActive(false);
 
-			if (dGo.first->GetTag() == "Player")
-			{
-				// Player died
-				mLevelState = LevelState::eDead;
-				Audio::Instance().PlaySoundEffect("Gameover");
-			}
-			else if (dGo.first->GetTag() == "Enemy")
-			{
-				// Increase score
-				Audio::Instance().PlaySoundEffect("Death");
-				mScore++;
-			}
-		}
-	}
+	//		if (dGo.first->GetTag() == "Player")
+	//		{
+	//			// Player died
+	//			mLevelState = LevelState::eDead;
+	//			Audio::Instance().PlaySoundEffect("Gameover");
+	//		}
+	//		else if (dGo.first->GetTag() == "Enemy")
+	//		{
+	//			// Increase score
+	//			Audio::Instance().PlaySoundEffect("Death");
+	//			mScore++;
+	//		}
+	//	}
+	//}
 
 	// Update gameobjects
 	for (auto& go : mGameObjects)
@@ -136,12 +136,12 @@ void GameLevel::Update(float deltaTime)
 	}
 
 	// Check gameover
-	if (mFinishFlagTrigger->GetTriggeredReference())
+	/*if (mFinishFlagTrigger->GetTriggeredReference())
 	{
 		mLevelState = LevelState::eWon;
 		Audio::Instance().PlaySoundEffect("Win");
 		mScore += 10;
-	}
+	}*/
 }
 
 void GameLevel::Draw()

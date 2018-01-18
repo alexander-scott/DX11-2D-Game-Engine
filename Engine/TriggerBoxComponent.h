@@ -14,7 +14,7 @@ public:
 
 	virtual void RecieveMessage(IMessage &msg) override;
 
-	bool GetTriggered() { return mIsTriggered; }
+	bool IsTriggered() { return mIsTriggered; }
 	bool& GetTriggeredReference() { return mIsTriggered; }
 
 private:

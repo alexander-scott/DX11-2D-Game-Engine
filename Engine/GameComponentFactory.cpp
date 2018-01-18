@@ -133,3 +133,15 @@ GameCameraComponent * ComponentFactory::MakeGameCameraComponent(TransformCompone
 	camera->SetLevelBounds(leftBound, rightBound, bottomBound, topBound);
 	return camera;
 }
+
+GameManagerComponent * ComponentFactory::MakeGameManagerComponent(GUIButtonComponent* centreButton, GUITextComponent* centreButtonText, GUISpriteRendererComponent* centreButtonSprite, 
+	TriggerBoxComponent* finishTriggerBox, DamageableComponent* playerDamage)
+{
+	if (centreButton == nullptr || centreButtonText == nullptr || centreButtonSprite == nullptr || finishTriggerBox == nullptr || playerDamage == nullptr)
+	{
+		throw std::exception("This object is missing a component");
+	}
+
+	GameManagerComponent* gameManager = new GameManagerComponent(centreButton, centreButtonText, centreButtonSprite, finishTriggerBox, playerDamage);
+	return gameManager;
+}

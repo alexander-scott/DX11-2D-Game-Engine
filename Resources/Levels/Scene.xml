@@ -2,6 +2,7 @@
 <XmlTag variable="0" />
 Keep width as max X plus 1. Keep height as max Y plus 1.
 X postive is right. Y postive is up.
+For some reason GUI items Y negative is up.
 <!- -->
 
 <scene name="1" leftBound="0" rightBound="900" bottomBound="0" topBound="4500">
@@ -86,14 +87,19 @@ X postive is right. Y postive is up.
   </GameObject>
 
   <GameObject instanceid="13" tag="CentreButton">
-    <Component type="TransformComponent" xpos="400" ypos="300" rotation="0" scale="1"></Component>
-    <Component type="SpriteRendererComponent" filename="GUIButton" renderLayer="3" transformcomponentid="-1" width="239" height="131" xoffset="0" yoffset="0" componentinactive="true"></Component>
+    <Component type="TransformComponent" xpos="400" ypos="-300" rotation="0" scale="1"></Component>
+    <Component type="GUISpriteRendererComponent" filename="GUIButton" renderLayer="3" transformcomponentid="-1" width="239" height="131" xoffset="0" yoffset="0" componentinactive="true"></Component>
     <Component type="GUIButtonComponent" transformcomponentid="-1" width="239" height="131" componentinactive="true"></Component>
   </GameObject>
 
   <GameObject instanceid="14" tag="CentreButtonText">
-    <Component type="TransformComponent" xpos="400" ypos="300" rotation="0" scale="1"></Component>
+    <Component type="TransformComponent" xpos="400" ypos="-300" rotation="0" scale="1"></Component>
     <Component type="GUITextComponent" text="RESTART" transformcomponentid="-1" renderLayer="3" r="0" g="0" b="0" xoffset="0" yoffset="0" componentinactive="true"></Component>
+  </GameObject>
+
+  <!-- - Game Manager <!- -->
+  <GameObject instanceid="-1" tag="GameManager">
+    <Component type="GameManagerComponent" guibuttonid="13" guitextid="14" guispriteid="13" triggerboxid="1" damageid="0"></Component>
   </GameObject>
   
   <!-- - BOTTOM TILES <!- -->

@@ -473,6 +473,65 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 
 		return ComponentFactory::MakeGUIButton(trans, width, height);
 	}
+	else if (string(node->first_attribute("type")->value()) == "GUISpriteRendererComponent")
+	{
+		string fileName = string(node->first_attribute("filename")->value());
+
+		TransformComponent* trans;
+		int transformComponentID = atoi(node->first_attribute("transformcomponentid")->value());
+		if (transformComponentID == -1)
+			trans = go->GetComponent<TransformComponent>();
+		else
+			trans = mGameObjects[atoi(node->first_attribute("transformcomponentid")->value())]->GetComponent<TransformComponent>();
+
+		float width = (float)atof(node->first_attribute("width")->value());
+		float height = (float)atof(node->first_attribute("height")->value());
+		float xOffset = (float)atof(node->first_attribute("xoffset")->value());
+		float yOffset = (float)atof(node->first_attribute("yoffset")->value());
+
+		int renderLayer = atoi(node->first_attribute("renderLayer")->value());
+
+		return ComponentFactory::MakeGUISpriteRenderer(fileName, renderLayer, trans, width, height, Vec2(xOffset, yOffset));
+	}
+	else if (string(node->first_attribute("type")->value()) == "GameManagerComponent")
+	{
+		GUIButtonComponent* button;
+		int buttonComponentID = atoi(node->first_attribute("guibuttonid")->value());
+		if (buttonComponentID == -1)
+			button = go->GetComponent<GUIButtonComponent>();
+		else
+			button = mGameObjects[buttonComponentID]->GetComponent<GUIButtonComponent>();
+
+		GUITextComponent* text;
+		int textComponentID = atoi(node->first_attribute("guitextid")->value());
+		if (textComponentID == -1)
+			text = go->GetComponent<GUITextComponent>();
+		else
+			text = mGameObjects[textComponentID]->GetComponent<GUITextComponent>();
+
+		GUISpriteRendererComponent* sprite;
+		int spriteComponentID = atoi(node->first_attribute("guispriteid")->value());
+		if (spriteComponentID == -1)
+			sprite = go->GetComponent<GUISpriteRendererComponent>();
+		else
+			sprite = mGameObjects[spriteComponentID]->GetComponent<GUISpriteRendererComponent>();
+
+		TriggerBoxComponent* triggerbox;
+		int triggerComponentID = atoi(node->first_attribute("triggerboxid")->value());
+		if (triggerComponentID == -1)
+			triggerbox = go->GetComponent<TriggerBoxComponent>();
+		else
+			triggerbox = mGameObjects[triggerComponentID]->GetComponent<TriggerBoxComponent>();
+
+		DamageableComponent* damage;
+		int damageComponentID = atoi(node->first_attribute("damageid")->value());
+		if (damageComponentID == -1)
+			damage = go->GetComponent<DamageableComponent>();
+		else
+			damage = mGameObjects[damageComponentID]->GetComponent<DamageableComponent>();
+
+		return ComponentFactory::MakeGameManagerComponent(button, text, sprite, triggerbox, damage);
+	}
 
 	throw;
 	return nullptr;

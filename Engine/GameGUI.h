@@ -25,4 +25,3 @@ private:
 
 	bool									mCentreButtonClicked;
 };
-
