@@ -23,7 +23,6 @@ public:
 
 private:
 	void CreateLevel();
-	void CheckLevelOver();
 
 	void DrawLevel();
 	void UpdateLevel();
@@ -31,6 +30,4 @@ private:
 	FrameTimer							mFrameTimer;
 
 	shared_ptr<GameLevel>				mGameLevel;
-
-	GameState							mGameState;
 };

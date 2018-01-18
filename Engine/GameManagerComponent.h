@@ -10,6 +10,8 @@
 #include "TriggerBoxComponent.h"
 #include "DamageableComponent.h"
 
+#include "Audio.h"
+
 class GameManagerComponent : public IComponent, public IUpdateable
 {
 public:

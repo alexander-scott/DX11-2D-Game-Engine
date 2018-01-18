@@ -18,6 +18,7 @@ void GameManagerComponent::Update(float deltaTime)
 		{
 			throw;
 		}
+
 		return;
 	}
 
@@ -26,7 +27,7 @@ void GameManagerComponent::Update(float deltaTime)
 		mCentreButton->SetActive(true);
 
 		mCentreButtonText->SetActive(true);
-		mCentreButtonText->SetText("PROGRESS");
+		mCentreButtonText->SetText("RESTART");
 
 		mCentreButtonSprite->SetActive(true);
 		mWaitingOnInput = true;
@@ -40,5 +41,7 @@ void GameManagerComponent::Update(float deltaTime)
 
 		mCentreButtonSprite->SetActive(true);
 		mWaitingOnInput = true;
+
+		Audio::Instance().PlaySoundEffect("Win");
 	}
 }
