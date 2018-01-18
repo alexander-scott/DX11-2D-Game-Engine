@@ -8,7 +8,7 @@
 class GameCameraComponent : public IComponent, public IUpdateable
 {
 public:
-	GameCameraComponent(TransformComponent* trans, TransformComponent* fTrans);
+	GameCameraComponent(TransformComponent* trans, TransformComponent* fTrans, float fWidth, float fHeight);
 	~GameCameraComponent();
 
 	void SetLevelBounds(float leftBound, float rightBound, float botBound, float topBound) { mLevelLeftBound = leftBound; mLevelRightBound = rightBound; mLevelBottomBound = botBound; mLevelTopBound = topBound; }
@@ -18,6 +18,9 @@ public:
 private:
 	TransformComponent *	mTransform;
 	TransformComponent *	mFocusTrans;
+
+	float					mFocusWidth;
+	float					mFocusHeight;
 
 	float					mLevelLeftBound;
 	float					mLevelRightBound;

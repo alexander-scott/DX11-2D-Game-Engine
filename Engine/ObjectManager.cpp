@@ -54,7 +54,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 	if (string(node->first_attribute("type")->value()) == "TransformComponent")
 	{
 		float xPos = (float)atof(node->first_attribute("xpos")->value());
-		float yPos = (float)atof(node->first_attribute("ypos")->value());
+		float yPos = -(float)atof(node->first_attribute("ypos")->value());
 		float rot = (float)atof(node->first_attribute("rotation")->value());
 		float scale = (float)atof(node->first_attribute("scale")->value());
 
@@ -379,7 +379,11 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		float bottomBound = (float)atof(node->first_attribute("bottomBound")->value());
 		float topBound = (float)atof(node->first_attribute("topBound")->value());
 
-		return ComponentFactory::MakeGameCameraComponent(Camera::Instance().GetComponent<TransformComponent>(), trans, leftBound, rightBound, topBound, bottomBound);
+		float focusHeight = (float)atof(node->first_attribute("focusHeight")->value());
+		float focusWidth = (float)atof(node->first_attribute("focusWidth")->value());
+
+		return ComponentFactory::MakeGameCameraComponent(Camera::Instance().GetComponent<TransformComponent>(), trans,
+			focusWidth, focusHeight, leftBound, rightBound, topBound, bottomBound);
 	}
 
 	throw;
