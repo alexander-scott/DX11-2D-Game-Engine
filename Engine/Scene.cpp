@@ -1,11 +1,11 @@
-#include "GameLevel.h"
+#include "Scene.h"
 
-GameLevel::GameLevel(float startScore) : mScore(startScore)
+Scene::Scene()
 {
-	mLevelState = LevelState::ePlaying;
+
 }
 
-GameLevel::~GameLevel()
+Scene::~Scene()
 {
 	for (auto go : mGameObjects)
 	{
@@ -16,7 +16,7 @@ GameLevel::~GameLevel()
 	}
 }
 
-void GameLevel::CacheComponents(shared_ptr<GameObject> gameObj)
+void Scene::CacheComponents(shared_ptr<GameObject> gameObj)
 {
 	mGameObjects.push_back(gameObj);
 
@@ -68,7 +68,7 @@ void GameLevel::CacheComponents(shared_ptr<GameObject> gameObj)
 	}
 }
 
-void GameLevel::ConstructLevel(LevelData levelData)
+void Scene::SetupPhysics(LevelData levelData)
 {
 	mLevelData = levelData;
 
@@ -81,53 +81,10 @@ void GameLevel::ConstructLevel(LevelData levelData)
 	mPhysicsManager.BuildObjectGrid(width, height);
 }
 
-void GameLevel::ConstructionComplete()
-{
-	RegisterFinishFlag();
-}
-
-void GameLevel::RegisterFinishFlag()
-{
-	auto finishFlagGO = FindGameObject("FinishFlag");
-	if (finishFlagGO == nullptr)
-	{
-		throw exception("No finish flag created in XML level!!!");
-	}
-	mFinishFlagTrigger = finishFlagGO->GetComponent<TriggerBoxComponent>();
-}
-
-void GameLevel::Update(float deltaTime)
+void Scene::Update(float deltaTime)
 {
 	// Update object rigid bodies
 	mPhysicsManager.Update(deltaTime);
-
-	if (mLevelState != LevelState::ePlaying)
-	{
-		return;
-	}
-
-	// Check all objects that can be damaged to see if they are dead or not. Do something additional if the object that died is special or not
-	//for (auto& dGo : mDamageableGameObjects)
-	//{
-	//	// First is GameObject* and second is DamagableComponent*
-	//	if (dGo.first->GetActive() && dGo.second->IsDead())
-	//	{
-	//		dGo.first->SetActive(false);
-
-	//		if (dGo.first->GetTag() == "Player")
-	//		{
-	//			// Player died
-	//			mLevelState = LevelState::eDead;
-	//			Audio::Instance().PlaySoundEffect("Gameover");
-	//		}
-	//		else if (dGo.first->GetTag() == "Enemy")
-	//		{
-	//			// Increase score
-	//			Audio::Instance().PlaySoundEffect("Death");
-	//			mScore++;
-	//		}
-	//	}
-	//}
 
 	// Update gameobjects
 	for (auto& go : mGameObjects)
@@ -135,16 +92,9 @@ void GameLevel::Update(float deltaTime)
 		go->Update(deltaTime);
 	}
 
-	// Check gameover
-	/*if (mFinishFlagTrigger->GetTriggeredReference())
-	{
-		mLevelState = LevelState::eWon;
-		Audio::Instance().PlaySoundEffect("Win");
-		mScore += 10;
-	}*/
 }
 
-void GameLevel::Draw()
+void Scene::Draw()
 {
 	// Draw gameobjects in the render order
 	for (auto& go : mRenderLayer0)
@@ -166,15 +116,4 @@ void GameLevel::Draw()
 	{
 		go->Draw(&Camera::Instance());
 	}
-}
-
-shared_ptr<GameObject> GameLevel::FindGameObject(string tag)
-{
-	for (auto& go : mGameObjects)
-	{
-		if (go->GetTag() == tag)
-			return go;
-	}
-
-	return nullptr;
 }

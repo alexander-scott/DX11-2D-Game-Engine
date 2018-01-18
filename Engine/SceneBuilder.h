@@ -1,17 +1,17 @@
 #pragma once
 
-#include "GameLevel.h"
+#include "Scene.h"
 
 #include "rapidxml.hpp"
 
 using namespace rapidxml;
 using namespace std;
 
-namespace LevelBuilder
+namespace SceneBuilder
 {
 	void InitaliseGameplayValues(string fileName);
 
-	shared_ptr<GameLevel> BuildGameLevel(string fileName, float startScore);
+	shared_ptr<Scene> BuildScene(string fileName);
 
 	inline LevelData ExtractLevelData(xml_node<>* node);
 }

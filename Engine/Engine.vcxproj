@@ -266,7 +266,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameCameraComponent.h" />
     <ClInclude Include="GameComponentFactory.h" />
-    <ClInclude Include="GameLevel.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="GameManagerComponent.h" />
     <ClInclude Include="GUIButtonComponent.h" />
     <ClInclude Include="GUISpriteRendererComponent.h" />
@@ -280,7 +280,7 @@
     <ClInclude Include="IGraphics.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="EditorInterface.h" />
-    <ClInclude Include="LevelBuilder.h" />
+    <ClInclude Include="SceneBuilder.h" />
     <ClInclude Include="ObjectGrid.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="PhysicsManager.h" />
@@ -332,7 +332,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameCameraComponent.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
-    <ClCompile Include="GameLevel.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GameManagerComponent.cpp" />
     <ClCompile Include="GUIButtonComponent.cpp" />
@@ -341,7 +341,7 @@
     <ClCompile Include="GUITextDamageComponent.cpp" />
     <ClCompile Include="GUITextValueComponent.cpp" />
     <ClCompile Include="EditorInterface.cpp" />
-    <ClCompile Include="LevelBuilder.cpp" />
+    <ClCompile Include="SceneBuilder.cpp" />
     <ClCompile Include="ObjectGrid.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />

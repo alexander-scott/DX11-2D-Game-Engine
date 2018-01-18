@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GameLevel.h"
-#include "LevelBuilder.h"
+#include "Scene.h"
+#include "SceneBuilder.h"
 
 class SceneManager
 {
@@ -21,6 +21,6 @@ public:
 	}
 
 private:
-	shared_ptr<GameLevel>			mGameLevel;
+	shared_ptr<Scene>			mGameLevel;
 };
 

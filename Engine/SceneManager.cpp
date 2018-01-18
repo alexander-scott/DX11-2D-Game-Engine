@@ -17,7 +17,7 @@ void SceneManager::LoadScene(std::string sceneName)
 	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\Scene.xml";
 	string levelPath = stream.str();
 
-	mGameLevel = LevelBuilder::BuildGameLevel(levelPath, ScenePersistentValues::Instance().GetValue<float>("TotalScore"));
+	mGameLevel = SceneBuilder::BuildScene(levelPath);
 }
 
 void SceneManager::Update(float deltaTime)

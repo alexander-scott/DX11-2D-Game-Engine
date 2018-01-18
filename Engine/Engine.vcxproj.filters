@@ -47,12 +47,6 @@
     <Filter Include="Engine\GameObject\Components\Component Types\Rendering">
       <UniqueIdentifier>{9a6c9345-6d65-45d3-9109-c577978258c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Level Loading">
-      <UniqueIdentifier>{937c628e-0e66-47af-b903-62e7d33e8570}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Level Loading\XML Reader">
-      <UniqueIdentifier>{c5f6b9d8-c478-4984-ad19-a126a89534ad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Graphics\APIs">
       <UniqueIdentifier>{d13b61ca-a214-4435-b9c7-cd543c5c937e}</UniqueIdentifier>
     </Filter>
@@ -85,6 +79,12 @@
     </Filter>
     <Filter Include="Game\GameComponents\GameManager">
       <UniqueIdentifier>{8d6891b5-e972-4903-b291-321e241e705b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene Management">
+      <UniqueIdentifier>{937c628e-0e66-47af-b903-62e7d33e8570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene Management\XML Reader">
+      <UniqueIdentifier>{c5f6b9d8-c478-4984-ad19-a126a89534ad}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +176,7 @@
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
     <ClInclude Include="rapidxml.hpp">
-      <Filter>Engine\Level Loading\XML Reader</Filter>
+      <Filter>Engine\Scene Management\XML Reader</Filter>
     </ClInclude>
     <ClInclude Include="IGraphics.h">
       <Filter>Engine\Graphics</Filter>
@@ -212,10 +212,7 @@
       <Filter>Game\GameComponents\AI</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>Engine\Level Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLevel.h">
-      <Filter>Game</Filter>
+      <Filter>Engine\Scene Management</Filter>
     </ClInclude>
     <ClInclude Include="ProjectileManagerComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
@@ -224,10 +221,7 @@
       <Filter>Game\GameComponents\Player</Filter>
     </ClInclude>
     <ClInclude Include="rapidxml_print.hpp">
-      <Filter>Engine\Level Loading\XML Reader</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelBuilder.h">
-      <Filter>Engine\Level Loading</Filter>
+      <Filter>Engine\Scene Management\XML Reader</Filter>
     </ClInclude>
     <ClInclude Include="GUITextComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
@@ -263,7 +257,7 @@
       <Filter>Engine\Core</Filter>
     </ClInclude>
     <ClInclude Include="ScenePersistentValues.h">
-      <Filter>Engine\Level Loading</Filter>
+      <Filter>Engine\Scene Management</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Engine\Graphics</Filter>
@@ -277,7 +271,15 @@
     <ClInclude Include="GameManagerComponent.h">
       <Filter>Game\GameComponents\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scene.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBuilder.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -356,19 +358,13 @@
       <Filter>Game\GameComponents\AI</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>Engine\Level Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="GameLevel.cpp">
-      <Filter>Game</Filter>
+      <Filter>Engine\Scene Management</Filter>
     </ClCompile>
     <ClCompile Include="ProjectileManagerComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="PlayerComponent.cpp">
       <Filter>Game\GameComponents\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelBuilder.cpp">
-      <Filter>Engine\Level Loading</Filter>
     </ClCompile>
     <ClCompile Include="GUITextComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
@@ -412,7 +408,15 @@
     <ClCompile Include="GameManagerComponent.cpp">
       <Filter>Game\GameComponents\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scene.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBuilder.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

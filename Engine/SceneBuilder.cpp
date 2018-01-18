@@ -1,6 +1,6 @@
-#include "LevelBuilder.h"
+#include "SceneBuilder.h"
 
-void LevelBuilder::InitaliseGameplayValues(string fileName)
+void SceneBuilder::InitaliseGameplayValues(string fileName)
 {
 	//Loads a level from xml file
 	//Load the file
@@ -39,13 +39,13 @@ void LevelBuilder::InitaliseGameplayValues(string fileName)
 	AI_LATERAL_MAX_SPEED = (float)atof(valuesNode->first_node("AILateralMaxSpeed")->first_attribute("val")->value());
 }
 
-shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startScore)
+shared_ptr<Scene> SceneBuilder::BuildScene(string fileName)
 {
 	//Load the file
 	ifstream inFile(fileName);
 
 	if (!inFile)
-		throw "Could not load level: " + fileName;
+		throw "Could not load scene: " + fileName;
 
 	//Dump contents of file into a string
 	string xmlContents;
@@ -68,11 +68,11 @@ shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startS
 	//Get the root node
 	xml_node<>* root = doc.first_node();
 
-	auto gameLevel = make_shared<GameLevel>(startScore);
+	auto scene = make_shared<Scene>();
 	ObjectManager objectManager = ObjectManager();
 	LevelData levelData = ExtractLevelData(root);
 
-	gameLevel->ConstructLevel(levelData);
+	scene->SetupPhysics(levelData);
 
 	xml_node<>* gameObjectNode = root->first_node("GameObject");
 
@@ -83,17 +83,15 @@ shared_ptr<GameLevel> LevelBuilder::BuildGameLevel(string fileName, float startS
 		auto gameObject = objectManager.CreateObject(gameObjectNode);
 
 		// Cache it's components so they can be used regularly without having to refetch them 
-		gameLevel->CacheComponents(gameObject);
+		scene->CacheComponents(gameObject);
 
 		gameObjectNode = gameObjectNode->next_sibling("GameObject");
 	}
 
-	gameLevel->ConstructionComplete();
-
-	return gameLevel;
+	return scene;
 }
 
-LevelData LevelBuilder::ExtractLevelData(xml_node<>* node)
+LevelData SceneBuilder::ExtractLevelData(xml_node<>* node)
 {
 	LevelData levelData;
 	levelData.levelLeftBounds = (float)atof(node->first_attribute("leftBound")->value());
