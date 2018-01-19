@@ -6,31 +6,32 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
+	mScene = nullptr;
 }
 
 void SceneManager::LoadScene(std::string sceneName)
 {
-	mGameLevel = nullptr;
+	mScene = nullptr;
 
 	stringstream stream;
 	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\" + sceneName + ".xml";
-	string levelPath = stream.str();
+	string scenePath = stream.str();
 
-	mGameLevel = SceneBuilder::BuildScene(levelPath);
+	mScene = SceneBuilder::BuildScene(scenePath);
 }
 
 void SceneManager::Update(float deltaTime)
 {
-	if (mGameLevel == nullptr)
+	if (mScene == nullptr)
 		return;
 
-	mGameLevel->Update(deltaTime);
+	mScene->Update(deltaTime);
 }
 
 void SceneManager::Draw()
 {
-	if (mGameLevel == nullptr)
+	if (mScene == nullptr)
 		return;
 
-	mGameLevel->Draw();
+	mScene->Draw();
 }

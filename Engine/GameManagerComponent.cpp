@@ -16,13 +16,15 @@ void GameManagerComponent::Update(float deltaTime)
 	{
 		if (mCentreButton->Clicked())
 		{
-			float currenLevel = ScenePersistentValues::Instance().GetValue<float>("CurrentLevel");
-			currenLevel++;
-			ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(currenLevel));
+			// Increment and save current level
+			float currentLevel = ScenePersistentValues::Instance().GetValue<float>("CurrentLevel");
+			currentLevel++;
+			ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(currentLevel));
 
+			// Load the next level
 			stringstream stream;
-			stream << "Scene" << currenLevel;
-			ISceneManager::Instance().LoadScene(stream.str());
+			stream << "Scene" << currentLevel;
+			SceneManagement::Instance().LoadScene(stream.str());
 		}
 
 		return;

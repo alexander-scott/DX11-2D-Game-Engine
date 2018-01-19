@@ -42,10 +42,10 @@ void Engine::UpdateScene()
 
 	Camera::Instance().Update(deltaTime);
 
-	if (ISceneManager::Instance().LoadNewScene)
+	if (SceneManagement::Instance().LoadNewScene)
 	{
-		ISceneManager::Instance().LoadNewScene = false;
-		mSceneManager.LoadScene(ISceneManager::Instance().NewSceneName);
+		SceneManagement::Instance().LoadNewScene = false;
+		mSceneManager.LoadScene(SceneManagement::Instance().NewSceneName);
 	}
 
 	mSceneManager.Update(deltaTime);

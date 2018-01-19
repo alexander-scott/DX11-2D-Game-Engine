@@ -14,7 +14,7 @@
 
 #include "Audio.h"
 #include "ScenePersistentValues.h"
-#include "ISceneManager.h"
+#include "SceneManagement.h"
 
 class GameManagerComponent : public IComponent, public IUpdateable
 {

@@ -2,21 +2,18 @@
 
 #include <string>
 
-class ISceneManager
+class SceneManagement
 {
 public:
-	ISceneManager();
-	~ISceneManager();
-
 	void LoadScene(std::string sceneName)
 	{
 		NewSceneName = sceneName;
 		LoadNewScene = true;
 	}
 
-	static ISceneManager& Instance()
+	static SceneManagement& Instance()
 	{
-		static ISceneManager Instance;
+		static SceneManagement Instance;
 		return Instance;
 	}
 

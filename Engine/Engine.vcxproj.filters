@@ -277,7 +277,9 @@
     <ClInclude Include="GameComponentFactory.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="ISceneManager.h" />
+    <ClInclude Include="SceneManagement.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -415,7 +417,6 @@
     <ClCompile Include="GameComponentFactory.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

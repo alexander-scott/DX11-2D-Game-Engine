@@ -15,6 +15,6 @@ public:
 	void Draw();
 
 private:
-	shared_ptr<Scene>			mGameLevel;
+	shared_ptr<Scene>			mScene;
 };
 
