@@ -6,18 +6,20 @@
 class GUITextComponent : public IComponent, public IDrawable
 {
 public:
-	GUITextComponent();
+	GUITextComponent(int renderLayer);
 	~GUITextComponent();
 
 	void SetText(std::string text) { mText = text; }
-	void SetTextColour(XMVECTORF32 colour) { mTextColour = colour; }
+	void SetTextColour(float r, float g, float b) { mColourR = r; mColourG = g; mColourB = b; }
 	void SetOffset(Vec2 offset) { mOffset = offset; }
 
 	virtual void Draw(ICamera* cam) override;
 
 protected:
 	std::string			mText;
-	XMVECTORF32			mTextColour;
+	float				mColourR;
+	float				mColourG;
+	float				mColourB;
 	Vec2				mOffset;
 };
 

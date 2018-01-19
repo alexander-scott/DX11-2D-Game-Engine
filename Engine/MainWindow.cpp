@@ -2,7 +2,7 @@
 #include "Resource.h"
 #include "IGraphics.h"
 #include "CustomException.h"
-#include "Game.h"
+#include "Engine.h"
 #include <assert.h>
 
 MainWindow::MainWindow(HINSTANCE hInst, wchar_t * pArgs, int width, int height)

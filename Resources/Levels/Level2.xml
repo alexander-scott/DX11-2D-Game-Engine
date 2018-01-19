@@ -14,6 +14,9 @@ X postive is right. Y postive is up.
   <!-- - AI <!- -->
   <GameObject instanceid="1" prefabid="7" update="tilepos" val1="20" val2="3" renderLayer="2"></GameObject>
 
+  <!-- - Camera <!- -->
+  <GameObject instanceid="2" prefabid="9" update="camerabounds" renderLayer="-1"></GameObject>
+
   <!-- - Background <!- -->
   
   <GameObject instanceid="-1" prefabid="2" update="null" renderLayer="0"></GameObject>

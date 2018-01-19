@@ -5,7 +5,7 @@
 
 #include "GameObject.h"
 #include "GameComponentFactory.h"
-#include "GameCamera.h"
+#include "Camera.h"
 
 #include "Consts.h"
 
@@ -19,13 +19,14 @@ class ObjectManager
 public:
 	ObjectManager();
 
-	shared_ptr<GameObject> CreateObject(int instanceID, int prefabID);
+	shared_ptr<GameObject> CreateObject(xml_node<>* node);
 	shared_ptr<GameObject> GetCreatedObject(int instanceID);
 
 private:
 	IComponent* CreateComponent(shared_ptr<GameObject> go, xml_node<>* node);
+	
+	int GenerateNewID();
 
 	map<int, shared_ptr<GameObject>>		mGameObjects;
-	string									mfileName = "\\Levels\\Prefabs.xml";
 };
 

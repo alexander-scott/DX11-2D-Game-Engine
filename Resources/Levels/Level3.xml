@@ -10,6 +10,9 @@ X postive is right. Y postive is up.
 
   <!-- - Finish Flag <!- -->
   <GameObject instanceid="1" prefabid="8" update="tilepos" val1="35" val2="1" renderLayer="2"></GameObject>
+
+  <!-- - Camera <!- -->
+  <GameObject instanceid="2" prefabid="9" update="camerabounds" renderLayer="-1"></GameObject>
   
   <!-- - Background <!- -->
   

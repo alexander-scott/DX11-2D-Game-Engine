@@ -28,7 +28,7 @@ private:
 	void UpdateObjectInGrid(ColliderComponent* collider, int colliderIndex);
 	void GetIntersectingCells(std::set<int>& intersectingCells, ColliderComponent* collider);
 
-	ObjectGrid*								mObjectGrid;
+	ObjectGrid*							mObjectGrid;
 
 	vector<shared_ptr<GameObject>>		mGameObjects;
 	vector<ColliderComponent*>			mColliders;

@@ -1,11 +1,10 @@
 #include "TiledBGRenderer.h"
 
-
-
-TiledBGRenderer::TiledBGRenderer()
+TiledBGRenderer::TiledBGRenderer(int renderLayer)
 {
+	RenderLayer = renderLayer;
+	mType = "Tiled BG Renderer";
 }
-
 
 TiledBGRenderer::~TiledBGRenderer()
 {

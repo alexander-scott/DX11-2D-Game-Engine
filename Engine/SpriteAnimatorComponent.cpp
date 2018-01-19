@@ -1,8 +1,9 @@
 #include "SpriteAnimatorComponent.h"
 
 
-SpriteAnimatorComponent::SpriteAnimatorComponent()
+SpriteAnimatorComponent::SpriteAnimatorComponent(int renderLayer)
 {
+	RenderLayer = renderLayer;
 	mType = "Sprite Animator";
 }
 

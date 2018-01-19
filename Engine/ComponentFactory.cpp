@@ -8,9 +8,9 @@ TransformComponent * ComponentFactory::MakeTransform(Vec2 position, float rotati
 	return transform;
 }
 
-SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileName, TransformComponent* transform, float width, float height, Vec2 offset)
+SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileName, int renderLayer, TransformComponent* transform, float width, float height, Vec2 offset)
 {
-	SpriteRendererComponent * spriteRenderer = new SpriteRendererComponent();
+	SpriteRendererComponent * spriteRenderer = new SpriteRendererComponent(renderLayer);
 	spriteRenderer->SetFilename(fileName);
 	if (transform == nullptr)
 	{
@@ -23,9 +23,9 @@ SpriteRendererComponent * ComponentFactory::MakeSpriteRenderer(std::string fileN
 	return spriteRenderer;
 }
 
-SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, TransformComponent * transform, float width, float height, std::vector<AnimationDesc> animDescs, int currentAnim)
+SpriteAnimatorComponent * ComponentFactory::MakeSpriteAnimator(std::string fileName, int renderLayer, TransformComponent * transform, float width, float height, std::vector<AnimationDesc> animDescs, int currentAnim)
 {
-	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent();
+	SpriteAnimatorComponent * spriteAnimator = new SpriteAnimatorComponent(renderLayer);
 	spriteAnimator->SetFilename(fileName);
 	if (transform == nullptr)
 	{
@@ -119,25 +119,25 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float width, float heig
 	return boxCollider;
 }
 
-GUITextComponent * ComponentFactory::MakeGUIText(std::string text, XMVECTORF32 colour, TransformComponent * transform, Vec2 offset)
+GUITextComponent * ComponentFactory::MakeGUIText(std::string text, int renderLayer, float r, float g, float b, TransformComponent* transform, Vec2 offset)
 {
 	if (transform == nullptr)
 	{
 		throw std::exception("This object requires a transform component.");
 	}
 
-	GUITextComponent* guiText = new GUITextComponent();
+	GUITextComponent* guiText = new GUITextComponent(renderLayer);
 	guiText->SetText(text);
 	guiText->SetTransform(transform);
-	guiText->SetTextColour(colour);
+	guiText->SetTextColour(r, g, b);
 	guiText->SetOffset(offset);
 
 	return guiText;
 }
 
-GUISpriteRendererComponent * ComponentFactory::MakeGUISpriteRenderer(std::string fileName, TransformComponent * transform, float width, float height, Vec2 offset)
+GUISpriteRendererComponent * ComponentFactory::MakeGUISpriteRenderer(std::string fileName, int renderLayer, TransformComponent * transform, float width, float height, Vec2 offset)
 {
-	GUISpriteRendererComponent * spriteRenderer = new GUISpriteRendererComponent();
+	GUISpriteRendererComponent * spriteRenderer = new GUISpriteRendererComponent(renderLayer);
 	spriteRenderer->SetFilename(fileName);
 	if (transform == nullptr)
 	{
@@ -178,7 +178,7 @@ ColliderRendererComponent * ComponentFactory::MakeColliderRenderer(TransformComp
 	return colliderRenderer;
 }
 
-TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, float spriteWidth, float spriteHeight, float moveRate, TiledBGDirection direction, TransformComponent * trans, TransformComponent * focusTrans)
+TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, int renderLayer, float spriteWidth, float spriteHeight, float moveRate, TiledBGDirection direction, TransformComponent * trans, TransformComponent * focusTrans)
 {
 	if (trans == nullptr)
 	{
@@ -189,7 +189,7 @@ TiledBGRenderer * ComponentFactory::MakeTiledBGRenderer(std::string spriteName, 
 		throw std::exception("This object requires a focus transform component");
 	}
 
-	TiledBGRenderer * bgRenderer = new TiledBGRenderer();
+	TiledBGRenderer * bgRenderer = new TiledBGRenderer(renderLayer);
 	bgRenderer->SetTransform(trans);
 	bgRenderer->SetFocusTrans(focusTrans);
 	bgRenderer->SetScrollRate(moveRate);

@@ -7,9 +7,11 @@
 class ICamera
 {
 public:
-	virtual void Initalise(class MainWindow& wnd)
+	void Initalise(class MainWindow& wnd, IGraphics* graphics)
 	{
-		gfx->Initalise(wnd); // Decide on Graphics API in child constructor
+		gfx = graphics;
+
+		gfx->Initalise(wnd);
 		gfx->PreloadTextures();
 	}
 

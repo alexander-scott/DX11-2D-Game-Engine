@@ -11,12 +11,6 @@
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{646d6cfc-a2e7-4319-b0c1-5a887269c2d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics">
-      <UniqueIdentifier>{cd665465-c26d-4e78-8eeb-0a54368426aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Shaders">
-      <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{d208ffd9-440e-4c27-b94c-ad86bc5623a3}</UniqueIdentifier>
     </Filter>
@@ -47,35 +41,50 @@
     <Filter Include="Engine\GameObject\Components\Component Types\Rendering">
       <UniqueIdentifier>{9a6c9345-6d65-45d3-9109-c577978258c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Level Loading">
-      <UniqueIdentifier>{937c628e-0e66-47af-b903-62e7d33e8570}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Level Loading\XML Reader">
-      <UniqueIdentifier>{c5f6b9d8-c478-4984-ad19-a126a89534ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\APIs">
-      <UniqueIdentifier>{d13b61ca-a214-4435-b9c7-cd543c5c937e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameComponents">
-      <UniqueIdentifier>{8557f249-179d-44db-a7e4-ccddc55ff553}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\I/O">
       <UniqueIdentifier>{76caa40f-803c-4ae9-ad3b-20ffe0354232}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\GameObject\Components\Component Types\GamePlay">
       <UniqueIdentifier>{79328e8d-1c3e-4ddc-af06-e8fec9ff7352}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameComponents\AI">
-      <UniqueIdentifier>{e8da296a-0824-449e-a931-ec8c62ec73d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameComponents\Player">
-      <UniqueIdentifier>{a78523be-8359-4ae6-9904-a96ef32304c3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Components\Component Types\GUI">
       <UniqueIdentifier>{8164b0fb-d61a-4e3a-b1c9-d45047bb6ec6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameComponents\GUI">
+    <Filter Include="Engine\Scene Management">
+      <UniqueIdentifier>{937c628e-0e66-47af-b903-62e7d33e8570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene Management\XML Reader">
+      <UniqueIdentifier>{c5f6b9d8-c478-4984-ad19-a126a89534ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI">
+      <UniqueIdentifier>{e8da296a-0824-449e-a931-ec8c62ec73d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GUI">
       <UniqueIdentifier>{f4e0a0a5-3fe3-4932-bf40-2a97f37b1f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{d3b15e8e-7926-4f9b-ac6b-cdcd9eae93c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameManager">
+      <UniqueIdentifier>{8d6891b5-e972-4903-b291-321e241e705b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{a78523be-8359-4ae6-9904-a96ef32304c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Editor">
+      <UniqueIdentifier>{e7a41ae5-6826-4a64-8335-3c7dea325ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics">
+      <UniqueIdentifier>{cd665465-c26d-4e78-8eeb-0a54368426aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Shaders">
+      <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\APIs">
+      <UniqueIdentifier>{d13b61ca-a214-4435-b9c7-cd543c5c937e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Camera">
+      <UniqueIdentifier>{140fe525-0369-4ed3-b9da-a89b4b587a51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,9 +111,6 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Engine\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="COMInitializer.h">
       <Filter>Engine\Core</Filter>
@@ -170,19 +176,13 @@
       <Filter>Engine\GameObject\Components\Messages</Filter>
     </ClInclude>
     <ClInclude Include="rapidxml.hpp">
-      <Filter>Engine\Level Loading\XML Reader</Filter>
+      <Filter>Engine\Scene Management\XML Reader</Filter>
     </ClInclude>
     <ClInclude Include="IGraphics.h">
       <Filter>Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="DX11Graphics.h">
       <Filter>Engine\Graphics\APIs</Filter>
-    </ClInclude>
-    <ClInclude Include="ICamera.h">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GameCamera.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="TiledBGRenderer.h">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
@@ -206,31 +206,25 @@
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="AIAgentComponent.h">
-      <Filter>Game\GameComponents\AI</Filter>
+      <Filter>Game\AI</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>Engine\Level Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLevel.h">
-      <Filter>Game</Filter>
+      <Filter>Engine\Scene Management</Filter>
     </ClInclude>
     <ClInclude Include="ProjectileManagerComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="PlayerComponent.h">
-      <Filter>Game\GameComponents\Player</Filter>
+      <Filter>Game\Player</Filter>
     </ClInclude>
     <ClInclude Include="rapidxml_print.hpp">
-      <Filter>Engine\Level Loading\XML Reader</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelBuilder.h">
-      <Filter>Engine\Level Loading</Filter>
+      <Filter>Engine\Scene Management\XML Reader</Filter>
     </ClInclude>
     <ClInclude Include="GUITextComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClInclude>
     <ClInclude Include="GUITextValueComponent.h">
-      <Filter>Game\GameComponents\GUI</Filter>
+      <Filter>Game\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Engine\Core</Filter>
@@ -244,20 +238,50 @@
     <ClInclude Include="GUIButtonComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GameGUI.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="GUISpriteRendererComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClInclude>
     <ClInclude Include="DamageableComponent.h">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponentFactory.h">
-      <Filter>Game\GameComponents</Filter>
+    <ClInclude Include="EditorInterface.h">
+      <Filter>Engine\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="GameStartScreen.h">
+    <ClInclude Include="Engine.h">
+      <Filter>Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePersistentValues.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCameraComponent.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GUITextDamageComponent.h">
+      <Filter>Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManagerComponent.h">
+      <Filter>Game\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBuilder.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponentFactory.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManagement.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorHiererachy.h">
+      <Filter>Engine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ICamera.h">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,9 +299,6 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="COMInitializer.cpp">
       <Filter>Engine\Core</Filter>
@@ -321,9 +342,6 @@
     <ClCompile Include="DX11Graphics.cpp">
       <Filter>Engine\Graphics\APIs</Filter>
     </ClCompile>
-    <ClCompile Include="GameCamera.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="TiledBGRenderer.cpp">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClCompile>
@@ -340,28 +358,22 @@
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="AIAgentComponent.cpp">
-      <Filter>Game\GameComponents\AI</Filter>
+      <Filter>Game\AI</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>Engine\Level Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="GameLevel.cpp">
-      <Filter>Game</Filter>
+      <Filter>Engine\Scene Management</Filter>
     </ClCompile>
     <ClCompile Include="ProjectileManagerComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Game\GameComponents\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelBuilder.cpp">
-      <Filter>Engine\Level Loading</Filter>
+      <Filter>Game\Player</Filter>
     </ClCompile>
     <ClCompile Include="GUITextComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUITextValueComponent.cpp">
-      <Filter>Game\GameComponents\GUI</Filter>
+      <Filter>Game\GUI</Filter>
     </ClCompile>
     <ClCompile Include="ObjectGrid.cpp">
       <Filter>Engine\Physics</Filter>
@@ -372,20 +384,41 @@
     <ClCompile Include="GUIButtonComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GameGUI.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="GUISpriteRendererComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GUI</Filter>
     </ClCompile>
     <ClCompile Include="DamageableComponent.cpp">
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
-    <ClCompile Include="GameComponentFactory.cpp">
-      <Filter>Game\GameComponents</Filter>
+    <ClCompile Include="EditorInterface.cpp">
+      <Filter>Engine\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="GameStartScreen.cpp">
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCameraComponent.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITextDamageComponent.cpp">
+      <Filter>Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManagerComponent.cpp">
+      <Filter>Game\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBuilder.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponentFactory.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorHiererachy.cpp">
+      <Filter>Engine\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

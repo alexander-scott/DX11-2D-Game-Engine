@@ -1,12 +1,10 @@
 #include "SpriteRendererComponent.h"
 
-
-
-SpriteRendererComponent::SpriteRendererComponent()
+SpriteRendererComponent::SpriteRendererComponent(int renderLayer)
 {
+	RenderLayer = renderLayer;
 	mType = "SpriteRenderer";
 }
-
 
 SpriteRendererComponent::~SpriteRendererComponent()
 {

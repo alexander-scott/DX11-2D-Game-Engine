@@ -88,17 +88,60 @@ AIAgentComponent * ComponentFactory::MakeAIAgentComponent(TransformComponent * t
 	return agentComponent;
 }
 
-GUITextValueComponent * ComponentFactory::MakeGUITextValueComponent(std::string text, XMVECTORF32 colour, TransformComponent * transform, float& watchedValue)
+GUITextValueComponent * ComponentFactory::MakeGUITextValueComponent(std::string valueName, int renderLayer, std::string text, 
+	float r, float g, float b, TransformComponent* transform, Vec2 offset)
 {
 	if (transform == nullptr)
 	{
 		throw std::exception("This object requires a transform component.");
 	}
 
-	GUITextValueComponent* guiText = new GUITextValueComponent(watchedValue);
+	GUITextValueComponent* guiText = new GUITextValueComponent(valueName, renderLayer);
 	guiText->SetText(text);
 	guiText->SetTransform(transform);
-	guiText->SetTextColour(colour);
+	guiText->SetTextColour(r, g, b);
+	guiText->SetOffset(offset);
 
 	return guiText;
+}
+
+GUITextDamageComponent * ComponentFactory::MakeGUITextDamageComponent(DamageableComponent* dmg, int renderLayer, std::string text, float r, float g, float b, TransformComponent* transform, Vec2 offset)
+{
+	if (transform == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+
+	GUITextDamageComponent* guiText = new GUITextDamageComponent(dmg, renderLayer);
+	guiText->SetText(text);
+	guiText->SetTransform(transform);
+	guiText->SetTextColour(r, g, b);
+	guiText->SetOffset(offset);
+
+	return guiText;
+}
+
+GameCameraComponent * ComponentFactory::MakeGameCameraComponent(TransformComponent* trans, TransformComponent* focusTrans, 
+	float focusWidth, float focusHeight, float leftBound, float rightBound, float topBound, float bottomBound)
+{
+	if (focusTrans == nullptr)
+	{
+		throw std::exception("This object requires a transform component.");
+	}
+
+	GameCameraComponent* camera = new GameCameraComponent(trans, focusTrans, focusWidth, focusHeight);
+	camera->SetLevelBounds(leftBound, rightBound, bottomBound, topBound);
+	return camera;
+}
+
+GameManagerComponent * ComponentFactory::MakeGameManagerComponent(GUIButtonComponent* centreButton, GUITextComponent* centreButtonText, GUISpriteRendererComponent* centreButtonSprite, 
+	TriggerBoxComponent* finishTriggerBox, DamageableComponent* playerDamage)
+{
+	if (centreButton == nullptr || centreButtonText == nullptr || centreButtonSprite == nullptr || finishTriggerBox == nullptr || playerDamage == nullptr)
+	{
+		throw std::exception("This object is missing a component");
+	}
+
+	GameManagerComponent* gameManager = new GameManagerComponent(centreButton, centreButtonText, centreButtonSprite, finishTriggerBox, playerDamage);
+	return gameManager;
 }

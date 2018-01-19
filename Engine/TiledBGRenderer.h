@@ -10,7 +10,7 @@
 class TiledBGRenderer : public IComponent, public IDrawable, public IUpdateable
 {
 public:
-	TiledBGRenderer();
+	TiledBGRenderer(int renderLayer);
 	~TiledBGRenderer();
 
 	virtual void Draw(ICamera* cam) override;

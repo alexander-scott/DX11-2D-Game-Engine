@@ -6,7 +6,7 @@
 class SpriteRendererComponent : public IComponent, public IDrawable
 {
 public:
-	SpriteRendererComponent();
+	SpriteRendererComponent(int renderLayer);
 	~SpriteRendererComponent();
 
 	void SetFilename(std::string fileName) { mSpriteFileName = fileName; }
