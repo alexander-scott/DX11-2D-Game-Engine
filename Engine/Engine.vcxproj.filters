@@ -59,9 +59,6 @@
     <Filter Include="Engine\GameObject\Components\Component Types\GUI">
       <UniqueIdentifier>{8164b0fb-d61a-4e3a-b1c9-d45047bb6ec6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\EditorInterface">
-      <UniqueIdentifier>{e7a41ae5-6826-4a64-8335-3c7dea325ddb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scene Management">
       <UniqueIdentifier>{937c628e-0e66-47af-b903-62e7d33e8570}</UniqueIdentifier>
     </Filter>
@@ -82,6 +79,9 @@
     </Filter>
     <Filter Include="Game\Player">
       <UniqueIdentifier>{a78523be-8359-4ae6-9904-a96ef32304c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Editor">
+      <UniqueIdentifier>{e7a41ae5-6826-4a64-8335-3c7dea325ddb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -245,7 +245,7 @@
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="EditorInterface.h">
-      <Filter>Engine\EditorInterface</Filter>
+      <Filter>Engine\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Engine\Core</Filter>
@@ -268,9 +268,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Engine\Scene Management</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBuilder.h">
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
@@ -279,6 +276,9 @@
     </ClInclude>
     <ClInclude Include="SceneManagement.h">
       <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorHiererachy.h">
+      <Filter>Engine\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -388,7 +388,7 @@
       <Filter>Engine\GameObject\Components\Component Types\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="EditorInterface.cpp">
-      <Filter>Engine\EditorInterface</Filter>
+      <Filter>Engine\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Engine\Core</Filter>
@@ -408,14 +408,14 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Engine\Scene Management</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Engine\Scene Management</Filter>
-    </ClCompile>
     <ClCompile Include="SceneBuilder.cpp">
       <Filter>Engine\Scene Management</Filter>
     </ClCompile>
     <ClCompile Include="GameComponentFactory.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorHiererachy.cpp">
+      <Filter>Engine\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

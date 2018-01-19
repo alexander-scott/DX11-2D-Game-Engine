@@ -264,6 +264,7 @@
     <ClInclude Include="CollisionMessage.h" />
     <ClInclude Include="DamageableComponent.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="EditorHiererachy.h" />
     <ClInclude Include="GameCameraComponent.h" />
     <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="SceneManagement.h" />
@@ -293,7 +294,6 @@
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="RecieveDamageMessage.h" />
     <ClInclude Include="RigidBodyComponent.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ScenePersistentValues.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
@@ -331,6 +331,7 @@
     <ClCompile Include="ColliderRendererComponent.cpp" />
     <ClCompile Include="DamageableComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="EditorHiererachy.cpp" />
     <ClCompile Include="GameCameraComponent.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -351,7 +352,6 @@
     <ClCompile Include="ProjectileComponent.cpp" />
     <ClCompile Include="ProjectileManagerComponent.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpriteAnimatorComponent.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Engine.cpp" />

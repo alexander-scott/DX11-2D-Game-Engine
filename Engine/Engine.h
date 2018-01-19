@@ -4,7 +4,6 @@
 #include "MainWindow.h"
 
 #include "SceneBuilder.h"
-#include "SceneManager.h"
 #include "SceneManagement.h"
 #include "ScenePersistentValues.h"
 
@@ -27,6 +26,8 @@ private:
 	void DrawScene();
 	void UpdateScene();
 
+	void LoadScene(std::string sceneName);
+
 	FrameTimer					mFrameTimer;
-	SceneManager				mSceneManager;
+	shared_ptr<Scene>			mScene;
 };

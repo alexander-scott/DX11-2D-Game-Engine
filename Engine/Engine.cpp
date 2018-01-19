@@ -15,7 +15,7 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(1));
 	ScenePersistentValues::Instance().Values["TotalScore"].reset(new PersistentValue<float>(0));
 
-	mSceneManager.LoadScene("Scene1");
+	LoadScene("Scene1");
 }
 
 void Engine::Update()
@@ -44,14 +44,25 @@ void Engine::UpdateScene()
 
 	if (SceneManagement::Instance().LoadNewScene)
 	{
-		SceneManagement::Instance().LoadNewScene = false;
-		mSceneManager.LoadScene(SceneManagement::Instance().NewSceneName);
+		LoadScene(SceneManagement::Instance().NewSceneName);
 	}
 
-	mSceneManager.Update(deltaTime);
+	mScene->Update(deltaTime);
 }
 
 void Engine::DrawScene()
 {
-	mSceneManager.Draw();
+	mScene->Draw();
+}
+
+void Engine::LoadScene(std::string sceneName)
+{
+	mScene = nullptr;
+	SceneManagement::Instance().LoadNewScene = false;
+
+	stringstream stream;
+	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\" + sceneName + ".xml";
+	string scenePath = stream.str();
+
+	mScene = SceneBuilder::BuildScene(scenePath);
 }

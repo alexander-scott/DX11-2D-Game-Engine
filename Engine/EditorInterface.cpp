@@ -55,48 +55,48 @@ namespace EditorInterface
 		return nullptr;
 	}
 
-	void StartUpdateLoop(void * gamePtr)
+	void StartUpdateLoop(void * enginePtr)
 	{
-		Engine* thisGame = static_cast<Engine*>(gamePtr);
-		while (thisGame->wnd.ProcessMessage())
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		while (engine->wnd.ProcessMessage())
 		{
-			thisGame->Update();
+			engine->Update();
 		}
 	}
 
-	void CleanD3D(void * gamePtr)
+	void CleanD3D(void * enginePtr)
 	{
-		Engine* thisGame = static_cast<Engine*>(gamePtr);
-		delete thisGame;
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		delete engine;
 	}
 
-	void MouseMove(void * gamePtr, int xPos, int yPos)
+	void MouseMove(void * enginePtr, int xPos, int yPos)
 	{
-		Engine* thisGame = static_cast<Engine*>(gamePtr);
-		thisGame->wnd.ProcessMouseMove(xPos, yPos);
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessMouseMove(xPos, yPos);
 	}
 
-	void MouseClick(void * gamePtr, int xPos, int yPos)
+	void MouseClick(void * enginePtr, int xPos, int yPos)
 	{
-		Engine* thisGame = static_cast<Engine*>(gamePtr);
-		thisGame->wnd.ProcessMouseClick(xPos, yPos);
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessMouseClick(xPos, yPos);
 	}
 
-	void MouseRelease(void * gamePtr, int xPos, int yPos)
+	void MouseRelease(void * enginePtr, int xPos, int yPos)
 	{
-		Engine* thisGame = static_cast<Engine*>(gamePtr);
-		thisGame->wnd.ProcessMouseRelease(xPos, yPos);
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessMouseRelease(xPos, yPos);
 	}
 
-	void KeyDown(void * gamePtr, int keyCode)
+	void KeyDown(void * enginePtr, int keyCode)
 	{
-		Engine* thisGame = static_cast<Engine*>(gamePtr);
-		thisGame->wnd.ProcessKeyPressed(keyCode);
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessKeyPressed(keyCode);
 	}
 
-	void KeyUp(void * gamePtr, int keyCode)
+	void KeyUp(void * enginePtr, int keyCode)
 	{
-		Engine* thisGame = static_cast<Engine*>(gamePtr);
-		thisGame->wnd.ProcessKeyReleased(keyCode);
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessKeyReleased(keyCode);
 	}
 }
