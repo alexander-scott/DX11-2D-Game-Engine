@@ -52,12 +52,6 @@ void Scene::CacheComponents(shared_ptr<GameObject> gameObj)
 		mPhysicsManager.AddCollider(gameObj, goCollider);
 	}
 
-	DamageableComponent* goDamagable = gameObj->GetComponent<DamageableComponent>();
-	if (goDamagable != nullptr)
-	{
-		mDamageableGameObjects.insert(make_pair(gameObj, goDamagable));
-	}
-
 	ProjectileManagerComponent* goProjManager = gameObj->GetComponent<ProjectileManagerComponent>();
 	if (goProjManager != nullptr)
 	{
@@ -73,10 +67,10 @@ void Scene::SetupPhysics(LevelData levelData)
 	mLevelData = levelData;
 
 	int width = (int)abs(mLevelData.levelLeftBounds - mLevelData.levelRightBounds);
-	width *= TILE_WIDTH;
+	width *= 2;
 
 	int height = (int)abs(mLevelData.levelTopBounds - mLevelData.levelBottomBounds);
-	height *= TILE_HEIGHT;
+	height *= 2;
 
 	mPhysicsManager.BuildObjectGrid(width, height);
 }

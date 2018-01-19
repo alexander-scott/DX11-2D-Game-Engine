@@ -27,13 +27,13 @@ void GameCameraComponent::Update(float deltaTime)
 		pos.x = mLevelRightBound - ((ApplicationValues::Instance().ScreenWidth / 2) + mFocusWidth);
 	}
 
-	if (pos.y + ((ApplicationValues::Instance().ScreenHeight / 2) - mFocusHeight) > mLevelBottomBound)
+	if (pos.y + ((ApplicationValues::Instance().ScreenHeight / 2) + mFocusHeight) > -mLevelBottomBound)
 	{
-		pos.y = mLevelBottomBound - ((ApplicationValues::Instance().ScreenHeight / 2) + mFocusHeight);
+		pos.y = -mLevelBottomBound - ((ApplicationValues::Instance().ScreenHeight / 2) + mFocusHeight);
 	}
-	else if (pos.y - ((ApplicationValues::Instance().ScreenHeight / 2) + mFocusHeight) < mLevelTopBound)
+	else if (pos.y - ((ApplicationValues::Instance().ScreenHeight / 2) - mFocusHeight) < -mLevelTopBound)
 	{
-		pos.y = mLevelTopBound + ((ApplicationValues::Instance().ScreenHeight / 2) - mFocusHeight);
+		pos.y = -mLevelTopBound + ((ApplicationValues::Instance().ScreenHeight / 2) - mFocusHeight);
 	}
 
 	pos.x -= (ApplicationValues::Instance().ScreenWidth / 2) - mFocusWidth;
