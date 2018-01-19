@@ -11,12 +11,6 @@
     <Filter Include="Engine\Core">
       <UniqueIdentifier>{646d6cfc-a2e7-4319-b0c1-5a887269c2d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Graphics">
-      <UniqueIdentifier>{cd665465-c26d-4e78-8eeb-0a54368426aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\Shaders">
-      <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{d208ffd9-440e-4c27-b94c-ad86bc5623a3}</UniqueIdentifier>
     </Filter>
@@ -46,9 +40,6 @@
     </Filter>
     <Filter Include="Engine\GameObject\Components\Component Types\Rendering">
       <UniqueIdentifier>{9a6c9345-6d65-45d3-9109-c577978258c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Graphics\APIs">
-      <UniqueIdentifier>{d13b61ca-a214-4435-b9c7-cd543c5c937e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\I/O">
       <UniqueIdentifier>{76caa40f-803c-4ae9-ad3b-20ffe0354232}</UniqueIdentifier>
@@ -82,6 +73,18 @@
     </Filter>
     <Filter Include="Engine\Editor">
       <UniqueIdentifier>{e7a41ae5-6826-4a64-8335-3c7dea325ddb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics">
+      <UniqueIdentifier>{cd665465-c26d-4e78-8eeb-0a54368426aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Shaders">
+      <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\APIs">
+      <UniqueIdentifier>{d13b61ca-a214-4435-b9c7-cd543c5c937e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Graphics\Camera">
+      <UniqueIdentifier>{140fe525-0369-4ed3-b9da-a89b4b587a51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,9 +184,6 @@
     <ClInclude Include="DX11Graphics.h">
       <Filter>Engine\Graphics\APIs</Filter>
     </ClInclude>
-    <ClInclude Include="ICamera.h">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="TiledBGRenderer.h">
       <Filter>Engine\GameObject\Components\Component Types\Rendering</Filter>
     </ClInclude>
@@ -253,9 +253,6 @@
     <ClInclude Include="ScenePersistentValues.h">
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="GameCameraComponent.h">
       <Filter>Game\Camera</Filter>
     </ClInclude>
@@ -279,6 +276,12 @@
     </ClInclude>
     <ClInclude Include="EditorHiererachy.h">
       <Filter>Engine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ICamera.h">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -393,9 +396,6 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Engine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GameCameraComponent.cpp">
       <Filter>Game\Camera</Filter>
     </ClCompile>
@@ -416,6 +416,9 @@
     </ClCompile>
     <ClCompile Include="EditorHiererachy.cpp">
       <Filter>Engine\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

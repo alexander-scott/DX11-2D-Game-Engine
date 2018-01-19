@@ -1,6 +1,8 @@
 ﻿using SimpleSampleEditor.Engine;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace SimpleSampleEditor
@@ -98,6 +100,25 @@ namespace SimpleSampleEditor
                 return;
 
             EngineInterface.CleanD3D(mEngine);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (!mGameStarted)
+                return;
+
+            int numberOfGameObjects = SceneInterface.GetGameObjectCount(mEngine);
+            IntPtr hierarchy = SceneInterface.PopulateHierarchyItems(mEngine, numberOfGameObjects);
+            int structSize = Marshal.SizeOf(typeof(HierarchyItem));
+
+            List<HierarchyItem> items = new List<HierarchyItem>();
+
+            for (int i = 0; i < numberOfGameObjects; i++)
+            {
+                IntPtr data = new IntPtr(hierarchy.ToInt64() + structSize * i);
+                HierarchyItem hItem = (HierarchyItem)Marshal.PtrToStructure(data, typeof(HierarchyItem));
+                items.Add(hItem);
+            }
         }
     }
 }

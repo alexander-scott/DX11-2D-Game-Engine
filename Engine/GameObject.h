@@ -14,7 +14,7 @@ using namespace std;
 class GameObject
 {
 public:
-	GameObject(string tag);
+	GameObject(string tag, int id);
 	~GameObject();
 
 	void Draw(ICamera* cam) const;
@@ -24,6 +24,7 @@ public:
 	void AddComponent(IComponent* component);
 
 	string GetTag() { return mTag; }
+	int GetID() { return mID; }
 	vector<IComponent*> GetAllComponents() { return mComponents; }
 
 	void SetActive(bool active);
@@ -78,10 +79,11 @@ public:
 		}
 	}
 
-	static shared_ptr<GameObject> MakeGameObject(string tag);
+	static shared_ptr<GameObject> MakeGameObject(string tag, int ID);
 
 protected:
 	vector<IComponent*>		mComponents;
 	string					mTag;
+	int						mID;
 	bool					mActive;
 };

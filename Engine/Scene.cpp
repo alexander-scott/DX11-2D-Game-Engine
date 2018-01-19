@@ -57,6 +57,7 @@ void Scene::CacheComponents(shared_ptr<GameObject> gameObj)
 	{
 		for (auto go : goProjManager->GetAllInactiveGameObjects())
 		{
+			mGameObjects.push_back(go);
 			mPhysicsManager.AddCollider(go, go->GetComponent<ColliderComponent>());
 		}
 	}

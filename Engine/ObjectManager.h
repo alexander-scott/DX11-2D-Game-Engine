@@ -24,6 +24,8 @@ public:
 
 private:
 	IComponent* CreateComponent(shared_ptr<GameObject> go, xml_node<>* node);
+	
+	int GenerateNewID();
 
 	map<int, shared_ptr<GameObject>>		mGameObjects;
 };

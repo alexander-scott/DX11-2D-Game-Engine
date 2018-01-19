@@ -1,17 +1,18 @@
 #pragma once
 
 #include "EditorInterface.h"
+#include <stdio.h>
 
 namespace EditorHierarchy
 {
 	struct HierarchyItem
 	{
-		char GameObjectName[100];
 		int GameObjectID;
 		int GameObjectParentID;
+		char* GameObjectName;
 	};
 
 	extern "C" { DllExport int GetGameObjectCount(void* enginePtr); }
 
-	extern "C" { DllExport void __cdecl PopulateHierarchyItems(void* enginePtr, struct HierarchyItem* items, int itemCount); }
+	extern "C" { DllExport HierarchyItem* PopulateHierarchyItems(void* enginePtr, int itemCount); }
 }

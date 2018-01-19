@@ -16,6 +16,8 @@ public:
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 
+	shared_ptr<Scene> GetScene() { return mScene; }
+
 	void Update();
 
 	~Engine();

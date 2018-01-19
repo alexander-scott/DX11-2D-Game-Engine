@@ -15,8 +15,10 @@ public:
 	void Draw();
 
 	void CacheComponents(shared_ptr<GameObject> gameObj);
-
 	void SetupPhysics(LevelData levelData);
+
+	int GetNumberOfGameObjects() { return (int)mGameObjects.size(); }
+	shared_ptr<GameObject> GetGameObjectAtIndex(int index) { return mGameObjects.at(index); }
 
 private:
 	PhysicsManager										mPhysicsManager;

@@ -1,8 +1,9 @@
 #include "GameObject.h"
 
-GameObject::GameObject(string tag)
+GameObject::GameObject(string tag, int id)
 {
 	mTag = tag;
+	mID = id;
 }
 
 GameObject::~GameObject()
@@ -31,9 +32,9 @@ void GameObject::SetActive(bool active)
 	}
 }
 
-shared_ptr<GameObject> GameObject::MakeGameObject(string tag)
+shared_ptr<GameObject> GameObject::MakeGameObject(string tag, int ID)
 {
-	auto gameObject = make_shared<GameObject>(tag);
+	auto gameObject = make_shared<GameObject>(tag, ID);
 	return gameObject;
 }
 

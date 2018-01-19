@@ -13,25 +13,16 @@ shared_ptr<GameObject> ObjectManager::GetCreatedObject(int instanceID)
 shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node)
 {
 	int instanceID = atoi(node->first_attribute("instanceid")->value());
+		
+	if (instanceID == -1)
+	{
+		// Generate a random int
+		instanceID = GenerateNewID();
+	}
 
 	// Create the GameObject
-	auto gameObj = GameObject::MakeGameObject(node->first_attribute("tag")->value());
-	if (instanceID != -1)
-	{
-		// Push it to the map with it's ID
-		mGameObjects.insert(make_pair(instanceID, gameObj));
-	}
-	else
-	{
-		int rand = std::rand();
-		auto it = mGameObjects.find(rand);
-		while (it != mGameObjects.end()) // Make sure it doesn't already exist in the map
-		{
-			rand = std::rand();
-			it = mGameObjects.find(rand);
-		}
-		mGameObjects.insert(make_pair(rand, gameObj));
-	}
+	auto gameObj = GameObject::MakeGameObject(node->first_attribute("tag")->value(), instanceID);
+	mGameObjects.insert(make_pair(instanceID, gameObj));
 
 	// Create this gameobjects components
 	xml_node<>* component = node->first_node("Component");
@@ -343,7 +334,10 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		vector<shared_ptr<GameObject>> projectiles;
 		for (int i = 0; i < projectileCount; i++)
 		{
-			auto ballGO = GameObject::MakeGameObject("Ball");
+			int instanceID = GenerateNewID();
+			auto ballGO = GameObject::MakeGameObject("Ball", GenerateNewID());
+			mGameObjects.insert(make_pair(instanceID, ballGO));
+
 			TransformComponent* ballTrans = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0.2f);
 			ballGO->AddComponent(ballTrans);
 			RigidBodyComponent* ballRb = ComponentFactory::MakeRigidbody(1, 0.3f, 0.5f, false, false); // Cache the rigidbody
@@ -535,4 +529,17 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 
 	throw;
 	return nullptr;
+}
+
+int ObjectManager::GenerateNewID()
+{
+	// Generate a random int
+	int instanceID = std::rand();
+	auto it = mGameObjects.find(instanceID);
+	while (it != mGameObjects.end()) // Make sure it doesn't already exist in the map
+	{
+		instanceID = std::rand();
+		it = mGameObjects.find(instanceID);
+	}
+	return instanceID;
 }
