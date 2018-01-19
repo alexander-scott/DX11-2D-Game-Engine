@@ -5,6 +5,7 @@
 
 #include "SceneBuilder.h"
 #include "SceneManager.h"
+#include "ISceneManager.h"
 #include "ScenePersistentValues.h"
 
 using namespace std;
@@ -26,5 +27,6 @@ private:
 	void DrawScene();
 	void UpdateScene();
 
-	FrameTimer							mFrameTimer;
+	FrameTimer					mFrameTimer;
+	SceneManager				mSceneManager;
 };

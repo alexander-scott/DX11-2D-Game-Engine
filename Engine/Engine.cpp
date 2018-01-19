@@ -15,7 +15,7 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(1));
 	ScenePersistentValues::Instance().Values["TotalScore"].reset(new PersistentValue<float>(0));
 
-	SceneManager::Instance().LoadScene("Scene1");
+	mSceneManager.LoadScene("Scene1");
 }
 
 void Engine::Update()
@@ -42,10 +42,16 @@ void Engine::UpdateScene()
 
 	Camera::Instance().Update(deltaTime);
 
-	SceneManager::Instance().Update(deltaTime);
+	if (ISceneManager::Instance().LoadNewScene)
+	{
+		ISceneManager::Instance().LoadNewScene = false;
+		mSceneManager.LoadScene(ISceneManager::Instance().NewSceneName);
+	}
+
+	mSceneManager.Update(deltaTime);
 }
 
 void Engine::DrawScene()
 {
-	SceneManager::Instance().Draw();
+	mSceneManager.Draw();
 }

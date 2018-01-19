@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+
 #include "IComponent.h"
 #include "IUpdateable.h"
 
@@ -11,6 +13,8 @@
 #include "DamageableComponent.h"
 
 #include "Audio.h"
+#include "ScenePersistentValues.h"
+#include "ISceneManager.h"
 
 class GameManagerComponent : public IComponent, public IUpdateable
 {

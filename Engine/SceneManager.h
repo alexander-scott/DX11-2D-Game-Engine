@@ -14,12 +14,6 @@ public:
 	void Update(float deltaTime);
 	void Draw();
 
-	static SceneManager& Instance()
-	{
-		static SceneManager Instance;
-		return Instance;
-	}
-
 private:
 	shared_ptr<Scene>			mGameLevel;
 };

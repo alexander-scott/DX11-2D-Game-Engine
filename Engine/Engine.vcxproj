@@ -266,6 +266,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameCameraComponent.h" />
     <ClInclude Include="GameComponentFactory.h" />
+    <ClInclude Include="ISceneManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="GameManagerComponent.h" />
     <ClInclude Include="GUIButtonComponent.h" />
@@ -332,6 +333,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameCameraComponent.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
+    <ClCompile Include="ISceneManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GameManagerComponent.cpp" />
