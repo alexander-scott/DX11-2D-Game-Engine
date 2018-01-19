@@ -19,11 +19,7 @@ EditorHierarchy::HierarchyItem* EditorHierarchy::PopulateHierarchyItems(void* en
 
 		char* result = new char[gameObj->GetTag().length() + 1];
 		strcpy_s(result, gameObj->GetTag().length() + 1, gameObj->GetTag().c_str());
-
 		items[i].GameObjectName = result;
-		//items[itemCount].GameObjectID = gameObj->GetID();
-		//strncpy_s(items[itemCount].GameObjectName, gameObj->GetTag().c_str(), sizeof(items[itemCount].GameObjectName));
-		//items[itemCount].GameObjectParentID = -1;
 	}
 
 	return items;

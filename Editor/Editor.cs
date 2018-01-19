@@ -112,13 +112,17 @@ namespace SimpleSampleEditor
             int structSize = Marshal.SizeOf(typeof(HierarchyItem));
 
             List<HierarchyItem> items = new List<HierarchyItem>();
+            List<string> listBoxItems = new List<string>();
 
             for (int i = 0; i < numberOfGameObjects; i++)
             {
                 IntPtr data = new IntPtr(hierarchy.ToInt64() + structSize * i);
                 HierarchyItem hItem = (HierarchyItem)Marshal.PtrToStructure(data, typeof(HierarchyItem));
                 items.Add(hItem);
+                listBoxItems.Add(hItem.GameObjectName);  
             }
+
+            hierarchyListBox.DataSource = listBoxItems;
         }
     }
 }
