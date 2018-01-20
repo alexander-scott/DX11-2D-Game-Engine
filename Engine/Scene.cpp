@@ -89,26 +89,26 @@ void Scene::Update(float deltaTime)
 
 }
 
-void Scene::Draw(Camera& camera)
+void Scene::Draw()
 {
 	// Draw gameobjects in the render order
 	for (auto& go : mRenderLayer0)
 	{
-		go->Draw(&camera);
+		go->Draw(&Camera::Instance());
 	}
 
 	for (auto& go : mRenderLayer1)
 	{
-		go->Draw(&camera);
+		go->Draw(&Camera::Instance());
 	}
 
 	for (auto& go : mRenderLayer2)
 	{
-		go->Draw(&camera);
+		go->Draw(&Camera::Instance());
 	}
 
 	for (auto& go : mRenderLayer3)
 	{
-		go->Draw(&camera);
+		go->Draw(&Camera::Instance());
 	}
 }

@@ -33,7 +33,7 @@ void Engine::Update()
 
 Engine::~Engine()
 {
-	
+	mScene = nullptr;
 }
 
 void Engine::UpdateScene()
@@ -52,7 +52,7 @@ void Engine::UpdateScene()
 
 void Engine::DrawScene()
 {
-	mScene->Draw(Camera::Instance());
+	mScene->Draw();
 }
 
 void Engine::LoadScene(std::string sceneName)

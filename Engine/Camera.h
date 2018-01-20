@@ -26,7 +26,7 @@ public:
 		return Instance;
 	}
 
-private:
+protected:
 	TransformComponent*		mTransform;
 };
 

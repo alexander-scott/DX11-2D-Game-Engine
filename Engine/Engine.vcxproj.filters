@@ -283,6 +283,12 @@
     <ClInclude Include="Camera.h">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="EditorCamera.h">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -418,6 +424,9 @@
       <Filter>Engine\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorCamera.cpp">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
   </ItemGroup>

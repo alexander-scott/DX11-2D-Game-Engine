@@ -56,8 +56,6 @@ namespace EditorInterface
 		return nullptr;
 	}
 
-	
-
 	void StartEditorLoop(void * enginePtr)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
@@ -71,6 +69,7 @@ namespace EditorInterface
 	void StartUpdateLoop(void * enginePtr)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
+
 		while (engine->wnd.ProcessMessage())
 		{
 			engine->Update();
