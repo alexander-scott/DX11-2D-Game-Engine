@@ -1,8 +1,9 @@
 #pragma once
 
-#include "ObjectManager.h"
 #include "PhysicsManager.h"
 #include "IScene.h"
+
+#include "Camera.h"
 
 using namespace std;
 
@@ -16,8 +17,8 @@ public:
 	void Draw() override;
 	void CacheComponents(shared_ptr<GameObject> gameObj) override;
 
-	void SetupPhysics(LevelData levelData);
-
 private:
+	void SetupPhysics();
+
 	PhysicsManager										mPhysicsManager;
 };

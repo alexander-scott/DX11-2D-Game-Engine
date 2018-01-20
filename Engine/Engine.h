@@ -7,6 +7,8 @@
 #include "SceneManagement.h"
 #include "ScenePersistentValues.h"
 
+#include "Scene.h"
+
 using namespace std;
 
 class Engine
@@ -16,7 +18,7 @@ public:
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 
-	shared_ptr<Scene> GetScene() { return mScene; }
+	shared_ptr<IScene> GetScene() { return mScene; }
 
 	void Update();
 
@@ -33,5 +35,5 @@ private:
 	void LoadScene(std::string sceneName);
 
 	FrameTimer					mFrameTimer;
-	shared_ptr<Scene>			mScene;
+	shared_ptr<IScene>			mScene;
 };

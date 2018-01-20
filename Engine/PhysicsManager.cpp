@@ -4,6 +4,7 @@
 
 void PhysicsManager::BuildObjectGrid(int levelWidth, int levelHeight)
 {
+	mSetup = true;
 	mObjectGrid = new ObjectGrid(levelWidth + 1, levelHeight + 1 , 100, 100); // Initalise an object grid with cell Size 100,100
 }
 

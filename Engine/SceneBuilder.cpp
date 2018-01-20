@@ -39,7 +39,7 @@ void SceneBuilder::InitaliseGameplayValues(string fileName)
 	AI_LATERAL_MAX_SPEED = (float)atof(valuesNode->first_node("AILateralMaxSpeed")->first_attribute("val")->value());
 }
 
-shared_ptr<Scene> SceneBuilder::BuildScene(string fileName)
+void SceneBuilder::BuildScene(shared_ptr<IScene> scene, string fileName)
 {
 	//Load the file
 	ifstream inFile(fileName);
@@ -68,11 +68,10 @@ shared_ptr<Scene> SceneBuilder::BuildScene(string fileName)
 	//Get the root node
 	xml_node<>* root = doc.first_node();
 
-	auto scene = make_shared<Scene>();
 	ObjectManager objectManager = ObjectManager();
 	LevelData levelData = ExtractLevelData(root);
 
-	scene->SetupPhysics(levelData);
+	scene->SceneData = levelData;;
 
 	xml_node<>* gameObjectNode = root->first_node("GameObject");
 
@@ -87,8 +86,6 @@ shared_ptr<Scene> SceneBuilder::BuildScene(string fileName)
 
 		gameObjectNode = gameObjectNode->next_sibling("GameObject");
 	}
-
-	return scene;
 }
 
 LevelData SceneBuilder::ExtractLevelData(xml_node<>* node)

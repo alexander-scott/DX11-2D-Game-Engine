@@ -15,9 +15,9 @@ public:
 	int GetNumberOfGameObjects() { return (int)mGameObjects.size(); }
 	shared_ptr<GameObject> GetGameObjectAtIndex(int index) { return mGameObjects.at(index); }
 
-protected:
-	LevelData											mLevelData;
+	LevelData											SceneData;
 
+protected:
 	vector<shared_ptr<GameObject>>						mRenderLayer0;
 	vector<shared_ptr<GameObject>>						mRenderLayer1;
 	vector<shared_ptr<GameObject>>						mRenderLayer2;
