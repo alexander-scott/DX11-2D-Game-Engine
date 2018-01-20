@@ -270,7 +270,7 @@
     <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="SceneManagement.h" />
-    <ClInclude Include="Scene.h" />
+    <ClInclude Include="PlayScene.h" />
     <ClInclude Include="GameManagerComponent.h" />
     <ClInclude Include="GUIButtonComponent.h" />
     <ClInclude Include="GUISpriteRendererComponent.h" />
@@ -337,7 +337,7 @@
     <ClCompile Include="EditorHiererachy.cpp" />
     <ClCompile Include="GameCameraComponent.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GameManagerComponent.cpp" />
     <ClCompile Include="GUIButtonComponent.cpp" />

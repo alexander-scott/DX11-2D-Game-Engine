@@ -1,11 +1,11 @@
-#include "Scene.h"
+#include "PlayScene.h"
 
-Scene::Scene()
+PlayScene::PlayScene()
 {
 
 }
 
-Scene::~Scene()
+PlayScene::~PlayScene()
 {
 	for (auto go : mGameObjects)
 	{
@@ -16,7 +16,7 @@ Scene::~Scene()
 	}
 }
 
-void Scene::CacheComponents(shared_ptr<GameObject> gameObj)
+void PlayScene::CacheComponents(shared_ptr<GameObject> gameObj)
 {
 	mGameObjects.push_back(gameObj);
 
@@ -66,7 +66,7 @@ void Scene::CacheComponents(shared_ptr<GameObject> gameObj)
 	}
 }
 
-void Scene::SetupPhysics()
+void PlayScene::SetupPhysics()
 {
 	int width = (int)abs(SceneData.levelLeftBounds - SceneData.levelRightBounds);
 	width *= 2;
@@ -77,7 +77,7 @@ void Scene::SetupPhysics()
 	mPhysicsManager.BuildObjectGrid(width, height);
 }
 
-void Scene::Update(float deltaTime)
+void PlayScene::Update(float deltaTime)
 {
 	// Update object rigid bodies
 	mPhysicsManager.Update(deltaTime);
@@ -90,7 +90,7 @@ void Scene::Update(float deltaTime)
 
 }
 
-void Scene::Draw()
+void PlayScene::Draw()
 {
 	// Draw gameobjects in the render order
 	for (auto& go : mRenderLayer0)

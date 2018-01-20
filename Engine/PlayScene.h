@@ -7,11 +7,11 @@
 
 using namespace std;
 
-class Scene : public IScene
+class PlayScene : public IScene
 {
 public:
-	Scene();
-	~Scene();
+	PlayScene();
+	~PlayScene();
 
 	void Update(float deltaTime) override;
 	void Draw() override;
@@ -20,5 +20,5 @@ public:
 private:
 	void SetupPhysics();
 
-	PhysicsManager										mPhysicsManager;
+	PhysicsManager			mPhysicsManager;
 };

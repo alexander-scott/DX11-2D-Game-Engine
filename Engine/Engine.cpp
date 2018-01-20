@@ -64,6 +64,6 @@ void Engine::LoadScene(std::string sceneName)
 	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\" + sceneName + ".xml";
 	string scenePath = stream.str();
 
-	mScene = make_shared<Scene>();
+	mScene = make_shared<PlayScene>();
 	SceneBuilder::BuildScene(mScene, scenePath);
 }

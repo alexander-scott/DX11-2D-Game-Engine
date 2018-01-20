@@ -262,9 +262,6 @@
     <ClInclude Include="GameManagerComponent.h">
       <Filter>Game\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Engine\Scene Management</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBuilder.h">
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
@@ -287,6 +284,9 @@
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
     <ClInclude Include="IScene.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
   </ItemGroup>
@@ -411,9 +411,6 @@
     <ClCompile Include="GameManagerComponent.cpp">
       <Filter>Game\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Engine\Scene Management</Filter>
-    </ClCompile>
     <ClCompile Include="SceneBuilder.cpp">
       <Filter>Engine\Scene Management</Filter>
     </ClCompile>
@@ -428,6 +425,9 @@
     </ClCompile>
     <ClCompile Include="EditorCamera.cpp">
       <Filter>Engine\Graphics\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Engine\Scene Management</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
