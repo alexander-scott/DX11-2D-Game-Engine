@@ -24,3 +24,8 @@ EditorHierarchy::HierarchyItem* EditorHierarchy::PopulateHierarchyItems(void* en
 
 	return items;
 }
+
+void EditorHierarchy::FreeHierarchyMemory(void * hierarchy)
+{
+	delete hierarchy;
+}

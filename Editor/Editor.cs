@@ -123,6 +123,8 @@ namespace SimpleSampleEditor
             }
 
             hierarchyListBox.DataSource = listBoxItems;
+
+            SceneInterface.FreeHierarchyMemory(hierarchy);
         }
     }
 }

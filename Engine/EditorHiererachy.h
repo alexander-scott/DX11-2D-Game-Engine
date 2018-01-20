@@ -15,4 +15,6 @@ namespace EditorHierarchy
 	extern "C" { DllExport int GetGameObjectCount(void* enginePtr); }
 
 	extern "C" { DllExport HierarchyItem* PopulateHierarchyItems(void* enginePtr, int itemCount); }
+
+	extern "C" { DllExport void FreeHierarchyMemory(void* hierarchy); }
 }
