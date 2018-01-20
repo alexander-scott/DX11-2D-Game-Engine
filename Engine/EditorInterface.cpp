@@ -9,8 +9,9 @@ namespace EditorInterface
 			MainWindow wnd(hWnd, Width, Height);
 			try
 			{
-				Engine* theGame = new Engine(wnd, Width, Height, filePath);
-				return theGame;
+				Engine* engine = new Engine(wnd, Width, Height, filePath);
+				engine->EngineState = EngineState::eEditor;
+				return engine;
 			}
 			catch (const CustomException& e)
 			{
@@ -53,6 +54,18 @@ namespace EditorInterface
 		}
 
 		return nullptr;
+	}
+
+	
+
+	void StartEditorLoop(void * enginePtr)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+
+		while (engine->wnd.ProcessMessage() && engine->EngineState == EngineState::eEditor)
+		{
+			engine->Update();
+		}
 	}
 
 	void StartUpdateLoop(void * enginePtr)

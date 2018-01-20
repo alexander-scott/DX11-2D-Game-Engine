@@ -9,6 +9,9 @@ namespace SimpleSampleEditor.Engine
         public static extern IntPtr InitaliseEngine(IntPtr window, int Width, int Height, string filePath);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void StartEditorLoop(IntPtr gamePtr);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void StartUpdateLoop(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]

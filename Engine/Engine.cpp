@@ -52,7 +52,7 @@ void Engine::UpdateScene()
 
 void Engine::DrawScene()
 {
-	mScene->Draw();
+	mScene->Draw(Camera::Instance());
 }
 
 void Engine::LoadScene(std::string sceneName)

@@ -54,6 +54,12 @@ static constexpr float PI = 3.141592741f;
 
 #pragma region Enums
 
+enum EngineState
+{
+	eEditor,
+	ePlayMode
+};
+
 enum GameState 
 {
 	eStartScreen,

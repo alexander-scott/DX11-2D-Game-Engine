@@ -12,7 +12,7 @@ public:
 	~Scene();
 
 	void Update(float deltaTime);
-	void Draw();
+	void Draw(Camera& camera);
 
 	void CacheComponents(shared_ptr<GameObject> gameObj);
 	void SetupPhysics(LevelData levelData);

@@ -24,6 +24,8 @@ public:
 
 	MainWindow& wnd;
 
+	EngineState EngineState;
+
 private:
 	void DrawScene();
 	void UpdateScene();
