@@ -2,7 +2,7 @@
 
 
 
-EditorCamera::EditorCamera()
+EditorCamera::EditorCamera() : Camera()
 {
 }
 

@@ -266,6 +266,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EditorCamera.h" />
     <ClInclude Include="EditorHiererachy.h" />
+    <ClInclude Include="EditorScene.h" />
     <ClInclude Include="GameCameraComponent.h" />
     <ClInclude Include="GameComponentFactory.h" />
     <ClInclude Include="IScene.h" />
@@ -335,6 +336,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="EditorHiererachy.cpp" />
+    <ClCompile Include="EditorScene.cpp" />
     <ClCompile Include="GameCameraComponent.cpp" />
     <ClCompile Include="GameComponentFactory.cpp" />
     <ClCompile Include="PlayScene.cpp" />

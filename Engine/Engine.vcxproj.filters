@@ -289,6 +289,9 @@
     <ClInclude Include="PlayScene.h">
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
+    <ClInclude Include="EditorScene.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -427,6 +430,9 @@
       <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
     <ClCompile Include="PlayScene.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorScene.cpp">
       <Filter>Engine\Scene Management</Filter>
     </ClCompile>
   </ItemGroup>
