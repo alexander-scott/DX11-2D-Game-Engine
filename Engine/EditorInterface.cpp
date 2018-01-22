@@ -60,7 +60,7 @@ namespace EditorInterface
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
 
-		while (engine->wnd.ProcessMessage() && engine->EngineState == EngineState::eEditor)
+		while (engine->wnd.ProcessMessage())
 		{
 			engine->Update();
 		}
@@ -74,6 +74,12 @@ namespace EditorInterface
 		{
 			engine->Update();
 		}
+	}
+
+	void PlayPressed(void * enginePtr)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->PlayPressed();
 	}
 
 	void CleanD3D(void * enginePtr)

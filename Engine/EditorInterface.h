@@ -15,6 +15,8 @@ namespace EditorInterface
 	extern "C" { DllExport void StartEditorLoop(void* enginePtr); }
 	extern "C" { DllExport void StartUpdateLoop(void* enginePtr); }
 
+	extern "C" { DllExport void PlayPressed(void* enginePtr); }
+
 	extern "C" { DllExport void CleanD3D(void* enginePtr); }
 
 	extern "C" { DllExport void MouseMove(void* enginePtr, int xPos, int yPos); }

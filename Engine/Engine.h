@@ -24,6 +24,8 @@ public:
 
 	shared_ptr<IScene> GetScene() { return mScene; }
 
+	void PlayPressed();
+
 	void Update();
 
 	~Engine();

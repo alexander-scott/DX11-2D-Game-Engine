@@ -40,21 +40,6 @@ namespace SimpleSampleEditor
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            EngineInterface.StartEditorLoop(mEngine);
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            EngineInterface.StartUpdateLoop(mEngine);
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            EngineInterface.CleanD3D(mEngine);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
             int numberOfGameObjects = SceneInterface.GetGameObjectCount(mEngine);
             IntPtr hierarchy = SceneInterface.PopulateHierarchyItems(mEngine, numberOfGameObjects);
             int structSize = Marshal.SizeOf(typeof(HierarchyItem));
@@ -67,12 +52,24 @@ namespace SimpleSampleEditor
                 IntPtr data = new IntPtr(hierarchy.ToInt64() + structSize * i);
                 HierarchyItem hItem = (HierarchyItem)Marshal.PtrToStructure(data, typeof(HierarchyItem));
                 items.Add(hItem);
-                listBoxItems.Add(hItem.GameObjectName);  
+                listBoxItems.Add(hItem.GameObjectName);
             }
 
             hierarchyListBox.DataSource = listBoxItems;
 
             SceneInterface.FreeHierarchyMemory(hierarchy);
+
+            EngineInterface.StartEditorLoop(mEngine);  
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            EngineInterface.PlayPressed(mEngine);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            EngineInterface.CleanD3D(mEngine);
         }
 
         #region Basic Input

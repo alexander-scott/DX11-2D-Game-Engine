@@ -15,7 +15,12 @@ namespace SimpleSampleEditor.Engine
         public static extern void StartUpdateLoop(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void PlayPressed(IntPtr gamePtr);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void CleanD3D(IntPtr gamePtr);
+
+        #region Input
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void LeftMouseClick(IntPtr gamePtr, int xPos, int yPos);
@@ -37,5 +42,8 @@ namespace SimpleSampleEditor.Engine
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void KeyUp(IntPtr gamePtr, int keyCode);
+
+        #endregion
+
     }
 }

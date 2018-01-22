@@ -21,6 +21,11 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	LoadEditorScene("Scene1");
 }
 
+void Engine::PlayPressed()
+{
+	LoadPlayScene("Scene1");
+}
+
 void Engine::Update()
 {
 	mGraphics->BeginFrame();
