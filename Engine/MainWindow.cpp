@@ -132,14 +132,24 @@ void MainWindow::ProcessMouseMove(int xPos, int yPos)
 	}
 }
 
-void MainWindow::ProcessMouseClick(int xPos, int yPos)
+void MainWindow::ProcessLeftMouseClick(int xPos, int yPos)
 {
 	Mouse::Instance().OnLeftPressed(xPos, yPos);
 }
 
-void MainWindow::ProcessMouseRelease(int xPos, int yPos)
+void MainWindow::ProcessLeftMouseRelease(int xPos, int yPos)
 {
 	Mouse::Instance().OnLeftReleased(xPos, yPos);
+}
+
+void MainWindow::ProcessRightMouseClick(int xPos, int yPos)
+{
+	Mouse::Instance().OnRightPressed(xPos, yPos);
+}
+
+void MainWindow::ProcessRightMouseRelease(int xPos, int yPos)
+{
+	Mouse::Instance().OnRightReleased(xPos, yPos);
 }
 
 void MainWindow::ProcessKeyPressed(int keyCode)

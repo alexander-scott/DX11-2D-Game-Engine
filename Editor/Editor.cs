@@ -80,13 +80,21 @@ namespace SimpleSampleEditor
         private void PanelMouseDown(object sender, MouseEventArgs e)
         {
             Point point = panel1.PointToClient(Cursor.Position);
-            EngineInterface.MouseClick(mEngine, point.X, point.Y);
+
+            if (e.Button == MouseButtons.Left)
+                EngineInterface.LeftMouseClick(mEngine, point.X, point.Y);
+            else
+                EngineInterface.RightMouseClick(mEngine, point.X, point.Y);
         }
 
         private void PanelMouseRelease(object sender, MouseEventArgs e)
         {
             Point point = panel1.PointToClient(Cursor.Position);
-            EngineInterface.MouseRelease(mEngine, point.X, point.Y);
+
+            if (e.Button == MouseButtons.Left)
+                EngineInterface.LeftMouseRelease(mEngine, point.X, point.Y);
+            else
+                EngineInterface.RightMouseRelease(mEngine, point.X, point.Y);
         }
 
         private void PanelMouseMove(object sender, MouseEventArgs e)

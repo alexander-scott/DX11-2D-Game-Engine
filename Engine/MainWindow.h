@@ -50,8 +50,12 @@ public:
 	bool ProcessMessage();
 
 	void ProcessMouseMove(int xPos, int yPos);
-	void ProcessMouseClick(int xPos, int yPos);
-	void ProcessMouseRelease(int xPos, int yPos);
+
+	void ProcessLeftMouseClick(int xPos, int yPos);
+	void ProcessLeftMouseRelease(int xPos, int yPos);
+
+	void ProcessRightMouseClick(int xPos, int yPos);
+	void ProcessRightMouseRelease(int xPos, int yPos);
 
 	void ProcessKeyPressed(int keyCode);
 	void ProcessKeyReleased(int keyCode);

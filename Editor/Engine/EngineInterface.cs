@@ -18,10 +18,16 @@ namespace SimpleSampleEditor.Engine
         public static extern void CleanD3D(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MouseClick(IntPtr gamePtr, int xPos, int yPos);
+        public static extern void LeftMouseClick(IntPtr gamePtr, int xPos, int yPos);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MouseRelease(IntPtr gamePtr, int xPos, int yPos);
+        public static extern void LeftMouseRelease(IntPtr gamePtr, int xPos, int yPos);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void RightMouseClick(IntPtr gamePtr, int xPos, int yPos);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void RightMouseRelease(IntPtr gamePtr, int xPos, int yPos);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void MouseMove(IntPtr gamePtr, int xPos, int yPos);

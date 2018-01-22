@@ -88,16 +88,28 @@ namespace EditorInterface
 		engine->wnd.ProcessMouseMove(xPos, yPos);
 	}
 
-	void MouseClick(void * enginePtr, int xPos, int yPos)
+	void LeftMouseClick(void * enginePtr, int xPos, int yPos)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
-		engine->wnd.ProcessMouseClick(xPos, yPos);
+		engine->wnd.ProcessLeftMouseClick(xPos, yPos);
 	}
 
-	void MouseRelease(void * enginePtr, int xPos, int yPos)
+	void LeftMouseRelease(void * enginePtr, int xPos, int yPos)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
-		engine->wnd.ProcessMouseRelease(xPos, yPos);
+		engine->wnd.ProcessLeftMouseRelease(xPos, yPos);
+	}
+
+	void RightMouseClick(void * enginePtr, int xPos, int yPos)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessRightMouseClick(xPos, yPos);
+	}
+
+	void RightMouseRelease(void * enginePtr, int xPos, int yPos)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessRightMouseRelease(xPos, yPos);
 	}
 
 	void KeyDown(void * enginePtr, int keyCode)
