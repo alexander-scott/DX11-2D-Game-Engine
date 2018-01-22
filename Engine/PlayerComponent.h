@@ -9,7 +9,10 @@
 #include "DamageableComponent.h"
 
 #include "ProjectileManagerComponent.h"
+
 #include "Audio.h"
+#include "Keyboard.h"
+#include "Mouse.h"
 
 class PlayerComponent : public IComponent, public IUpdateable, public IMessageable
 {

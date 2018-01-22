@@ -277,9 +277,6 @@
     <ClInclude Include="ICamera.h">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Engine\Graphics\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="EditorCamera.h">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
@@ -293,6 +290,9 @@
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
     <ClInclude Include="ICameraGameObject.h">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayCamera.h">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
   </ItemGroup>
@@ -426,9 +426,6 @@
     <ClCompile Include="EditorHiererachy.cpp">
       <Filter>Engine\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Engine\Graphics\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="EditorCamera.cpp">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
@@ -437,6 +434,9 @@
     </ClCompile>
     <ClCompile Include="EditorScene.cpp">
       <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayCamera.cpp">
+      <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

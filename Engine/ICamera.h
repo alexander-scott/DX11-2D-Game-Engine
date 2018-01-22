@@ -1,7 +1,5 @@
 #pragma once
 
-#include "MainWindow.h"
-
 #include "DX11Graphics.h"
 
 class ICamera

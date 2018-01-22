@@ -6,7 +6,7 @@ EditorCamera::EditorCamera(IGraphics* graphics) : ICameraGameObject(graphics)
 
 void EditorCamera::Update(float deltaTime)
 {
-
+	// Update camera based on right click drag
 }
 
 void EditorCamera::DrawSpriteScreenSpace(std::string name, Vec2 pos, RECT * rect, float rot, float scale, Vec2 offset)

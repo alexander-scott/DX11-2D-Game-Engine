@@ -2,10 +2,10 @@
 
 #include "ICameraGameObject.h"
 
-class Camera : public ICameraGameObject
+class PlayCamera : public ICameraGameObject
 {
 public:
-	Camera(IGraphics* graphics);
+	PlayCamera(IGraphics* graphics);
 
 	void DrawSpriteScreenSpace(std::string name, Vec2 pos, RECT* rect, float rot, float scale, Vec2 offset) override;
 	void DrawSpriteWorldSpace(std::string name, Vec2 pos, RECT* rect, float rot, float scale, Vec2 offset) override;

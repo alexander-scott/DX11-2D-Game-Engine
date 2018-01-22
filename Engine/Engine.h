@@ -8,7 +8,10 @@
 #include "ScenePersistentValues.h"
 
 #include "PlayScene.h"
-#include "Camera.h"
+#include "PlayCamera.h"
+
+#include "EditorScene.h"
+#include "EditorCamera.h"
 
 using namespace std;
 
@@ -33,7 +36,8 @@ private:
 	void DrawScene();
 	void UpdateScene();
 
-	void LoadScene(std::string sceneName);
+	void LoadPlayScene(std::string sceneName);
+	void LoadEditorScene(std::string sceneName);
 
 	FrameTimer					mFrameTimer;
 	shared_ptr<IScene>			mScene;
