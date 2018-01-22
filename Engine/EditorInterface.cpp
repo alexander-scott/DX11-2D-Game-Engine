@@ -76,10 +76,15 @@ namespace EditorInterface
 		}
 	}
 
-	void PlayPressed(void * enginePtr)
+	void PlayStarted(void * enginePtr)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
-		engine->PlayPressed();
+		engine->PlayStarted();
+	}
+
+	void PlayStopped(void * enginePtr)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
 	}
 
 	void CleanD3D(void * enginePtr)

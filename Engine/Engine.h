@@ -24,7 +24,8 @@ public:
 
 	shared_ptr<IScene> GetScene() { return mScene; }
 
-	void PlayPressed();
+	void PlayStarted();
+	void PlayStopped();
 
 	void Update();
 

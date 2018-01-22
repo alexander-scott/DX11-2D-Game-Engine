@@ -15,7 +15,7 @@ namespace SimpleSampleEditor.Engine
         public static extern void StartUpdateLoop(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void PlayPressed(IntPtr gamePtr);
+        public static extern void PlayStarted(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void CleanD3D(IntPtr gamePtr);

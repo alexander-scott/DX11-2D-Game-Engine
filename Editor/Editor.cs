@@ -58,7 +58,7 @@ namespace SimpleSampleEditor
 
         private void PlayClicked(object sender, EventArgs e)
         {
-            EngineInterface.PlayPressed(mEngine);
+            EngineInterface.PlayStarted(mEngine);
             hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
         }
 

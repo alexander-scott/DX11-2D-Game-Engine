@@ -21,9 +21,14 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	LoadEditorScene("Scene1");
 }
 
-void Engine::PlayPressed()
+void Engine::PlayStarted()
 {
 	LoadPlayScene("Scene1");
+}
+
+void Engine::PlayStopped()
+{
+	LoadEditorScene("Scene1");
 }
 
 void Engine::Update()
