@@ -41,7 +41,21 @@ namespace SimpleSampleEditor
             btnPlay.DisableSelect();
             btnPlay.MouseClick += PlayClicked;
 
-            mHierachy = new Hierachy();
+            hierarchyListBox.DisableSelect();
+            hierarchyListBox.Scrollable = true;
+            hierarchyListBox.View = View.Details;
+            hierarchyListBox.Columns.Add(new ColumnHeader
+            {
+                Text = "Hierarchy",
+                Name = "Hierarchy"
+            });
+            ImageList list = new ImageList();
+            list.Images.Add("ClosedTriangle", Image.FromFile(@"" + mResoucesPath + "\\Editor\\ClosedTriangle.bmp"));
+            list.Images.Add("OpenTriangle", Image.FromFile(@"" + mResoucesPath + "\\Editor\\OpenTriangle.bmp"));
+            
+            hierarchyListBox.SmallImageList = list;
+
+            mHierachy = new Hierachy(hierarchyListBox);
         }
 
         private void PlayClicked(object sender, MouseEventArgs e)
@@ -50,17 +64,17 @@ namespace SimpleSampleEditor
             {
                 mPlaying = true;
                 EngineInterface.PlayStarted(mEngine);
-                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+                mHierachy.CreateHierachyList(mEngine); // Update hierarchy
             }
             else
             {
                 mPlaying = false;
                 EngineInterface.PlayStopped(mEngine);
-                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+                mHierachy.CreateHierachyList(mEngine); // Update hierarchy
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void EditorLoading(object sender, EventArgs e)
         {
             mEngine = EngineInterface.InitaliseEngine(panel1.Handle, panel1.Width, panel1.Height, mResoucesPath);
             panel1.Focus();
@@ -68,7 +82,7 @@ namespace SimpleSampleEditor
 
         private void EditorLoaded(object sender, EventArgs e)
         {
-            hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine);
+            mHierachy.CreateHierachyList(mEngine);
 
             EngineInterface.StartEditorLoop(mEngine);  
         }

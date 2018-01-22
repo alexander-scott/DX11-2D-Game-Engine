@@ -2,14 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace SimpleSampleEditor.EditorHierachy
 {
     public class Hierachy
     {
-        List<HierarchyItem> hierarchyItems = new List<HierarchyItem>();
+        private List<HierarchyItem> hierarchyItems = new List<HierarchyItem>();
 
-        public List<string> CreateHierachyList(IntPtr engine)
+        private ListView listView;
+
+        public Hierachy(ListView lv)
+        {
+            listView = lv;
+        }
+
+        public void CreateHierachyList(IntPtr engine)
         {
             int numberOfGameObjects = SceneInterface.GetGameObjectCount(engine);
             IntPtr hierarchy = SceneInterface.PopulateHierarchyItems(engine, numberOfGameObjects);
@@ -24,11 +32,14 @@ namespace SimpleSampleEditor.EditorHierachy
                 HierarchyItem hItem = (HierarchyItem)Marshal.PtrToStructure(data, typeof(HierarchyItem));
                 hierarchyItems.Add(hItem);
                 listBoxItems.Add(hItem.GameObjectName);
+
+                ListViewItem item = new ListViewItem(hItem.GameObjectName, 0);
+                listView.Items.Add(item);
             }
 
             SceneInterface.FreeHierarchyMemory(hierarchy);
 
-            return listBoxItems;
+            //return listBoxItems;
         }
     }
 }
