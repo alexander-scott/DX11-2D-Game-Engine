@@ -85,6 +85,7 @@ namespace EditorInterface
 	void PlayStopped(void * enginePtr)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->PlayStopped();
 	}
 
 	void CleanD3D(void * enginePtr)

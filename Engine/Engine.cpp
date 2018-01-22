@@ -18,7 +18,19 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(1));
 	ScenePersistentValues::Instance().Values["TotalScore"].reset(new PersistentValue<float>(0));
 
-	LoadEditorScene("Scene1");
+	InitaliseEditorScene("Scene1");
+}
+
+shared_ptr<IScene> Engine::GetScene()
+{
+	if (EngineState == EngineState::ePlayMode)
+	{
+		return mPlayScene;
+	}
+	else
+	{
+		return mEditorScene;
+	}
 }
 
 void Engine::PlayStarted()
@@ -28,7 +40,8 @@ void Engine::PlayStarted()
 
 void Engine::PlayStopped()
 {
-	LoadEditorScene("Scene1");
+	mPlayScene = nullptr;
+	EngineState = EngineState::eEditor;
 }
 
 void Engine::Update()
@@ -46,7 +59,9 @@ void Engine::Update()
 
 Engine::~Engine()
 {
-	mScene = nullptr;
+	mEditorScene = nullptr;
+	mPlayScene = nullptr;
+
 	mGraphics->Destroy();
 }
 
@@ -60,19 +75,28 @@ void Engine::UpdateScene()
 		{
 			LoadPlayScene(SceneManagement::Instance().NewSceneName);
 		}
+		mPlayScene->Update(deltaTime);
 	}
-	
-	mScene->Update(deltaTime);
+	else
+	{
+		mEditorScene->Update(deltaTime);
+	}
 }
 
 void Engine::DrawScene()
 {
-	mScene->Draw();
+	if (EngineState == EngineState::ePlayMode)
+	{
+		mPlayScene->Draw();
+	}
+	else
+	{
+		mEditorScene->Draw();
+	}	
 }
 
 void Engine::LoadPlayScene(std::string sceneName)
 {
-	mScene = nullptr;
 	SceneManagement::Instance().LoadNewScene = false;
 
 	stringstream stream;
@@ -81,20 +105,18 @@ void Engine::LoadPlayScene(std::string sceneName)
 
 	EngineState = EngineState::ePlayMode;
 
-	mScene = make_shared<PlayScene>(new PlayCamera(mGraphics));
-	SceneBuilder::BuildScene(mScene, scenePath);
+	mPlayScene = make_shared<PlayScene>(new PlayCamera(mGraphics));
+	SceneBuilder::BuildScene(mPlayScene, scenePath);
 }
 
-void Engine::LoadEditorScene(std::string sceneName)
+void Engine::InitaliseEditorScene(std::string sceneName)
 {
-	mScene = nullptr;
-
 	stringstream stream;
 	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\" + sceneName + ".xml";
 	string scenePath = stream.str();
 
 	EngineState = EngineState::eEditor;
 
-	mScene = make_shared<EditorScene>(new EditorCamera(mGraphics));
-	SceneBuilder::BuildScene(mScene, scenePath);
+	mEditorScene = make_shared<EditorScene>(new EditorCamera(mGraphics));
+	SceneBuilder::BuildScene(mEditorScene, scenePath);
 }

@@ -22,7 +22,7 @@ public:
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 
-	shared_ptr<IScene> GetScene() { return mScene; }
+	shared_ptr<IScene> GetScene();
 
 	void PlayStarted();
 	void PlayStopped();
@@ -40,9 +40,10 @@ private:
 	void UpdateScene();
 
 	void LoadPlayScene(std::string sceneName);
-	void LoadEditorScene(std::string sceneName);
+	void InitaliseEditorScene(std::string sceneName);
 
 	FrameTimer					mFrameTimer;
-	shared_ptr<IScene>			mScene;
+	shared_ptr<IScene>			mEditorScene;
+	shared_ptr<IScene>			mPlayScene;
 	IGraphics*					mGraphics;
 };

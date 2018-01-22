@@ -20,6 +20,8 @@ namespace SimpleSampleEditor
 
         private Hierachy mHierachy;
 
+        private bool mPlaying = false;
+
         public Editor()
         {
             InitializeComponent();
@@ -58,8 +60,18 @@ namespace SimpleSampleEditor
 
         private void PlayClicked(object sender, EventArgs e)
         {
-            EngineInterface.PlayStarted(mEngine);
-            hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+            if (!mPlaying)
+            {
+                mPlaying = true;
+                EngineInterface.PlayStarted(mEngine);
+                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+            }
+            else
+            {
+                mPlaying = false;
+                EngineInterface.PlayStopped(mEngine);
+                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+            } 
         }
 
         #region Basic Input

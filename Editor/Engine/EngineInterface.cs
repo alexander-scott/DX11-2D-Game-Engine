@@ -18,6 +18,9 @@ namespace SimpleSampleEditor.Engine
         public static extern void PlayStarted(IntPtr gamePtr);
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void PlayStopped(IntPtr gamePtr);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void CleanD3D(IntPtr gamePtr);
 
         #region Input
