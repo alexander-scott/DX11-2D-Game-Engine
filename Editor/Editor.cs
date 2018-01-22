@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
+using SimpleSampleEditor.EditorHierachy;
+
 namespace SimpleSampleEditor
 {
     public partial class Editor : Form
@@ -16,11 +18,13 @@ namespace SimpleSampleEditor
         /// </summary>
         private IntPtr mEngine;
 
+        private Hierachy mHierachy;
+
         public Editor()
         {
             InitializeComponent();
-            this.FormClosing += this.Form1_FormClosing;
-            this.Shown += this.Form1_Shown;
+            this.FormClosing += this.EditorClosing;
+            this.Shown += this.EditorLoaded;
 
             panel1.MouseDown += new MouseEventHandler(PanelMouseDown);
             panel1.MouseUp += new MouseEventHandler(PanelMouseRelease);
@@ -30,6 +34,8 @@ namespace SimpleSampleEditor
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(KeyboardKeyDown);
             this.KeyUp += new KeyEventHandler(KeyboardKeyUp);
+
+            mHierachy = new Hierachy();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -38,38 +44,22 @@ namespace SimpleSampleEditor
             panel1.Focus();
         }
 
-        private void Form1_Shown(object sender, EventArgs e)
+        private void EditorLoaded(object sender, EventArgs e)
         {
-            int numberOfGameObjects = SceneInterface.GetGameObjectCount(mEngine);
-            IntPtr hierarchy = SceneInterface.PopulateHierarchyItems(mEngine, numberOfGameObjects);
-            int structSize = Marshal.SizeOf(typeof(HierarchyItem));
-
-            List<HierarchyItem> items = new List<HierarchyItem>();
-            List<string> listBoxItems = new List<string>();
-
-            for (int i = 0; i < numberOfGameObjects; i++)
-            {
-                IntPtr data = new IntPtr(hierarchy.ToInt64() + structSize * i);
-                HierarchyItem hItem = (HierarchyItem)Marshal.PtrToStructure(data, typeof(HierarchyItem));
-                items.Add(hItem);
-                listBoxItems.Add(hItem.GameObjectName);
-            }
-
-            hierarchyListBox.DataSource = listBoxItems;
-
-            SceneInterface.FreeHierarchyMemory(hierarchy);
+            hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine);
 
             EngineInterface.StartEditorLoop(mEngine);  
         }
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            EngineInterface.PlayPressed(mEngine);
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void EditorClosing(object sender, FormClosingEventArgs e)
         {
             EngineInterface.CleanD3D(mEngine);
+        }
+
+        private void PlayClicked(object sender, EventArgs e)
+        {
+            EngineInterface.PlayPressed(mEngine);
+            hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
         }
 
         #region Basic Input

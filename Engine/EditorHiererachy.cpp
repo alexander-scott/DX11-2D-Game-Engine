@@ -9,7 +9,7 @@ EditorHierarchy::HierarchyItem* EditorHierarchy::PopulateHierarchyItems(void* en
 {
 	auto scene = static_cast<Engine*>(enginePtr)->GetScene();
 
-	static HierarchyItem* items = new HierarchyItem[itemCount];
+	HierarchyItem* items = new HierarchyItem[itemCount];
 	for (int i = 0; i < itemCount; i++)
 	{
 		auto gameObj = scene->GetGameObjectAtIndex(i);
