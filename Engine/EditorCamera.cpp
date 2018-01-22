@@ -2,11 +2,41 @@
 
 EditorCamera::EditorCamera(IGraphics* graphics) : ICameraGameObject(graphics)
 {
+	mPreviousMousePos = Mouse::Instance().GetPos();
+	mRightPressed = false;
 }
 
 void EditorCamera::Update(float deltaTime)
 {
 	// Update camera based on right click drag
+	if (Mouse::Instance().RightIsPressed())
+	{
+		// If the mouse wasn't being pressed the previous frame, reset the prevous mouse position
+		if (!mRightPressed)
+		{
+			mRightPressed = true;
+			mPreviousMousePos = Mouse::Instance().GetPos();
+		}
+
+		Vec2 newMousePos = Mouse::Instance().GetPos();
+
+		Vec2 moveDir = newMousePos - mPreviousMousePos;
+		float moveDist = moveDir.Len();
+		float moveSpeed = moveDist / deltaTime;
+		
+		moveDir.Normalize();
+
+		Vec2 currentPosition = GetPosition();
+		currentPosition = currentPosition + (-moveDir * deltaTime * moveSpeed);
+
+		mTransform->SetPosition(currentPosition);
+
+		mPreviousMousePos = newMousePos;
+	}
+	else if (!Mouse::Instance().RightIsPressed())
+	{
+		mRightPressed = false;
+	}
 }
 
 void EditorCamera::DrawSpriteScreenSpace(std::string name, Vec2 pos, RECT * rect, float rot, float scale, Vec2 offset)

@@ -18,7 +18,7 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(1));
 	ScenePersistentValues::Instance().Values["TotalScore"].reset(new PersistentValue<float>(0));
 
-	LoadPlayScene("Scene1");
+	LoadEditorScene("Scene1");
 }
 
 void Engine::Update()
