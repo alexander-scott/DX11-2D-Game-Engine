@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using SimpleSampleEditor.EditorHierachy;
+using SimpleSampleEditor.EditorComponents;
 
 namespace SimpleSampleEditor
 {
@@ -37,7 +38,26 @@ namespace SimpleSampleEditor
             this.KeyDown += new KeyEventHandler(KeyboardKeyDown);
             this.KeyUp += new KeyEventHandler(KeyboardKeyUp);
 
+            btnPlay.DisableSelect();
+            btnPlay.MouseClick += PlayClicked;
+
             mHierachy = new Hierachy();
+        }
+
+        private void PlayClicked(object sender, MouseEventArgs e)
+        {
+            if (!mPlaying)
+            {
+                mPlaying = true;
+                EngineInterface.PlayStarted(mEngine);
+                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+            }
+            else
+            {
+                mPlaying = false;
+                EngineInterface.PlayStopped(mEngine);
+                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -56,22 +76,6 @@ namespace SimpleSampleEditor
         private void EditorClosing(object sender, FormClosingEventArgs e)
         {
             EngineInterface.CleanD3D(mEngine);
-        }
-
-        private void PlayClicked(object sender, EventArgs e)
-        {
-            if (!mPlaying)
-            {
-                mPlaying = true;
-                EngineInterface.PlayStarted(mEngine);
-                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
-            }
-            else
-            {
-                mPlaying = false;
-                EngineInterface.PlayStopped(mEngine);
-                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
-            } 
         }
 
         #region Basic Input
