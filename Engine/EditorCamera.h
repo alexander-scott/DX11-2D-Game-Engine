@@ -5,7 +5,7 @@
 class EditorCamera : public Camera
 {
 public:
-	EditorCamera();
+	EditorCamera(IGraphics* graphics);
 	~EditorCamera();
 
 	virtual void Update(float deltaTime) override;

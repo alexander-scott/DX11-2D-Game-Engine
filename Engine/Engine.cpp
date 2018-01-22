@@ -7,7 +7,10 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	ApplicationValues::Instance().ScreenHeight = height;
 	ApplicationValues::Instance().ResourcesPath = resourcesPath;
 
-	Camera::Instance().Initalise(wnd, new DX11Graphics());
+	mGraphics = new DX11Graphics();
+	mGraphics->Initalise(wnd);
+	mGraphics->PreloadTextures();
+
 	Audio::Instance().CreateSoundEffects(ApplicationValues::Instance().ResourcesPath);
 
 	SceneBuilder::InitaliseGameplayValues(ApplicationValues::Instance().ResourcesPath + "\\Levels\\Prefabs.xml"); //BROKEN
@@ -20,13 +23,13 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 
 void Engine::Update()
 {
-	Camera::Instance().BeginFrame();
+	mGraphics->BeginFrame();
 
 	// If game is playing
 	UpdateScene();
 	DrawScene();
 
-	Camera::Instance().EndFrame();
+	mGraphics->EndFrame();
 
 	Audio::Instance().Update();
 }
@@ -34,13 +37,12 @@ void Engine::Update()
 Engine::~Engine()
 {
 	mScene = nullptr;
+	mGraphics->Destroy();
 }
 
 void Engine::UpdateScene()
 {
 	float deltaTime = mFrameTimer.Mark();
-
-	Camera::Instance().Update(deltaTime);
 
 	if (SceneManagement::Instance().LoadNewScene)
 	{
@@ -64,6 +66,6 @@ void Engine::LoadScene(std::string sceneName)
 	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\" + sceneName + ".xml";
 	string scenePath = stream.str();
 
-	mScene = make_shared<PlayScene>();
+	mScene = make_shared<PlayScene>(new Camera(mGraphics));
 	SceneBuilder::BuildScene(mScene, scenePath);
 }

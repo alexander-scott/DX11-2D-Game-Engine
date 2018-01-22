@@ -1,5 +1,9 @@
 #include "EditorScene.h"
 
+EditorScene::EditorScene(Camera * cam) : IScene(cam)
+{
+}
+
 EditorScene::~EditorScene()
 {
 	for (auto go : mGameObjects)
@@ -14,6 +18,7 @@ EditorScene::~EditorScene()
 void EditorScene::Update(float deltaTime)
 {
 	// UPDATE CAMERA
+	mCamera->Update(deltaTime);
 }
 
 void EditorScene::Draw()
@@ -21,22 +26,22 @@ void EditorScene::Draw()
 	// Draw gameobjects in the render order
 	for (auto& go : mRenderLayer0)
 	{
-		go->Draw(&mCamera);
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer1)
 	{
-		go->Draw(&mCamera);
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer2)
 	{
-		go->Draw(&mCamera);
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer3)
 	{
-		go->Draw(&mCamera);
+		go->Draw(mCamera);
 	}
 }
 

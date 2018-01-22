@@ -10,7 +10,7 @@ using namespace std;
 class PlayScene : public IScene
 {
 public:
-	PlayScene();
+	PlayScene(Camera* cam);
 	~PlayScene();
 
 	void Update(float deltaTime) override;

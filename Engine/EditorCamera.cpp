@@ -2,7 +2,7 @@
 
 
 
-EditorCamera::EditorCamera() : Camera()
+EditorCamera::EditorCamera(IGraphics* graphics) : Camera(graphics)
 {
 }
 

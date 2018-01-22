@@ -1,8 +1,7 @@
 #include "PlayScene.h"
 
-PlayScene::PlayScene()
+PlayScene::PlayScene(Camera * cam) : IScene(cam)
 {
-
 }
 
 PlayScene::~PlayScene()
@@ -79,6 +78,8 @@ void PlayScene::SetupPhysics()
 
 void PlayScene::Update(float deltaTime)
 {
+	mCamera->Update(deltaTime);
+
 	// Update object rigid bodies
 	mPhysicsManager.Update(deltaTime);
 
@@ -95,21 +96,21 @@ void PlayScene::Draw()
 	// Draw gameobjects in the render order
 	for (auto& go : mRenderLayer0)
 	{
-		go->Draw(&Camera::Instance());
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer1)
 	{
-		go->Draw(&Camera::Instance());
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer2)
 	{
-		go->Draw(&Camera::Instance());
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer3)
 	{
-		go->Draw(&Camera::Instance());
+		go->Draw(mCamera);
 	}
 }

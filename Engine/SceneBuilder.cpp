@@ -79,7 +79,7 @@ void SceneBuilder::BuildScene(shared_ptr<IScene> scene, string fileName)
 	while (gameObjectNode)
 	{
 		// Create an instance of the gameobject listed in the level xml
-		auto gameObject = objectManager.CreateObject(gameObjectNode);
+		auto gameObject = objectManager.CreateObject(gameObjectNode, scene->GetCamera());
 
 		// Cache it's components so they can be used regularly without having to refetch them 
 		scene->CacheComponents(gameObject);

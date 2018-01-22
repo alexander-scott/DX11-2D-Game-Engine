@@ -36,4 +36,5 @@ private:
 
 	FrameTimer					mFrameTimer;
 	shared_ptr<IScene>			mScene;
+	IGraphics*					mGraphics;
 };

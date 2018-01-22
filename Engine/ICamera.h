@@ -7,19 +7,7 @@
 class ICamera
 {
 public:
-	void Initalise(class MainWindow& wnd, IGraphics* graphics)
-	{
-		gfx = graphics;
-
-		gfx->Initalise(wnd);
-		gfx->PreloadTextures();
-	}
-
-	void Destroy()
-	{
-		gfx->Destroy();
-		delete gfx;
-	}
+	ICamera(IGraphics* graphics) : gfx(graphics) {}
 
 	void BeginFrame() { gfx->BeginFrame(); }
 	void EndFrame() { gfx->EndFrame(); }
