@@ -1,11 +1,10 @@
-#include "Scene.h"
+#include "PlayScene.h"
 
-Scene::Scene()
+PlayScene::PlayScene(ICameraGameObject * cam) : IScene(cam)
 {
-
 }
 
-Scene::~Scene()
+PlayScene::~PlayScene()
 {
 	for (auto go : mGameObjects)
 	{
@@ -16,7 +15,7 @@ Scene::~Scene()
 	}
 }
 
-void Scene::CacheComponents(shared_ptr<GameObject> gameObj)
+void PlayScene::CacheComponents(shared_ptr<GameObject> gameObj)
 {
 	mGameObjects.push_back(gameObj);
 
@@ -49,6 +48,9 @@ void Scene::CacheComponents(shared_ptr<GameObject> gameObj)
 	ColliderComponent* goCollider = gameObj->GetComponent<ColliderComponent>();
 	if (goCollider != nullptr)
 	{
+		if (!mPhysicsManager.GetSetup())
+			SetupPhysics();
+
 		mPhysicsManager.AddCollider(gameObj, goCollider);
 	}
 
@@ -63,21 +65,21 @@ void Scene::CacheComponents(shared_ptr<GameObject> gameObj)
 	}
 }
 
-void Scene::SetupPhysics(LevelData levelData)
+void PlayScene::SetupPhysics()
 {
-	mLevelData = levelData;
-
-	int width = (int)abs(mLevelData.levelLeftBounds - mLevelData.levelRightBounds);
+	int width = (int)abs(SceneData.levelLeftBounds - SceneData.levelRightBounds);
 	width *= 2;
 
-	int height = (int)abs(mLevelData.levelTopBounds - mLevelData.levelBottomBounds);
+	int height = (int)abs(SceneData.levelTopBounds - SceneData.levelBottomBounds);
 	height *= 2;
 
 	mPhysicsManager.BuildObjectGrid(width, height);
 }
 
-void Scene::Update(float deltaTime)
+void PlayScene::Update(float deltaTime)
 {
+	mCamera->Update(deltaTime);
+
 	// Update object rigid bodies
 	mPhysicsManager.Update(deltaTime);
 
@@ -89,26 +91,26 @@ void Scene::Update(float deltaTime)
 
 }
 
-void Scene::Draw()
+void PlayScene::Draw()
 {
 	// Draw gameobjects in the render order
 	for (auto& go : mRenderLayer0)
 	{
-		go->Draw(&Camera::Instance());
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer1)
 	{
-		go->Draw(&Camera::Instance());
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer2)
 	{
-		go->Draw(&Camera::Instance());
+		go->Draw(mCamera);
 	}
 
 	for (auto& go : mRenderLayer3)
 	{
-		go->Draw(&Camera::Instance());
+		go->Draw(mCamera);
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Scene.h"
+#include "IScene.h"
+#include "ObjectManager.h"
 
 #include "rapidxml.hpp"
 
@@ -11,7 +12,7 @@ namespace SceneBuilder
 {
 	void InitaliseGameplayValues(string fileName);
 
-	shared_ptr<Scene> BuildScene(string fileName);
+	void BuildScene(shared_ptr<IScene> scene, string fileName);
 
 	inline LevelData ExtractLevelData(xml_node<>* node);
 }

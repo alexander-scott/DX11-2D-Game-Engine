@@ -7,6 +7,12 @@
 #include "SceneManagement.h"
 #include "ScenePersistentValues.h"
 
+#include "PlayScene.h"
+#include "PlayCamera.h"
+
+#include "EditorScene.h"
+#include "EditorCamera.h"
+
 using namespace std;
 
 class Engine
@@ -16,7 +22,9 @@ public:
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 
-	shared_ptr<Scene> GetScene() { return mScene; }
+	shared_ptr<IScene> GetScene() { return mScene; }
+
+	void PlayPressed();
 
 	void Update();
 
@@ -24,12 +32,16 @@ public:
 
 	MainWindow& wnd;
 
+	EngineState EngineState;
+
 private:
 	void DrawScene();
 	void UpdateScene();
 
-	void LoadScene(std::string sceneName);
+	void LoadPlayScene(std::string sceneName);
+	void LoadEditorScene(std::string sceneName);
 
 	FrameTimer					mFrameTimer;
-	shared_ptr<Scene>			mScene;
+	shared_ptr<IScene>			mScene;
+	IGraphics*					mGraphics;
 };

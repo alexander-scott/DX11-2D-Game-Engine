@@ -19,5 +19,8 @@ namespace SimpleSampleEditor.Engine
 
         [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PopulateHierarchyItems(IntPtr window, int itemCount);
+
+        [DllImport("SimpleSample.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void FreeHierarchyMemory(IntPtr hierarchy);
     }
 }

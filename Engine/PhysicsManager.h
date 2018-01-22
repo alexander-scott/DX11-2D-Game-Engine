@@ -21,6 +21,8 @@ public:
 
 	void Update(float deltaTime);
 
+	bool GetSetup() { return mSetup; }
+
 private:
 	void IntegrateForces(ColliderComponent* collider, float deltaTime);
 	void IntegrateVelocity(ColliderComponent* collider, float deltaTime);
@@ -32,5 +34,7 @@ private:
 
 	vector<shared_ptr<GameObject>>		mGameObjects;
 	vector<ColliderComponent*>			mColliders;
+
+	bool								mSetup = false;
 };
 

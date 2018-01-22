@@ -33,7 +33,6 @@
             this.lblHierachy = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblPrefabs = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.hierarchyListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
@@ -81,16 +80,6 @@
             this.lblPrefabs.TabIndex = 4;
             this.lblPrefabs.Text = "Prefabs";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(103, 323);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // hierarchyListBox
             // 
             this.hierarchyListBox.FormattingEnabled = true;
@@ -105,7 +94,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 704);
             this.Controls.Add(this.hierarchyListBox);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.lblPrefabs);
             this.Controls.Add(this.lblHierachy);
@@ -126,7 +114,6 @@
         private System.Windows.Forms.Label lblHierachy;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblPrefabs;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ListBox hierarchyListBox;
     }
 }

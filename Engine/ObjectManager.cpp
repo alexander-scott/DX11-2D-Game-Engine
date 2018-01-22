@@ -10,7 +10,7 @@ shared_ptr<GameObject> ObjectManager::GetCreatedObject(int instanceID)
 	return mGameObjects[instanceID];
 }
 
-shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node)
+shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node, ICameraGameObject* cam)
 {
 	int instanceID = atoi(node->first_attribute("instanceid")->value());
 		
@@ -28,7 +28,7 @@ shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node)
 	xml_node<>* component = node->first_node("Component");
 	while (component)
 	{
-		IComponent* newComponent = CreateComponent(gameObj, component);
+		IComponent* newComponent = CreateComponent(gameObj, component, cam);
 
 		if (component->first_attribute("componentinactive") != nullptr)
 			newComponent->SetActive(false);
@@ -40,7 +40,7 @@ shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node)
 	return gameObj;
 }
 
-IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>* node)
+IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>* node, ICameraGameObject* cam)
 {
 	if (string(node->first_attribute("type")->value()) == "TransformComponent")
 	{
@@ -251,7 +251,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		else
 			projectileManager = mGameObjects[atoi(node->first_attribute("projectilemangercomponentid")->value())]->GetComponent<ProjectileManagerComponent>();
 
-		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectileManager, Camera::Instance().GetComponent<TransformComponent>());
+		return ComponentFactory::MakePlayerComponent(trans, anim, rb, dmg, projectileManager, cam->GetComponent<TransformComponent>());
 	}
 	else if (string(node->first_attribute("type")->value()) == "DamageableComponent")
 	{
@@ -325,7 +325,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		float viewRange = (float)atof(node->first_attribute("viewrange")->value());
 		float shotInterval = (float)atof(node->first_attribute("shotintervals")->value());
 
-		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, Camera::Instance().GetComponent<TransformComponent>(), patrolTime, dir, idleTime, targetTrans, viewRange, shotInterval);
+		return ComponentFactory::MakeAIAgentComponent(trans, anim, rb, dmg, projectileManager, cam->GetComponent<TransformComponent>(), patrolTime, dir, idleTime, targetTrans, viewRange, shotInterval);
 	}
 	else if (string(node->first_attribute("type")->value()) == "ProjectileManagerComponent")
 	{
@@ -376,7 +376,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 		float focusHeight = (float)atof(node->first_attribute("focusHeight")->value());
 		float focusWidth = (float)atof(node->first_attribute("focusWidth")->value());
 
-		return ComponentFactory::MakeGameCameraComponent(Camera::Instance().GetComponent<TransformComponent>(), trans,
+		return ComponentFactory::MakeGameCameraComponent(cam->GetComponent<TransformComponent>(), trans,
 			focusWidth, focusHeight, leftBound, rightBound, topBound, bottomBound);
 	}
 	else if (string(node->first_attribute("type")->value()) == "GUITextComponent")

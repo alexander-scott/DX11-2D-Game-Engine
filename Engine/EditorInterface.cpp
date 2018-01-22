@@ -9,8 +9,9 @@ namespace EditorInterface
 			MainWindow wnd(hWnd, Width, Height);
 			try
 			{
-				Engine* theGame = new Engine(wnd, Width, Height, filePath);
-				return theGame;
+				Engine* engine = new Engine(wnd, Width, Height, filePath);
+				engine->EngineState = EngineState::eEditor;
+				return engine;
 			}
 			catch (const CustomException& e)
 			{
@@ -55,13 +56,30 @@ namespace EditorInterface
 		return nullptr;
 	}
 
-	void StartUpdateLoop(void * enginePtr)
+	void StartEditorLoop(void * enginePtr)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
+
 		while (engine->wnd.ProcessMessage())
 		{
 			engine->Update();
 		}
+	}
+
+	void StartUpdateLoop(void * enginePtr)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+
+		while (engine->wnd.ProcessMessage())
+		{
+			engine->Update();
+		}
+	}
+
+	void PlayPressed(void * enginePtr)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->PlayPressed();
 	}
 
 	void CleanD3D(void * enginePtr)
@@ -76,16 +94,28 @@ namespace EditorInterface
 		engine->wnd.ProcessMouseMove(xPos, yPos);
 	}
 
-	void MouseClick(void * enginePtr, int xPos, int yPos)
+	void LeftMouseClick(void * enginePtr, int xPos, int yPos)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
-		engine->wnd.ProcessMouseClick(xPos, yPos);
+		engine->wnd.ProcessLeftMouseClick(xPos, yPos);
 	}
 
-	void MouseRelease(void * enginePtr, int xPos, int yPos)
+	void LeftMouseRelease(void * enginePtr, int xPos, int yPos)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
-		engine->wnd.ProcessMouseRelease(xPos, yPos);
+		engine->wnd.ProcessLeftMouseRelease(xPos, yPos);
+	}
+
+	void RightMouseClick(void * enginePtr, int xPos, int yPos)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessRightMouseClick(xPos, yPos);
+	}
+
+	void RightMouseRelease(void * enginePtr, int xPos, int yPos)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		engine->wnd.ProcessRightMouseRelease(xPos, yPos);
 	}
 
 	void KeyDown(void * enginePtr, int keyCode)

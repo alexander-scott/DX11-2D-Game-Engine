@@ -262,9 +262,6 @@
     <ClInclude Include="GameManagerComponent.h">
       <Filter>Game\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Engine\Scene Management</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBuilder.h">
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
@@ -280,7 +277,22 @@
     <ClInclude Include="ICamera.h">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
+    <ClInclude Include="EditorCamera.h">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorScene.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="ICameraGameObject.h">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayCamera.h">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
   </ItemGroup>
@@ -405,9 +417,6 @@
     <ClCompile Include="GameManagerComponent.cpp">
       <Filter>Game\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Engine\Scene Management</Filter>
-    </ClCompile>
     <ClCompile Include="SceneBuilder.cpp">
       <Filter>Engine\Scene Management</Filter>
     </ClCompile>
@@ -417,7 +426,16 @@
     <ClCompile Include="EditorHiererachy.cpp">
       <Filter>Engine\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
+    <ClCompile Include="EditorCamera.cpp">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorScene.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayCamera.cpp">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
   </ItemGroup>
