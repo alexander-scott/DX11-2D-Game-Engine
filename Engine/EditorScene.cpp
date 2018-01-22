@@ -1,6 +1,6 @@
 #include "EditorScene.h"
 
-EditorScene::EditorScene(Camera * cam) : IScene(cam)
+EditorScene::EditorScene(ICameraGameObject * cam) : IScene(cam)
 {
 }
 

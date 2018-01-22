@@ -1,6 +1,6 @@
 #include "PlayScene.h"
 
-PlayScene::PlayScene(Camera * cam) : IScene(cam)
+PlayScene::PlayScene(ICameraGameObject * cam) : IScene(cam)
 {
 }
 

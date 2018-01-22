@@ -3,14 +3,14 @@
 #include "PhysicsManager.h"
 #include "IScene.h"
 
-#include "Camera.h"
+#include "ICameraGameObject.h"
 
 using namespace std;
 
 class PlayScene : public IScene
 {
 public:
-	PlayScene(Camera* cam);
+	PlayScene(ICameraGameObject* cam);
 	~PlayScene();
 
 	void Update(float deltaTime) override;

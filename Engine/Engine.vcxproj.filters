@@ -292,6 +292,9 @@
     <ClInclude Include="EditorScene.h">
       <Filter>Engine\Scene Management</Filter>
     </ClInclude>
+    <ClInclude Include="ICameraGameObject.h">
+      <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">

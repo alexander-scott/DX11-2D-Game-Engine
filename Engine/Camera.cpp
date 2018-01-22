@@ -1,15 +1,6 @@
 #include "Camera.h"
 
-
-Camera::Camera(IGraphics* graphics)
-	: GameObject("MainCamera", -1), // TODO: REMOVE HARDCODED -1
-	ICamera(graphics)
-{
-	mTransform = ComponentFactory::MakeTransform(Vec2(0, 0), 0, 0);
-	AddComponent(mTransform);
-}
-
-Camera::~Camera()
+Camera::Camera(IGraphics* graphics) : ICameraGameObject(graphics)
 {
 }
 

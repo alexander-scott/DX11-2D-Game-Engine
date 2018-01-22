@@ -1,12 +1,13 @@
 #pragma once
 
 #include "IScene.h"
-#include "EditorCamera.h"
+
+#include "ICameraGameObject.h"
 
 class EditorScene :	public IScene
 {
 public:
-	EditorScene(Camera* cam);
+	EditorScene(ICameraGameObject* cam);
 	~EditorScene();
 
 	void Update(float deltaTime) override;

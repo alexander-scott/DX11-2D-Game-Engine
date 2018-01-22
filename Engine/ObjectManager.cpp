@@ -10,7 +10,7 @@ shared_ptr<GameObject> ObjectManager::GetCreatedObject(int instanceID)
 	return mGameObjects[instanceID];
 }
 
-shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node, Camera* cam)
+shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node, ICameraGameObject* cam)
 {
 	int instanceID = atoi(node->first_attribute("instanceid")->value());
 		
@@ -40,7 +40,7 @@ shared_ptr<GameObject> ObjectManager::CreateObject(xml_node<>* node, Camera* cam
 	return gameObj;
 }
 
-IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>* node, Camera* cam)
+IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>* node, ICameraGameObject* cam)
 {
 	if (string(node->first_attribute("type")->value()) == "TransformComponent")
 	{

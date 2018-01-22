@@ -269,6 +269,7 @@
     <ClInclude Include="EditorScene.h" />
     <ClInclude Include="GameCameraComponent.h" />
     <ClInclude Include="GameComponentFactory.h" />
+    <ClInclude Include="ICameraGameObject.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="SceneManagement.h" />
     <ClInclude Include="PlayScene.h" />

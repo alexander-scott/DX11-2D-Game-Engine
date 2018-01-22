@@ -8,6 +8,7 @@
 #include "ScenePersistentValues.h"
 
 #include "PlayScene.h"
+#include "Camera.h"
 
 using namespace std;
 
