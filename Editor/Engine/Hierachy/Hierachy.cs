@@ -15,6 +15,8 @@ namespace SimpleSampleEditor.EditorHierachy
 
         public bool Expanded;
 
+        public int ChildDepthLevel;
+
         public HItem(string name,int gameObjectID)
         {
             GameObjectName = name;
@@ -57,15 +59,21 @@ namespace SimpleSampleEditor.EditorHierachy
                     // First of all switch the icon around on this item
                     int removeIndex = listView.FocusedItem.Index;
                     listView.Items.RemoveAt(removeIndex);
-                    listView.Items.Insert(removeIndex, (new ListViewItem(selectedItem.GameObjectName, 1)));
+
+                    ListViewItem newItem = new ListViewItem(selectedItem.GameObjectName);
+                    newItem.IndentCount = selectedItem.ChildDepthLevel;
+                    newItem.ImageIndex = 1;
+                    listView.Items.Insert(removeIndex, newItem);
 
                     for (int i = 0; i < selectedItem.HierarchyChildren.Count; i++)
                     {
-                        if (selectedItem.HierarchyChildren[i].HierarchyChildren.Count == 0) // If the child has no children do not add icon
-                            listView.Items.Insert(removeIndex + 1, (new ListViewItem(selectedItem.HierarchyChildren[i].GameObjectName)));
-                        else // If the child has children add icon
-                            listView.Items.Insert(removeIndex + 1, (new ListViewItem(selectedItem.HierarchyChildren[i].GameObjectName, 0)));
+                        ListViewItem newChildItem = new ListViewItem(selectedItem.HierarchyChildren[i].GameObjectName);
+                        newChildItem.IndentCount = selectedItem.HierarchyChildren[i].ChildDepthLevel;
 
+                        if (selectedItem.HierarchyChildren[i].HierarchyChildren.Count != 0) // If the child has children add icon
+                            newChildItem.ImageIndex = 0;
+  
+                        listView.Items.Insert(removeIndex + 1, (newChildItem));
                         displayedHierarchyIDs.Insert(removeIndex + 1, removeIndex + 1 + i);
                     }
                 }
@@ -74,7 +82,11 @@ namespace SimpleSampleEditor.EditorHierachy
                     // First of all switch the icon around on this item
                     int removeIndex = listView.FocusedItem.Index;
                     listView.Items.RemoveAt(removeIndex);
-                    listView.Items.Insert(removeIndex, (new ListViewItem(selectedItem.GameObjectName, 0)));
+
+                    ListViewItem newItem = new ListViewItem(selectedItem.GameObjectName);
+                    newItem.IndentCount = selectedItem.ChildDepthLevel;
+                    newItem.ImageIndex = 0;
+                    listView.Items.Insert(removeIndex, newItem);
 
                     // Remove each child from the displayed hierarchy
                     for (int i = selectedItem.HierarchyChildren.Count; i > 0; i--)
@@ -125,6 +137,14 @@ namespace SimpleSampleEditor.EditorHierachy
                 hierarchyItems.Add(i, item);
             }
 
+            // Determine every items depth
+            for (int i = 0; i < hierarchyItems.Count; i++)
+            {
+                int depth = 0;
+                FindChildDepth(ref depth, hierarchyItems[i]);
+                hierarchyItems[i].ChildDepthLevel = depth;
+            }
+
             // Add the items that are visible to the actual listview
             for (int i = 0; i < displayedHierarchyIDs.Count; i++)
             {
@@ -153,6 +173,15 @@ namespace SimpleSampleEditor.EditorHierachy
             }
 
             return null;
+        }
+
+        private void FindChildDepth(ref int depth, HItem parent)
+        {
+            if (parent.HierarchyParent != null)
+            {
+                depth++;
+                FindChildDepth(ref depth, parent.HierarchyParent);
+            }
         }
     }
 }
