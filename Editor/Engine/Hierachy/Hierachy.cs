@@ -13,7 +13,7 @@ namespace SimpleSampleEditor.EditorHierachy
         public HItem HierarchyParent;
         public List<HItem> HierarchyChildren;
 
-        public bool Hidden;
+        public bool Expanded;
 
         public HItem(string name,int gameObjectID)
         {
@@ -21,13 +21,14 @@ namespace SimpleSampleEditor.EditorHierachy
             GameObjectID = gameObjectID;
             HierarchyChildren = new List<HItem>();
 
-            Hidden = false;
+            Expanded = false;
         }
     };
 
     public class Hierachy
     {
-        private List<HItem> hierarchyItems = new List<HItem>();
+        private Dictionary<int, HItem> hierarchyItems = new Dictionary<int, HItem>();
+        private List<int> displayedHierarchyIDs = new List<int>();
 
         private ListView listView;
 
@@ -36,11 +37,55 @@ namespace SimpleSampleEditor.EditorHierachy
             listView = lv;
 
             listView.MouseDoubleClick += ItemDoubleClicked;
+            listView.MouseClick += ListView_MouseClick;
+        }
+
+        private void ListView_MouseClick(object sender, MouseEventArgs e)
+        {
+            // Load up hierarchy item in inspector
         }
 
         private void ItemDoubleClicked(object sender, MouseEventArgs e)
         {
-            
+            HItem selectedItem = hierarchyItems[displayedHierarchyIDs[listView.FocusedItem.Index]];
+
+            // If the item has children
+            if (selectedItem.HierarchyChildren.Count != 0)
+            {
+                if (!selectedItem.Expanded) // If not expanded we will need to make visible
+                {
+                    // First of all switch the icon around on this item
+                    int removeIndex = listView.FocusedItem.Index;
+                    listView.Items.RemoveAt(removeIndex);
+                    listView.Items.Insert(removeIndex, (new ListViewItem(selectedItem.GameObjectName, 1)));
+
+                    for (int i = 0; i < selectedItem.HierarchyChildren.Count; i++)
+                    {
+                        if (selectedItem.HierarchyChildren[i].HierarchyChildren.Count == 0) // If the child has no children do not add icon
+                            listView.Items.Insert(removeIndex + 1, (new ListViewItem(selectedItem.HierarchyChildren[i].GameObjectName)));
+                        else // If the child has children add icon
+                            listView.Items.Insert(removeIndex + 1, (new ListViewItem(selectedItem.HierarchyChildren[i].GameObjectName, 0)));
+
+                        displayedHierarchyIDs.Insert(removeIndex + 1, removeIndex + 1 + i);
+                    }
+                }
+                else
+                {
+                    // First of all switch the icon around on this item
+                    int removeIndex = listView.FocusedItem.Index;
+                    listView.Items.RemoveAt(removeIndex);
+                    listView.Items.Insert(removeIndex, (new ListViewItem(selectedItem.GameObjectName, 0)));
+
+                    // Remove each child from the displayed hierarchy
+                    for (int i = selectedItem.HierarchyChildren.Count; i > 0; i--)
+                    {
+                        listView.Items.RemoveAt(removeIndex + i);
+                        displayedHierarchyIDs.RemoveAt(removeIndex + i);
+                    }
+                }
+
+                selectedItem.Expanded = !selectedItem.Expanded;
+            }
         }
 
         public void CreateHierachyList(IntPtr engine)
@@ -50,9 +95,10 @@ namespace SimpleSampleEditor.EditorHierachy
             int structSize = Marshal.SizeOf(typeof(HierarchyItem));
 
             hierarchyItems.Clear();
+            displayedHierarchyIDs.Clear();
+
             listView.Items.Clear();
 
-            List<string> listBoxItems = new List<string>();
             for (int i = 0; i < numberOfGameObjects; i++)
             {
                 // Parse the data recieved from the engine
@@ -68,16 +114,29 @@ namespace SimpleSampleEditor.EditorHierachy
                 {
                     // If the item has a parent, setup the parent and child data
                     item.HierarchyParent = itemParent;
-                    item.Hidden = true;
                     itemParent.HierarchyChildren.Add(item);
                 }
-                else // Else add it to the visibile list in the hierarchy
+                else // Else add it's index to be rendered in the list
                 {
-                    listView.Items.Add(new ListViewItem(hItem.GameObjectName, 0));
+                    displayedHierarchyIDs.Add(i);
                 }
 
                 // Cache the item
-                hierarchyItems.Add(item);
+                hierarchyItems.Add(i, item);
+            }
+
+            // Add the items that are visible to the actual listview
+            for (int i = 0; i < displayedHierarchyIDs.Count; i++)
+            {
+                // If this item does not have any children display without an expand icon
+                if (hierarchyItems[displayedHierarchyIDs[i]].HierarchyChildren.Count == 0)
+                {
+                    listView.Items.Add(new ListViewItem(hierarchyItems[displayedHierarchyIDs[i]].GameObjectName));
+                }
+                else // If this icon has children display with an expand icon
+                {
+                    listView.Items.Add(new ListViewItem(hierarchyItems[displayedHierarchyIDs[i]].GameObjectName, 0));
+                }   
             }
 
             SceneInterface.FreeHierarchyMemory(hierarchy);
