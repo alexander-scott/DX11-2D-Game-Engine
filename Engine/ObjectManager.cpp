@@ -348,7 +348,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 			ballGO->AddComponent(ballRenderer);
 			ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent(projectHitTag, 10, 10);
 			ballGO->AddComponent(ballProjectile);
-
+			ballGO->SetParent(go);
 			projectiles.push_back(ballGO);
 		}
 

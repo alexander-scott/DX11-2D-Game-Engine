@@ -8,16 +8,17 @@ namespace SimpleSampleEditor.EditorHierachy
 {
     public class HItem
     {
+        public string GameObjectName;
         public int GameObjectID;
         public HItem HierarchyParent;
         public List<HItem> HierarchyChildren;
 
         public bool Hidden;
 
-        public HItem(int gameObjectID, HItem parent)
+        public HItem(string name,int gameObjectID)
         {
+            GameObjectName = name;
             GameObjectID = gameObjectID;
-            HierarchyParent = parent;
             HierarchyChildren = new List<HItem>();
 
             Hidden = false;
@@ -49,24 +50,34 @@ namespace SimpleSampleEditor.EditorHierachy
             int structSize = Marshal.SizeOf(typeof(HierarchyItem));
 
             hierarchyItems.Clear();
+            listView.Items.Clear();
 
             List<string> listBoxItems = new List<string>();
             for (int i = 0; i < numberOfGameObjects; i++)
             {
+                // Parse the data recieved from the engine
                 IntPtr data = new IntPtr(hierarchy.ToInt64() + structSize * i);
                 HierarchyItem hItem = (HierarchyItem)Marshal.PtrToStructure(data, typeof(HierarchyItem));
 
-                HItem itemParent = FindParent((int)hItem.GameObjectParentID);
-                HItem item = new HItem((int)hItem.GameObjectID, itemParent);
+                // Create the item that will be stored in the hierarchy
+                HItem item = new HItem(hItem.GameObjectName, (int)hItem.GameObjectID);
 
+                // Check if the item has a parent
+                HItem itemParent = FindParent((int)hItem.GameObjectParentID);
                 if (itemParent != null)
                 {
+                    // If the item has a parent, setup the parent and child data
+                    item.HierarchyParent = itemParent;
+                    item.Hidden = true;
                     itemParent.HierarchyChildren.Add(item);
                 }
+                else // Else add it to the visibile list in the hierarchy
+                {
+                    listView.Items.Add(new ListViewItem(hItem.GameObjectName, 0));
+                }
 
+                // Cache the item
                 hierarchyItems.Add(item);
-
-                listView.Items.Add(new ListViewItem(hItem.GameObjectName, 0));
             }
 
             SceneInterface.FreeHierarchyMemory(hierarchy);

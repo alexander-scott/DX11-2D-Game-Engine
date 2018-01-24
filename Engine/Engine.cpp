@@ -13,7 +13,7 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 
 	Audio::Instance().CreateSoundEffects(ApplicationValues::Instance().ResourcesPath);
 
-	SceneBuilder::InitaliseGameplayValues(ApplicationValues::Instance().ResourcesPath + "\\Levels\\Prefabs.xml"); //BROKEN
+	//SceneBuilder::InitaliseGameplayValues(ApplicationValues::Instance().ResourcesPath + "\\Levels\\Prefabs.xml"); //BROKEN
 
 	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(1));
 	ScenePersistentValues::Instance().Values["TotalScore"].reset(new PersistentValue<float>(0));
