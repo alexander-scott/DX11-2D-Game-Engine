@@ -6,7 +6,15 @@
 class TransformComponent : public IComponent
 {
 public:
-	TransformComponent(Vec2 position, float rotation, float scale);
+	TransformComponent(Vec2 worldPosition, float worldRotation, float worldScale);
+
+	void SetLocalPosition(Vec2 position);
+	void SetLocalScale(float scale);
+	void SetLocalRotation(float rot);
+
+	float GetLocalRotation() const;
+	float GetLocalScale() const;
+	Vec2 GetLocalPosition() const;
 
 	void SetWorldPosition(Vec2 position);
 	void SetWorldScale(float scale);

@@ -12,10 +12,11 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 		MainWindow wnd(hInst, pArgs, screenWidth, screenHeight);
 		try
 		{
-			Engine theGame(wnd, screenWidth, screenHeight, filePath);
+			Engine engine(wnd, screenWidth, screenHeight, filePath);
+			engine.PlayStarted();
 			while (wnd.ProcessMessage())
 			{
-				theGame.Update();
+				engine.Update();
 			}
 		}
 		catch (const CustomException& e)
