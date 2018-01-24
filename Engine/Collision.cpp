@@ -37,8 +37,8 @@ void Collision::PrepareToSolve(float deltaTime)
 	for (int i = 0; i < mContactCount; ++i)
 	{
 		// Calculate radii from COM to contact
-		Vec2 ra = mContacts[i] - mColliderA->GetTransformComponent()->GetPosition();
-		Vec2 rb = mContacts[i] - mColliderB->GetTransformComponent()->GetPosition();
+		Vec2 ra = mContacts[i] - mColliderA->GetTransformComponent()->GetWorldPosition();
+		Vec2 rb = mContacts[i] - mColliderB->GetTransformComponent()->GetWorldPosition();
 
 		Vec2 rv = mColliderB->GetRigidbodyComponent()->GetVelocity() + Cross(mColliderB->GetRigidbodyComponent()->GetAngularVelocity(), rb) -
 			mColliderA->GetRigidbodyComponent()->GetVelocity() - Cross(mColliderA->GetRigidbodyComponent()->GetAngularVelocity(), ra);
@@ -63,8 +63,8 @@ void Collision::ResolveCollision()
 	for (int i = 0; i < mContactCount; ++i)
 	{
 		// Calculate radii from positions to contact
-		Vec2 radiiA = mContacts[i] - mColliderA->GetTransformComponent()->GetPosition();
-		Vec2 radiiB = mContacts[i] - mColliderB->GetTransformComponent()->GetPosition();
+		Vec2 radiiA = mContacts[i] - mColliderA->GetTransformComponent()->GetWorldPosition();
+		Vec2 radiiB = mContacts[i] - mColliderB->GetTransformComponent()->GetWorldPosition();
 
 		// Calculate relative velocity
 		Vec2 relativeVelocity = mColliderB->GetRigidbodyComponent()->GetVelocity() + Cross(mColliderB->GetRigidbodyComponent()->GetAngularVelocity(), radiiB) -
@@ -127,8 +127,8 @@ void Collision::PenetrationCorrection()
 	float percent = 0.4f; // Penetration percentage to correct
 
 	Vec2 correction = (std::max(mPenetration - allowance, 0.0f) / (mColliderA->GetRigidbodyComponent()->GetInverseMass() + mColliderB->GetRigidbodyComponent()->GetInverseMass())) * mNormal * percent;
-	mColliderA->GetTransformComponent()->SetPosition(mColliderA->GetTransformComponent()->GetPosition() - correction * mColliderA->GetRigidbodyComponent()->GetInverseMass());
-	mColliderB->GetTransformComponent()->SetPosition(mColliderB->GetTransformComponent()->GetPosition() + correction * mColliderB->GetRigidbodyComponent()->GetInverseMass());
+	mColliderA->GetTransformComponent()->SetWorldPosition(mColliderA->GetTransformComponent()->GetWorldPosition() - correction * mColliderA->GetRigidbodyComponent()->GetInverseMass());
+	mColliderB->GetTransformComponent()->SetWorldPosition(mColliderB->GetTransformComponent()->GetWorldPosition() + correction * mColliderB->GetRigidbodyComponent()->GetInverseMass());
 }
 
 void Collision::NullVelocities()
@@ -143,7 +143,7 @@ void Collision::CircletoCircleCollision()
 	CircleColliderComponent *B = reinterpret_cast<CircleColliderComponent *>(mColliderB);
 
 	// Calculate translational vector, which is normal
-	mNormal = B->GetTransformComponent()->GetPosition() - A->GetTransformComponent()->GetPosition();
+	mNormal = B->GetTransformComponent()->GetWorldPosition() - A->GetTransformComponent()->GetWorldPosition();
 
 	float distSquared = mNormal.LenSqr();
 	float radius = A->GetRadius() + B->GetRadius();
@@ -163,13 +163,13 @@ void Collision::CircletoCircleCollision()
 	{
 		mPenetration = A->GetRadius();
 		mNormal = Vec2(1, 0);
-		mContacts[0] = A->GetTransformComponent()->GetPosition();
+		mContacts[0] = A->GetTransformComponent()->GetWorldPosition();
 	}
 	else
 	{
 		mPenetration = radius - distance;
 		mNormal = mNormal / distance; // Faster than using Normalized since we already performed sqrt
-		mContacts[0] = mNormal * A->GetRadius() + A->GetTransformComponent()->GetPosition();
+		mContacts[0] = mNormal * A->GetRadius() + A->GetTransformComponent()->GetWorldPosition();
 	}
 }
 
@@ -181,8 +181,8 @@ void Collision::CircleToPolygonCollision()
 	mContactCount = 0;
 
 	// Transform circle center to Polygon model space
-	Vec2 center = mColliderA->GetTransformComponent()->GetPosition();
-	center = mColliderB->GetRigidbodyComponent()->GetOrientationMatrix().Transpose() * (center - mColliderB->GetTransformComponent()->GetPosition());
+	Vec2 center = mColliderA->GetTransformComponent()->GetWorldPosition();
+	center = mColliderB->GetRigidbodyComponent()->GetOrientationMatrix().Transpose() * (center - mColliderB->GetTransformComponent()->GetWorldPosition());
 
 	// Find edge with minimum penetration
 	// Exact concept as using support points in Polygon vs Polygon
@@ -212,7 +212,7 @@ void Collision::CircleToPolygonCollision()
 	{
 		mContactCount = 1;
 		mNormal = -(B->GetRigidbodyComponent()->GetOrientationMatrix() * B->Normals[faceNormal]);
-		mContacts[0] = mNormal * A->GetRadius() + mColliderA->GetTransformComponent()->GetPosition();
+		mContacts[0] = mNormal * A->GetRadius() + mColliderA->GetTransformComponent()->GetWorldPosition();
 		mPenetration = A->GetRadius();
 		return;
 	}
@@ -233,7 +233,7 @@ void Collision::CircleToPolygonCollision()
 		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 		n.Normalize();
 		mNormal = n;
-		vertex1 = B->GetRigidbodyComponent()->GetOrientationMatrix() * vertex1 + mColliderB->GetTransformComponent()->GetPosition();
+		vertex1 = B->GetRigidbodyComponent()->GetOrientationMatrix() * vertex1 + mColliderB->GetTransformComponent()->GetWorldPosition();
 		mContacts[0] = vertex1;
 	}
 	else if (dot2 <= 0.0f) // Closest to vertex2
@@ -243,7 +243,7 @@ void Collision::CircleToPolygonCollision()
 
 		mContactCount = 1;
 		Vec2 n = vertex2 - center;
-		vertex2 = B->GetRigidbodyComponent()->GetOrientationMatrix() * vertex2 + mColliderB->GetTransformComponent()->GetPosition();
+		vertex2 = B->GetRigidbodyComponent()->GetOrientationMatrix() * vertex2 + mColliderB->GetTransformComponent()->GetWorldPosition();
 		mContacts[0] = vertex2;
 		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 		n.Normalize();
@@ -257,7 +257,7 @@ void Collision::CircleToPolygonCollision()
 
 		n = B->GetRigidbodyComponent()->GetOrientationMatrix() * n;
 		mNormal = -n;
-		mContacts[0] = mNormal * A->GetRadius() + mColliderA->GetTransformComponent()->GetPosition();
+		mContacts[0] = mNormal * A->GetRadius() + mColliderA->GetTransformComponent()->GetWorldPosition();
 		mContactCount = 1;
 	}
 }
@@ -323,8 +323,8 @@ void Collision::PolygonToPolygonCollision()
 	Vec2 v2 = RefPoly->Vertices[referenceIndex];
 
 	// Transform vertices to world space
-	v1 = RefPoly->GetRigidbodyComponent()->GetOrientationMatrix() * v1 + RefPoly->GetTransformComponent()->GetPosition();
-	v2 = RefPoly->GetRigidbodyComponent()->GetOrientationMatrix() * v2 + RefPoly->GetTransformComponent()->GetPosition();
+	v1 = RefPoly->GetRigidbodyComponent()->GetOrientationMatrix() * v1 + RefPoly->GetTransformComponent()->GetWorldPosition();
+	v2 = RefPoly->GetRigidbodyComponent()->GetOrientationMatrix() * v2 + RefPoly->GetTransformComponent()->GetWorldPosition();
 
 	// Calculate reference face side normal in world space
 	Vec2 sidePlaneNormal = (v2 - v1);
@@ -394,8 +394,8 @@ float Collision::GetFurthestPenetration(int * faceIndex, PolygonColliderComponen
 
 		// Retrieve vertex on face from A, transform into B's model space
 		Vec2 v = A->Vertices[i];
-		v = A->GetRigidbodyComponent()->GetOrientationMatrix() * v + A->GetTransformComponent()->GetPosition();
-		v -= B->GetTransformComponent()->GetPosition();
+		v = A->GetRigidbodyComponent()->GetOrientationMatrix() * v + A->GetTransformComponent()->GetWorldPosition();
+		v -= B->GetTransformComponent()->GetWorldPosition();
 		v = buT * v;
 
 		// Compute penetration distance (in B's model space)
@@ -435,9 +435,9 @@ void Collision::FindIncidentFace(Vec2 * v, PolygonColliderComponent * RefPoly, P
 	}
 
 	// Assign face vertices for incidentFace
-	v[0] = IncPoly->GetRigidbodyComponent()->GetOrientationMatrix() * IncPoly->Vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
+	v[0] = IncPoly->GetRigidbodyComponent()->GetOrientationMatrix() * IncPoly->Vertices[incidentFace] + IncPoly->GetTransformComponent()->GetWorldPosition();
 	incidentFace = incidentFace + 1 >= (int)IncPoly->VertexCount ? 0 : incidentFace + 1;
-	v[1] = IncPoly->GetRigidbodyComponent()->GetOrientationMatrix() * IncPoly->Vertices[incidentFace] + IncPoly->GetTransformComponent()->GetPosition();
+	v[1] = IncPoly->GetRigidbodyComponent()->GetOrientationMatrix() * IncPoly->Vertices[incidentFace] + IncPoly->GetTransformComponent()->GetWorldPosition();
 }
 
 int Collision::Clip(Vec2 n, float c, Vec2 * face)

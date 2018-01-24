@@ -28,7 +28,7 @@ void CircleColliderComponent::ComputeMass(float density)
 
 Rect CircleColliderComponent::GetRect()
 {
-	Vec2 pos = mTransformComponent->GetPosition();
+	Vec2 pos = mTransformComponent->GetWorldPosition();
 	Rect r;
 	r.LeftX = (int)pos.x;
 	r.TopY = (int)pos.y;

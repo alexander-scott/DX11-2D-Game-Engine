@@ -20,5 +20,5 @@ void GUITextDamageComponent::Draw(ICamera * cam)
 	rgb[0] = mColourR;
 	rgb[1] = mColourG;
 	rgb[2] = mColourB;
-	cam->DrawTextScreenSpace(s, GetTransform()->GetPosition(), GetTransform()->GetRotation(), rgb, GetTransform()->GetScale(), mOffset);
+	cam->DrawTextScreenSpace(s, GetTransform()->GetWorldPosition(), GetTransform()->GetWorldRotation(), rgb, GetTransform()->GetWorldScale(), mOffset);
 }

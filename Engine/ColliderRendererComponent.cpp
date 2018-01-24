@@ -26,7 +26,7 @@ void ColliderRendererComponent::Draw(ICamera* cam)
 			PolygonColliderComponent* col = reinterpret_cast<PolygonColliderComponent *>(_collider);
 			for (int i = 0; i < col->VertexCount - 1; i++)
 			{
-				cam->DrawLine(GetTransform()->GetPosition() + col->Vertices[i], GetTransform()->GetPosition() + col->Vertices[i + 1]);
+				cam->DrawLine(GetTransform()->GetWorldPosition() + col->Vertices[i], GetTransform()->GetWorldPosition() + col->Vertices[i + 1]);
 			}
 			break;
 	}

@@ -7,28 +7,30 @@ class TransformComponent : public IComponent
 {
 public:
 	TransformComponent(Vec2 position, float rotation, float scale);
-	~TransformComponent();
 
-	void SetPosition(Vec2 position);
-	void SetPreviousPosition(Vec2 position) { mPreviousPosition = position; }
+	void SetWorldPosition(Vec2 position);
+	void SetWorldScale(float scale);
+	void SetWorldRotation(float rot);
 
-	void SetScale(float scale) { mScale = scale; }
-	void SetRotation(float rot) { mRotation = rot; }
-
-	float GetRotation() const { return mRotation; }
-	float GetScale() const { return mScale; }
-	Vec2 GetPosition() const { return mPosition; }
-
-	Vec2 GetPreviousPosition() const { return mPreviousPosition; }
+	float GetWorldRotation() const;
+	float GetWorldScale() const;
+	Vec2 GetWorldPosition() const;
 
 	bool CheckChanged() { return mHasChanged; }
 	void SetChanged(bool changed) { mHasChanged = changed; }
 
+	void SetParent(TransformComponent* parent) { mParent = parent; }
+
 private:
-	Vec2					mPosition;
-	float					mRotation; // RADIANS
-	float					mScale;
+	Vec2					mLocalPosition;
+	float					mLocalRotation; // RADIANS
+	float					mLocalScale;
+
+	Vec2					mWorldPosition;
+	float					mWorldRotation; // RADIANS
+	float					mWorldScale;
 
 	bool					mHasChanged;
-	Vec2					mPreviousPosition;
+
+	TransformComponent*		mParent;
 };

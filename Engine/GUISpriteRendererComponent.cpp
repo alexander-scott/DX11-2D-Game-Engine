@@ -16,17 +16,17 @@ void GUISpriteRendererComponent::Draw(ICamera * cam)
 {
 	TransformComponent* trans = GetTransform();
 
-	float halfSpriteWidth = (mSpriteWidth / 2) * trans->GetScale();
-	float halfSpriteHeight = (mSpriteHeight / 2) * trans->GetScale();
+	float halfSpriteWidth = (mSpriteWidth / 2) * trans->GetWorldScale();
+	float halfSpriteHeight = (mSpriteHeight / 2) * trans->GetWorldScale();
 
-	Vec2 pos = trans->GetPosition();
+	Vec2 pos = trans->GetWorldPosition();
 	float newPosX = pos.x
-		- halfSpriteWidth * cos(trans->GetRotation())
-		+ halfSpriteHeight * sin(trans->GetRotation());
+		- halfSpriteWidth * cos(trans->GetWorldRotation())
+		+ halfSpriteHeight * sin(trans->GetWorldRotation());
 
 	float newPosY = pos.y
-		- halfSpriteHeight * cos(trans->GetRotation())
-		- halfSpriteWidth * sin(trans->GetRotation());
+		- halfSpriteHeight * cos(trans->GetWorldRotation())
+		- halfSpriteWidth * sin(trans->GetWorldRotation());
 
-	cam->DrawSpriteScreenSpace(mSpriteFileName, Vec2(newPosX, newPosY), nullptr, trans->GetRotation(), trans->GetScale(), mOffset);
+	cam->DrawSpriteScreenSpace(mSpriteFileName, Vec2(newPosX, newPosY), nullptr, trans->GetWorldRotation(), trans->GetWorldScale(), mOffset);
 }

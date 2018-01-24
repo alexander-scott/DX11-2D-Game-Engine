@@ -16,7 +16,7 @@ GameCameraComponent::~GameCameraComponent()
 void GameCameraComponent::Update(float deltaTime)
 {
 	// Set the cameras central position to be on the focus position
-	Vec2 pos = mFocusTrans->GetPosition();
+	Vec2 pos = mFocusTrans->GetWorldPosition();
 
 	if (pos.x - ((ApplicationValues::Instance().ScreenWidth / 2) - mFocusWidth) < mLevelLeftBound)
 	{
@@ -39,5 +39,5 @@ void GameCameraComponent::Update(float deltaTime)
 	pos.x -= (ApplicationValues::Instance().ScreenWidth / 2) - mFocusWidth;
 	pos.y -= (ApplicationValues::Instance().ScreenHeight / 2) - mFocusHeight;
 
-	mTransform->SetPosition(pos);
+	mTransform->SetWorldPosition(pos);
 }

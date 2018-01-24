@@ -53,7 +53,7 @@ void AIAgentComponent::SetupShooting(ProjectileManagerComponent * projectileMan,
 void AIAgentComponent::ShootAtPlayer(float deltaTime)
 {
 	UpdateAnimationSequenceMessage updateSeqMsg;
-	if (mTargetTransform->GetPosition().x > mAgentTransform->GetPosition().x) // Face the player
+	if (mTargetTransform->GetWorldPosition().x > mAgentTransform->GetWorldPosition().x) // Face the player
 		updateSeqMsg.SetSequence((int)AnimationType::StandingRight);
 	else
 		updateSeqMsg.SetSequence((int)AnimationType::StandingLeft);
@@ -64,10 +64,10 @@ void AIAgentComponent::ShootAtPlayer(float deltaTime)
 		mCurrentShotTimer = 0;
 
 		auto go = mAgentProjectiles->GetGameObject("Player", AI_PROJECTILE_DAMAGE);
-		Vec2 dir = mTargetTransform->GetPosition() - mAgentTransform->GetPosition();
+		Vec2 dir = mTargetTransform->GetWorldPosition() - mAgentTransform->GetWorldPosition();
 		dir.Normalize();
 
-		go->GetComponent<TransformComponent>()->SetPosition(mAgentTransform->GetPosition() + (dir * 10));
+		go->GetComponent<TransformComponent>()->SetWorldPosition(mAgentTransform->GetWorldPosition() + (dir * 10));
 		go->GetComponent<RigidBodyComponent>()->ApplyForce(dir * AI_PROJECTILE_SPEED);
 
 		Audio::Instance().PlaySoundEffect("GunShot");
@@ -77,7 +77,7 @@ void AIAgentComponent::ShootAtPlayer(float deltaTime)
 		mCurrentShotTimer += deltaTime;
 	}
 
-	Vec2 dir = Vec2(mTargetTransform->GetPosition().x - mAgentTransform->GetPosition().x, mTargetTransform->GetPosition().y - mAgentTransform->GetPosition().y);
+	Vec2 dir = Vec2(mTargetTransform->GetWorldPosition().x - mAgentTransform->GetWorldPosition().x, mTargetTransform->GetWorldPosition().y - mAgentTransform->GetWorldPosition().y);
 	float distance = dir.Len();
 	if (distance > mViewRange) // If player is too far away
 	{
@@ -142,10 +142,10 @@ bool AIAgentComponent::CanSeePlayer()
 {
 	if (mAgentRigidBody->GetVelocity().x > 0) // Moving right
 	{
-		if (mTargetTransform->GetPosition().x > mAgentTransform->GetPosition().x) // If the target is more right than the transform
+		if (mTargetTransform->GetWorldPosition().x > mAgentTransform->GetWorldPosition().x) // If the target is more right than the transform
 		{
 			// If the target is within view range
-			Vec2 dir = Vec2(mTargetTransform->GetPosition().x - mAgentTransform->GetPosition().x, mTargetTransform->GetPosition().y - mAgentTransform->GetPosition().y);
+			Vec2 dir = Vec2(mTargetTransform->GetWorldPosition().x - mAgentTransform->GetWorldPosition().x, mTargetTransform->GetWorldPosition().y - mAgentTransform->GetWorldPosition().y);
 			float distance = dir.Len();
 			if (distance < mViewRange)
 			{
@@ -155,9 +155,9 @@ bool AIAgentComponent::CanSeePlayer()
 	}
 	else
 	{
-		if (mTargetTransform->GetPosition().x < mAgentTransform->GetPosition().x) // If the target is more left than the transform
+		if (mTargetTransform->GetWorldPosition().x < mAgentTransform->GetWorldPosition().x) // If the target is more left than the transform
 		{
-			Vec2 dir = Vec2(mTargetTransform->GetPosition().x - mAgentTransform->GetPosition().x, mTargetTransform->GetPosition().y - mAgentTransform->GetPosition().y);
+			Vec2 dir = Vec2(mTargetTransform->GetWorldPosition().x - mAgentTransform->GetWorldPosition().x, mTargetTransform->GetWorldPosition().y - mAgentTransform->GetWorldPosition().y);
 			float distance = dir.Len();
 			if (distance < mViewRange)
 			{

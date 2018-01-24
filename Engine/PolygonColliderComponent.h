@@ -12,7 +12,7 @@ public:
 	virtual void ComputeMass(float density) override;
 	virtual Rect GetRect() override;
 
-	virtual Vec2 GetCentre() override { return Vec2(mTransformComponent->GetPosition().x + mHalfWidth, mTransformComponent->GetPosition().y + mHalfHeight); }
+	virtual Vec2 GetCentre() override { return Vec2(mTransformComponent->GetWorldPosition().x + mHalfWidth, mTransformComponent->GetWorldPosition().y + mHalfHeight); }
 
 	void SetVerticies(Vec2 *vertices, int count);
 	Vec2 GetSupport(const Vec2& dir);

@@ -1,33 +1,59 @@
 #include "TransformComponent.h"
 
-
-
 TransformComponent::TransformComponent(Vec2 position, float rotation, float scale)
 {
 	mType = "Transform";
-	mPosition = Vec2();
-	mRotation = 0;
-	mScale = 1;
+	mWorldPosition = Vec2();
+	mWorldRotation = 0;
+	mWorldScale = 1;
 	mHasChanged = false;
 
-	mPosition = position;
-	mPreviousPosition = mPosition;
-	mScale = scale;
-	mRotation = rotation;
+	mWorldPosition = position;
+	mWorldScale = scale;
+	mWorldRotation = rotation;
 }
 
-
-TransformComponent::~TransformComponent()
+void TransformComponent::SetWorldPosition(Vec2 position)
 {
-}
-
-void TransformComponent::SetPosition(Vec2 position)
-{
-	if (position.x != mPosition.x || position.y != mPosition.y)
+	if (position.x != mWorldPosition.x || position.y != mWorldPosition.y)
 	{
 		mHasChanged = true;
 	}
 
-	mPreviousPosition = mPosition;
-	mPosition = position;
+	mWorldPosition = position;
+}
+
+void TransformComponent::SetWorldScale(float scale)
+{
+	if (scale != mWorldScale)
+	{
+		mHasChanged = true;
+	}
+
+	mWorldScale = scale;
+}
+
+void TransformComponent::SetWorldRotation(float rot)
+{
+	if (rot != mWorldRotation)
+	{
+		mHasChanged = true;
+	}
+
+	mWorldRotation = rot;
+}
+
+float TransformComponent::GetWorldRotation() const
+{
+	return mWorldRotation;
+}
+
+float TransformComponent::GetWorldScale() const
+{
+	return mWorldScale;
+}
+
+Vec2 TransformComponent::GetWorldPosition() const
+{
+	return mWorldPosition;
 }

@@ -13,7 +13,7 @@ public:
 		AddComponent(mTransform);
 	} 
 
-	Vec2 GetPosition() { return mTransform->GetPosition(); }
+	Vec2 GetPosition() { return mTransform->GetWorldPosition(); }
 
 protected:
 	TransformComponent * mTransform;
