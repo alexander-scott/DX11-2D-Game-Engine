@@ -47,13 +47,15 @@ namespace SimpleSampleEditor
             hierarchyListBox.Columns.Add(new ColumnHeader
             {
                 Text = "Hierarchy",
-                Name = "Hierarchy"
+                Name = "Hierarchy",
+                Width = 100
             });
             ImageList list = new ImageList();
             list.Images.Add("ClosedTriangle", Image.FromFile(@"" + mResoucesPath + "\\Editor\\ClosedTriangle.bmp"));
             list.Images.Add("OpenTriangle", Image.FromFile(@"" + mResoucesPath + "\\Editor\\OpenTriangle.bmp"));
             
             hierarchyListBox.SmallImageList = list;
+            hierarchyListBox.FullRowSelect = true;
 
             mHierachy = new Hierachy(hierarchyListBox);
         }

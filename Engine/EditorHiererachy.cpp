@@ -15,7 +15,7 @@ EditorHierarchy::HierarchyItem* EditorHierarchy::PopulateHierarchyItems(void* en
 		auto gameObj = scene->GetGameObjectAtIndex(i);
 
 		items[i].GameObjectID = gameObj->GetID();
-		items[i].GameObjectParentID = 0;
+		items[i].GameObjectParentID = NULL;
 
 		char* result = new char[gameObj->GetTag().length() + 1];
 		strcpy_s(result, gameObj->GetTag().length() + 1, gameObj->GetTag().c_str());
