@@ -30,6 +30,13 @@ public:
 	void SetActive(bool active);
 	bool GetActive() { return mActive; }
 
+	void SetParent(shared_ptr<GameObject> parent);
+	shared_ptr<GameObject> GetParent() { return mParent; }
+
+	void AddChild(shared_ptr<GameObject> child);
+	void RemoveChild(shared_ptr<GameObject> child);
+	vector<shared_ptr<GameObject>> GetChildren() { return mChildren; }
+
 	template<class T>
 	T * GetComponent()
 	{
@@ -82,8 +89,10 @@ public:
 	static shared_ptr<GameObject> MakeGameObject(string tag, int ID);
 
 protected:
-	vector<IComponent*>		mComponents;
-	string					mTag;
-	int						mID;
-	bool					mActive;
+	vector<IComponent*>				mComponents;
+	string							mTag;
+	int								mID;
+	shared_ptr<GameObject>			mParent;
+	vector<shared_ptr<GameObject>>	mChildren;
+	bool							mActive;
 };
