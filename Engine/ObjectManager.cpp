@@ -331,6 +331,8 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 	{
 		int projectileCount = atoi(node->first_attribute("projectilecount")->value());
 		string projectHitTag = string(node->first_attribute("projecthittag")->value());
+		int parentGameObjectID = atoi(node->first_attribute("parentgameobjectid")->value());
+
 		vector<shared_ptr<GameObject>> projectiles;
 		for (int i = 0; i < projectileCount; i++)
 		{
@@ -348,7 +350,7 @@ IComponent* ObjectManager::CreateComponent(shared_ptr<GameObject> go, xml_node<>
 			ballGO->AddComponent(ballRenderer);
 			ProjectileComponent* ballProjectile = ComponentFactory::MakeProjectileComponent(projectHitTag, 10, 10);
 			ballGO->AddComponent(ballProjectile);
-			ballGO->SetParent(go);
+			ballGO->SetParent(mGameObjects[parentGameObjectID]);
 			projectiles.push_back(ballGO);
 		}
 

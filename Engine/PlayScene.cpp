@@ -40,8 +40,6 @@ void PlayScene::CacheComponents(shared_ptr<GameObject> gameObj)
 					mRenderLayer3.push_back(gameObj);
 					break;
 			}
-
-			break;
 		}
 	}
 

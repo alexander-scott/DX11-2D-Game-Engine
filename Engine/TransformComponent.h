@@ -34,10 +34,6 @@ private:
 	float					mLocalRotation; // RADIANS
 	float					mLocalScale;
 
-	Vec2					mWorldPosition;
-	float					mWorldRotation; // RADIANS
-	float					mWorldScale;
-
 	bool					mHasChanged;
 
 	TransformComponent*		mParent;

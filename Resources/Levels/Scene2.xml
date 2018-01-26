@@ -5,7 +5,12 @@ X postive is right. Y postive is up.
 For some reason GUI items Y negative is up.
 <!- -->
 
-<scene name="1" leftBound="0" rightBound="900" bottomBound="0" topBound="4500">
+<scene name="2" leftBound="0" rightBound="900" bottomBound="0" topBound="4500">
+  <!-- - PROJECTILE MANAGER GAMEOBJECT <!- -->
+  <GameObject instanceid="999" tag="Projectiles">
+    <Component type="TransformComponent" xpos="0" ypos="0" rotation="0" scale="1"></Component>
+  </GameObject>
+  
   <!-- - Player <!- -->
   <GameObject instanceid="1" tag="Player">
     <Component type="TransformComponent" xpos="135" ypos="45" rotation="0" scale="1"></Component>
@@ -16,7 +21,7 @@ For some reason GUI items Y negative is up.
       <AnimDesc startingindex="4" endingindex="8" x="0" y="64" width="64" height="64" framecount="1" holdtime="0.16"></AnimDesc>
     </Component>
     <Component type="DamageableComponent" starthealth="100" hitnoise="Grunt"></Component>
-    <Component type="ProjectileManagerComponent" projectilecount="100" projecthittag="Enemy"></Component>
+    <Component type="ProjectileManagerComponent" projectilecount="100" projecthittag="Enemy" parentgameobjectid="999"></Component>
     <Component type="PlayerComponent" transformcomponentid="-1" animatorcomponentid="-1" rigidbodycomponentid="-1" damageablecomponentid="-1" projectilemangercomponentid="-1"></Component>
   </GameObject>
 
@@ -132,5 +137,5 @@ For some reason GUI items Y negative is up.
     <Component type="SpriteRendererComponent" filename="Pipe" renderLayer="1" transformcomponentid="-1" width="45" height="45" xoffset="0" yoffset="0"></Component>
     <Component type="RigidBodyComponent" staticfriction="1" dynamicfriction="1" restitution="1" static="true" lockrotation="true"></Component>
     <Component type="BoxColliderComponent" width="45" height="45" transformcomponentid="-1" rigidbodycomponentid="-1"></Component>
-  </GameObject>
+  </GameObject> 
 </scene>
