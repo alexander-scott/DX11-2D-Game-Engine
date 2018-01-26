@@ -17,7 +17,7 @@ public:
 	virtual void ComputeMass(float density) override;
 	virtual Rect GetRect() override;
 
-	virtual Vec2 GetCentre() override { return Vec2(mTransformComponent->GetPosition().x + (mRadius/2), mTransformComponent->GetPosition().y + (mRadius / 2)); }
+	virtual Vec2 GetCentre() override { return Vec2(mTransformComponent->GetWorldPosition().x + (mRadius/2), mTransformComponent->GetWorldPosition().y + (mRadius / 2)); }
 
 private:
 	float mRadius;

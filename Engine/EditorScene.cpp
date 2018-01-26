@@ -70,8 +70,15 @@ void EditorScene::CacheComponents(shared_ptr<GameObject> gameObj)
 				mRenderLayer3.push_back(gameObj);
 				break;
 			}
+		}
+	}
 
-			break;
+	ProjectileManagerComponent* goProjManager = gameObj->GetComponent<ProjectileManagerComponent>();
+	if (goProjManager != nullptr)
+	{
+		for (auto go : goProjManager->GetAllInactiveGameObjects())
+		{
+			mGameObjects.push_back(go);
 		}
 	}
 }

@@ -4,6 +4,7 @@ GameObject::GameObject(string tag, int id)
 {
 	mTag = tag;
 	mID = id;
+	mParent = nullptr;
 }
 
 GameObject::~GameObject()
@@ -30,6 +31,47 @@ void GameObject::SetActive(bool active)
 	{
 		component->SetActive(active);
 	}
+}
+
+void GameObject::SetParent(shared_ptr<GameObject> parent)
+{
+	if (mParent != nullptr)
+	{
+		// Remove THIS GAMEOBJECT as a child from the previous parent
+		mParent->RemoveChild(shared_ptr<GameObject>(this));
+	}
+
+	mParent = parent; // Set the new parent for THIS GAMEOBJECT
+
+	// Set the parent transform in THIS GAMEOBJECT'S transform
+	for (auto component : mComponents)
+	{
+		// Cast component to TransformComponent
+		TransformComponent * transformComponent = dynamic_cast<TransformComponent *> (component);
+		if (transformComponent != nullptr)
+		{
+			transformComponent->SetParent(mParent->GetComponent<TransformComponent>());
+			break;
+		}
+	}
+
+	if (mParent != nullptr)
+	{
+		mParent->AddChild(shared_ptr<GameObject>(this)); // Set THIS GAMEOBJECT as a child for the new parent
+	}
+}
+
+void GameObject::AddChild(shared_ptr<GameObject> child)
+{
+	mChildren.push_back(child);
+}
+
+void GameObject::RemoveChild(shared_ptr<GameObject> child)
+{
+	// Remove a child from THIS GAMEOBJECTS vector of children
+	auto it = std::find(mChildren.begin(), mChildren.end(), child);
+	if (it != mChildren.end())
+		mChildren.erase(it);
 }
 
 shared_ptr<GameObject> GameObject::MakeGameObject(string tag, int ID)

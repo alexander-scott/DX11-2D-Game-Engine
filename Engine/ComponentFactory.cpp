@@ -75,7 +75,7 @@ CircleColliderComponent * ComponentFactory::MakeCircleCollider(float radius, Tra
 	}
 
 	CircleColliderComponent * circleCollider = new CircleColliderComponent(transform, rigidbody);
-	circleCollider->SetRadius(radius * transform->GetScale());
+	circleCollider->SetRadius(radius * transform->GetWorldScale());
 	circleCollider->ComputeMass(2);
 
 	return circleCollider;
@@ -113,7 +113,7 @@ BoxColliderComponent * ComponentFactory::MakeBoxCollider(float width, float heig
 	}
 
 	BoxColliderComponent * boxCollider = new BoxColliderComponent(transform, rigidBody);
-	boxCollider->SetBox((width/2) * transform->GetScale(), (height/2) * transform->GetScale());
+	boxCollider->SetBox((width/2) * transform->GetWorldScale(), (height/2) * transform->GetWorldScale());
 	boxCollider->ComputeMass(0.3f);
 
 	return boxCollider;

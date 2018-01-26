@@ -28,23 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblHierachy = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblPrefabs = new System.Windows.Forms.Label();
-            this.hierarchyListBox = new System.Windows.Forms.ListBox();
+            this.btnPlay = new System.Windows.Forms.Button();
+            this.hierarchyListBox = new System.Windows.Forms.ListView();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(548, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "PLAY";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.PlayClicked);
             // 
             // panel1
             // 
@@ -80,13 +70,22 @@
             this.lblPrefabs.TabIndex = 4;
             this.lblPrefabs.Text = "Prefabs";
             // 
+            // btnPlay
+            // 
+            this.btnPlay.Location = new System.Drawing.Point(549, 6);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(75, 23);
+            this.btnPlay.TabIndex = 8;
+            this.btnPlay.Text = "PLAY";
+            this.btnPlay.UseVisualStyleBackColor = true;
+            // 
             // hierarchyListBox
             // 
-            this.hierarchyListBox.FormattingEnabled = true;
-            this.hierarchyListBox.Location = new System.Drawing.Point(24, 57);
+            this.hierarchyListBox.Location = new System.Drawing.Point(12, 46);
             this.hierarchyListBox.Name = "hierarchyListBox";
-            this.hierarchyListBox.Size = new System.Drawing.Size(217, 238);
-            this.hierarchyListBox.TabIndex = 7;
+            this.hierarchyListBox.Size = new System.Drawing.Size(218, 295);
+            this.hierarchyListBox.TabIndex = 9;
+            this.hierarchyListBox.UseCompatibleStateImageBehavior = false;
             // 
             // Editor
             // 
@@ -94,27 +93,26 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 704);
             this.Controls.Add(this.hierarchyListBox);
+            this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.lblPrefabs);
             this.Controls.Add(this.lblHierachy);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
             this.Name = "Editor";
             this.Text = "Editor";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.EditorLoading);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblHierachy;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblPrefabs;
-        private System.Windows.Forms.ListBox hierarchyListBox;
+        private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.ListView hierarchyListBox;
     }
 }
 

@@ -16,7 +16,7 @@ public:
 	virtual void Draw(ICamera* cam) override;
 	virtual void Update(float deltaTime) override;
 
-	void SetFocusTrans(TransformComponent* focTrans) { mFocusTrans = focTrans; mPrevFocusPos = mFocusTrans->GetPosition(); }
+	void SetFocusTrans(TransformComponent* focTrans) { mFocusTrans = focTrans; mPrevFocusPos = mFocusTrans->GetWorldPosition(); }
 	void SetSprite(std::string sName, float sWidth, float sHeight) { mSpriteFileName = sName; mSpriteWidth = sWidth; mSpriteHeight = sHeight; }
 	void SetScrollRate(float mRate) { mScrollRate = mRate; }
 	void SetDirection(TiledBGDirection dir) { mScrollDir = dir; }

@@ -44,9 +44,9 @@ void PlayerComponent::RecieveMessage(IMessage & message)
 				TransformComponent* tileTrans = colMsg.CollidedObject->GetComponent<TransformComponent>();
 
 				// Check if the tile we have collided with is directly beneath us aka we're standing on it. And make sure it's not a tile that is touching our sides
-				if (tileTrans->GetPosition().y > mPlayerTransform->GetPosition().y &&
-					!(tileTrans->GetPosition().x <= mPlayerTransform->GetPosition().x - 32 || 
-						tileTrans->GetPosition().x >= mPlayerTransform->GetPosition().x + 32))
+				if (tileTrans->GetWorldPosition().y > mPlayerTransform->GetWorldPosition().y &&
+					!(tileTrans->GetWorldPosition().x <= mPlayerTransform->GetWorldPosition().x - 32 || 
+						tileTrans->GetWorldPosition().x >= mPlayerTransform->GetWorldPosition().x + 32))
 				{
 					// If it is then we are on the ground
 					mIsGrounded = true;
@@ -134,11 +134,11 @@ void PlayerComponent::CheckInput()
 void PlayerComponent::ShootProjectile()
 {
 	auto gameObject = mPlayerProjectiles->GetGameObject("Enemy", PLAYER_PROJECTILE_DAMAGE);
-	Vec2 spawnPos = Vec2(Mouse::Instance().GetPosX() + mCameraTransform->GetPosition().x, Mouse::Instance().GetPosY() + mCameraTransform->GetPosition().y);
-	Vec2 dir = spawnPos - mPlayerTransform->GetPosition();
+	Vec2 spawnPos = Vec2(Mouse::Instance().GetPosX() + mCameraTransform->GetWorldPosition().x, Mouse::Instance().GetPosY() + mCameraTransform->GetWorldPosition().y);
+	Vec2 dir = spawnPos - mPlayerTransform->GetWorldPosition();
 	dir.Normalize();
 
-	gameObject->GetComponent<TransformComponent>()->SetPosition(mPlayerTransform->GetPosition() + (dir * 5));
+	gameObject->GetComponent<TransformComponent>()->SetWorldPosition(mPlayerTransform->GetWorldPosition() + (dir * 5));
 	gameObject->GetComponent<RigidBodyComponent>()->SetVelocity(Vec2(0, 0));
 	gameObject->GetComponent<RigidBodyComponent>()->ApplyForce(dir * PLAYER_PROJECTILE_SPEED);
 	mPlayerRigidBody->ApplyForce(-dir * PLAYER_SHOOT_KNOCKBACK);

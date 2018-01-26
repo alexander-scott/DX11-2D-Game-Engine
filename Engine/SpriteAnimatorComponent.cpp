@@ -17,21 +17,21 @@ void SpriteAnimatorComponent::Draw(ICamera* cam)
 {
 	TransformComponent* trans = GetTransform();
 
-	float halfSpriteWidth = (mSpriteWidth / 2) * trans->GetScale();
-	float halfSpriteHeight = (mSpriteHeight / 2) * trans->GetScale();
+	float halfSpriteWidth = (mSpriteWidth / 2) * trans->GetWorldScale();
+	float halfSpriteHeight = (mSpriteHeight / 2) * trans->GetWorldScale();
 
-	Vec2 pos = trans->GetPosition();
+	Vec2 pos = trans->GetWorldPosition();
 	float newPosX = pos.x
-		- halfSpriteWidth * cos(trans->GetRotation())
-		+ halfSpriteHeight * sin(trans->GetRotation());
+		- halfSpriteWidth * cos(trans->GetWorldRotation())
+		+ halfSpriteHeight * sin(trans->GetWorldRotation());
 
 	float newPosY = pos.y
-		- halfSpriteHeight * cos(trans->GetRotation())
-		- halfSpriteWidth * sin(trans->GetRotation());
+		- halfSpriteHeight * cos(trans->GetWorldRotation())
+		- halfSpriteWidth * sin(trans->GetWorldRotation());
 
 	cam->DrawSpriteWorldSpace(mSpriteFileName, Vec2(newPosX, newPosY), 
 		mAnimations[(int)mSequenceIndex].AnimationFrames[mAnimations[(int)mSequenceIndex].CurrentFrame], 
-		GetTransform()->GetRotation(), GetTransform()->GetScale(), Vec2(0,0));
+		GetTransform()->GetWorldRotation(), GetTransform()->GetWorldScale(), Vec2(0,0));
 }
 
 void SpriteAnimatorComponent::Update(float deltaTime)

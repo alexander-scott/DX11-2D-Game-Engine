@@ -62,7 +62,7 @@ Rect PolygonColliderComponent::GetRect()
 {
 	if (VertexCount == 4)
 	{
-		Vec2 pos = mTransformComponent->GetPosition();
+		Vec2 pos = mTransformComponent->GetWorldPosition();
 		Rect r;
 		r.LeftX = (int)pos.x;
 		r.BotY = (int)pos.y + (int)(mHalfHeight * 2);

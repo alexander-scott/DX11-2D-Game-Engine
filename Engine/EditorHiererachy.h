@@ -8,7 +8,7 @@ namespace EditorHierarchy
 	struct HierarchyItem
 	{
 		int GameObjectID;
-		int GameObjectParentID;
+		unsigned int GameObjectParentID;
 		char* GameObjectName;
 	};
 

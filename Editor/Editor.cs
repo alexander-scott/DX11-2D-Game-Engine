@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using SimpleSampleEditor.EditorHierachy;
+using SimpleSampleEditor.EditorComponents;
 
 namespace SimpleSampleEditor
 {
@@ -37,10 +38,45 @@ namespace SimpleSampleEditor
             this.KeyDown += new KeyEventHandler(KeyboardKeyDown);
             this.KeyUp += new KeyEventHandler(KeyboardKeyUp);
 
-            mHierachy = new Hierachy();
+            btnPlay.DisableSelect();
+            btnPlay.MouseClick += PlayClicked;
+
+            hierarchyListBox.DisableSelect();
+            hierarchyListBox.Scrollable = true;
+            hierarchyListBox.View = View.Details;
+            hierarchyListBox.Columns.Add(new ColumnHeader
+            {
+                Text = "Hierarchy",
+                Name = "Hierarchy",
+                Width = 100
+            });
+            ImageList list = new ImageList();
+            list.Images.Add("ClosedTriangle", Image.FromFile(@"" + mResoucesPath + "\\Editor\\ClosedTriangle.bmp"));
+            list.Images.Add("OpenTriangle", Image.FromFile(@"" + mResoucesPath + "\\Editor\\OpenTriangle.bmp"));
+            
+            hierarchyListBox.SmallImageList = list;
+            hierarchyListBox.FullRowSelect = true;
+
+            mHierachy = new Hierachy(hierarchyListBox);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void PlayClicked(object sender, MouseEventArgs e)
+        {
+            if (!mPlaying)
+            {
+                mPlaying = true;
+                EngineInterface.PlayStarted(mEngine);
+                mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+            }
+            else
+            {
+                mPlaying = false;
+                EngineInterface.PlayStopped(mEngine);
+                mHierachy.CreateHierachyList(mEngine); // Update hierarchy
+            }
+        }
+
+        private void EditorLoading(object sender, EventArgs e)
         {
             mEngine = EngineInterface.InitaliseEngine(panel1.Handle, panel1.Width, panel1.Height, mResoucesPath);
             panel1.Focus();
@@ -48,7 +84,7 @@ namespace SimpleSampleEditor
 
         private void EditorLoaded(object sender, EventArgs e)
         {
-            hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine);
+            mHierachy.CreateHierachyList(mEngine);
 
             EngineInterface.StartEditorLoop(mEngine);  
         }
@@ -56,22 +92,6 @@ namespace SimpleSampleEditor
         private void EditorClosing(object sender, FormClosingEventArgs e)
         {
             EngineInterface.CleanD3D(mEngine);
-        }
-
-        private void PlayClicked(object sender, EventArgs e)
-        {
-            if (!mPlaying)
-            {
-                mPlaying = true;
-                EngineInterface.PlayStarted(mEngine);
-                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
-            }
-            else
-            {
-                mPlaying = false;
-                EngineInterface.PlayStopped(mEngine);
-                hierarchyListBox.DataSource = mHierachy.CreateHierachyList(mEngine); // Update hierarchy
-            } 
         }
 
         #region Basic Input
