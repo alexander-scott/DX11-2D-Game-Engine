@@ -334,6 +334,7 @@
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="ColliderRendererComponent.cpp" />
     <ClCompile Include="DamageableComponent.cpp" />
+    <ClCompile Include="IScene.cpp" />
     <ClCompile Include="PlayCamera.cpp" />
     <ClCompile Include="EditorCamera.cpp" />
     <ClCompile Include="EditorHiererachy.cpp" />

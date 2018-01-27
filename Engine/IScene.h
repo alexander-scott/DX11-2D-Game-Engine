@@ -10,9 +10,9 @@ class IScene
 public:
 	IScene(ICameraGameObject* cam) : mCamera(cam) { }
 
-	virtual void Update(float deltaTime) = 0;
-	virtual void Draw() = 0;
+	void Draw();
 
+	virtual void Update(float deltaTime) = 0;
 	virtual void CacheComponents(shared_ptr<GameObject> gameObj) = 0;
 
 	ICameraGameObject* GetCamera() { return mCamera; }
@@ -22,11 +22,7 @@ public:
 	LevelData											SceneData;
 
 protected:
-	vector<shared_ptr<GameObject>>						mRenderLayer0;
-	vector<shared_ptr<GameObject>>						mRenderLayer1;
-	vector<shared_ptr<GameObject>>						mRenderLayer2;
-	vector<shared_ptr<GameObject>>						mRenderLayer3;
-
+	map<int, vector<shared_ptr<GameObject>>>			mRenderLayers;
 	vector<shared_ptr<GameObject>>						mGameObjects;
 
 	ICameraGameObject*									mCamera;

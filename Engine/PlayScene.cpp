@@ -25,21 +25,7 @@ void PlayScene::CacheComponents(shared_ptr<GameObject> gameObj)
 
 		if (drawableComponent != nullptr)
 		{
-			switch (drawableComponent->RenderLayer)
-			{
-				case 0:
-					mRenderLayer0.push_back(gameObj);
-					break;
-				case 1:
-					mRenderLayer1.push_back(gameObj);
-					break;
-				case 2:
-					mRenderLayer2.push_back(gameObj);
-					break;
-				case 3:
-					mRenderLayer3.push_back(gameObj);
-					break;
-			}
+			mRenderLayers[drawableComponent->RenderLayer].push_back(gameObj);
 		}
 	}
 
@@ -87,28 +73,4 @@ void PlayScene::Update(float deltaTime)
 		go->Update(deltaTime);
 	}
 
-}
-
-void PlayScene::Draw()
-{
-	// Draw gameobjects in the render order
-	for (auto& go : mRenderLayer0)
-	{
-		go->Draw(mCamera);
-	}
-
-	for (auto& go : mRenderLayer1)
-	{
-		go->Draw(mCamera);
-	}
-
-	for (auto& go : mRenderLayer2)
-	{
-		go->Draw(mCamera);
-	}
-
-	for (auto& go : mRenderLayer3)
-	{
-		go->Draw(mCamera);
-	}
 }

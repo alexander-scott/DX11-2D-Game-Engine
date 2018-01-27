@@ -86,6 +86,9 @@
     <Filter Include="Engine\Graphics\Camera">
       <UniqueIdentifier>{140fe525-0369-4ed3-b9da-a89b4b587a51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Scene Management\Scenes">
+      <UniqueIdentifier>{b01b5f94-3e7c-49d5-915e-eb5d40210d03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomException.h">
@@ -280,20 +283,20 @@
     <ClInclude Include="EditorCamera.h">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>Engine\Scene Management</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Engine\Scene Management</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorScene.h">
-      <Filter>Engine\Scene Management</Filter>
-    </ClInclude>
     <ClInclude Include="ICameraGameObject.h">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClInclude>
     <ClInclude Include="PlayCamera.h">
       <Filter>Engine\Graphics\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Engine\Scene Management\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorScene.h">
+      <Filter>Engine\Scene Management\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Engine\Scene Management\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -429,15 +432,16 @@
     <ClCompile Include="EditorCamera.cpp">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Engine\Scene Management</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorScene.cpp">
-      <Filter>Engine\Scene Management</Filter>
-    </ClCompile>
     <ClCompile Include="PlayCamera.cpp">
       <Filter>Engine\Graphics\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="EditorScene.cpp">
+      <Filter>Engine\Scene Management\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Engine\Scene Management\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="IScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

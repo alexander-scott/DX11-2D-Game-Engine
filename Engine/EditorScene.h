@@ -11,7 +11,6 @@ public:
 	~EditorScene();
 
 	void Update(float deltaTime) override;
-	void Draw() override;
 	void CacheComponents(shared_ptr<GameObject> gameObj) override;
 };
 
