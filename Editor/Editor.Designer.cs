@@ -28,12 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblHierachy = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblPrefabs = new System.Windows.Forms.Label();
             this.btnPlay = new System.Windows.Forms.Button();
             this.hierarchyListBox = new System.Windows.Forms.ListView();
+            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuNewScene = new System.Windows.Forms.MenuItem();
+            this.menuLoadScene = new System.Windows.Forms.MenuItem();
+            this.menuSaveScene = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // panel1
@@ -87,6 +93,38 @@
             this.hierarchyListBox.TabIndex = 9;
             this.hierarchyListBox.UseCompatibleStateImageBehavior = false;
             // 
+            // mainMenu1
+            // 
+            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1});
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 0;
+            this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuNewScene,
+            this.menuLoadScene,
+            this.menuSaveScene});
+            this.menuItem1.Text = "Scene";
+            // 
+            // menuNewScene
+            // 
+            this.menuNewScene.Index = 0;
+            this.menuNewScene.Text = "New Scene";
+            this.menuNewScene.Click += new System.EventHandler(this.NewSceneClicked);
+            // 
+            // menuLoadScene
+            // 
+            this.menuLoadScene.Index = 1;
+            this.menuLoadScene.Text = "Load Scene";
+            this.menuLoadScene.Click += new System.EventHandler(this.LoadSceneClicked);
+            // 
+            // menuSaveScene
+            // 
+            this.menuSaveScene.Index = 2;
+            this.menuSaveScene.Text = "Save Scene";
+            this.menuSaveScene.Click += new System.EventHandler(this.SaveSceneClicked);
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -98,6 +136,7 @@
             this.Controls.Add(this.lblPrefabs);
             this.Controls.Add(this.lblHierachy);
             this.Controls.Add(this.panel1);
+            this.Menu = this.mainMenu1;
             this.Name = "Editor";
             this.Text = "Editor";
             this.Load += new System.EventHandler(this.EditorLoading);
@@ -113,6 +152,11 @@
         private System.Windows.Forms.Label lblPrefabs;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.ListView hierarchyListBox;
+        private System.Windows.Forms.MainMenu mainMenu1;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem menuNewScene;
+        private System.Windows.Forms.MenuItem menuLoadScene;
+        private System.Windows.Forms.MenuItem menuSaveScene;
     }
 }
 

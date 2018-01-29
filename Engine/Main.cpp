@@ -8,7 +8,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 	{
 		int screenWidth = 800;
 		int screenHeight = 600;
-		string filePath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Resources";
+		string filePath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\Semester 1\\DirectX2DFrameworkNew\\Resources";
 		MainWindow wnd(hInst, pArgs, screenWidth, screenHeight);
 		try
 		{

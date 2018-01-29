@@ -12,7 +12,7 @@ namespace SimpleSampleEditor
 {
     public partial class Editor : Form
     {
-        private string mResoucesPath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Resources";
+        private string mResoucesPath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\Semester 1\\DirectX2DFrameworkNew\\Resources";
 
         /// <summary>
         /// Pointer to the instance of the Game. Used to make sure all calls to the engine use the same instance of the Game
@@ -133,5 +133,20 @@ namespace SimpleSampleEditor
         }
 
         #endregion
+
+        private void LoadSceneClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NewSceneClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveSceneClicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }
