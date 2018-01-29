@@ -35,7 +35,7 @@ shared_ptr<IScene> Engine::GetScene()
 
 void Engine::PlayStarted()
 {
-	LoadPlayScene("Scene1");
+	LoadPlayScene();
 }
 
 void Engine::PlayStopped()
@@ -114,14 +114,25 @@ void Engine::LoadPlayScene(std::string sceneName)
 	SceneBuilder::BuildScene(mPlayScene, scenePath);
 }
 
-void Engine::InitaliseEditorScene(std::string sceneName)
+void Engine::LoadPlayScene()
+{
+	SceneManagement::Instance().LoadNewScene = false;
+
+	EngineState = EngineState::ePlayMode;
+
+	mPlayScene = make_shared<PlayScene>(new PlayCamera(mGraphics));
+	SceneBuilder::BuildScene(mPlayScene, mCurrentScenePath);
+}
+
+void Engine::InitaliseEditorScene(std::string scenePath)
 {
 	EngineState = EngineState::eEditor;
+	mCurrentScenePath = scenePath;
 
 	mEditorScene = make_shared<EditorScene>(new EditorCamera(mGraphics));
 
-	if (!sceneName.empty())
+	if (!scenePath.empty())
 	{
-		SceneBuilder::BuildScene(mEditorScene, sceneName);
+		SceneBuilder::BuildScene(mEditorScene, scenePath);
 	}
 }
