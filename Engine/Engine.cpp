@@ -18,7 +18,7 @@ Engine::Engine(MainWindow& wnd, int width, int height, std::string resourcesPath
 	ScenePersistentValues::Instance().Values["CurrentLevel"].reset(new PersistentValue<float>(1));
 	ScenePersistentValues::Instance().Values["TotalScore"].reset(new PersistentValue<float>(0));
 
-	InitaliseEditorScene("Scene1");
+	InitaliseEditorScene("");
 }
 
 shared_ptr<IScene> Engine::GetScene()
@@ -42,6 +42,11 @@ void Engine::PlayStopped()
 {
 	mPlayScene = nullptr;
 	EngineState = EngineState::eEditor;
+}
+
+void Engine::LoadNewScene(std::string scenePath)
+{
+	InitaliseEditorScene(scenePath);
 }
 
 void Engine::Update()
@@ -111,12 +116,12 @@ void Engine::LoadPlayScene(std::string sceneName)
 
 void Engine::InitaliseEditorScene(std::string sceneName)
 {
-	stringstream stream;
-	stream << ApplicationValues::Instance().ResourcesPath + "\\Levels\\" + sceneName + ".xml";
-	string scenePath = stream.str();
-
 	EngineState = EngineState::eEditor;
 
 	mEditorScene = make_shared<EditorScene>(new EditorCamera(mGraphics));
-	SceneBuilder::BuildScene(mEditorScene, scenePath);
+
+	if (!sceneName.empty())
+	{
+		SceneBuilder::BuildScene(mEditorScene, sceneName);
+	}
 }

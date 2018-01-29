@@ -86,7 +86,7 @@ namespace SimpleSampleEditor
         {
             mHierachy.CreateHierachyList(mEngine);
 
-            EngineInterface.StartEditorLoop(mEngine);  
+            EngineInterface.StartEngineLoop(mEngine);  
         }
 
         private void EditorClosing(object sender, FormClosingEventArgs e)
@@ -136,7 +136,17 @@ namespace SimpleSampleEditor
 
         private void LoadSceneClicked(object sender, EventArgs e)
         {
-
+            OpenFileDialog theDialog = new OpenFileDialog
+            {
+                Title = "Open Scene",
+                Filter = "XML files|*.xml",
+                InitialDirectory = @"C:\"
+            };
+            if (theDialog.ShowDialog() == DialogResult.OK)
+            {
+                EngineInterface.LoadNewScene(mEngine, theDialog.FileName);
+                mHierachy.CreateHierachyList(mEngine);
+            }
         }
 
         private void NewSceneClicked(object sender, EventArgs e)

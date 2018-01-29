@@ -56,7 +56,7 @@ namespace EditorInterface
 		return nullptr;
 	}
 
-	void StartEditorLoop(void * enginePtr)
+	void StartEngineLoop(void * enginePtr)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
 
@@ -66,14 +66,10 @@ namespace EditorInterface
 		}
 	}
 
-	void StartUpdateLoop(void * enginePtr)
+	void LoadNewScene(void * enginePtr, const char * filePath)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);
-
-		while (engine->wnd.ProcessMessage())
-		{
-			engine->Update();
-		}
+		engine->LoadNewScene(filePath);
 	}
 
 	void PlayStarted(void * enginePtr)

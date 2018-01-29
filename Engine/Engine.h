@@ -27,6 +27,8 @@ public:
 	void PlayStarted();
 	void PlayStopped();
 
+	void LoadNewScene(std::string scenePath);
+
 	void Update();
 
 	~Engine();
