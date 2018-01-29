@@ -2,6 +2,7 @@
 
 PlayScene::PlayScene(ICameraGameObject * cam) : IScene(cam)
 {
+
 }
 
 PlayScene::~PlayScene()

@@ -71,7 +71,7 @@ void SceneBuilder::BuildScene(shared_ptr<IScene> scene, string fileName)
 	ObjectManager objectManager = ObjectManager();
 	LevelData levelData = ExtractLevelData(root);
 
-	scene->SceneData = levelData;;
+	scene->SceneData = levelData;
 
 	xml_node<>* gameObjectNode = root->first_node("GameObject");
 

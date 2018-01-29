@@ -27,6 +27,8 @@ public:
 	void PlayStarted();
 	void PlayStopped();
 
+	void LoadNewScene(std::string scenePath);
+
 	void Update();
 
 	~Engine();
@@ -40,10 +42,13 @@ private:
 	void UpdateScene();
 
 	void LoadPlayScene(std::string sceneName);
+	void LoadPlayScene();
 	void InitaliseEditorScene(std::string sceneName);
 
 	FrameTimer					mFrameTimer;
 	shared_ptr<IScene>			mEditorScene;
 	shared_ptr<IScene>			mPlayScene;
 	IGraphics*					mGraphics;
+
+	string						mCurrentScenePath;
 };

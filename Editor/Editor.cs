@@ -12,7 +12,7 @@ namespace SimpleSampleEditor
 {
     public partial class Editor : Form
     {
-        private string mResoucesPath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\DirectX2DFrameworkNew\\Resources";
+        private string mResoucesPath = "C:\\Users\\s005973c\\Dropbox\\Unversity Year 4\\GAME ENGINE PROGRAMMING AND ARCHITECTURE\\Semester 1\\DirectX2DFrameworkNew\\Resources";
 
         /// <summary>
         /// Pointer to the instance of the Game. Used to make sure all calls to the engine use the same instance of the Game
@@ -86,7 +86,7 @@ namespace SimpleSampleEditor
         {
             mHierachy.CreateHierachyList(mEngine);
 
-            EngineInterface.StartEditorLoop(mEngine);  
+            EngineInterface.StartEngineLoop(mEngine);  
         }
 
         private void EditorClosing(object sender, FormClosingEventArgs e)
@@ -133,5 +133,30 @@ namespace SimpleSampleEditor
         }
 
         #endregion
+
+        private void LoadSceneClicked(object sender, EventArgs e)
+        {
+            OpenFileDialog theDialog = new OpenFileDialog
+            {
+                Title = "Open Scene",
+                Filter = "XML files|*.xml",
+                InitialDirectory = @"C:\"
+            };
+            if (theDialog.ShowDialog() == DialogResult.OK)
+            {
+                EngineInterface.LoadNewScene(mEngine, theDialog.FileName);
+                mHierachy.CreateHierachyList(mEngine);
+            }
+        }
+
+        private void NewSceneClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveSceneClicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }
