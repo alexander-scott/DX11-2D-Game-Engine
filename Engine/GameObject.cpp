@@ -1,9 +1,7 @@
 #include "GameObject.h"
 
-GameObject::GameObject(string tag, int id)
+GameObject::GameObject(string tag, int id) : IObject(tag, id)
 {
-	mTag = tag;
-	mID = id;
 	mParent = nullptr;
 }
 
@@ -20,6 +18,7 @@ void GameObject::AddComponent(IComponent * component)
 {
 	if (component != nullptr)
 	{
+		component->SetGameObject(this);
 		mComponents.push_back(component);
 	}
 }

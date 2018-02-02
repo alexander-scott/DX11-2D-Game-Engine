@@ -25,6 +25,7 @@ public:
 	shared_ptr<IScene> GetScene();
 
 	void PlayStarted();
+	void PlayStarted(std::string);
 	void PlayStopped();
 
 	void LoadNewScene(std::string scenePath);
@@ -43,6 +44,8 @@ private:
 
 	void LoadPlayScene(std::string sceneName);
 	void LoadPlayScene();
+	void SaveScene(std::string filePath);
+
 	void InitaliseEditorScene(std::string sceneName);
 
 	FrameTimer					mFrameTimer;

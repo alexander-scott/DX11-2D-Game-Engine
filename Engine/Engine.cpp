@@ -38,6 +38,11 @@ void Engine::PlayStarted()
 	LoadPlayScene();
 }
 
+void Engine::PlayStarted(std::string sceneName)
+{
+	LoadPlayScene(sceneName);
+}
+
 void Engine::PlayStopped()
 {
 	mPlayScene = nullptr;
@@ -122,6 +127,10 @@ void Engine::LoadPlayScene()
 
 	mPlayScene = make_shared<PlayScene>(new PlayCamera(mGraphics));
 	SceneBuilder::BuildScene(mPlayScene, mCurrentScenePath);
+}
+
+void Engine::SaveScene(std::string filePath)
+{
 }
 
 void Engine::InitaliseEditorScene(std::string scenePath)

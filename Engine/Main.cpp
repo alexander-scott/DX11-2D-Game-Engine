@@ -13,7 +13,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 		try
 		{
 			Engine engine(wnd, screenWidth, screenHeight, filePath);
-			engine.PlayStarted();
+			engine.PlayStarted("Scene1");
 			while (wnd.ProcessMessage())
 			{
 				engine.Update();

@@ -14,6 +14,7 @@ namespace EditorInterface
 
 	extern "C" { DllExport void StartEngineLoop(void* enginePtr); }
 	extern "C" { DllExport void LoadNewScene(void* enginePtr, const char* filePath); }
+	extern "C" { DllExport void SaveScene(void* enginePtr, const char* filePath); }
 
 	extern "C" { DllExport void PlayStarted(void* enginePtr); }
 	extern "C" { DllExport void PlayStopped(void* enginePtr); }

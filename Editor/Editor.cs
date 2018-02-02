@@ -139,8 +139,7 @@ namespace SimpleSampleEditor
             OpenFileDialog theDialog = new OpenFileDialog
             {
                 Title = "Open Scene",
-                Filter = "XML files|*.xml",
-                InitialDirectory = @"C:\"
+                Filter = "XML files|*.xml"
             };
             if (theDialog.ShowDialog() == DialogResult.OK)
             {
@@ -156,7 +155,15 @@ namespace SimpleSampleEditor
 
         private void SaveSceneClicked(object sender, EventArgs e)
         {
+            SaveFileDialog theDialog = new SaveFileDialog
+            {
+                Title = "Save Scene",
+                Filter = "XML files|*.xml"
+            };
+            if (theDialog.ShowDialog() == DialogResult.OK)
+            {
 
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 
 #include "Consts.h"
 
+#include "IObject.h"
 #include "IComponent.h"
 #include "IUpdateable.h"
 #include "IDrawable.h"
@@ -11,7 +12,7 @@
 
 using namespace std;
 
-class GameObject
+class GameObject : public IObject
 {
 public:
 	GameObject(string tag, int id);
@@ -23,8 +24,6 @@ public:
 	void SendMessageToComponents(IMessage& message);
 	void AddComponent(IComponent* component);
 
-	string GetTag() { return mTag; }
-	int GetID() { return mID; }
 	vector<IComponent*> GetAllComponents() { return mComponents; }
 
 	void SetActive(bool active);
@@ -90,8 +89,6 @@ public:
 
 protected:
 	vector<IComponent*>				mComponents;
-	string							mTag;
-	int								mID;
 	shared_ptr<GameObject>			mParent;
 	vector<shared_ptr<GameObject>>	mChildren;
 	bool							mActive;

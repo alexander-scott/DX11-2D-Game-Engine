@@ -263,6 +263,7 @@
     <ClInclude Include="BoxColliderComponent.h" />
     <ClInclude Include="CollisionMessage.h" />
     <ClInclude Include="DamageableComponent.h" />
+    <ClInclude Include="IObject.h" />
     <ClInclude Include="PlayCamera.h" />
     <ClInclude Include="EditorCamera.h" />
     <ClInclude Include="EditorHiererachy.h" />
@@ -299,6 +300,7 @@
     <ClInclude Include="RecieveDamageMessage.h" />
     <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="ScenePersistentValues.h" />
+    <ClInclude Include="SceneSaver.h" />
     <ClInclude Include="SpriteAnimatorComponent.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="GameObject.h" />
@@ -359,6 +361,7 @@
     <ClCompile Include="ProjectileComponent.cpp" />
     <ClCompile Include="ProjectileManagerComponent.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
+    <ClCompile Include="SceneSaver.cpp" />
     <ClCompile Include="SpriteAnimatorComponent.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Engine.cpp" />

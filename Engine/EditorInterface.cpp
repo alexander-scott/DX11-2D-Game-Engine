@@ -72,6 +72,12 @@ namespace EditorInterface
 		engine->LoadNewScene(filePath);
 	}
 
+	void SaveScene(void * enginePtr, const char * filePath)
+	{
+		Engine* engine = static_cast<Engine*>(enginePtr);
+		return DllExport void();
+	}
+
 	void PlayStarted(void * enginePtr)
 	{
 		Engine* engine = static_cast<Engine*>(enginePtr);

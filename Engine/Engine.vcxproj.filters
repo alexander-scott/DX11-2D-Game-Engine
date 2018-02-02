@@ -298,6 +298,12 @@
     <ClInclude Include="PlayScene.h">
       <Filter>Engine\Scene Management\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="SceneSaver.h">
+      <Filter>Engine\Scene Management</Filter>
+    </ClInclude>
+    <ClInclude Include="IObject.h">
+      <Filter>Engine\GameObject\Components\Base Interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp">
@@ -441,7 +447,12 @@
     <ClCompile Include="PlayScene.cpp">
       <Filter>Engine\Scene Management\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="IScene.cpp">
+      <Filter>Engine\Scene Management\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSaver.cpp">
+      <Filter>Engine\Scene Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
